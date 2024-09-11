@@ -6,18 +6,37 @@
 Embedded Tutorial documentation
 ===============================
 
-Welcome to the Embedded Tutorial documentation! This tutorial will walk you through the basics of embedded systems, setup, and usage.
+In this **Embedded Tutorial**, you will learn about **Embedded programming**, **Kinematics**, **Control Algorithm**, **filters**, **error detection and correction**, some useful maths and other many things. There are lots of topic to learn in this subject. Being interested in **Electronics**, it is essential to have knowledge about it.
+
+Basic Topics in the Embedded Programming that we learn are:
+
+- GPIO
+- Interrupts
+- Timers
+- UART
+- I2C
+- SPI
+- USB Serial
+
+
+We also learn about:
+
+- Actuator Control (DC Motor, Servo, BLDC, Pneumatic)
+- Kinematics used for Robot
+- PID
+- CRC
+- Filters
+- IMU and other sensors
+- 3D Maths
+- Bluetooth
+- Advance Concepts in Programming and Debugging
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   installation
-   setup
-   gpio
-   printf
-   uart
+   getting_started
 
 
 Indices and tables
