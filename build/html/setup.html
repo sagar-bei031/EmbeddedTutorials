@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup &mdash; Embedded Tutorial 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Embedded Tutorial
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generate-basic-code">1. Generate Basic Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#microcontroller-selection">1.1. Microcontroller Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pinout-configuration">1.2. Pinout &amp; Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clock-configuration">1.3. Clock Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-manager">1.4. Project Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#project">1.4.1. Project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#code-generator">1.4.2. Code Generator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#add-codes-to-makefile-for-flashing">2. Add Codes to Makefile for Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-setup">3. Debugging Setup</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Embedded Tutorial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
+<section id="generate-basic-code">
+<h2>1. Generate Basic Code<a class="headerlink" href="#generate-basic-code" title="Link to this heading"></a></h2>
+<section id="microcontroller-selection">
+<h3>1.1. Microcontroller Selection<a class="headerlink" href="#microcontroller-selection" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code>.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Project</span></code>.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">MCU/MPU</span> <span class="pre">Selector</span></code> if you want to select microcontroller IC number or select <code class="docutils literal notranslate"><span class="pre">Board</span> <span class="pre">Selector</span></code> if you want to select using development board number. For example, <strong>STM32F407G-DISC1</strong> from <code class="docutils literal notranslate"><span class="pre">Board</span> <span class="pre">Selector</span></code> or <strong>STM32F407VG</strong> from <code class="docutils literal notranslate"><span class="pre">MCU/MPU</span> <span class="pre">Selector</span></code>.</p></li>
+<li><p>Select particular microcontroller from list on right side and click <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Project</span></code>.</p></li>
+</ul>
+<p>You might be asked to initialize peripheral with their <strong>default mode</strong>. Click <code class="docutils literal notranslate"><span class="pre">No</span></code>. But if you want to use default mode, click <code class="docutils literal notranslate"><span class="pre">Yes</span></code>.</p>
+</section>
+<section id="pinout-configuration">
+<h3>1.2. Pinout &amp; Configuration<a class="headerlink" href="#pinout-configuration" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Clear default pinouts by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p></li>
+<li><p>Go to <code class="docutils literal notranslate"><span class="pre">RCC</span> <span class="pre">&gt;</span> <span class="pre">High</span> <span class="pre">Speed</span> <span class="pre">Clock</span> <span class="pre">(HSE)</span></code> and select <code class="docutils literal notranslate"><span class="pre">Crystal</span> <span class="pre">Ceramic</span> <span class="pre">Resonator</span></code>.</p></li>
+<li><p>Go to <code class="docutils literal notranslate"><span class="pre">SYS</span> <span class="pre">&gt;</span> <span class="pre">Debug</span></code> and select <code class="docutils literal notranslate"><span class="pre">Serial</span> <span class="pre">Wire</span></code>.</p></li>
+</ul>
+<p>Now you can select pins for LED, UART, Timers and many more. But leave them for this tutorial.</p>
+</section>
+<section id="clock-configuration">
+<h3>1.3. Clock Configuration<a class="headerlink" href="#clock-configuration" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Specify <code class="docutils literal notranslate"><span class="pre">HCLK</span> <span class="pre">(MHx)</span></code>. We prefer to use maximum clock frequency. For example, <strong>168 MHz</strong> if using <strong>STM32F407VGT6</strong> or <strong>72 MHz</strong> if using <strong>STM32F103C8</strong>.</p></li>
+</ul>
+</section>
+<section id="project-manager">
+<h3>1.4. Project Manager<a class="headerlink" href="#project-manager" title="Link to this heading"></a></h3>
+<section id="project">
+<h4>1.4.1. Project<a class="headerlink" href="#project" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Write <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Name</span></code>.</p></li>
+<li><p>Write <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Location`</span></code>.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Toolchanin/IDE</span></code>. We prefer to choose <strong>Makefile</strong>. <strong>CMake</strong> was not available before.</p></li>
+</ul>
+</section>
+<section id="code-generator">
+<h4>1.4.2. Code Generator<a class="headerlink" href="#code-generator" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Select copy all used libraries in to the project folder.</p></li>
+<li><dl class="simple">
+<dt>Tick:</dt><dd><ul>
+<li><p>Generate eripheral initialization as a pair ‘.c/.h’ file per peripheral.</p></li>
+<li><p>Keep user code when regenerating.</p></li>
+<li><p>Delete priviously generated file when not in use.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Generate code by clicking <code class="docutils literal notranslate"><span class="pre">GENERATE</span> <span class="pre">CODE</span></code>. Open your project folder, open terminal at your project folder and run <code class="docutils literal notranslate"><span class="pre">make</span></code> command in your terminal.</p>
+<p>If you have selected <strong>CMake</strong> for your project.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+make
+</pre></div>
+</div>
+<p>But this does not generate <code class="docutils literal notranslate"><span class="pre">.bin</span></code> file which is needed for flashing you microcontroller. To generate, you need to use <code class="docutils literal notranslate"><span class="pre">arm-none-eabi-objcopy</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>arm-none-eabi-objcopy<span class="w"> </span>-O<span class="w"> </span>binary<span class="w"> </span>&lt;your_project_name.elf&gt;<span class="w"> </span>&lt;your_project_name.bin&gt;
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="add-codes-to-makefile-for-flashing">
+<h2>2. Add Codes to Makefile for Flashing<a class="headerlink" href="#add-codes-to-makefile-for-flashing" title="Link to this heading"></a></h2>
+<p>For <strong>ST-Link</strong>, add these at the bottom of <strong>Makefile</strong>.</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">flash</span><span class="o">:</span>
+<span class="w">    </span>st-flash<span class="w"> </span>write<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+<p>For <strong>JLink</strong>, add these lines at the bottom of the <strong>Makefile</strong>.</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>STM32F103C8
+<span class="nf">$(BUILD_DIR)/jflash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="k">$(</span><span class="nv">TARGET</span><span class="k">)</span>.<span class="n">bin</span>
+<span class="w">     </span>@touch<span class="w"> </span><span class="nv">$@</span>
+<span class="w">     </span>@echo<span class="w"> </span>device<span class="w"> </span><span class="k">$(</span>device<span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$@</span>
+<span class="w">     </span>@echo<span class="w"> </span>-e<span class="w"> </span>si<span class="w"> </span><span class="m">1</span><span class="s1">&#39;\n&#39;</span>speed<span class="w"> </span><span class="m">4000</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$@</span>
+<span class="w">     </span>@echo<span class="w"> </span>loadbin<span class="w"> </span>$&lt;<span class="w"> </span>0x8000000<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$@</span>
+<span class="w">     </span>@echo<span class="w"> </span>-e<span class="w"> </span>r<span class="s1">&#39;\n&#39;</span>g<span class="s1">&#39;\n&#39;</span>qc<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$@</span>
+
+<span class="nf">jflash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="n">jflash</span>
+<span class="w">     </span>JLinkExe<span class="w"> </span>-commanderscript<span class="w"> </span>$&lt;
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">flash</span></code> or <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">jflash</span></code> commands in order to flash.</p>
+</section>
+<section id="debugging-setup">
+<h2>3. Debugging Setup<a class="headerlink" href="#debugging-setup" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Install <strong>Cortex-Debug</strong> extension by <strong>marus25</strong> in VSCODE, if not installed previously.</p></li>
+<li><p>Update or create <code class="docutils literal notranslate"><span class="pre">.vscode/lauch.json</span></code> the json as below.</p></li>
+</ul>
+<p>For <strong>ST-Link</strong> or <strong>JLink</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w"> </span><span class="c1">// Use IntelliSense to learn about possible attributes.</span>
+<span class="w"> </span><span class="c1">// Hover to view descriptions of existing attributes.</span>
+<span class="w"> </span><span class="c1">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span>
+<span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cortex Debug&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;executable&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/build/BasicSetup.elf&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cortex-debug&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;runToEntryPoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;STM32F407VG&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;interface&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;swd&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;servertype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stlink&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;gdbPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/bin/gdb-multiarch&quot;</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w"> </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For <strong>OpenOCD</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OpenOCD Debug&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;executable&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/build/BasicSetup.elf&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cortex-debug&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;runToEntryPoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;STM32F407VG&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;interface&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;swd&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;servertype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openocd&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;configFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;interface/stlink-v2-1.cfg&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;target/stm32f4x.cfg&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;gdbPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/bin/gdb-multiarch&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more about <strong>OpenOCD</strong>, watch <a class="reference external" href="https://www.youtube.com/watch?v=_1u7IOnivnM">this</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sagar Chaudhary.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
