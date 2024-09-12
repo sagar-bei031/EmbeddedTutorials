@@ -24,7 +24,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="gpio_input.html" />
+    <link rel="next" title="GPIO Input" href="gpio_input.html" />
     <link rel="prev" title="GPIO" href="../gpio.html" /> 
 </head>
 
@@ -53,15 +53,19 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../basic_tutorial.html">Basic Tutorial</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../gpio.html">GPIO</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">GPIO Output</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#gpio-setup">1. GPIO Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cubemx-configuration">1. CubeMX Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#understanding-the-project-structure">2. Understanding the Project Structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#blink-led">3. Blink LED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#code-to-blink-led">3. Code to Blink LED</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#build-and-flash">4. Build and Flash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#observation">5. Observation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="gpio_input.html">GPIO Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio_ext_interrupt.html">GPIO External Interrupt</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../usb.html">USB</a></li>
 </ul>
 </li>
 </ul>
@@ -94,24 +98,24 @@
              
   <section id="gpio-output">
 <h1>GPIO Output<a class="headerlink" href="#gpio-output" title="Link to this heading"></a></h1>
-<section id="gpio-setup">
-<h2>1. GPIO Setup<a class="headerlink" href="#gpio-setup" title="Link to this heading"></a></h2>
-<p>Follow the <a class="reference external" href="../../getting_started/basic_setup/generate_basic_code.html">generate_basic_code</a> with:</p>
+<section id="cubemx-configuration">
+<h2>1. CubeMX Configuration<a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
+<p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeMx</span></code>. Generate basic code by assing osccillator pins, serial wire pins, configuring clock and project detail. Follow the <a class="reference external" href="../../getting_started/basic_setup/generate_basic_code.html">generate_basic_code</a> with:</p>
 <ul class="simple">
 <li><p>microcontroller: <code class="docutils literal notranslate"><span class="pre">stm32f407vgt6</span></code></p></li>
 <li><p>project name: <code class="docutils literal notranslate"><span class="pre">gpio_example</span></code></p></li>
 <li><p>Toolchain/IDE: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code></p></li>
 </ul>
-<p><strong>STM32 Discovery</strong> board have leds on pins <code class="docutils literal notranslate"><span class="pre">PD12</span></code>, <code class="docutils literal notranslate"><span class="pre">PD13</span></code>, <code class="docutils literal notranslate"><span class="pre">PD14</span></code> and <code class="docutils literal notranslate"><span class="pre">PD15</span></code>. Move to <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span> <span class="pre">Pinout</span> <span class="pre">and</span> <span class="pre">Congiguration</span></code>. Click <code class="docutils literal notranslate"><span class="pre">PD12</span></code> and select <code class="docutils literal notranslate"><span class="pre">GPIO-Output</span></code>. Generate code.</p>
+<p><strong>STM32 Discovery</strong> board have leds on pins <code class="docutils literal notranslate"><span class="pre">PD12</span></code>, <code class="docutils literal notranslate"><span class="pre">PD13</span></code>, <code class="docutils literal notranslate"><span class="pre">PD14</span></code> and <code class="docutils literal notranslate"><span class="pre">PD15</span></code>. Move to <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span> <span class="pre">Pinout</span> <span class="pre">and</span> <span class="pre">Congiguration</span></code>. Click <code class="docutils literal notranslate"><span class="pre">PD12</span></code> and select <code class="docutils literal notranslate"><span class="pre">GPIO-Output</span></code>. For Bluepill, led pin is on <code class="docutils literal notranslate"><span class="pre">PA13</span></code>. Generate code.</p>
 <blockquote>
-<div><a class="reference internal image-reference" href="../../_images/gpio_output_select.png"><img alt="gpio_output_select" src="../../_images/gpio_output_select.png" style="width: 600px;" /></a>
+<div><a class="reference internal image-reference" href="../../_images/gpio_output_select.png"><img alt="gpio_output_select" class="align-center" src="../../_images/gpio_output_select.png" style="width: 600px;" /></a>
 </div></blockquote>
 </section>
 <section id="understanding-the-project-structure">
 <h2>2. Understanding the Project Structure<a class="headerlink" href="#understanding-the-project-structure" title="Link to this heading"></a></h2>
 <p>Well, you have generated the code. Now, let’s understand the project structure.</p>
 <blockquote>
-<div><a class="reference internal image-reference" href="../../_images/gpio_exmp_project_structure.png"><img alt="gpio_exmp_project_structure" src="../../_images/gpio_exmp_project_structure.png" style="width: 600px;" /></a>
+<div><a class="reference internal image-reference" href="../../_images/gpio_exmp_project_structure.png"><img alt="gpio_exmp_project_structure" class="align-center" src="../../_images/gpio_exmp_project_structure.png" style="width: 600px;" /></a>
 </div></blockquote>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Core</span></code>: Contains the startup main file, peripheral files and other system configuration files.
@@ -127,14 +131,14 @@
 </ul>
 <p>We mostly expend time on <code class="docutils literal notranslate"><span class="pre">Core</span></code>. Since you have generated the code for GPIO, you can see <code class="docutils literal notranslate"><span class="pre">gpio.h</span></code> and <code class="docutils literal notranslate"><span class="pre">gpio.c</span></code>.</p>
 </section>
-<section id="blink-led">
-<h2>3. Blink LED<a class="headerlink" href="#blink-led" title="Link to this heading"></a></h2>
-<p>Now move to <code class="docutils literal notranslate"><span class="pre">Core/Src/main.c</span></code>. You can see codes with lots of comments. These comments are special which allow separate user code and code generated by CubeMX.</p>
+<section id="code-to-blink-led">
+<h2>3. Code to Blink LED<a class="headerlink" href="#code-to-blink-led" title="Link to this heading"></a></h2>
+<p>Open project folder. Navigate to <code class="docutils literal notranslate"><span class="pre">Core/Src/main.c</span></code>. You can see codes with lots of comments. These comments are special which allow separate user code and code generated by CubeMX.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You must write you code inside comment block. Begin and End are specified by <code class="docutils literal notranslate"><span class="pre">/*</span> <span class="pre">USER</span> <span class="pre">CODE</span> <span class="pre">BEGIN</span> <span class="pre">x</span> <span class="pre">*/</span></code> and <code class="docutils literal notranslate"><span class="pre">/*</span> <span class="pre">USER</span> <span class="pre">CODE</span> <span class="pre">END</span> <span class="pre">x</span> <span class="pre">*/</span></code>. Here <code class="docutils literal notranslate"><span class="pre">x</span></code> is the number. If you write outside this block, your code will be lost when you regenerate the code using CubeMX.</p>
 </div>
-<p>To make LED blink, move to <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">loop</span></code> of <cite>main()</cite>. You can use the following code:</p>
+<p>To make LED blink, move to <code class="docutils literal notranslate"><span class="pre">while</span></code> block of <cite>main()</cite>. You can use the following code:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Infinite loop */</span>
 <span class="cm">/* USER CODE BEGIN WHILE */</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -152,10 +156,10 @@
 </div>
 <p>Let’s understand the code:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">HAL_GPIO_WritePin(GPIOD,</span> <span class="pre">GPIO_PIN_12,</span> <span class="pre">GPIO_PIN_SET)</span></code>: Sets the pin <code class="docutils literal notranslate"><span class="pre">PD12</span></code> high.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">HAL_Delay(1000)</span></code>: Delays the execution for 1000ms.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">HAL_GPIO_WritePin(GPIOD,</span> <span class="pre">GPIO_PIN_12,</span> <span class="pre">GPIO_PIN_RESET)</span></code>: Sets the pin <code class="docutils literal notranslate"><span class="pre">PD12</span></code> low.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">HAL_Delay(1000)</span></code>: Delays the execution for 1000ms.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HAL_GPIO_WritePin(GPIOD,</span> <span class="pre">GPIO_PIN_12,</span> <span class="pre">GPIO_PIN_SET)</span></code>: Sets the pin <code class="docutils literal notranslate"><span class="pre">PD12</span></code> high.  Green led turns on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HAL_Delay(1000)</span></code>: Delays the execution for 1000ms. Green led keeps turning on for 1s.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HAL_GPIO_WritePin(GPIOD,</span> <span class="pre">GPIO_PIN_12,</span> <span class="pre">GPIO_PIN_RESET)</span></code>: Sets the pin <code class="docutils literal notranslate"><span class="pre">PD12</span></code> low. Green led turns off.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HAL_Delay(1000)</span></code>: Delays the execution for 1000ms. Green leed keeps turning off for 1s.</p></li>
 </ul>
 <p>Therefore, the LED will blink with 1s delay.</p>
 <p>You can also use <code class="docutils literal notranslate"><span class="pre">HAL_GPIO_TogglePin(GPIOD,</span> <span class="pre">GPIO_PIN_12)</span></code> to toggle the pin state.</p>
@@ -182,11 +186,15 @@ make<span class="w"> </span>flash
 <p>This code only works with <code class="docutils literal notranslate"><span class="pre">ST-Link</span></code>. If you are using <code class="docutils literal notranslate"><span class="pre">JLink</span></code>, see <a class="reference external" href="../../getting_started/basic_setup/build_using_makefile.html">build_using_makefile</a> and <a class="reference external" href="../../getting_started/basic_setup/flash_using_makefile.html">flash_using_makefile</a>.</p>
 <p>We will continue it for <a class="reference external" href="gpio_input.html">gpio input</a>.</p>
 </section>
+<section id="observation">
+<h2>5. Observation<a class="headerlink" href="#observation" title="Link to this heading"></a></h2>
+<p>See LED blinking every second. Change delay time and enjoy.</p>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="HAL_GPIO_WritePin">
-<span class="sig-name descname"><span class="pre">HAL_GPIO_WritePin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GPIOx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GPIO_Pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PinState</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#HAL_GPIO_WritePin" title="Link to this definition"></a></dt>
+<dl class="c function">
+<dt class="sig sig-object c">
+<span class="sig-name descname"><span class="pre">HAL_GPIO_WritePin(GPIOx,</span> <span class="pre">GPIO_Pin,</span> <span class="pre">PinState)</span></span></dt>
 <dd><p>Sets or clears the selected data port bit.</p>
 <p><strong>Note:</strong>
 This function uses the GPIOx_BSRR register to allow atomic read/modify accesses.
@@ -194,12 +202,12 @@ There is no risk of an IRQ occurring between the read and modify access.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>GPIOx</strong> (<em>GPIO_TypeDef</em>) – GPIO peripheral where <cite>x</cite> can be:
+<li><p><strong>GPIOx</strong> (<span><span class="c-expr sig sig-inline c"><span class="n">GPIO_TypeDef</span></span></span>) – GPIO peripheral where <cite>x</cite> can be:
 - (A..K) for STM32F429X devices
 - (A..I) for STM32F40XX and STM32F427X devices</p></li>
-<li><p><strong>GPIO_Pin</strong> (<em>uint16_t</em>) – Specifies the port bit to be written. Can be one of the following:
+<li><p><strong>GPIO_Pin</strong> (<span><span class="c-expr sig sig-inline c"><span class="n">uint16_t</span></span></span>) – Specifies the port bit to be written. Can be one of the following:
 - <code class="docutils literal notranslate"><span class="pre">GPIO_PIN_0</span></code> through <code class="docutils literal notranslate"><span class="pre">GPIO_PIN_15</span></code></p></li>
-<li><p><strong>PinState</strong> (<em>GPIO_PinState</em>) – Specifies the value to be written to the selected bit.
+<li><p><strong>PinState</strong> (<span><span class="c-expr sig sig-inline c"><span class="n">GPIO_PinState</span></span></span>) – Specifies the value to be written to the selected bit.
 Can be one of the following:
 - <code class="docutils literal notranslate"><span class="pre">GPIO_PIN_RESET</span></code>: Clears the port pin
 - <code class="docutils literal notranslate"><span class="pre">GPIO_PIN_SET</span></code>: Sets the port pin</p></li>
@@ -211,17 +219,18 @@ Can be one of the following:
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="HAL_Delay">
-<span class="sig-name descname"><span class="pre">HAL_Delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Delay</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#HAL_Delay" title="Link to this definition"></a></dt>
-<dd><p>Provides a minimum delay (in milliseconds) based on a variable that is incremented regularly.</p>
-<p><strong>Note 1:</strong>
-In the default implementation, the SysTick timer is used as the time base. It generates interrupts at regular time intervals, where <cite>uwTick</cite> is incremented.</p>
-<p><strong>Note 2:</strong>
-This function is declared as <cite>__weak</cite> to allow overriding by user implementations in other files.</p>
+<dl class="c function">
+<dt class="sig sig-object c">
+<span class="sig-name descname"><span class="pre">HAL_GPIO_TogglePin(GPIOx,</span> <span class="pre">GPIO_Pin)</span></span></dt>
+<dd><p>Toggles the state of the specified GPIO pins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Delay</strong> (<em>uint32_t</em>) – Specifies the delay time length, in milliseconds.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>GPIOx</strong> (<span><span class="c-expr sig sig-inline c"><span class="n">GPIO_TypeDef</span><span class="p">*</span></span></span>) – GPIO peripheral where <cite>x</cite> can be:
+- (A..K) for STM32F429X devices
+- (A..I) for STM32F40XX and STM32F427X devices.</p></li>
+<li><p><strong>GPIO_Pin</strong> (<span><span class="c-expr sig sig-inline c"><span class="n">uint16_t</span></span></span>) – Specifies the pins to be toggled. This parameter can be a combination of GPIO_PIN_x values where <cite>x</cite> can range from 0 to 15.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -232,17 +241,18 @@ This function is declared as <cite>__weak</cite> to allow overriding by user imp
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="HAL_GPIO_TogglePin">
-<span class="sig-name descname"><span class="pre">HAL_GPIO_TogglePin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GPIOx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GPIO_Pin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#HAL_GPIO_TogglePin" title="Link to this definition"></a></dt>
-<dd><p>Toggles the state of the specified GPIO pins.</p>
+<dl class="c function">
+<dt class="sig sig-object c">
+<span class="sig-name descname"><span class="pre">HAL_Delay(Delay)</span></span></dt>
+<dd><p>Provides a minimum delay (in milliseconds) based on a variable that is incremented regularly.</p>
+<p><strong>Note 1:</strong>
+In the default implementation, the SysTick timer is used as the time base. It generates interrupts at regular time intervals, where <cite>uwTick</cite> is incremented.</p>
+<p><strong>Note 2:</strong>
+This function is declared as <cite>__weak</cite> to allow overriding by user implementations in other files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>GPIOx</strong> (<em>GPIO_TypeDef*</em>) – GPIO peripheral where <cite>x</cite> can be:
-- (A..K) for STM32F429X devices
-- (A..I) for STM32F40XX and STM32F427X devices.</p></li>
-<li><p><strong>GPIO_Pin</strong> (<em>uint16_t</em>) – Specifies the pins to be toggled. This parameter can be a combination of GPIO_PIN_x values where <cite>x</cite> can range from 0 to 15.</p></li>
+<li><p><strong>Delay</strong> (<span><span class="c-expr sig sig-inline c"><span class="n">uint32_t</span></span></span>) – Specifies the delay time length, in milliseconds.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -262,7 +272,7 @@ This function is declared as <cite>__weak</cite> to allow overriding by user imp
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../gpio.html" class="btn btn-neutral float-left" title="GPIO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="gpio_input.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="gpio_input.html" class="btn btn-neutral float-right" title="GPIO Input" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

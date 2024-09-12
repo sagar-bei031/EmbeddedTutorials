@@ -10,4 +10,4 @@ General Purpose Input Output (GPIO) is the most basic and essential part of the 
 
    gpio/gpio_output
    gpio/gpio_input
-   gpio/gpio_interrupt
+   gpio/gpio_ext_interrupt

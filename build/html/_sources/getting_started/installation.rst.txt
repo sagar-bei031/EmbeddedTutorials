@@ -72,6 +72,9 @@ Other (Optional)
    * - OpenOCD
      - Open On-Chip Debugger
      - ``sudo apt install openocd``
+   * - git
+     - Version control system
+     - ``sudo apt install git``
    * - SixaxisPairTool (Windows)
      - Pair PS4 controller with devices (ESP32).
      - Install `SixaxisPairTool <https://sixaxispairtool.en.lo4d.com/windows>`_.
