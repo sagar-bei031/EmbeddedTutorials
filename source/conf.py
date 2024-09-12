@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Embedded Tutorial'
+project = 'Embedded Documentation'
 copyright = '2024, Sagar Chaudhary'
 author = 'Sagar Chaudhary'
 release = '1.0.0'

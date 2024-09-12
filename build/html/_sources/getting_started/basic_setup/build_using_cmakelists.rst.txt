@@ -3,7 +3,7 @@ Build Using CMakeLists
 
 1. Open your project folder. It is better to use ``VSCODE``.
 
-2. Open terminal at your project folder.
+2. Open ``terminal`` from your project folder.
 
 3. Build project using ``cmake`` command.
 
