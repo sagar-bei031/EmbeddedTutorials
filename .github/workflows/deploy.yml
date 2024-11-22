@@ -1,4 +1,4 @@
-name: Deploy Embedded Documentation HTML
+name: Deploy Embedded Tutorials HTML
 
 on:
   push:

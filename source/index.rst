@@ -1,10 +1,10 @@
-.. Embedded Documentation master file, created by
+.. Embedded Tutorials master file, created by
    sphinx-quickstart on Wed Sep 11 10:27:34 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Embedded Documentation
-======================
+Embedded Tutorials
+==================
 
 **Embedded System** is essential for **Robotics** and **Automation**. It is the heart of the system. **Hardware** and **Software** are the two main components of Embedded System. The hardware is the physical part of the system, and the software is the program that runs on the hardware. The software is written in Embedded C, C++, Python, etc. The working performance, efficiency and durability depends on the design of the system.
 

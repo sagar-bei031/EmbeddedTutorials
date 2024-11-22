@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Embedded Documentation'
+project = 'Embedded Tutorials'
 copyright = '2024, Sagar Chaudhary'
 author = 'Sagar Chaudhary'
 release = '1.0.0'
@@ -36,7 +36,7 @@ html_static_path = ['_static']
 html_context = {
     "display_github": True,
     "github_user": "sagar-bei031",
-    "github_repo": "EmbeddedDocumentation",
+    "github_repo": "EmbeddedTutorials",
     "github_version": "main",
     "conf_py_path": "/source/",
 }
