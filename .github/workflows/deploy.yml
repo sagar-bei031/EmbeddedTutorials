@@ -1,4 +1,4 @@
-name: Deploy Embedded Documentation HTML pages
+name: Deploy Embedded Documentation HTML
 
 on:
   push:
@@ -20,14 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
           pip install sphinx_rtd_theme myst-parser sphinx-copybutton
 
       - name: Build Sphinx documentation
         run: |
-          source venv/bin/activate
           make -C docs html
 
       - name: Deploy to GitHub Pages
