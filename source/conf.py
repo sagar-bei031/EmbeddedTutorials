@@ -19,6 +19,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx_copybutton',
     'myst_parser',
+    'sphinx.ext.linkcode',
 ]
 
 templates_path = ['_templates']
@@ -31,6 +32,14 @@ language = 'en'
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+html_context = {
+    "display_github": True,
+    "github_user": "sagar-bei031",
+    "github_repo": "EmbeddedDocumentation",
+    "github_version": "main",
+    "conf_py_path": "/source/",
+}
 
 source_suffix = {
     '.rst': 'restructuredtext',
