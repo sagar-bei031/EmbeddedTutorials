@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UART with Interrupt &mdash; Embedded Documentation 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="UART with DMA" href="uart_dma.html" />
+    <link rel="prev" title="UART with Polling" href="uart_polling.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Embedded Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../basic_tutorial.html">Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../gpio.html">GPIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usb.html">USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../swd.html">SWD</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../uart.html">UART</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="uart_polling.html">UART with Polling</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">UART with Interrupt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cubemx-configuration">1. CubeMX Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#code-to-send-and-receive-data-using-uart-interrupt">2. Code to Send and Receive Data using UART Interrupt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connection">3. Connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="uart_dma.html">UART with DMA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Embedded Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../basic_tutorial.html">Basic Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../uart.html">UART</a></li>
+      <li class="breadcrumb-item active">UART with Interrupt</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/basic_tutorial/uart/uart_interrupt.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="uart-with-interrupt">
+<h1>UART with Interrupt<a class="headerlink" href="#uart-with-interrupt" title="Link to this heading"></a></h1>
+<p>In interrupt mode, the UART hardware generates an interrupt signal to the CPU when data is arrived (RX interrupt), data transmission is completed (TX interrupt) and even there are errors like parity error, framing error etc. It reduces the amount of time that we have to wait for data to be transmitted or received.</p>
+<section id="cubemx-configuration">
+<h2>1. CubeMX Configuration<a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Open CubeMX and <a class="reference external" href="../../getting_started/basic_setup/generate_basic_code.html">generate_basic_code</a> with:</p>
+<ul>
+<li><p>microcontroller: <code class="docutils literal notranslate"><span class="pre">stm32f407vgt6</span></code> or board: <code class="docutils literal notranslate"><span class="pre">STM32F407VG-DISC1</span></code></p></li>
+<li><p>project name: <code class="docutils literal notranslate"><span class="pre">uart_interrupt</span></code></p></li>
+<li><p>Toolchain/IDE: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code></p></li>
+</ul>
+</li>
+<li><p>Move to STM32CubeMX <code class="docutils literal notranslate"><span class="pre">Pinout</span> <span class="pre">and</span> <span class="pre">Congiguration</span></code>. From <code class="docutils literal notranslate"><span class="pre">Categories</span></code>, select <code class="docutils literal notranslate"><span class="pre">Connectivity</span> <span class="pre">&gt;</span> <span class="pre">USART2</span></code>. Change <code class="docutils literal notranslate"><span class="pre">mode</span></code> to <code class="docutils literal notranslate"><span class="pre">Asynchronous</span></code> mode.</p></li>
+<li><p>Under <code class="docutils literal notranslate"><span class="pre">Configuration</span> <span class="pre">&gt;</span> <span class="pre">NVIC</span> <span class="pre">Settings</span></code>, enable <code class="docutils literal notranslate"><span class="pre">USART2</span> <span class="pre">global</span> <span class="pre">interrupt</span></code>.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/uart_interrupt.webp"><img alt="usart2_polling" class="align-center" src="../../_images/uart_interrupt.webp" style="width: 600px;" /></a>
+<ul class="simple">
+<li><p>Generate code and open the project.</p></li>
+</ul>
+</section>
+<section id="code-to-send-and-receive-data-using-uart-interrupt">
+<h2>2. Code to Send and Receive Data using UART Interrupt<a class="headerlink" href="#code-to-send-and-receive-data-using-uart-interrupt" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> and open <code class="docutils literal notranslate"><span class="pre">main.c</span></code>.</p></li>
+<li><p>Include <code class="docutils literal notranslate"><span class="pre">stdio.h</span></code> for printf to print received data.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN Includes */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cm">/* USER CODE END Includes */</span>
+</pre></div>
+</div>
+</li>
+<li><p>Overwrite definition of <code class="docutils literal notranslate"><span class="pre">_write</span></code> as:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 0 */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ITM_SendChar</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cm">/* USER CODE END 0 */</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add global variable to store received data.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN PV */</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="cm">/* USER</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add code for sending as well as receiving in <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cm">/* USER CODE BEGIN 2 */</span>
+<span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">msg</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello from controller 1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="w"> </span><span class="n">HAL_UART_Receive_IT</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="w"> </span><span class="c1">// Start receiving</span>
+<span class="w"> </span><span class="cm">/* USER CODE END 2 */</span>
+
+<span class="w"> </span><span class="cm">/* Infinite loop */</span>
+<span class="w"> </span><span class="cm">/* USER CODE BEGIN WHILE */</span>
+<span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GetTick</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">   </span><span class="p">{</span>
+<span class="w">     </span><span class="n">HAL_UART_Transmit_IT</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
+<span class="w">     </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_GetTick</span><span class="p">();</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">HAL_UART_GetState</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">HAL_UART_STATE_BUSY_RX</span><span class="p">))</span>
+<span class="w">   </span><span class="p">{</span>
+<span class="w">    </span><span class="n">HAL_UART_Receive_IT</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="w"> </span><span class="c1">// Start receiving in case of no reception</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="cm">/* USER CODE END WHILE */</span>
+
+<span class="cm">/* USER CODE BEGIN 3 */</span>
+<span class="p">}</span>
+<span class="cm">/* USER CODE END 3 */</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add callback function for UART RX interrupt just above <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">HAL_UART_RxCpltCallback</span><span class="p">(</span><span class="n">UART_HandleTypeDef</span><span class="w"> </span><span class="o">*</span><span class="n">huart</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">USART2</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+<span class="w">    </span><span class="n">HAL_UART_Receive_IT</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="w"> </span><span class="c1">// Receive again</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* USER CODE END 0 */</span>
+</pre></div>
+</div>
+</li>
+<li><p>Build and flash the code to both controllers.</p></li>
+</ul>
+</section>
+<section id="connection">
+<h2>3. Connection<a class="headerlink" href="#connection" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Connect <strong>TX pin</strong> of sender to <strong>RX pin</strong> of receiver.</p></li>
+<li><p>Connect <strong>GND</strong> of both controllers together.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<p>References are from <code class="docutils literal notranslate"><span class="pre">STM32</span> <span class="pre">HAL</span> <span class="pre">Driver</span></code> documentation.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">HAL_StatusTypeDef</span> <span class="pre">HAL_UART_Transmit_IT(huart,</span> <span class="pre">pData,</span> <span class="pre">Size)</span></span></dt>
+<dd><p>Sends an amount of data in non-blocking mode.</p>
+<p>When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
+the sent data is handled as a set of u16. In this case, Size must indicate the number
+of u16 provided through pData.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>huart</strong> – Pointer to a UART_HandleTypeDef structure that contains
+the configuration information for the specified UART module.</p></li>
+<li><p><strong>pData</strong> – Pointer to data buffer (u8 or u16 data elements).</p></li>
+<li><p><strong>Size</strong> – Amount of data elements (u8 or u16) to be sent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HAL status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">HAL_StatusTypeDef</span> <span class="pre">HAL_UART_Receive_IT(huart,</span> <span class="pre">pData,</span> <span class="pre">Size)</span></span></dt>
+<dd><p>Receives an amount of data in non-blocking mode.</p>
+<p>When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
+the received data is handled as a set of u16. In this case, Size must indicate the number
+of u16 available through pData.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>huart</strong> – Pointer to a UART_HandleTypeDef structure that contains
+the configuration information for the specified UART module.</p></li>
+<li><p><strong>pData</strong> – Pointer to data buffer (u8 or u16 data elements).</p></li>
+<li><p><strong>Size</strong> – Amount of data elements (u8 or u16) to be received.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HAL status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Interrupt mode IO operation</strong></p>
+<ul class="simple">
+<li><p>Send an amount of data in non-blocking mode using <code class="docutils literal notranslate"><span class="pre">HAL_UART_Transmit_IT()</span></code>.</p></li>
+<li><p>At the end of transmission, the callback <code class="docutils literal notranslate"><span class="pre">HAL_UART_TxCpltCallback</span></code> is executed,
+allowing the user to add custom code by customizing this function pointer.</p></li>
+<li><p>Receive an amount of data in non-blocking mode using <code class="docutils literal notranslate"><span class="pre">HAL_UART_Receive_IT()</span></code>.</p></li>
+<li><p>At the end of reception, the callback <code class="docutils literal notranslate"><span class="pre">HAL_UART_RxCpltCallback</span></code> is executed,
+allowing the user to add custom code by customizing this function pointer.</p></li>
+<li><p>In case of transfer error, the function <code class="docutils literal notranslate"><span class="pre">HAL_UART_ErrorCallback()</span></code> is executed,
+allowing the user to add custom code by customizing this function pointer.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="uart_polling.html" class="btn btn-neutral float-left" title="UART with Polling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="uart_dma.html" class="btn btn-neutral float-right" title="UART with DMA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sagar Chaudhary.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
