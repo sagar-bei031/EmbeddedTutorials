@@ -46,3 +46,16 @@ source_suffix = {
     '.txt': 'markdown',
     '.md': 'markdown',
 }
+
+
+def linkcode_resolve(domain, info):
+    """
+    Determine the URL corresponding to Python object.
+    """
+    if domain != "py":
+        return None
+    if not info["module"]:
+        return None
+
+    filename = info["module"].replace(".", "/")
+    return f"https://github.com/sagar-bei031/EmbeddedDocumentation/blob/main/{filename}.py"
