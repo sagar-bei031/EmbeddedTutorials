@@ -126,6 +126,8 @@ Next, we will see how to use external interrupt to read the input pin.
 References
 ----------
 
+References are from ``STM32 HAL Driver`` documentation.
+
 .. c:function:: GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 
    Reads the specified input port pin.

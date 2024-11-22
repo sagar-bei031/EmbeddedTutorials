@@ -8,7 +8,7 @@ GPIO Output
 
 Open ``STM32CubeMx``. Generate basic code by assing osccillator pins, serial wire pins, configuring clock and project detail. Follow the `generate_basic_code <../../getting_started/basic_setup/generate_basic_code.html>`_ with:
 
-- microcontroller: ``stm32f407vgt6``
+- microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
 - project name: ``gpio_example``
 - Toolchain/IDE: ``Makefile``
 
@@ -130,7 +130,9 @@ See LED blinking every second. Change delay time and enjoy.
 References
 ----------
 
-.. c:function:: HAL_GPIO_WritePin(GPIOx, GPIO_Pin, PinState)
+References are from ``STM32 HAL Driver`` documentation.
+
+.. function:: HAL_GPIO_WritePin(GPIOx, GPIO_Pin, PinState)
 
    Sets or clears the selected data port bit.
 
@@ -151,7 +153,7 @@ References
    :returns: None
 
 
-.. c:function:: HAL_GPIO_TogglePin(GPIOx, GPIO_Pin)
+.. function:: HAL_GPIO_TogglePin(GPIOx, GPIO_Pin)
 
    Toggles the state of the specified GPIO pins.
 
@@ -163,7 +165,7 @@ References
    :rtype: None
 
 
-.. c:function:: HAL_Delay(Delay)
+.. function:: HAL_Delay(Delay)
 
    Provides a minimum delay (in milliseconds) based on a variable that is incremented regularly.
 

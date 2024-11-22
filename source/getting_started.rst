@@ -17,7 +17,7 @@ Here is a list we commonly use.
     - Arduino Controllers
         - Arduino Uno
         - Arduino Nano
-        - Arduino Meg
+        - Arduino Mega
 
 - Debuggers:
     - ST-Link V2

@@ -10,3 +10,4 @@ Many STM32 microcontrollers supports for USB Full Speed. The STM32F407VGT6 micro
    
    usb/usb_cdc
    usb/usb_printf
+   usb/usb_reset_issue

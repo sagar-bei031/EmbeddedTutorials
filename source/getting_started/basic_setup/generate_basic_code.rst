@@ -53,34 +53,34 @@ Now you can select pins for LED, UART, Timers and many more. But leave them for 
 4. Project Manager
 ------------------
 
-   4.1. Project
-   ^^^^^^^^^^^^
+4.1. Project
+^^^^^^^^^^^^
 
-   - Write ``Project Name``.
+  - Write ``Project Name``.
+  
+  - Write ``Project Location```.
+  
+  - Select ``Toolchanin/IDE``. We prefer to choose **Makefile**. **CMake** was not available before.
+  
+    .. image:: images/project.webp
+       :width: 600
+       :alt: Project
 
-   - Write ``Project Location```.
+4.2. Code Generator
+^^^^^^^^^^^^^^^^^^^
 
-   - Select ``Toolchanin/IDE``. We prefer to choose **Makefile**. **CMake** was not available before.
-
-     .. image:: images/project.webp
-        :width: 600
-        :alt: Project
-
-   4.2. Code Generator
-   ^^^^^^^^^^^^^^^^^^^
-
-   - Select copy all used libraries in to the project folder.
-
-   - Tick:
-
-     - Generate peripheral initialization as a pair '.c/.h' file per peripheral.
-     - Keep user code when regenerating.
-     - Delete priviously generated file when not in use.
-
-   - Generate code by clicking ``GENERATE CODE``.
-
-     .. image:: images/code_generator.webp
-        :width: 600
-        :alt: Code Generator
+  - Select copy all used libraries in to the project folder.
+  
+  - Tick:
+  
+    - Generate peripheral initialization as a pair '.c/.h' file per peripheral.
+    - Keep user code when regenerating.
+    - Delete priviously generated file when not in use.
+  
+  - Generate code by clicking ``GENERATE CODE``.
+  
+    .. image:: images/code_generator.webp
+       :width: 600
+       :alt: Code Generator
 
 Navigate to project folder, open it using ``VSCODE``. If you chose ``Makefile`` as your toolchain, you would find ``Makefile``` in the project folder. If you chose ``CMake`` as your toolchain, you would find ``CMakeLists.txt`` in the project folder. We shall later talk about the project structure, now move to **build** the project.

@@ -1,1 +1,1 @@
-# EmbeddedTutorial
+# EmbeddedDocumentation

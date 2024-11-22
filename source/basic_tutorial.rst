@@ -3,7 +3,7 @@ Basic Tutorial
 
 In this **Embedded Tutorial**, you will learn about **Embedded programming**, **Kinematics**, **Control Algorithm**, **filters**, **error detection and correction**, some useful maths and other many things. There are lots of topic to learn in this subject. Being interested in **Electronics**, it is essential to have knowledge about it.
 
-For this tutorial, we are using **STM32F407VGT6** microcontroller. You can use any other microcontroller as well. The basic concepts are same for all microcontrollers. Before we works on the microcontroller, we need to know about it.
+For this tutorial, we are using **STM32F407VGT6** microcontroller used in ``STM32F407VG-DISC1`` board. You can use any other microcontroller as well. The basic concepts are same for all microcontrollers. Before we works on the microcontroller, we need to know about it.
 
 
 **About STM32F407VGT6**:
@@ -47,12 +47,5 @@ See:
 
    basic_tutorial/gpio
    basic_tutorial/usb
-   basic_tutorial/serial_wire
-
-
-.. basic_tutorial/printf
-.. basic_tutorial/debug
-.. basic_tutorial/cpp_setup
-.. basic_tutorial/timer
-.. basic_tutorial/uart
-.. basic_tutorial/i2c
+   basic_tutorial/swd
+   basic_tutorial/uart
