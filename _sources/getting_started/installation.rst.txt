@@ -1,6 +1,10 @@
 Installation
 ============
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
 OS
 --
 
