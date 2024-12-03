@@ -1,14 +1,22 @@
 UART with Interrupt
 ===================
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
+1. Introduction
+---------------
+
 In interrupt mode, the UART hardware generates an interrupt signal to the CPU when data is arrived (RX interrupt), data transmission is completed (TX interrupt) and even there are errors like parity error, framing error etc. It reduces the amount of time that we have to wait for data to be transmitted or received.
 
 
 
-1. CubeMX Configuration
+2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate_basic_code <../../getting_started/basic_setup/generate_basic_code.html>`_ with:
+- Open CubeMX and `generate_basic_code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``uart_interrupt``
@@ -27,7 +35,7 @@ In interrupt mode, the UART hardware generates an interrupt signal to the CPU wh
 
 
 
-2. Code to Send and Receive Data using UART Interrupt
+3. Code to Send and Receive Data using UART Interrupt
 -----------------------------------------------------
 
 - Navigate to ``Core > Src`` and open ``main.c``. 
@@ -113,7 +121,7 @@ In interrupt mode, the UART hardware generates an interrupt signal to the CPU wh
 
 
 
-3. Connection
+4. Connection
 -------------
 
 - Connect **TX pin** of sender to **RX pin** of receiver.

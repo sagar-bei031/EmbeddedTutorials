@@ -1,6 +1,10 @@
 Generate Basic Code
 ===================
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
 
 1. Microcontroller Selection
 ----------------------------

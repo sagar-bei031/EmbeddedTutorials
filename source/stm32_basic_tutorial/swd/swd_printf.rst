@@ -1,14 +1,22 @@
-`previous <usb_cdc.html>`_
+SWD Printf
+==========
 
-Printf over USB
-===============
-
-We cannot understand non character data type after printed on screen. In order to see them clearly, we need to first convert them to ``ASCII`` using ``snprintf`` function. Rather than using ``CDC_Transmit_FS``, we can overwrite the definition of ``printf`` function to print on USB neatly.
-
+.. contents:: Contents
+   :depth: 2
+   :local:
 
 
-1. Overwrite Definition of printf
+1. Introduction
+---------------
+
+SWD also can be used to print data. But we cannot get them normally. We need speacial program to see which is ``Serial Wire Viewer (SWV)``. ``STM32CubeProgrammer`` has  SWV. Download it from `installation <../../getting_started/installation.html>`_.
+
+
+
+2. Overwrite Definition of printf
 ---------------------------------
+
+* `Generate baisc code <../basic_setup/generate_basic_code.html>`_.
 
 * Create a new file ``printf_conf.c`` in ``Core/Src`` folder.
 
@@ -17,17 +25,19 @@ We cannot understand non character data type after printed on screen. In order t
   .. code-block:: c
      
      #include "stm32f4xx_hal.h"
-     #include "usbd_cdc_if.h"
-     
+
      int _write(int file, char *data, int len)
      {
-         CDC_Transmit_FS((uint8_t*)data, (uint16_t)len);
+         for (int i = 0; i < len; ++i)
+         {
+             ITM_SendChar(data[i]);
+         }
          return len;
      }
 
 
 
-2. Update Makefile
+3. Update Makefile
 ------------------
 
 * Add ``printf_conf.c`` to ``Makefile > C_SOURCES``.
@@ -47,7 +57,7 @@ We cannot understand non character data type after printed on screen. In order t
 
 
 
-3. Update main.c
+4. Update main.c
 ----------------
 
 * Open ``Core > Src > main.c``. Add ``stdio.h`` header.
@@ -57,10 +67,10 @@ We cannot understand non character data type after printed on screen. In order t
      /* Private includes ----------------------------------------------------------*/
      /* USER CODE BEGIN Includes */
      #include <stdio.h>
-     #include "usbd_cdc_if.h"
      /* USER CODE END Includes */
 
-* Update ``main`` function to print "Hello World" over USB.
+
+* Update ``main`` function to print "Hello World" over SWD.
 
   .. code-block:: c
      
@@ -78,26 +88,25 @@ We cannot understand non character data type after printed on screen. In order t
      }
      /* USER CODE END 3 */
 
-
-
-Now you can build and flash the code. See the output on ``terminal`` or ``Serial Monitor`` as `previous <usb_cdc.html>`_.
+* Build and flash.
 
 
 
-References
-----------
+5. Open SWV on STM32CubeProgrammer
+----------------------------------
 
-References are from ``CMSIS`` documentation.
+* Open ``STM32CubeProgrammer``.
 
-.. function:: uint32_t ITM_SendChar(uint32_t ch)
+* Connect your microcontroller to your PC using USB cable through ``ST-Link``.
 
-   ITM Send Character.
+* Click on ``Connect``.
 
-   **Details**:  
-   - Transmits a character via the ITM channel 0.  
-   - Just returns if no debugger is connected that has booked the output.  
-   - Is blocking if a debugger is connected, but the previous character sent has not been transmitted.
+* Click on ``SWV``.
 
-   :param uint32_t ch: Character to transmit.
-   :returns: The transmitted character.
-   :rtype: uint32_t
+* Set ``Core Clock`` to the microcontroller clock frequency configured in ``STM32CubeMx``. It is ``168MHz`` in this case.
+
+* Click on ``Start``.
+
+
+
+You can see the message "Hello World" on the ``SWV`` continously.

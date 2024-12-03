@@ -1,6 +1,11 @@
 UART Issues
 ===========
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+   
+
 1. UART stops receiving but works fine after reset.
 ---------------------------------------------------
 

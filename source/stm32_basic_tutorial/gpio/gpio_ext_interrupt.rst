@@ -3,6 +3,14 @@ Previously, we have completed `gpio input <gpio_input.html>`_.
 GPIO External Interrupt
 =======================
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
+1. Introduction
+--------------- 
+
 External interrupt is used to read the input pin asynchronously. It is used to read the input pin without polling the pin. The controller will execute the code only when the pin state changes.
 
 Interrupt can be generated on the rising edge, falling edge, or both edges. It can also be generated on the low level or high level.
@@ -11,7 +19,7 @@ In this tutorial, we will see how to use external interrupt to detect rising edg
 
 
 
-1. CubeMX Configuration
+2. CubeMX Configuration
 -----------------------
 
 - Open the ``STM32CubeMX``, update pin ``PA0`` to ``GPIO_EXTI0``.
@@ -34,7 +42,7 @@ In this tutorial, we will see how to use external interrupt to detect rising edg
 
 
 
-2. Code to Toggle LED using External Interrupt
+3. Code to Toggle LED using External Interrupt
 ----------------------------------------------
 
 - Open project folder. Navigate to ``Core/Src/main.c``. Add ``HAL_GPIO_EXTI_Callback`` function above the ``main`` function. 
@@ -77,7 +85,7 @@ In this tutorial, we will see how to use external interrupt to detect rising edg
 
 
 
-3. Observation
+4. Observation
 --------------
 
 - Orage led on pin ``PD13`` blinking continuously.

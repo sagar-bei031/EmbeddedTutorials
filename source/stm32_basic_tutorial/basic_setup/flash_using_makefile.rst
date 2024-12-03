@@ -1,6 +1,11 @@
 Flash Using Makefile
 ====================
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
 We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
 
 

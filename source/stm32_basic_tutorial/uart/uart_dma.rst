@@ -1,13 +1,21 @@
 UART with DMA
 =============
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
+1. Introduction
+---------------
+
 Direct Memory Access (DMA) is very useful feature in microcontrollers. It allows data transfer between peripherals and memory without CPU intervention. This is very useful in UART communication where data is received and transmitted continuously. In this tutorial, we will learn how to use UART with DMA.
 
 
-1. CubeMX Configuration
+2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../../getting_started/basic_setup/generate_basic_code.html>`_ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``usb_polling``
@@ -28,7 +36,7 @@ Direct Memory Access (DMA) is very useful feature in microcontrollers. It allows
 
 
 
-2. Code to Send and Receive Data using UART Interrupt
+3. Code to Send and Receive Data using UART Interrupt
 -----------------------------------------------------
 
 - Navigate to ``Core > Src`` and open ``main.c``. 
@@ -114,7 +122,7 @@ Direct Memory Access (DMA) is very useful feature in microcontrollers. It allows
 
 
 
-3. Connection
+4. Connection
 -------------
 
 - Connect **TX pin** of sender to **RX pin** of receiver.

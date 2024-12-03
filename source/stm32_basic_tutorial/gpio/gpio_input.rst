@@ -3,6 +3,13 @@ This is continued from `gpio output <gpio_output.html>`_.
 GPIO Input
 ==========
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+1. Logic
+--------
+
 **For 3V3 microcontrollers**:
 
 - Logic 1 above 1.88V.
@@ -30,7 +37,7 @@ For Open Drain output, pull-up resistor is used. For Open Collector output, pull
 
 
 
-1. CubeMX Configuration
+2. CubeMX Configuration
 -----------------------
 
 To read the input from the GPIO pin, we need to configure the pin as input. Open ``STM32CubeMX`` to configure the pin as input. Discovery board has a user button on ``PA0`` pin. To know about this, open ``STM32F407G-DISC1`` from ``board selector`` of STM32CubeMX in default mode or see `schematic of Discovery Board <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-b02_schematic.pdf&ved=2ahUKEwjdoNq3-byIAxX5zDgGHa-OAX4QFnoECBQQAQ&usg=AOvVaw0S1_y_ksxURXPd02EFhSfS>`_. Select pin ``PA1`` as ``GPIO_Input``. Also select pin ``PA1`` as ``GPIO_Input``.
@@ -59,7 +66,7 @@ Now generate code.
 
 
 
-2. Code to Check PinState
+3. Code to Check PinState
 -------------------------
 
 Open project folder. Navigate to ``Core/Src/main.c``. Update the ``while`` block.
@@ -110,7 +117,7 @@ Build and flash the code to controller.
 
 
 
-3. Observation
+4. Observation
 --------------
 
 You can use a jumper to connect pin ``PA1`` to connect to GND or 3V3.

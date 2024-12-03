@@ -1,7 +1,7 @@
-Basic Tutorial
-==============
+STM32 Basic Tutorial
+====================
 
-In this **Embedded Tutorial**, you will learn about **Embedded programming**, **Kinematics**, **Control Algorithm**, **filters**, **error detection and correction**, some useful maths and other many things. There are lots of topic to learn in this subject. Being interested in **Electronics**, it is essential to have knowledge about it.
+In this **STM32 Basic Tutorial**, you will learn about **STM32 Embedded programming**, **Kinematics**, **Control Algorithm**, **filters**, **error detection and correction**, some useful maths and other many things. There are lots of topic to learn in this subject. Being interested in **Electronics**, it is essential to have knowledge about it.
 
 For this tutorial, we are using **STM32F407VGT6** microcontroller used in ``STM32F407VG-DISC1`` board. You can use any other microcontroller as well. The basic concepts are same for all microcontrollers. Before we works on the microcontroller, we need to know about it.
 
@@ -45,7 +45,8 @@ See:
    :maxdepth: 2
    :caption: Contents:
 
-   basic_tutorial/gpio
-   basic_tutorial/usb
-   basic_tutorial/swd
-   basic_tutorial/uart
+   stm32_basic_tutorial/basic_setup
+   stm32_basic_tutorial/gpio
+   stm32_basic_tutorial/usb
+   stm32_basic_tutorial/swd
+   stm32_basic_tutorial/uart

@@ -3,47 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Embedded Tutorials
-==================
-
-**Embedded System** is essential for **Robotics** and **Automation**. It is the heart of the system. **Hardware** and **Software** are the two main components of Embedded System. The hardware is the physical part of the system, and the software is the program that runs on the hardware. The software is written in Embedded C, C++, Python, etc. The working performance, efficiency and durability depends on the design of the system.
-
-
-Basic Topics in the Embedded Programming that we are going to cover are:
-
-- GPIO
-- Interrupts
-- Timers
-- UART
-- I2C
-- SPI
-- USB Serial
-
-
-We also cover some advanced topics like:
-
-- Actuator Control (DC Motor, Servo, BLDC, Pneumatic)
-- Kinematics used for Robot
-- PID
-- CRC
-- Filters
-- IMU and other sensors
-- 3D Maths
-- Bluetooth
-- Advance Concepts in Programming and Debugging
-
+Embedded Systems
+================
 
 .. toctree::
+   :titlesonly:
    :maxdepth: 2
    :caption: Contents:
+   :hidden:
 
    getting_started
-   basic_tutorial
+   stm32_basic_tutorial
 
 
-Indices and tables
-==================
+.. image:: images/embedded_system.webp
+   :width: 300
+   :align: center
+   :alt: embedded_system
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+**Embedded Systems** play a crucial role in electronic devices, control systems, and **robotics**. They are composed of two primary components: **hardware and software**. The hardware forms the physical foundation of the system, while the software consists of the programs that operate on it. Common programming languages for embedded systems include **Embedded C, C++, and Python**. The performance, efficiency, and durability of an embedded system are heavily influenced by its design and implementation.

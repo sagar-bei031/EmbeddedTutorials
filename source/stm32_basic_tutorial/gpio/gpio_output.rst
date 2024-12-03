@@ -1,12 +1,15 @@
 GPIO Output
 ===========
 
-
+.. contents:: Contents
+   :depth: 2
+   :local:
+   
 
 1. CubeMX Configuration
 ------------------------
 
-Open ``STM32CubeMx``. Generate basic code by assing osccillator pins, serial wire pins, configuring clock and project detail. Follow the `generate_basic_code <../../getting_started/basic_setup/generate_basic_code.html>`_ with:
+Open ``STM32CubeMx``. Generate basic code by assing osccillator pins, serial wire pins, configuring clock and project detail. Follow the `generate_basic_code <../basic_setup/generate_basic_code.html>`_ with:
 
 - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
 - project name: ``gpio_example``

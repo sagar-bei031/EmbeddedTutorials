@@ -1,14 +1,22 @@
 USB CDC
 =======
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
+1. Introduction
+---------------
+
 USB CDC (Communication Device Class) is a class of USB devices that are used to transmit data between a computer and a USB device. The USB CDC class is used to emulate a serial port over USB. This allows the USB device to be used as a virtual COM port. The USB CDC class is commonly used in microcontroller projects to provide a simple and easy way to communicate with a computer.
 
 
 
-1. CubeMX Configuration
+2. CubeMX Configuration
 -----------------------
 
-- Open `STM32CubeMX`, create a new project and set up basic configuration. Follow the `generate_basic_code <../../getting_started/basic_setup/generate_basic_code.html>`_ with:
+- Open `STM32CubeMX`, create a new project and set up basic configuration. Follow the `generate_basic_code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``usb_example``
@@ -35,7 +43,7 @@ USB Device Middleware is added to the project. The middleware provides the USB C
 
 
 
-2. Code to Transmit Data using USB CDC
+3. Code to Transmit Data using USB CDC
 --------------------------------------
 
 - Open project folder and navigate to ``Core > Src > main.c``.
@@ -72,7 +80,7 @@ USB Device Middleware is added to the project. The middleware provides the USB C
 
 
 
-3. Hardware Setup and Connection
+4. Hardware Setup and Connection
 --------------------------------
 
 Connect your microcontroller to your PC using USB cable. For simplicity, open ``Serial Monitor`` in ``Arduino IDE``. You can see printing "Hello World" on the ``Serial Monitor`` continuosly. 

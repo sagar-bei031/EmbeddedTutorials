@@ -1,6 +1,14 @@
 SWD Cortex Debug
 ================
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+   
+
+Introduction
+------------
+
 Cortex-Debug is an extension for Visual Studio Code to streamline the debug process when working with ARM Cortex-M microcontrollers.
 
 

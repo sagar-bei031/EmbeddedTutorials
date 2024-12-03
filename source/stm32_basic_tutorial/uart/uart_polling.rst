@@ -1,14 +1,22 @@
 UART with Polling
 =================
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
+1. Introduction
+---------------
+
 UART in polling mode transmit data and receive data untill the data is transmitted and received respectively or timeout. This is the simplest way to use UART. But it is not efficient as it blocks the CPU for doing other job.
 
 
 
-1. CubeMX Configuration
+2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../../getting_started/basic_setup/generate_basic_code.html>`_ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``uart_polling``
@@ -25,7 +33,7 @@ UART in polling mode transmit data and receive data untill the data is transmitt
 
 
 
-2. Code to Send and Receive Data using UART Polling
+3. Code to Send and Receive Data using UART Polling
 ---------------------------------------------------
     
 - Navigate to ``Core > Src`` and open ``main.c``. 
@@ -87,7 +95,7 @@ UART in polling mode transmit data and receive data untill the data is transmitt
 
 
 
-3. Connection
+4. Connection
 -------------
 
 - Connect **TX pin** of sender to **RX pin** of receiver.
