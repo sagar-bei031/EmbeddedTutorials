@@ -30,4 +30,5 @@ The UART configurations we prefer are:
     uart/uart_polling
     uart/uart_interrupt
     uart/uart_dma
+    uart/uart_issues
     
