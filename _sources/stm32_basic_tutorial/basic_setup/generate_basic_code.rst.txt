@@ -18,7 +18,7 @@ Generate Basic Code
 - Select particular microcontroller from list on right side and click ``Start Project``. 
 
   .. image:: images/board_selector.webp
-    :width: 600
+    :width: 100%
     :alt: Board Selector
 
 You might be asked to initialize peripheral with their **default mode**. Click ``No``. But if you want to use default mode, click ``Yes``.
@@ -32,13 +32,13 @@ You might be asked to initialize peripheral with their **default mode**. Click `
 - Go to ``RCC > High Speed Clock (HSE)`` and select ``Crystal Ceramic Resonator``.
 
   .. image:: images/rcc.webp
-     :width: 600
+     :width: 100%
      :alt: RCC
 
 - Go to ``SYS > Debug`` and select ``Serial Wire``.
 
   .. image:: images/sw.webp
-     :width: 600
+     :width: 100%
      :alt: SW  
 
 Now you can select pins for LED, UART, Timers and many more. But leave them for now.
@@ -50,7 +50,7 @@ Now you can select pins for LED, UART, Timers and many more. But leave them for 
 - Specify ``HCLK (MHx)``. We prefer to use maximum clock frequency. For example, **168 MHz** if using **STM32F407VGT6** or **72 MHz** if using **STM32F103C8**.
 
   .. image:: images/clock.webp
-    :width: 600
+    :width: 100%
     :alt: Clock
 
 
@@ -67,7 +67,7 @@ Now you can select pins for LED, UART, Timers and many more. But leave them for 
   - Select ``Toolchanin/IDE``. We prefer to choose **Makefile**. **CMake** was not available before.
   
     .. image:: images/project.webp
-       :width: 600
+       :width: 100%
        :alt: Project
 
 4.2. Code Generator
@@ -84,7 +84,7 @@ Now you can select pins for LED, UART, Timers and many more. But leave them for 
   - Generate code by clicking ``GENERATE CODE``.
   
     .. image:: images/code_generator.webp
-       :width: 600
+       :width: 100%
        :alt: Code Generator
 
 Navigate to project folder, open it using ``VSCODE``. If you chose ``Makefile`` as your toolchain, you would find ``Makefile``` in the project folder. If you chose ``CMake`` as your toolchain, you would find ``CMakeLists.txt`` in the project folder. We shall later talk about the project structure, now move to **build** the project.

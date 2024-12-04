@@ -20,4 +20,3 @@ Build Using Makefile
    
       make -j8
 
-You will learn more about ``make`` and ``makefile`` throughout this tutorial.  

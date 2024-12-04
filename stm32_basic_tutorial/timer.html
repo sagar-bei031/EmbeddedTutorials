@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>USB &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>Timer &mdash; Embedded Tutorials 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -19,11 +19,12 @@
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="USB CDC" href="usb/usb_cdc.html" />
-    <link rel="prev" title="GPIO External Interrupt" href="gpio/gpio_ext_interrupt.html" /> 
+    <link rel="next" title="PWM" href="timer/pwm.html" />
+    <link rel="prev" title="UART Issues" href="uart/uart_issues.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,15 +52,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../stm32_basic_tutorial.html">STM32 Basic Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="basic_setup.html">Basic Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">USB</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="usb/usb_cdc.html">USB CDC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="usb/usb_printf.html">Printf over USB</a></li>
-<li class="toctree-l3"><a class="reference internal" href="usb/usb_reset_issue.html">USB Reset Issue</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="swd.html">SWD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timer.html">Timer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Timer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="timer/pwm.html">PWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer/encoder.html">Encoder</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -79,9 +79,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../stm32_basic_tutorial.html">STM32 Basic Tutorial</a></li>
-      <li class="breadcrumb-item active">USB</li>
+      <li class="breadcrumb-item active">Timer</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/stm32_basic_tutorial/usb.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/stm32_basic_tutorial/timer.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -89,25 +89,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="usb">
-<h1>USB<a class="headerlink" href="#usb" title="Link to this heading"></a></h1>
-<p>Many STM32 microcontrollers supports for USB Full Speed. The STM32F407VGT6 microcontroller used in this tutorial supports USB Full Speed. The USB Full Speed is 12Mbps and is used for communication between microcontroller and computer.</p>
+  <section id="timer">
+<h1>Timer<a class="headerlink" href="#timer" title="Link to this heading"></a></h1>
+<p>Timers are essential peripherals in embedded systems, used for precise control and measurement of time-related tasks. They are hardware modules that count clock pulses and perform operations at specified intervals or durations.</p>
+<section id="application-of-timers">
+<h2>Application of timers<a class="headerlink" href="#application-of-timers" title="Link to this heading"></a></h2>
+<section id="delays">
+<h3>1. Delays:<a class="headerlink" href="#delays" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Create precise delays for debouncing, communication protocols, or other timing-critical tasks.</p>
+</div></blockquote>
+</section>
+<section id="pulse-width-modulation-pwm">
+<h3>2. Pulse Width Modulation (PWM):<a class="headerlink" href="#pulse-width-modulation-pwm" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Generate PWM signals for controlling motors, LEDs, or other actuators.</p>
+</div></blockquote>
+</section>
+<section id="event-counting">
+<h3>3. Event Counting:<a class="headerlink" href="#event-counting" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Count external events like button presses or pulses from a rotary encoder.</p>
+</div></blockquote>
+</section>
+<section id="frequency-measurement">
+<h3>4. Frequency Measurement<a class="headerlink" href="#frequency-measurement" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Measure the frequency or duty cycle of an external signal.</p>
+</div></blockquote>
+</section>
+<section id="periodic-tasks">
+<h3>5. Periodic Tasks<a class="headerlink" href="#periodic-tasks" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Trigger periodic interrupts for tasks like sampling sensors or updating displays.</p>
+</div></blockquote>
+</section>
+<section id="system-monitoring">
+<h3>6. System Monitoring<a class="headerlink" href="#system-monitoring" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Watchdog timers help monitor and reset the system if it becomes unresponsive.</p>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="usb/usb_cdc.html">USB CDC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usb/usb_printf.html">Printf over USB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usb/usb_reset_issue.html">USB Reset Issue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timer/pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timer/encoder.html">Encoder</a></li>
 </ul>
 </div>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="gpio/gpio_ext_interrupt.html" class="btn btn-neutral float-left" title="GPIO External Interrupt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="usb/usb_cdc.html" class="btn btn-neutral float-right" title="USB CDC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="uart/uart_issues.html" class="btn btn-neutral float-left" title="UART Issues" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="timer/pwm.html" class="btn btn-neutral float-right" title="PWM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

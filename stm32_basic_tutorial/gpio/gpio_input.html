@@ -59,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../usb.html">USB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../swd.html">SWD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../uart.html">UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timer.html">Timer</a></li>
 </ul>
 </li>
 </ul>
@@ -117,7 +118,7 @@
 </ul>
 <p>When VCC is appled to input pin, the input state will be high. And when GND is applied to input pin, the input state will be low. But if input pin is disconnected, the input is on floating state and it is hard to predict. So to remove such ambiguity pull-up or pull-down resistors are connected to input pin.</p>
 <p>Microcontrollers have internal pull-up/pull-down resistors which can be connectd by programming. We also can connect external pull-up/pull-down resistors. Typical value for pull-up/pull-down resistors are <strong>4.7K</strong> and <strong>10K</strong>.</p>
-<a class="reference internal image-reference" href="../../_images/Pull-up-and-Pull-down-Resistor.png"><img alt="Pull-up-and-Pull-down-Resistor" class="align-center" src="../../_images/Pull-up-and-Pull-down-Resistor.png" style="width: 600px;" />
+<a class="reference internal image-reference" href="../../_images/Pull-up-and-Pull-down-Resistor.png"><img alt="Pull-up-and-Pull-down-Resistor" class="align-center" src="../../_images/Pull-up-and-Pull-down-Resistor.png" style="width: 100%;" />
 </a>
 <p>Pull-up resistor connects the input pin to VCC and pull-down resistor connects the input pin to GND. When input pin is not connected, pull-up resistor connects the input pin to VCC and pull-down resistor connects the input pin to GND. So, the input state will be high and low respectively.</p>
 <p>For Open Drain output, pull-up resistor is used. For Open Collector output, pull-down resistor is used. Signals with pull-ups tend to be less sensitive to noise in noisy environments (e.g., industrial environments) because they are biased toward the high state.</p>
@@ -125,7 +126,7 @@
 <section id="cubemx-configuration">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">2. CubeMX Configuration</a><a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
 <p>To read the input from the GPIO pin, we need to configure the pin as input. Open <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code> to configure the pin as input. Discovery board has a user button on <code class="docutils literal notranslate"><span class="pre">PA0</span></code> pin. To know about this, open <code class="docutils literal notranslate"><span class="pre">STM32F407G-DISC1</span></code> from <code class="docutils literal notranslate"><span class="pre">board</span> <span class="pre">selector</span></code> of STM32CubeMX in default mode or see <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-b02_schematic.pdf&amp;ved=2ahUKEwjdoNq3-byIAxX5zDgGHa-OAX4QFnoECBQQAQ&amp;usg=AOvVaw0S1_y_ksxURXPd02EFhSfS">schematic of Discovery Board</a>. Select pin <code class="docutils literal notranslate"><span class="pre">PA1</span></code> as <code class="docutils literal notranslate"><span class="pre">GPIO_Input</span></code>. Also select pin <code class="docutils literal notranslate"><span class="pre">PA1</span></code> as <code class="docutils literal notranslate"><span class="pre">GPIO_Input</span></code>.</p>
-<a class="reference internal image-reference" href="../../_images/gpio_input_select.png"><img alt="gpio_input_select" class="align-center" src="../../_images/gpio_input_select.png" style="width: 600px;" />
+<a class="reference internal image-reference" href="../../_images/gpio_input_select.png"><img alt="gpio_input_select" class="align-center" src="../../_images/gpio_input_select.png" style="width: 100%;" />
 </a>
 <p>The pin <code class="docutils literal notranslate"><span class="pre">PA0</span></code> is already pulled down on the board, so we do not need to do anything with pin <code class="docutils literal notranslate"><span class="pre">PA0</span></code> but for pin <code class="docutils literal notranslate"><span class="pre">PA1</span></code>, we will pull it up using internal pull-up resistor.</p>
 <ul class="simple">
@@ -134,7 +135,7 @@
 <li><p>From <code class="docutils literal notranslate"><span class="pre">PA1</span> <span class="pre">Configuration</span></code>, change <code class="docutils literal notranslate"><span class="pre">GPIO</span> <span class="pre">Pull-up/Pull-down</span></code> to <code class="docutils literal notranslate"><span class="pre">Pull-up</span></code>.</p></li>
 <li><p>Also set pin <code class="docutils literal notranslate"><span class="pre">PD13</span></code> to <code class="docutils literal notranslate"><span class="pre">GPIO_Output</span></code>.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../../_images/gpio_input_pull-up.webp"><img alt="gpio_input_pull-up" class="align-center" src="../../_images/gpio_input_pull-up.webp" style="width: 600px;" />
+<a class="reference internal image-reference" href="../../_images/gpio_input_pull-up.webp"><img alt="gpio_input_pull-up" class="align-center" src="../../_images/gpio_input_pull-up.webp" style="width: 100%;" />
 </a>
 <p>Now generate code.</p>
 </section>

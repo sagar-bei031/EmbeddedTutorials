@@ -27,7 +27,7 @@ When VCC is appled to input pin, the input state will be high. And when GND is a
 Microcontrollers have internal pull-up/pull-down resistors which can be connectd by programming. We also can connect external pull-up/pull-down resistors. Typical value for pull-up/pull-down resistors are **4.7K** and **10K**.
 
 .. image:: images/Pull-up-and-Pull-down-Resistor.png
-   :width: 600
+   :width: 100%
    :align: center
    :alt: Pull-up-and-Pull-down-Resistor
 
@@ -43,7 +43,7 @@ For Open Drain output, pull-up resistor is used. For Open Collector output, pull
 To read the input from the GPIO pin, we need to configure the pin as input. Open ``STM32CubeMX`` to configure the pin as input. Discovery board has a user button on ``PA0`` pin. To know about this, open ``STM32F407G-DISC1`` from ``board selector`` of STM32CubeMX in default mode or see `schematic of Discovery Board <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-b02_schematic.pdf&ved=2ahUKEwjdoNq3-byIAxX5zDgGHa-OAX4QFnoECBQQAQ&usg=AOvVaw0S1_y_ksxURXPd02EFhSfS>`_. Select pin ``PA1`` as ``GPIO_Input``. Also select pin ``PA1`` as ``GPIO_Input``.
 
 .. image:: images/gpio_input_select.png
-   :width: 600
+   :width: 100%
    :align: center
    :alt: gpio_input_select
 
@@ -58,7 +58,7 @@ The pin ``PA0`` is already pulled down on the board, so we do not need to do any
 - Also set pin ``PD13`` to ``GPIO_Output``.
 
 .. image:: images/gpio_input_pull-up.webp
-   :width: 600
+   :width: 100%
    :align: center
    :alt: gpio_input_pull-up
 

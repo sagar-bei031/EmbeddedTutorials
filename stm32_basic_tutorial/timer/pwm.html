@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PWM &mdash; Embedded Tutorials 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Encoder" href="encoder.html" />
+    <link rel="prev" title="Timer" href="../timer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Embedded Tutorials
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../stm32_basic_tutorial.html">STM32 Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../basic_setup.html">Basic Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gpio.html">GPIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usb.html">USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../swd.html">SWD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uart.html">UART</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../timer.html">Timer</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">PWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="encoder.html">Encoder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Embedded Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../stm32_basic_tutorial.html">STM32 Basic Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../timer.html">Timer</a></li>
+      <li class="breadcrumb-item active">PWM</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/stm32_basic_tutorial/timer/pwm.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pwm">
+<h1>PWM<a class="headerlink" href="#pwm" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">1. Introduction</a></p></li>
+<li><p><a class="reference internal" href="#cubemx-configuration" id="id2">2. CubeMX Configuration</a></p></li>
+<li><p><a class="reference internal" href="#code-to-change-duty-cycle" id="id3">3. Code to Change Duty Cycle</a></p></li>
+<li><p><a class="reference internal" href="#test-output" id="id4">4. Test Output</a></p></li>
+<li><p><a class="reference internal" href="#changing-the-frequency-of-pwm" id="id5">5. Changing the Frequency of PWM</a></p></li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Pulse Width Modulation (PWM) is a technique used in embedded systems to generate analog-like signals using digital means. It works by varying the width of pulses (the “on” time) in a periodic waveform to encode information or control power delivered to a load.</p>
+<a class="reference internal image-reference" href="../../_images/PWM-and-Duty-Cycle.jpg"><img alt="PWM-and-Duty-Cycle" class="align-center" src="../../_images/PWM-and-Duty-Cycle.jpg" style="width: 100%;" />
+</a>
+<p>The amplitude of PWM is equal to VDD of microcontroller; i.e. for arduino controller, it is 5V; for stm32 controllers, it is 3.3V.</p>
+<p>The average output of a PWM signal is given by <span class="math notranslate nohighlight">\(V_{avg} = \frac{\text{Pulse Width}}{\text{Time Period}} \cdot V_{dd}\)</span>.</p>
+</section>
+<section id="cubemx-configuration">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">2. CubeMX Configuration</a><a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Open CubeMX and <a class="reference external" href="../basic_setup/generate_basic_code.html">generate basic code</a> with:</p>
+<ul class="simple">
+<li><p>microcontroller: <code class="docutils literal notranslate"><span class="pre">stm32f407vgt6</span></code> or board: <code class="docutils literal notranslate"><span class="pre">STM32F407VG-DISC1</span></code></p></li>
+<li><p>project name: <code class="docutils literal notranslate"><span class="pre">pwm_test</span></code></p></li>
+<li><p>Toolchain/IDE: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code></p></li>
+</ul>
+</li>
+<li><p>Go to  <code class="docutils literal notranslate"><span class="pre">Pinout</span> <span class="pre">and</span> <span class="pre">Congiguration</span> <span class="pre">&gt;</span> <span class="pre">Timers</span> <span class="pre">&gt;</span> <span class="pre">TIM1</span></code>. Select <code class="docutils literal notranslate"><span class="pre">PWM</span> <span class="pre">Generation</span> <span class="pre">CH1</span></code> for <strong>CHANNEL1</strong>.</p></li>
+<li><p>Generate code.</p>
+<a class="reference internal image-reference" href="../../_images/pwm.webp"><img alt="PWM Configuration" class="align-center" src="../../_images/pwm.webp" style="width: 100%;" />
+</a>
+</li>
+</ul>
+</section>
+<section id="code-to-change-duty-cycle">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">3. Code to Change Duty Cycle</a><a class="headerlink" href="#code-to-change-duty-cycle" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> and open <code class="docutils literal notranslate"><span class="pre">main.c</span></code>.</p></li>
+<li><p>Add to the <code class="docutils literal notranslate"><span class="pre">main()</span></code> as:</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN 1 */</span>
+
+<span class="w">  </span><span class="cm">/* USER CODE END 1 */</span>
+
+<span class="w">  </span><span class="cm">/* MCU Configuration--------------------------------------------------------*/</span>
+
+<span class="w">  </span><span class="cm">/* Reset of all peripherals, Initializes the Flash interface and the Systick. */</span>
+<span class="w">  </span><span class="n">HAL_Init</span><span class="p">();</span>
+
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN Init */</span>
+
+<span class="w">  </span><span class="cm">/* USER CODE END Init */</span>
+
+<span class="w">  </span><span class="cm">/* Configure the system clock */</span>
+<span class="w">  </span><span class="n">SystemClock_Config</span><span class="p">();</span>
+
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN SysInit */</span>
+
+<span class="w">  </span><span class="cm">/* USER CODE END SysInit */</span>
+
+<span class="w">  </span><span class="cm">/* Initialize all configured peripherals */</span>
+<span class="w">  </span><span class="n">MX_GPIO_Init</span><span class="p">();</span>
+<span class="w">  </span><span class="n">MX_TIM1_Init</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN 2 */</span>
+<span class="w">  </span><span class="n">HAL_TIM_PWM_Start</span><span class="p">(</span><span class="o">&amp;</span><span class="n">htim1</span><span class="p">,</span><span class="w"> </span><span class="n">TIM_CHANNEL_1</span><span class="p">);</span>
+<span class="w">  </span><span class="cm">/* USER CODE END 2 */</span>
+
+<span class="w">  </span><span class="cm">/* Infinite loop */</span>
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN WHILE */</span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+<span class="w">    </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CCR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">duty</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">ARR</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// You can also use the HAL function to set the duty cycle:</span>
+<span class="w">    </span><span class="c1">// __HAL_TIM_SET_COMPARE(&amp;htim1, TIM_CHANNEL_1, (uint32_t)(duty * htim1.Instance-&gt;ARR));</span>
+
+<span class="w">    </span><span class="cm">/* USER CODE END WHILE */</span>
+
+<span class="w">    </span><span class="cm">/* USER CODE BEGIN 3 */</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="cm">/* USER CODE END 3 */</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="test-output">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">4. Test Output</a><a class="headerlink" href="#test-output" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Connect the <code class="docutils literal notranslate"><span class="pre">TIM1_CH1</span></code> pin to positive of an <code class="docutils literal notranslate"><span class="pre">LED</span></code> and negative terminal to <code class="docutils literal notranslate"><span class="pre">GND</span></code>.</p></li>
+<li><p>Change the value of <code class="docutils literal notranslate"><span class="pre">duty</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">0.1f</span></code>, <code class="docutils literal notranslate"><span class="pre">0.8f</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0f</span></code>, and observe the <strong>brightness of LED</strong>.</p></li>
+<li><p>Observe the output on <strong>Oscilloscope</strong>.</p></li>
+</ul>
+<p><strong>Assignment</strong>: Control the speed of a motor using any motor driver available.</p>
+</section>
+<section id="changing-the-frequency-of-pwm">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">5. Changing the Frequency of PWM</a><a class="headerlink" href="#changing-the-frequency-of-pwm" title="Link to this heading"></a></h2>
+<p>The PWM frequency on an STM32 microcontroller can be calculated using the formula:</p>
+<div class="math notranslate nohighlight">
+\[f_{\text{PWM}} = \frac{f_{\text{TIM}}}{\text{(ARR + 1) * (PSC + 1)}}\]</div>
+<p>where,</p>
+<p><span class="math notranslate nohighlight">\(f_{\text{TIM}}\)</span>: Frequency of timer</p>
+<p><span class="math notranslate nohighlight">\(\text{ARR}\)</span>: Auto Reload Register Value</p>
+<p><span class="math notranslate nohighlight">\(\text{PSC}\)</span>: Prescaler</p>
+<p>To determine the <strong>frequency of timer</strong>, first you need to find out the <strong>APB timer clock</strong> in the <strong>reference mannual</strong> of the microcontroller.</p>
+<ul>
+<li><p>On <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code>, hover the cursor on <code class="docutils literal notranslate"><span class="pre">Timers</span></code>.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">details</span> <span class="pre">and</span> <span class="pre">documentation</span></code> and then <code class="docutils literal notranslate"><span class="pre">Reference</span> <span class="pre">mannual</span></code>. Or click <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&amp;ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&amp;usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74">reference mannual link</a>.</p></li>
+<li><p>You can find the <strong>APB</strong> number under <strong>Memory and bus architecture</strong>.</p>
+<a class="reference internal image-reference" href="../../_images/apb_check.png"><img alt="APB Peripheral Clock" class="align-center" src="../../_images/apb_check.png" style="width: 100%;" />
+</a>
+</li>
+</ul>
+<p>Now on  <code class="docutils literal notranslate"><span class="pre">STM32CubeMx</span></code>, go to <code class="docutils literal notranslate"><span class="pre">Clock</span> <span class="pre">Configuration</span></code> tab and check the target <strong>APB</strong> clock frequency.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/clock_conf.png"><img alt="Clock Configuration" class="align-center" src="../../_images/clock_conf.png" style="width: 100%;" />
+</a>
+</div></blockquote>
+<p>For this case, for <code class="docutils literal notranslate"><span class="pre">TIM1</span></code>, the <strong>APB2</strong> timer clock is <code class="docutils literal notranslate"><span class="pre">168MHz</span></code>.</p>
+<p>Suppose, we want the PWM frequency to be <code class="docutils literal notranslate"><span class="pre">50Hz</span></code>. For this we need to calculate and adjust the <strong>ARR</strong> and <strong>PSC</strong> values.</p>
+<p>If <span class="math notranslate nohighlight">\(f_{\text{TIM}}\)</span> is <code class="docutils literal notranslate"><span class="pre">168MHz</span></code>, <span class="math notranslate nohighlight">\(\text{PSC}\)</span> is <code class="docutils literal notranslate"><span class="pre">167</span></code> and <span class="math notranslate nohighlight">\(f_{\text{PWM}}\)</span> is <code class="docutils literal notranslate"><span class="pre">50Hz</span></code>, then <span class="math notranslate nohighlight">\(\text{ARR}\)</span> will be:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\text{ARR} = \frac{f_{\text{TIM}}}{f_{\text{PWM}} \times (\text{PSC} + 1)} - 1\\= \frac{168 \times 10^6}{50 \times (167 + 1)} - 1\\= 19999\end{aligned}\end{align} \]</div>
+<p>Go to <code class="docutils literal notranslate"><span class="pre">Pinout</span> <span class="pre">&amp;</span> <span class="pre">Configuration</span> <span class="pre">&gt;</span> <span class="pre">Timers</span> <span class="pre">&gt;</span> <span class="pre">TIM1</span> <span class="pre">&gt;</span> <span class="pre">Parameter</span> <span class="pre">Settings</span></code> and set the <strong>ARR</strong> value to <code class="docutils literal notranslate"><span class="pre">19999</span></code> and <strong>PSC</strong> value to <code class="docutils literal notranslate"><span class="pre">167</span></code>.</p>
+<a class="reference internal image-reference" href="../../_images/freq_change.webp"><img alt="PWM Frequency Configuration" class="align-center" src="../../_images/freq_change.webp" style="width: 100%;" />
+</a>
+<p>Generate the code, change the <strong>duty cycle</strong> between <code class="docutils literal notranslate"><span class="pre">0%</span></code> and <code class="docutils literal notranslate"><span class="pre">100%</span></code>. Observe the output frequency on the oscilloscope.</p>
+<p><strong>Assignment</strong>: Control the angle of a servo motor.</p>
+<p>Hint:</p>
+<blockquote>
+<div><p>For <span class="math notranslate nohighlight">\(f_{\text{PWM}} = 50\,\text{Hz}\)</span>, time period <span class="math notranslate nohighlight">\(T = 20\,\text{ms}\)</span>.
+And <span class="math notranslate nohighlight">\(1\,\text{ms} \equiv 0^\circ\)</span> and <span class="math notranslate nohighlight">\(2\,\text{ms} \equiv 180^\circ\)</span>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">duty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+
+<span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CCR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">htim</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">ARR</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../timer.html" class="btn btn-neutral float-left" title="Timer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="encoder.html" class="btn btn-neutral float-right" title="Encoder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sagar Chaudhary.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

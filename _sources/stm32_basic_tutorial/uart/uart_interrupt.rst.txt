@@ -27,7 +27,7 @@ In interrupt mode, the UART hardware generates an interrupt signal to the CPU wh
 - Under ``Configuration > NVIC Settings``, enable ``USART2 global interrupt``.
 
 .. image:: images/uart_interrupt.webp
-   :width: 600
+   :width: 100%
    :align: center
    :alt: usart2_polling
 
