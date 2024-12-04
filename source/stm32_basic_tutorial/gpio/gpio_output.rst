@@ -19,7 +19,7 @@ Open ``STM32CubeMx``. Generate basic code by assing osccillator pins, serial wir
 **STM32 Discovery** board have leds on pins ``PD12``, ``PD13``, ``PD14`` and ``PD15``. Move to ``STM32CubeMX Pinout and Congiguration``. Click ``PD12`` and select ``GPIO-Output``. For Bluepill, led pin is on ``PA13``. Generate code.
    
    .. image:: images/gpio_output_select.png
-      :width: 600
+      :width: 100%
       :align: center
       :alt: gpio_output_select
 
@@ -32,7 +32,7 @@ Open ``STM32CubeMx``. Generate basic code by assing osccillator pins, serial wir
 Well, you have generated the code. Now, let's understand the project structure.
 
   .. image:: images/gpio_exmp_project_structure.png
-     :width: 600
+     :width: 100%
      :align: center
      :alt: gpio_exmp_project_structure
 

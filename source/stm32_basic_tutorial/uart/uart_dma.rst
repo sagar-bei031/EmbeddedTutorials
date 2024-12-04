@@ -28,7 +28,7 @@ Direct Memory Access (DMA) is very useful feature in microcontrollers. It allows
 - Under ``Configuration > NVIC Settings``, enable ``USART2 global interrupt``.
 
 .. image:: images/uart_dma.webp
-   :width: 600
+   :width: 100%
    :align: center
    :alt: usart2_dma
 

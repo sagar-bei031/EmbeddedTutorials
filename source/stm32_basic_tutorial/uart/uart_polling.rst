@@ -25,7 +25,7 @@ UART in polling mode transmit data and receive data untill the data is transmitt
 - Move to STM32CubeMX ``Pinout and Congiguration``. From ``Categories``, select ``Connectivity > USART2``. Change ``mode`` to ``Asynchronous`` mode.
 
 .. image:: images/uart_polling.webp
-   :width: 600
+   :width: 100%
    :align: center
    :alt: usart2_polling
 

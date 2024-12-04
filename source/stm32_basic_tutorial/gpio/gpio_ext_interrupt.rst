@@ -27,14 +27,14 @@ In this tutorial, we will see how to use external interrupt to detect rising edg
 - From ``Pinout & Configuration``, go to ``GPIO`` and under ``NVIC`` tab, enable ``EXTI line0 intereupt``.
 
  .. image:: images/gpio_exti_enable.webp
-    :width: 600
+    :width: 100%
     :align: center
     :alt: gpio_exti_enable
 
 - Under ``GPIO`` tab, select ``PA0-WKP`` list. From ``PA0-WKP Configuration``, check ``GPIO Mode`` to ``External Interrupt Mode with Rising edge trigger detection``.
 
  .. image:: images/gpio_exti_rising_edge.webp
-    :width: 600
+    :width: 100%
     :align: center
     :alt: gpio_exti_rising_edge
 

@@ -25,7 +25,7 @@ USB CDC (Communication Device Class) is a class of USB devices that are used to 
 - Move to STM32CubeMX ``Pinout and Congiguration``. From ``Categories``, select ``Connectivity > USB_OTG_FS``. Change ``mode`` to ``Device_Only`` mode.
 
 .. image:: images/usb_otg_fs.webp
-   :width: 600
+   :width: 100%
    :align: center
    :alt: usb_otg_fs
 
