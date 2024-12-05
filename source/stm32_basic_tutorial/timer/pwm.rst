@@ -24,7 +24,7 @@ The average output of a PWM signal is given by :math:`V_{avg} = \frac{\text{Puls
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``pwm_test``
@@ -129,7 +129,7 @@ To determine the **frequency of timer**, first you need to find out the **APB ti
 
 - On ``STM32CubeMX``, hover the cursor on ``Timers``. 
 
-- Click the ``details and documentation`` and then ``Reference mannual``. Or click `reference mannual link <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74>`_.
+- Click the ``details and documentation`` and then ``Reference mannual``. Or click `reference mannual link <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74>`__.
 
 - You can find the **APB** number under **Memory and bus architecture**.
 

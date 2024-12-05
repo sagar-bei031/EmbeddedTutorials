@@ -5,7 +5,7 @@ Setup
    :depth: 2
    :local:
 
-1. **CH34x USB Driver** Setup
+1. CH34x USB Driver Setup
 -----------------------------
 
 Remove ``brltty``.
@@ -15,7 +15,7 @@ Remove ``brltty``.
    sudo apt autoremove brltty
 
 
-2. Creating .desktop files for application on **Linux**
+2. Creating ``.desktop`` files for application on Linux
 -----------------------------------------------------------
 
 * Create a ``.desktop`` files at ``/home/$USER/.local/share/applications``.

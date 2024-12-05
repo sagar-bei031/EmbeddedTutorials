@@ -50,7 +50,7 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/esp32_wroom.jpeg
+   * - .. figure:: images/esp32_wroom.jpg
           :height: 300
           :alt: ESP32 WROOM32
 
@@ -70,17 +70,43 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/pi_pico.jpeg
+   * - .. figure:: images/pi_pico.jpg
           :height: 300
           :alt: PI PICO
 
           **Raspberry PI PICO**: RP2040
 
-     - .. figure:: images/pi_pico_w.jpeg
+     - .. figure:: images/pi_pico_w.png
           :height: 300
           :alt: PI PICO W
 
           **Raspberry Pi PICO W**: RP2040 + CYW43439
+
+
+4. Arduino Controllers
+
+.. list-table::
+   :widths: 33 33 33
+   :align: center
+   :class: image-grid
+
+   * - .. figure:: images/arduino_uno.jpg
+          :height: 300
+          :alt: Arduino UNO
+
+          **Arduino UNO**
+
+     - .. figure:: images/arduino_nano.jpg
+          :height: 300
+          :alt: Arduino NANO
+
+          **Arduino NANO**
+
+     - .. figure:: images/arduino_mega.jpg
+         :height: 300
+         :alt: Arduino MEGA
+
+         **Arduino MEGA**
 
 .. note::
    **Rashberry PI PICO W** is extension of **Rashberry PI PICO** with **Infenion CYW43439** connectivity chip.

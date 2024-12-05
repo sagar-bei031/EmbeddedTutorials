@@ -16,7 +16,7 @@ USB CDC (Communication Device Class) is a class of USB devices that are used to 
 2. CubeMX Configuration
 -----------------------
 
-- Open `STM32CubeMX`, create a new project and set up basic configuration. Follow the `generate_basic_code <../basic_setup/generate_basic_code.html>`_ with:
+- Open `STM32CubeMX`, create a new project and set up basic configuration. Follow the `generate_basic_code <../basic_setup/generate_basic_code.html>`__ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``usb_example``

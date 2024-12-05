@@ -21,6 +21,7 @@ extensions = [
     'myst_parser',
     'sphinx.ext.linkcode',
     'sphinx.ext.mathjax',
+    'sphinx_new_tab_link',
 ]
 
 templates_path = ['_templates']

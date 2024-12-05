@@ -43,7 +43,7 @@ Rotating encoder is a input device that provides information about the direction
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``encoder_test``
@@ -117,6 +117,11 @@ Rotating encoder is a input device that provides information about the direction
 -----------------
 
    Open ``STM32CubeProgrammer`` and see count on ``SWV``. If you used USB, see on terminal or serial monitor.
+
+
+.. warning::
+
+   STM32F407VG-DISC1 TIM1 gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.
 
 
 **Assignment**: Calculate RPM.

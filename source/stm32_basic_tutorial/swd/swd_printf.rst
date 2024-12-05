@@ -9,14 +9,14 @@ SWD Printf
 1. Introduction
 ---------------
 
-SWD also can be used to print data. But we cannot get them normally. We need speacial program to see which is ``Serial Wire Viewer (SWV)``. ``STM32CubeProgrammer`` has  SWV. Download it from `installation <../../getting_started/installation.html>`_.
+SWD also can be used to print data. But we cannot get them normally. We need speacial program to see which is ``Serial Wire Viewer (SWV)``. ``STM32CubeProgrammer`` has  SWV. Download it from `installation <../../getting_started/installation.html>`__.
 
 
 
 2. Overwrite Definition of printf
 ---------------------------------
 
-* `Generate baisc code <../basic_setup/generate_basic_code.html>`_.
+* `Generate baisc code <../basic_setup/generate_basic_code.html>`__.
 
 * Create a new file ``printf_conf.c`` in ``Core/Src`` folder.
 
