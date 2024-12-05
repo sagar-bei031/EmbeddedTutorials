@@ -34,10 +34,10 @@ The average output of a PWM signal is given by :math:`V_{avg} = \frac{\text{Puls
 
 - Generate code.
 
-  .. image:: images/pwm.webp
-     :width: 100%
-     :align: center
-     :alt: PWM Configuration
+.. image:: images/pwm.webp
+   :width: 100%
+   :align: center
+   :alt: PWM Configuration
 
 
 3. Code to Change Duty Cycle
@@ -158,6 +158,10 @@ If :math:`f_{\text{TIM}}` is ``168MHz``, :math:`\text{PSC}` is ``167`` and :math
    = \frac{168 \times 10^6}{50 \times (167 + 1)} - 1
 
    = 19999
+
+.. note::
+
+   We chose :math:`\text{PSC}` as `167` because the :math:`f_{\text{TIM}}` is `168MHz`. So :math:`\frac{f_{\text{TIM}}}{\text{PSC} + 1}` will be `1MHz` for easy calculation.
 
 Go to ``Pinout & Configuration > Timers > TIM1 > Parameter Settings`` and set the **ARR** value to ``19999`` and **PSC** value to ``167``.
 

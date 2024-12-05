@@ -46,7 +46,7 @@ Rotating encoder is a input device that provides information about the direction
 - Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
-  - project name: ``encoder_test``
+  - project name: ``microsecond_tick``
   - Toolchain/IDE: ``Makefile``
 
 - Go to ``Pinout and Congiguration > Timers > TIM1``. Select ``Encoder Mode`` for **Combined Channels**.
@@ -68,11 +68,11 @@ Rotating encoder is a input device that provides information about the direction
 
 - Include ``stdio.h`` for printf to print received data.
 
-  .. code-block:: c
+.. code-block:: c
   
-     /* USER CODE BEGIN Includes */
-     #include <stdio.h>
-     /* USER CODE END Includes */
+  /* USER CODE BEGIN Includes */
+  #include <stdio.h>
+  /* USER CODE END Includes */
 
 - Overwrite definition of ``_write`` as:
 
@@ -116,7 +116,9 @@ Rotating encoder is a input device that provides information about the direction
 4. Observe Output
 -----------------
 
-   Open ``STM32CubeProgrammer`` and see count on ``SWV``. If you used USB, see on terminal or serial monitor.
+- Connect encoder A and B channels to ``TIM1_CH1`` pin and ``TIM1_CH2`` pin respectively.
+
+- Open ``STM32CubeProgrammer`` and see count on ``SWV`` by rotating encoder. If you used USB, see on terminal or serial monitor.
 
 
 .. warning::

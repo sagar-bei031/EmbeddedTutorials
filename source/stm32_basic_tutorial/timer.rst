@@ -43,5 +43,5 @@ Application of timers
    
    timer/pwm
    timer/encoder
-   timer/microsecond_delay
+   timer/microsecond_tick
    timer/frequency_counter
