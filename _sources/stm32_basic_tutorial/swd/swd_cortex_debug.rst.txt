@@ -93,7 +93,7 @@ Update ``.vscode/launch.json``.
        ]
    }
 
-For more about **OpenOCD**, watch `this <https://www.youtube.com/watch?v=_1u7IOnivnM>`_.
+For more about **OpenOCD**, watch `this <https://www.youtube.com/watch?v=_1u7IOnivnM>`__.
 
 
 

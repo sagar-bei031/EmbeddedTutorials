@@ -65,10 +65,10 @@ You can find its features on `STM32CubeMX`. You also can find datasheet, referen
 See More
 --------
 
-- `Naming convenction <https://www.digikey.com/en/maker/tutorials/2020/understanding-stm32-naming-conventions>`_ 
-- `Datasheet <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/datasheet/dm00037051.pdf&ved=2ahUKEwi5uNulx72IAxVR1TgGHfcYAmIQFnoECBQQAQ&usg=AOvVaw07P8BbeoTlMpZCNdsHv1OP>`_
-- `Reference mannual <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74>`_
-- `Documentation <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/en/microcontrollers-microprocessors/stm32f4-series/documentation.html&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBwQAQ&usg=AOvVaw318Y8lno9LsAwj77l78ngk>`_
+- `Naming convenction <https://www.digikey.com/en/maker/tutorials/2020/understanding-stm32-naming-conventions>`__ 
+- `Datasheet <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/datasheet/dm00037051.pdf&ved=2ahUKEwi5uNulx72IAxVR1TgGHfcYAmIQFnoECBQQAQ&usg=AOvVaw07P8BbeoTlMpZCNdsHv1OP>`__
+- `Reference mannual <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74>`__
+- `Documentation <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/en/microcontrollers-microprocessors/stm32f4-series/documentation.html&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBwQAQ&usg=AOvVaw318Y8lno9LsAwj77l78ngk>`__
 
 
 .. toctree::

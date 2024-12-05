@@ -22,6 +22,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Microsecond Tick" href="microsecond_tick.html" />
     <link rel="prev" title="PWM" href="pwm.html" /> 
 </head>
 
@@ -56,6 +57,8 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../timer.html">Timer</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pwm.html">PWM</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Encoder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microsecond_tick.html">Microsecond Tick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frequency_counter.html">Frequency counter</a></li>
 </ul>
 </li>
 </ul>
@@ -137,10 +140,10 @@
 <section id="cubemx-configuration">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">2. CubeMX Configuration</a><a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
 <ul>
-<li><p>Open CubeMX and <a class="reference external" href="../basic_setup/generate_basic_code.html">generate basic code</a> with:</p>
+<li><p>Open CubeMX and <a class="reference external" href="../basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">generate basic code</a> with:</p>
 <ul class="simple">
 <li><p>microcontroller: <code class="docutils literal notranslate"><span class="pre">stm32f407vgt6</span></code> or board: <code class="docutils literal notranslate"><span class="pre">STM32F407VG-DISC1</span></code></p></li>
-<li><p>project name: <code class="docutils literal notranslate"><span class="pre">encoder_test</span></code></p></li>
+<li><p>project name: <code class="docutils literal notranslate"><span class="pre">microsecond_tick</span></code></p></li>
 <li><p>Toolchain/IDE: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code></p></li>
 </ul>
 </li>
@@ -154,15 +157,16 @@
 </section>
 <section id="code-to-read-encoder-count">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">3. Code to Read Encoder Count</a><a class="headerlink" href="#code-to-read-encoder-count" title="Link to this heading"></a></h2>
-<ul>
+<ul class="simple">
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> and open <code class="docutils literal notranslate"><span class="pre">main.c</span></code>.</p></li>
-<li><p>Include <code class="docutils literal notranslate"><span class="pre">stdio.h</span></code> for printf to print received data.</p>
+<li><p>Include <code class="docutils literal notranslate"><span class="pre">stdio.h</span></code> for printf to print received data.</p></li>
+</ul>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN Includes */</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="cm">/* USER CODE END Includes */</span>
 </pre></div>
 </div>
-</li>
+<ul>
 <li><p>Overwrite definition of <code class="docutils literal notranslate"><span class="pre">_write</span></code> as:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 0 */</span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
@@ -205,9 +209,14 @@
 </section>
 <section id="observe-output">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">4. Observe Output</a><a class="headerlink" href="#observe-output" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeProgrammer</span></code> and see count on <code class="docutils literal notranslate"><span class="pre">SWV</span></code>. If you used USB, see on terminal or serial monitor.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p>Connect encoder A and B channels to <code class="docutils literal notranslate"><span class="pre">TIM1_CH1</span></code> pin and <code class="docutils literal notranslate"><span class="pre">TIM1_CH2</span></code> pin respectively.</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeProgrammer</span></code> and see count on <code class="docutils literal notranslate"><span class="pre">SWV</span></code> by rotating encoder. If you used USB, see on terminal or serial monitor.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>STM32F407VG-DISC1 TIM1 gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.</p>
+</div>
 <p><strong>Assignment</strong>: Calculate RPM.</p>
 </section>
 </section>
@@ -217,6 +226,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pwm.html" class="btn btn-neutral float-left" title="PWM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="microsecond_tick.html" class="btn btn-neutral float-right" title="Microsecond Tick" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
