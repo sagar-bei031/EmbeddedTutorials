@@ -12,7 +12,7 @@ PWM
 Pulse Width Modulation (PWM) is a technique used in embedded systems to generate analog-like signals using digital means. It works by varying the width of pulses (the "on" time) in a periodic waveform to encode information or control power delivered to a load.
 
 .. image:: images/PWM-and-Duty-Cycle.jpg
-   :width: 100%
+   :width: 300
    :align: center
    :alt: PWM-and-Duty-Cycle
 
