@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>C++ Setup in STM32 &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>USB &mdash; Embedded Tutorials 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -23,7 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Intermideiate Tutorial" href="../intermediate_tutorial.html" /> 
+    <link rel="next" title="USB CDC" href="usb/usb_cdc.html" />
+    <link rel="prev" title="GPIO External Interrupt" href="gpio/gpio_ext_interrupt.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,11 +49,21 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../intermediate_tutorial.html">Intermideiate Tutorial</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">C++ Setup in STM32</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic_setup.html">Basic Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">USB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="usb/usb_cdc.html">USB CDC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb/usb_printf.html">Printf over USB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb/usb_reset_issue.html">USB Reset Issue</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="swd.html">SWD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">Timer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../intermediate_tutorial.html">Intermideiate Tutorial</a></li>
 </ul>
 
         </div>
@@ -69,10 +80,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../intermediate_tutorial.html">Intermideiate Tutorial</a></li>
-      <li class="breadcrumb-item active">C++ Setup in STM32</li>
+          <li class="breadcrumb-item"><a href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
+      <li class="breadcrumb-item active">USB</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/intermediate_tutorial/cpp_setup_in_stm32.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/stm32_basics_tutorial/usb.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -80,15 +91,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="c-setup-in-stm32">
-<h1>C++ Setup in STM32<a class="headerlink" href="#c-setup-in-stm32" title="Link to this heading"></a></h1>
+  <section id="usb">
+<h1>USB<a class="headerlink" href="#usb" title="Link to this heading"></a></h1>
+<p>Many STM32 microcontrollers supports for USB Full Speed. The STM32F407VGT6 microcontroller used in this tutorial supports USB Full Speed. The USB Full Speed is 12Mbps and is used for communication between microcontroller and computer.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usb/usb_cdc.html">USB CDC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usb/usb_printf.html">Printf over USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usb/usb_reset_issue.html">USB Reset Issue</a></li>
+</ul>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../intermediate_tutorial.html" class="btn btn-neutral float-left" title="Intermideiate Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gpio/gpio_ext_interrupt.html" class="btn btn-neutral float-left" title="GPIO External Interrupt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usb/usb_cdc.html" class="btn btn-neutral float-right" title="USB CDC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

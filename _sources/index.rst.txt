@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 
-Embedded tutorials
+Embedded Tutorials
 ==================
 
 .. toctree::
@@ -14,7 +14,7 @@ Embedded tutorials
    :hidden:
 
    getting_started
-   stm32_basic_tutorial
+   stm32_basics_tutorial
    intermediate_tutorial
 
 

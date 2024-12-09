@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USB CDC &mdash; Embedded Tutorials 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=0234bcf3" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Printf over USB" href="usb_printf.html" />
+    <link rel="prev" title="USB" href="../usb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Embedded Tutorials
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../stm32_basics_tutorial.html">STM32 Basics Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../basic_setup.html">Basic Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gpio.html">GPIO</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../usb.html">USB</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">USB CDC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb_printf.html">Printf over USB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb_reset_issue.html">USB Reset Issue</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../swd.html">SWD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uart.html">UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timer.html">Timer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermideiate Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Embedded Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../usb.html">USB</a></li>
+      <li class="breadcrumb-item active">USB CDC</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/stm32_basics_tutorial/usb/usb_cdc.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usb-cdc">
+<h1>USB CDC<a class="headerlink" href="#usb-cdc" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">1. Introduction</a></p></li>
+<li><p><a class="reference internal" href="#cubemx-configuration" id="id2">2. CubeMX Configuration</a></p></li>
+<li><p><a class="reference internal" href="#code-to-transmit-data-using-usb-cdc" id="id3">3. Code to Transmit Data using USB CDC</a></p></li>
+<li><p><a class="reference internal" href="#hardware-setup-and-connection" id="id4">4. Hardware Setup and Connection</a></p></li>
+<li><p><a class="reference internal" href="#references" id="id5">References</a></p></li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>USB CDC (Communication Device Class) is a class of USB devices that are used to transmit data between a computer and a USB device. The USB CDC class is used to emulate a serial port over USB. This allows the USB device to be used as a virtual COM port. The USB CDC class is commonly used in microcontroller projects to provide a simple and easy way to communicate with a computer.</p>
+</section>
+<section id="cubemx-configuration">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">2. CubeMX Configuration</a><a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Open <cite>STM32CubeMX</cite>, create a new project and set up basic configuration. Follow the <a class="reference external" href="../basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">generate_basic_code</a> with:</p>
+<ul>
+<li><p>microcontroller: <code class="docutils literal notranslate"><span class="pre">stm32f407vgt6</span></code> or board: <code class="docutils literal notranslate"><span class="pre">STM32F407VG-DISC1</span></code></p></li>
+<li><p>project name: <code class="docutils literal notranslate"><span class="pre">usb_example</span></code></p></li>
+<li><p>Toolchain/IDE: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code></p></li>
+</ul>
+</li>
+<li><p>Move to STM32CubeMX <code class="docutils literal notranslate"><span class="pre">Pinout</span> <span class="pre">and</span> <span class="pre">Congiguration</span></code>. From <code class="docutils literal notranslate"><span class="pre">Categories</span></code>, select <code class="docutils literal notranslate"><span class="pre">Connectivity</span> <span class="pre">&gt;</span> <span class="pre">USB_OTG_FS</span></code>. Change <code class="docutils literal notranslate"><span class="pre">mode</span></code> to <code class="docutils literal notranslate"><span class="pre">Device_Only</span></code> mode.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/usb_otg_fs.webp"><img alt="usb_otg_fs" class="align-center" src="../../_images/usb_otg_fs.webp" style="width: 100%;" />
+</a>
+<ul class="simple">
+<li><p>From <code class="docutils literal notranslate"><span class="pre">Categories</span></code>, select <code class="docutils literal notranslate"><span class="pre">Middleware</span> <span class="pre">and</span> <span class="pre">Software</span> <span class="pre">Packs</span></code>. Find <code class="docutils literal notranslate"><span class="pre">USB_DEVICE</span></code>. Change <code class="docutils literal notranslate"><span class="pre">Class</span> <span class="pre">for</span> <span class="pre">FS</span> <span class="pre">IP</span></code> to <code class="docutils literal notranslate"><span class="pre">Communication</span> <span class="pre">Device</span> <span class="pre">Class</span> <span class="pre">(Virtual</span> <span class="pre">Port</span> <span class="pre">Com</span></code>.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/usb_device_mode.webp"><img alt="usb_device_mode" class="align-center" src="../../_images/usb_device_mode.webp" style="width: 600px;" />
+</a>
+<ul class="simple">
+<li><p>Generate code and open the project.</p></li>
+</ul>
+<p>USB Device Middleware is added to the project. The middleware provides the USB CDC class implementation, configured to use the USB OTG FS peripheral in device mode and to emulate a virtual COM port over USB.</p>
+</section>
+<section id="code-to-transmit-data-using-usb-cdc">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">3. Code to Transmit Data using USB CDC</a><a class="headerlink" href="#code-to-transmit-data-using-usb-cdc" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Open project folder and navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span> <span class="pre">&gt;</span> <span class="pre">main.c</span></code>.</p></li>
+<li><p>Add header <code class="docutils literal notranslate"><span class="pre">usb_cdc_if.h</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN INCLUDE */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usbd_cdc_if.h&quot;</span>
+<span class="cm">/* USER CODE END INCLUDE */</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add the following code to the <code class="docutils literal notranslate"><span class="pre">main</span></code> function to transmit “Hello World” over USB.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 2 */</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">msg</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="cm">/* USER CODE END 2 */</span>
+
+<span class="cm">/* Infinite loop */</span>
+<span class="cm">/* USER CODE BEGIN WHILE */</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
+<span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
+
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN 3 */</span>
+<span class="p">}</span>
+<span class="cm">/* USER CODE END 3 */</span>
+</pre></div>
+</div>
+</li>
+<li><p>Build and flash.</p></li>
+</ul>
+</section>
+<section id="hardware-setup-and-connection">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">4. Hardware Setup and Connection</a><a class="headerlink" href="#hardware-setup-and-connection" title="Link to this heading"></a></h2>
+<p>Connect your microcontroller to your PC using USB cable. For simplicity, open <code class="docutils literal notranslate"><span class="pre">Serial</span> <span class="pre">Monitor</span></code> in <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code>. You can see printing “Hello World” on the <code class="docutils literal notranslate"><span class="pre">Serial</span> <span class="pre">Monitor</span></code> continuosly.</p>
+<p>You can also use your <code class="docutils literal notranslate"><span class="pre">terminal</span></code> to see the message from the microcontroller.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This debian package <code class="docutils literal notranslate"><span class="pre">brltty</span></code> creates issue on finding USB port address, especially for <code class="docutils literal notranslate"><span class="pre">CPxxxx</span></code> USB driver. So, remove <code class="docutils literal notranslate"><span class="pre">brltty</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>brltty
+</pre></div>
+</div>
+</div>
+<p>Open <code class="docutils literal notranslate"><span class="pre">terminal</span></code>. Check the <code class="docutils literal notranslate"><span class="pre">USB</span> <span class="pre">Port</span></code> of the microcontroller. Type command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/dev/ttyACM0<span class="w"> </span><span class="c1"># hit tab after `ACM`.</span>
+</pre></div>
+</div>
+<p>STM32 microcontroller USB ports are commonly have port address <code class="docutils literal notranslate"><span class="pre">ACM0</span></code>, <code class="docutils literal notranslate"><span class="pre">ACM1</span></code>, <code class="docutils literal notranslate"><span class="pre">ACM2</span></code> rather <code class="docutils literal notranslate"><span class="pre">USB0</span></code>, <code class="docutils literal notranslate"><span class="pre">USB1</span></code>, <code class="docutils literal notranslate"><span class="pre">USB2</span></code>.</p>
+<p>Print <code class="docutils literal notranslate"><span class="pre">serial</span> <span class="pre">data</span></code> on <code class="docutils literal notranslate"><span class="pre">terminal</span></code>. For USB port <code class="docutils literal notranslate"><span class="pre">ACM0</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/dev/ttyACM0
+</pre></div>
+</div>
+<p>You can see “Hello World” printing continuosly on the <code class="docutils literal notranslate"><span class="pre">terminal</span></code>.</p>
+<p>Now you learn to send data over USB using <code class="docutils literal notranslate"><span class="pre">printf</span></code> in <a class="reference external" href="usb_printf.html" rel="noopener noreferrer" target="_blank">next</a> tutorial.</p>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">References</a><a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<p>References are from <code class="docutils literal notranslate"><span class="pre">STM32</span> <span class="pre">HAL</span> <span class="pre">Driver</span></code> documentation.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.CDC_Transmit_FS">
+<span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CDC_Transmit_FS</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">Buf</span></span>, <span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n"><span class="pre">Len</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.CDC_Transmit_FS" title="Link to this definition"></a><br /></dt>
+<dd><p>Transmits data over the USB IN endpoint via the CDC interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Buf</strong> – Buffer of data to be sent.</p></li>
+<li><p><strong>Len</strong> – Number of data bytes to be sent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">USBD_OK</span></code> if all operations succeed, otherwise <code class="docutils literal notranslate"><span class="pre">USBD_FAIL</span></code> or <code class="docutils literal notranslate"><span class="pre">USBD_BUSY</span></code>.</p>
+</dd>
+<dt class="field-odd">Note<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This function handles data transmission via the USB CDC interface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../usb.html" class="btn btn-neutral float-left" title="USB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usb_printf.html" class="btn btn-neutral float-right" title="Printf over USB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sagar Chaudhary.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
