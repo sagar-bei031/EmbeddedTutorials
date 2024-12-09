@@ -1,0 +1,6 @@
+/* Custom styles for Sphinx documentation */
+
+.padded-image {
+    display: block;
+    padding-bottom: 20px;
+}

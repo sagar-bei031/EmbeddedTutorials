@@ -117,13 +117,47 @@ The PWM frequency on an STM32 microcontroller can be calculated using the formul
 
    f_{\text{PWM}} = \frac{f_{\text{TIM}}}{\text{(ARR + 1) * (PSC + 1)}}
 
-where,
-   
-:math:`f_{\text{TIM}}`: Frequency of timer
+.. line-block::
 
-:math:`\text{ARR}`: Auto Reload Register Value
+   where,
+   :math:`f_{\text{TIM}}`: Frequency of timer
+   :math:`\text{ARR}`: Auto Reload Register Value
+   :math:`\text{PSC}`: Prescaler
 
-:math:`\text{PSC}`: Prescaler
+
+.. raw:: html
+
+   <div style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+       <label for="freqTIM1" style="font-weight: bold;">f<sub>TIM</sub> (Hz):</label>
+       <input type="number" id="freqTIM1" placeholder="Enter timer frequency (Hz)" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+       <label for="psc1" style="font-weight: bold;">PSC:</label>
+       <input type="number" id="psc1" placeholder="Enter PSC value" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+       
+       <label for="arr1" style="font-weight: bold;">ARR:</label>
+       <input type="number" id="arr1" placeholder="Enter ARR value" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+       
+       <button onclick="calculatePWM()" style="background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer; width: 100%;">Calculate PWM Frequency</button>
+       
+       <p id="result1" style="font-weight: bold; margin-top: 10px;"></p>
+   </div>
+
+   <script>
+       function calculatePWM() {
+           const freqTIM = parseFloat(document.getElementById('freqTIM1').value);
+           const arr = parseFloat(document.getElementById('arr1').value);
+           const psc = parseFloat(document.getElementById('psc1').value);
+           
+           if (isNaN(freqTIM) || isNaN(arr) || isNaN(psc) || freqTIM <= 0 || arr < 0 || psc < 0) {
+               document.getElementById('result1').textContent = "Please enter valid positive numbers.";
+               return;
+           }
+           
+           const freqPWM = freqTIM / ((arr + 1) * (psc + 1));
+           document.getElementById('result1').textContent = `Calculated PWM Frequency: ${freqPWM.toFixed(2)} Hz`;
+       }
+   </script>
+
 
 To determine the **frequency of timer**, first you need to find out the **APB timer clock** in the **reference mannual** of the microcontroller. 
 
@@ -159,9 +193,53 @@ If :math:`f_{\text{TIM}}` is ``168MHz``, :math:`\text{PSC}` is ``167`` and :math
 
    = 19999
 
+
+.. raw:: html
+
+   <div style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+       <label for="freqPWM2" style="font-weight: bold;">f<sub>PWM</sub> (Hz):</label>
+       <input type="number" id="freqPWM2" placeholder="Enter PWM frequency (Hz)" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+       <label for="freqTIM2" style="font-weight: bold;">f<sub>TIM</sub> (Hz):</label>
+       <input type="number" id="freqTIM2" placeholder="Enter timer frequency (Hz)" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+       <label for="psc2" style="font-weight: bold;">PSC:</label>
+       <input type="number" id="psc2" placeholder="Enter PSC value" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+       <button onclick="calculateARR()" style="background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer; width: 100%;">Calculate ARR</button>
+       
+       <p id="result2" style="font-weight: bold; margin-top: 10px;"></p>
+   </div>
+
+   <script>
+       function calculateARR() {
+           const freqPWM = parseFloat(document.getElementById('freqPWM2').value);
+           const freqTIM = parseFloat(document.getElementById('freqTIM2').value);
+           const psc = parseFloat(document.getElementById('psc2').value);
+
+           if (isNaN(freqPWM) || isNaN(freqTIM) || isNaN(psc) || freqPWM <= 0 || freqTIM <= 0 || psc < 0) {
+               document.getElementById('result2').textContent = "Please enter valid positive numbers.";
+               return;
+           }
+
+           const ARR = (freqTIM / (freqPWM * (psc + 1))) - 1;
+
+           if (ARR < 0) {
+               document.getElementById('result2').textContent = "Calculated ARR is negative. Please check your inputs.";
+           } else {
+               document.getElementById('result2').textContent = `Calculated ARR: ${ARR.toFixed(2)}`;
+           }
+       }
+   </script>
+
+
 .. note::
 
    We chose :math:`\text{PSC}` as `167` because the :math:`f_{\text{TIM}}` is `168MHz`. So :math:`\frac{f_{\text{TIM}}}{\text{PSC} + 1}` will be `1MHz` for easy calculation.
+
+.. note::
+
+   To get good response from DC motors, higher PWM frequency is better but motordriver should be capable to handle that frequency. Lower frequency can make **tunning sound** from DC motors. I used ``8KHz`` pwm frequency for **planetary gear motors**. 
 
 Go to ``Pinout & Configuration > Timers > TIM1 > Parameter Settings`` and set the **ARR** value to ``19999`` and **PSC** value to ``167``.
 

@@ -43,6 +43,10 @@ html_context = {
     "conf_py_path": "/source/",
 }
 
+html_css_files = [
+    'custom.css',
+]
+
 source_suffix = {
     '.rst': 'restructuredtext',
     '.txt': 'markdown',
