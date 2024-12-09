@@ -54,7 +54,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intermediate_tutorial.html">Intermideiate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a></li>
 </ul>
 
         </div>
@@ -87,133 +87,228 @@
 <nav class="contents local" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#os" id="id1">OS</a></p></li>
-<li><p><a class="reference internal" href="#fundamental-tools-and-software" id="id2">Fundamental Tools and Software</a></p></li>
-<li><p><a class="reference internal" href="#other-optional" id="id3">Other (Optional)</a></p></li>
+<li><p><a class="reference internal" href="#os" id="id1">OS</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ubuntu" id="id2">1. Ubuntu</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id3">2. Windows</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fundamental-tools-and-software" id="id4">Fundamental Tools and Software</a></p></li>
+<li><p><a class="reference internal" href="#other-optional" id="id5">Other (Optional)</a></p></li>
 </ul>
 </nav>
 <section id="os">
 <h2><a class="toc-backref" href="#id1" role="doc-backlink">OS</a><a class="headerlink" href="#os" title="Link to this heading"></a></h2>
-<p>We are using Ubuntu and Windows. Mostly, we will be using Ubuntu for development. But some software is only available for Windows. So, we will be using Windows for those.</p>
-<ol class="arabic simple">
-<li><p>Ubuntu
-Download Ubuntu ISO from <a class="reference external" href="https://ubuntu.com/download/desktop" rel="noopener noreferrer" target="_blank">here</a>.</p></li>
-<li><p>Windows
-Download Windows 10/11 ISO from <a class="reference external" href="https://www.microsoft.com/en-us/software-download" rel="noopener noreferrer" target="_blank">here</a>.</p></li>
-</ol>
+<p>We are using <strong>Ubuntu</strong> and <strong>Windows</strong>. Mostly, we will be using <strong>Ubuntu</strong> for development. But some software is only available for <strong>Windows</strong>. So, we will be using <strong>Windows</strong> for those.</p>
+<section id="ubuntu">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink">1. Ubuntu</a><a class="headerlink" href="#ubuntu" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Download Ubuntu ISO from <a class="reference external" href="https://ubuntu.com/download/desktop" rel="noopener noreferrer" target="_blank">here</a>.</p>
+</div></blockquote>
+</section>
+<section id="windows">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">2. Windows</a><a class="headerlink" href="#windows" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Download Windows 10/11 ISO from <a class="reference external" href="https://www.microsoft.com/en-us/software-download" rel="noopener noreferrer" target="_blank">here</a>.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="fundamental-tools-and-software">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">Fundamental Tools and Software</a><a class="headerlink" href="#fundamental-tools-and-software" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Fundamental Tools and Software</a><a class="headerlink" href="#fundamental-tools-and-software" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20.0%" />
+<col style="width: 5.0%" />
+<col style="width: 15.0%" />
 <col style="width: 40.0%" />
 <col style="width: 40.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Software</p></th>
+<tr class="row-odd"><th class="head"><p>SN</p></th>
+<th class="head"><p>Software</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Install Guide</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>build-essential</p></td>
+<tr class="row-even"><td><ol class="arabic simple">
+<li></li>
+</ol>
+</td>
+<td><p>build-essential</p></td>
 <td><p>Essential build tools like gcc, make, cmake, etc.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">build-essential</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>vscode</p></td>
-<td><p>Visual Studio Code</p></td>
-<td><p>Install <a class="reference external" href="https://code.visualstudio.com/" rel="noopener noreferrer" target="_blank">Visual Studio Code</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p>arm-none-eabi-gcc</p></td>
+<tr class="row-odd"><td><ol class="arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td><p>arm-none-eabi-gcc</p></td>
 <td><p>GCC compiler for ARM-based microcontrollers</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">gcc-arm-none-eabi</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>GDB</p></td>
+<tr class="row-even"><td><ol class="arabic simple" start="3">
+<li></li>
+</ol>
+</td>
+<td><p>GDB</p></td>
 <td><p>GNU Debugger</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">gdb-multiarch</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>stlink-tools</p></td>
+<tr class="row-odd"><td><ol class="arabic simple" start="4">
+<li></li>
+</ol>
+</td>
+<td><p>stlink-tools</p></td>
 <td><p>Command line tools for STM32 flash</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">stlink-tools</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Arduino IDE</p></td>
-<td><p>Arduino IDE</p></td>
-<td><p>Install <a class="reference external" href="https://www.arduino.cc/en/software" rel="noopener noreferrer" target="_blank">Arduino IDE</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p>STM32CubeMx</p></td>
+<tr class="row-even"><td><ol class="arabic simple" start="5">
+<li></li>
+</ol>
+</td>
+<td><p>STM32CubeMx</p></td>
 <td><p>STM32 configuration tool</p></td>
 <td><p>Install from <a class="reference external" href="https://www.st.com/en/development-tools/stm32cubemx.html" rel="noopener noreferrer" target="_blank">STM32CubeMx</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>STM32CubeProgrammer</p></td>
+<tr class="row-odd"><td><ol class="arabic simple" start="6">
+<li></li>
+</ol>
+</td>
+<td><p>STM32CubeProgrammer</p></td>
 <td><p>Program and debug STM32 devices</p></td>
 <td><p>Install <a class="reference external" href="https://www.st.com/en/development-tools/stm32cubeprog.html" rel="noopener noreferrer" target="_blank">STM32CubeProgrammer</a>.</p></td>
 </tr>
-<tr class="row-even"><td><p>Pico SDK</p></td>
-<td><p>Raspberry Pi Pico SDK</p></td>
-<td><p>Install from <a class="reference external" href="https://datasheets.raspberrypi.org/pico/getting-started-with-pico.pdf" rel="noopener noreferrer" target="_blank">Pico SDK Guide</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>JLink</p></td>
-<td><p>JLink debugger</p></td>
-<td><p>Install <a class="reference external" href="https://www.segger.com/downloads/jlink/" rel="noopener noreferrer" target="_blank">JLink Debugger</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p>STM32CubeMonitor</p></td>
+<tr class="row-even"><td><ol class="arabic simple" start="7">
+<li></li>
+</ol>
+</td>
+<td><p>STM32CubeMonitor</p></td>
 <td><p>Plot graphs for monitoring</p></td>
 <td><p>Install <a class="reference external" href="https://www.st.com/en/development-tools/stm32cubemonitor.html" rel="noopener noreferrer" target="_blank">STM32CubeMonitor</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>Cortex Debug</p></td>
+<tr class="row-odd"><td><ol class="arabic simple" start="8">
+<li></li>
+</ol>
+</td>
+<td><p>Arduino IDE</p></td>
+<td><p>Arduino IDE</p></td>
+<td><p>Install <a class="reference external" href="https://www.arduino.cc/en/software" rel="noopener noreferrer" target="_blank">Arduino IDE</a>.</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="9">
+<li></li>
+</ol>
+</td>
+<td><p>Pico SDK</p></td>
+<td><p>Raspberry Pi Pico SDK</p></td>
+<td><p>Install from <a class="reference external" href="https://datasheets.raspberrypi.org/pico/getting-started-with-pico.pdf" rel="noopener noreferrer" target="_blank">Pico SDK Guide</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="10">
+<li></li>
+</ol>
+</td>
+<td><p>JLink</p></td>
+<td><p>JLink debugger</p></td>
+<td><p>Install <a class="reference external" href="https://www.segger.com/downloads/jlink/" rel="noopener noreferrer" target="_blank">JLink Debugger</a>.</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="11">
+<li></li>
+</ol>
+</td>
+<td><p>VSCode</p></td>
+<td><p>Visual Studio Code</p></td>
+<td><p>Install <a class="reference external" href="https://code.visualstudio.com/" rel="noopener noreferrer" target="_blank">Visual Studio Code</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="12">
+<li></li>
+</ol>
+</td>
+<td><p>Cortex Debug</p></td>
 <td><p>VSCode extension for debugging</p></td>
 <td><p>Install <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug" rel="noopener noreferrer" target="_blank">Cortex Debug Extension</a>.</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="13">
+<li></li>
+</ol>
+</td>
+<td><p>OpenOCD</p></td>
+<td><p>Open On-Chip Debugger</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">openocd</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="14">
+<li></li>
+</ol>
+</td>
+<td><p>Git</p></td>
+<td><p>Version control system</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="other-optional">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">Other (Optional)</a><a class="headerlink" href="#other-optional" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Other (Optional)</a><a class="headerlink" href="#other-optional" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20.0%" />
+<col style="width: 5.0%" />
+<col style="width: 15.0%" />
 <col style="width: 40.0%" />
 <col style="width: 40.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Software</p></th>
+<tr class="row-odd"><th class="head"><p>SN</p></th>
+<th class="head"><p>Software</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Install Guide</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>OpenOCD</p></td>
-<td><p>Open On-Chip Debugger</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">openocd</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>git</p></td>
-<td><p>Version control system</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>SixaxisPairTool (Windows)</p></td>
+<tr class="row-even"><td><ol class="arabic simple">
+<li></li>
+</ol>
+</td>
+<td><p>SixaxisPairTool (Windows)</p></td>
 <td><p>Pair PS4 controller with devices (ESP32).</p></td>
 <td><p>Install <a class="reference external" href="https://sixaxispairtool.en.lo4d.com/windows" rel="noopener noreferrer" target="_blank">SixaxisPairTool</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>PlatformIO</p></td>
+<tr class="row-odd"><td><ol class="arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td><p>DFU Util</p></td>
+<td><p>Device Firmware Upgrade utility</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">dfu-util</span></code></p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="3">
+<li></li>
+</ol>
+</td>
+<td><p>PlatformIO</p></td>
 <td><p>PlatformIO IDE</p></td>
 <td><p>Install <a class="reference external" href="https://platformio.org/install/ide?install=vscode" rel="noopener noreferrer" target="_blank">PlatformIO</a>.</p></td>
 </tr>
-<tr class="row-even"><td><p>Arduino CLI</p></td>
+<tr class="row-odd"><td><ol class="arabic simple" start="4">
+<li></li>
+</ol>
+</td>
+<td><p>Arduino CLI</p></td>
 <td><p>Command line interface for Arduino</p></td>
 <td><p>Install <a class="reference external" href="https://arduino.github.io/arduino-cli/installation/" rel="noopener noreferrer" target="_blank">Arduino CLI</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>STM32CubeIDE</p></td>
+<tr class="row-even"><td><ol class="arabic simple" start="5">
+<li></li>
+</ol>
+</td>
+<td><p>STM32CubeIDE</p></td>
 <td><p>STM32CubeIDE</p></td>
 <td><p>Install <a class="reference external" href="https://www.st.com/en/development-tools/stm32cubeide.html" rel="noopener noreferrer" target="_blank">STM32CubeIDE</a>.</p></td>
 </tr>
-<tr class="row-even"><td><p>ESP-IDF</p></td>
+<tr class="row-odd"><td><ol class="arabic simple" start="6">
+<li></li>
+</ol>
+</td>
+<td><p>ESP-IDF</p></td>
 <td><p>ESP32 SDK</p></td>
 <td><p>Install from <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/" rel="noopener noreferrer" target="_blank">ESP-IDF Guide</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>DFU Util</p></td>
-<td><p>Device Firmware Upgrade utility</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">dfu-util</span></code></p></td>
 </tr>
 </tbody>
 </table>
