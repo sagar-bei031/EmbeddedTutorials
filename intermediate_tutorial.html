@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Embedded tutorials &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>Intermideiate Tutorial &mdash; Embedded Tutorials 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -20,11 +20,11 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting Started" href="getting_started.html" /> 
+    <link rel="next" title="C++ Setup in STM32" href="intermediate_tutorial/cpp_setup_in_stm32.html" />
+    <link rel="prev" title="Frequency counter" href="stm32_basic_tutorial/timer/frequency_counter.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,7 +35,7 @@
 
           
           
-          <a href="#" class="icon icon-home">
+          <a href="index.html" class="icon icon-home">
             Embedded Tutorials
           </a>
 <div role="search">
@@ -47,10 +47,13 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stm32_basic_tutorial.html">STM32 Basic Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial.html">Intermideiate Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intermideiate Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -59,17 +62,17 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Embedded Tutorials</a>
+          <a href="index.html">Embedded Tutorials</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Embedded tutorials</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Intermideiate Tutorial</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/index.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/intermediate_tutorial.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -77,53 +80,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="embedded-tutorials">
-<h1>Embedded tutorials<a class="headerlink" href="#embedded-tutorials" title="Link to this heading"></a></h1>
+  <section id="intermideiate-tutorial">
+<h1>Intermideiate Tutorial<a class="headerlink" href="#intermideiate-tutorial" title="Link to this heading"></a></h1>
+<p>In this <strong>STM32 Intermediate Tutorial</strong>, we will learn about the following topics:</p>
+<p>[TODO]</p>
 <div class="toctree-wrapper compound">
 </div>
-<p>Before starting with the tutorials, let’s understand the basics of embedded systems.</p>
-<section id="embedded-systems">
-<h2>Embedded Systems<a class="headerlink" href="#embedded-systems" title="Link to this heading"></a></h2>
-<a class="padded-image reference internal image-reference" href="_images/embedded_system_intro.webp"><img alt="embedded_system" class="padded-image align-center" src="_images/embedded_system_intro.webp" style="width: 100%;" />
-</a>
-<p><strong>Embedded Systems</strong> play a crucial role in electronic devices, control systems, and <strong>robotics</strong>. They are composed of two primary components: <strong>hardware and software</strong>. The hardware forms the physical foundation of the system, while the software consists of the programs that operate on it. Common programming languages for embedded systems include <strong>Embedded C, C++, and Python</strong>. The performance, efficiency, and durability of an embedded system are heavily influenced by its design and implementation.</p>
-<section id="characteristics">
-<h3>Characteristics<a class="headerlink" href="#characteristics" title="Link to this heading"></a></h3>
-<a class="padded-image reference internal image-reference" href="_images/embedded_system_characteristics.webp"><img alt="embedded_system_characteristics" class="padded-image align-center" src="_images/embedded_system_characteristics.webp" style="width: 400px;" />
-</a>
-</section>
-<section id="applications">
-<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading"></a></h3>
-<a class="padded-image reference internal image-reference" href="_images/embedded_system_applications.webp"><img alt="embedded_system_applications" class="padded-image align-center" src="_images/embedded_system_applications.webp" style="width: 400px;" />
-</a>
-<a href="getting_started.html">
-   <h2 style="
-    text-align: center;
-    color: #FFFFFF;
-    font-family: 'Cursive', 'Comic Sans MS', sans-serif;
-    font-weight: bold;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: teal;
-    border-radius: 10px;
-    line-height: 1.5;">
-    Let's Get Started with <br>
-      <span style="
-        color: #FFEB3B;
-        text-decoration: none;
-        font-size: 1.2em;">
-         Embedded Tutorials
-      </span>
-   </h2>
-</a></section>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="stm32_basic_tutorial/timer/frequency_counter.html" class="btn btn-neutral float-left" title="Frequency counter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="intermediate_tutorial/cpp_setup_in_stm32.html" class="btn btn-neutral float-right" title="C++ Setup in STM32" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

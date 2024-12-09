@@ -11,9 +11,19 @@ Getting Started
 .. contents:: Contents
    :depth: 2
    :local:
-   
 
-At the starting, it is better to know about some devices, softwares, and programming languages going to be used.
+
+Introduction
+------------
+
+In this **Embedded Tutorials** section, I will guide you through programming **STM32 controllers**, **ESP32** and **Rashberry PI Pico**, sharing the techniques and approaches I commonly use." I will guide more on **STM32 controllers** from basic but not for others. I generally use **Arduino IDE** for programming **ESP32** and **Rashberry PI Pico**. I am not going to guide the basics of **Arduino programming**.
+
+For **Arduino programming**, see `arduino documentation <https://docs.arduino.cc/>`__. I recommend to watch `New Arduino Tutorials by Paul McWhorter <https://youtube.com/playlist?list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP&si=MG7z_3GhUvpTm6F_>`_ on ``YouTube``. Even you do not need hardware for learning **Arduino programming**. You can use `Tinkercad <https://www.tinkercad.com/>`__ for simulation.
+
+For **extra tutorial**, I recommend `CONTROLLERSTECH <https://controllerstech.com/>`__ and `DeepBlueMbedded <https://deepbluembedded.com>`__.
+   
+Some devices, softwares, and programming languages going to be used:
+
 
 Controllers
 -----------
@@ -26,13 +36,13 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/STM32F407G-DISC1_Blue.jpg
+   * - .. figure:: images/controllers/STM32F407G-DISC1_Blue.jpg
           :height: 300
           :alt: STM32F407VG-DISC1
 
           **STM32F407VG-DISC1**: STM32F407VGT6
 
-     - .. figure:: images/bluepill.jpg
+     - .. figure:: images/controllers/bluepill.jpg
           :height: 300
           :alt: Blue Pill
 
@@ -50,13 +60,13 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/esp32_wroom.jpg
+   * - .. figure:: images/controllers/esp32_wroom.jpg
           :height: 300
           :alt: ESP32 WROOM32
 
           **ESP32 WROOM32**
 
-     - .. figure:: images/nodemcu.jpg
+     - .. figure:: images/controllers/nodemcu.jpg
           :height: 300
           :alt: NodeMCU
 
@@ -64,19 +74,20 @@ Controllers
 
 
 3. Raspberry Pi Controllers
+---------------------------
 
 .. list-table::
    :widths: 50 50
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/pi_pico.jpg
+   * - .. figure:: images/controllers/pi_pico.jpg
           :height: 300
           :alt: PI PICO
 
           **Raspberry PI PICO**: RP2040
 
-     - .. figure:: images/pi_pico_w.png
+     - .. figure:: images/controllers/pi_pico_w.png
           :height: 300
           :alt: PI PICO W
 
@@ -84,25 +95,26 @@ Controllers
 
 
 4. Arduino Controllers
+----------------------
 
 .. list-table::
    :widths: 33 33 33
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/arduino_uno.jpg
+   * - .. figure:: images/controllers/arduino_uno.jpg
           :height: 300
           :alt: Arduino UNO
 
           **Arduino UNO**
 
-     - .. figure:: images/arduino_nano.jpg
+     - .. figure:: images/controllers/arduino_nano.jpg
           :height: 300
           :alt: Arduino NANO
 
           **Arduino NANO**
 
-     - .. figure:: images/arduino_mega.jpg
+     - .. figure:: images/controllers/arduino_mega.jpg
          :height: 300
          :alt: Arduino MEGA
 
@@ -120,13 +132,13 @@ Debuggers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/stlink.jpeg
+   * - .. figure:: images/debuggers/stlink.jpeg
           :height: 300
           :alt: ST-Link V2 Duplicate
 
           **ST-Link V2**
 
-     - .. figure:: images/jlink-edu.jpeg
+     - .. figure:: images/debuggers/jlink-edu.jpeg
           :height: 300
           :alt: JLink Edu Mini
 
@@ -135,7 +147,7 @@ Debuggers
 .. note::
     The **ST-Link V2**, we use, is duplicate. The original is:
 
-    .. image:: images/stlink-original.jpeg
+    .. image:: images/debuggers/stlink-original.jpeg
        :width: 300
        :align: center
        :alt: ST-Link V2 Original
@@ -143,12 +155,47 @@ Debuggers
 
 Programming and Scripting Laguages
 ----------------------------------
-- C
-- C++
-- Python
-- Make
-- CMake
-- Bash
 
+.. list-table::
+   :widths: 33 33 33
+   :align: center
+   :class: image-grid
 
-**Softwares and SDKs** are on next installation guide.
+   * - .. figure:: images/program_logos/c_logo.png
+          :height: 150
+          :alt: C
+
+          **C**
+
+     - .. figure:: images/program_logos/cpp_logo.png
+          :height: 150
+          :alt: C++
+
+          **C++**
+
+     - .. figure:: images/program_logos/python_logo.png
+          :height: 150
+          :alt: Python
+
+          **Python**
+
+   * - .. figure:: images/program_logos/makefile_logo.png
+          :height: 100
+          :alt: Make
+
+          **Make**
+
+     - .. figure:: images/program_logos/cmake_logo.png
+          :height: 100
+          :alt: CMake
+   
+          **CMake**
+
+     - .. figure:: images/program_logos/bash_logo.png
+          :height: 100
+          :alt: Bash
+ 
+          **Bash**
+          
+
+**Softwares and SDKs** are on `next <getting_started/installation.html>`_ installation guide.

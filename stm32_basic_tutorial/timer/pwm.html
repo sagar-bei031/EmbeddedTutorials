@@ -10,6 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=0234bcf3" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -64,6 +65,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermideiate Tutorial</a></li>
 </ul>
 
         </div>
@@ -199,11 +201,42 @@
 <p>The PWM frequency on an STM32 microcontroller can be calculated using the formula:</p>
 <div class="math notranslate nohighlight">
 \[f_{\text{PWM}} = \frac{f_{\text{TIM}}}{\text{(ARR + 1) * (PSC + 1)}}\]</div>
-<p>where,</p>
-<p><span class="math notranslate nohighlight">\(f_{\text{TIM}}\)</span>: Frequency of timer</p>
-<p><span class="math notranslate nohighlight">\(\text{ARR}\)</span>: Auto Reload Register Value</p>
-<p><span class="math notranslate nohighlight">\(\text{PSC}\)</span>: Prescaler</p>
-<p>To determine the <strong>frequency of timer</strong>, first you need to find out the <strong>APB timer clock</strong> in the <strong>reference mannual</strong> of the microcontroller.</p>
+<div class="line-block">
+<div class="line">where,</div>
+<div class="line"><span class="math notranslate nohighlight">\(f_{\text{TIM}}\)</span>: Frequency of timer</div>
+<div class="line"><span class="math notranslate nohighlight">\(\text{ARR}\)</span>: Auto Reload Register Value</div>
+<div class="line"><span class="math notranslate nohighlight">\(\text{PSC}\)</span>: Prescaler</div>
+</div>
+<div style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+    <label for="freqTIM1" style="font-weight: bold;">f<sub>TIM</sub> (Hz):</label>
+    <input type="number" id="freqTIM1" placeholder="Enter timer frequency (Hz)" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+    <label for="psc1" style="font-weight: bold;">PSC:</label>
+    <input type="number" id="psc1" placeholder="Enter PSC value" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+    <label for="arr1" style="font-weight: bold;">ARR:</label>
+    <input type="number" id="arr1" placeholder="Enter ARR value" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+    <button onclick="calculatePWM()" style="background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer; width: 100%;">Calculate PWM Frequency</button>
+
+    <p id="result1" style="font-weight: bold; margin-top: 10px;"></p>
+</div>
+
+<script>
+    function calculatePWM() {
+        const freqTIM = parseFloat(document.getElementById('freqTIM1').value);
+        const arr = parseFloat(document.getElementById('arr1').value);
+        const psc = parseFloat(document.getElementById('psc1').value);
+
+        if (isNaN(freqTIM) || isNaN(arr) || isNaN(psc) || freqTIM <= 0 || arr < 0 || psc < 0) {
+            document.getElementById('result1').textContent = "Please enter valid positive numbers.";
+            return;
+        }
+
+        const freqPWM = freqTIM / ((arr + 1) * (psc + 1));
+        document.getElementById('result1').textContent = `Calculated PWM Frequency: ${freqPWM.toFixed(2)} Hz`;
+    }
+</script><p>To determine the <strong>frequency of timer</strong>, first you need to find out the <strong>APB timer clock</strong> in the <strong>reference mannual</strong> of the microcontroller.</p>
 <ul>
 <li><p>On <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code>, hover the cursor on <code class="docutils literal notranslate"><span class="pre">Timers</span></code>.</p></li>
 <li><p>Click the <code class="docutils literal notranslate"><span class="pre">details</span> <span class="pre">and</span> <span class="pre">documentation</span></code> and then <code class="docutils literal notranslate"><span class="pre">Reference</span> <span class="pre">mannual</span></code>. Or click <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&amp;ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&amp;usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74" rel="noopener noreferrer" target="_blank">reference mannual link</a>.</p></li>
@@ -222,9 +255,47 @@
 <p>If <span class="math notranslate nohighlight">\(f_{\text{TIM}}\)</span> is <code class="docutils literal notranslate"><span class="pre">168MHz</span></code>, <span class="math notranslate nohighlight">\(\text{PSC}\)</span> is <code class="docutils literal notranslate"><span class="pre">167</span></code> and <span class="math notranslate nohighlight">\(f_{\text{PWM}}\)</span> is <code class="docutils literal notranslate"><span class="pre">50Hz</span></code>, then <span class="math notranslate nohighlight">\(\text{ARR}\)</span> will be:</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\text{ARR} = \frac{f_{\text{TIM}}}{f_{\text{PWM}} \times (\text{PSC} + 1)} - 1\\= \frac{168 \times 10^6}{50 \times (167 + 1)} - 1\\= 19999\end{aligned}\end{align} \]</div>
-<div class="admonition note">
+<div style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+    <label for="freqPWM2" style="font-weight: bold;">f<sub>PWM</sub> (Hz):</label>
+    <input type="number" id="freqPWM2" placeholder="Enter PWM frequency (Hz)" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+    <label for="freqTIM2" style="font-weight: bold;">f<sub>TIM</sub> (Hz):</label>
+    <input type="number" id="freqTIM2" placeholder="Enter timer frequency (Hz)" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+    <label for="psc2" style="font-weight: bold;">PSC:</label>
+    <input type="number" id="psc2" placeholder="Enter PSC value" style="margin-bottom: 10px; width: 100%; padding: 5px;">
+
+    <button onclick="calculateARR()" style="background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer; width: 100%;">Calculate ARR</button>
+
+    <p id="result2" style="font-weight: bold; margin-top: 10px;"></p>
+</div>
+
+<script>
+    function calculateARR() {
+        const freqPWM = parseFloat(document.getElementById('freqPWM2').value);
+        const freqTIM = parseFloat(document.getElementById('freqTIM2').value);
+        const psc = parseFloat(document.getElementById('psc2').value);
+
+        if (isNaN(freqPWM) || isNaN(freqTIM) || isNaN(psc) || freqPWM <= 0 || freqTIM <= 0 || psc < 0) {
+            document.getElementById('result2').textContent = "Please enter valid positive numbers.";
+            return;
+        }
+
+        const ARR = (freqTIM / (freqPWM * (psc + 1))) - 1;
+
+        if (ARR < 0) {
+            document.getElementById('result2').textContent = "Calculated ARR is negative. Please check your inputs.";
+        } else {
+            document.getElementById('result2').textContent = `Calculated ARR: ${ARR.toFixed(2)}`;
+        }
+    }
+</script><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We chose <span class="math notranslate nohighlight">\(\text{PSC}\)</span> as <cite>167</cite> because the <span class="math notranslate nohighlight">\(f_{\text{TIM}}\)</span> is <cite>168MHz</cite>. So <span class="math notranslate nohighlight">\(\frac{f_{\text{TIM}}}{\text{PSC} + 1}\)</span> will be <cite>1MHz</cite> for easy calculation.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To get good response from DC motors, higher PWM frequency is better but motordriver should be capable to handle that frequency. Lower frequency can make <strong>tunning sound</strong> from DC motors. I used <code class="docutils literal notranslate"><span class="pre">8KHz</span></code> pwm frequency for <strong>planetary gear motors</strong>.</p>
 </div>
 <p>Go to <code class="docutils literal notranslate"><span class="pre">Pinout</span> <span class="pre">&amp;</span> <span class="pre">Configuration</span> <span class="pre">&gt;</span> <span class="pre">Timers</span> <span class="pre">&gt;</span> <span class="pre">TIM1</span> <span class="pre">&gt;</span> <span class="pre">Parameter</span> <span class="pre">Settings</span></code> and set the <strong>ARR</strong> value to <code class="docutils literal notranslate"><span class="pre">19999</span></code> and <strong>PSC</strong> value to <code class="docutils literal notranslate"><span class="pre">167</span></code>.</p>
 <a class="reference internal image-reference" href="../../_images/freq_change.webp"><img alt="PWM Frequency Configuration" class="align-center" src="../../_images/freq_change.webp" style="width: 100%;" />
