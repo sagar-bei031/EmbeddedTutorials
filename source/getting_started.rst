@@ -20,7 +20,7 @@ In this **Embedded Tutorials** section, I will guide you through programming **S
 
 For **Arduino programming**, see `arduino documentation <https://docs.arduino.cc/>`__. I recommend to watch `New Arduino Tutorials by Paul McWhorter <https://youtube.com/playlist?list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP&si=MG7z_3GhUvpTm6F_>`_ on ``YouTube``. Even you do not need hardware for learning **Arduino programming**. You can use `Tinkercad <https://www.tinkercad.com/>`__ for simulation.
 
-For **extra tutorial**, I recommend `CONTROLLERSTECH <https://controllerstech.com/>`__ and `DeepBlueMbedded <https://deepbluembedded.com>`__.
+For **extra tutorials**, I recommend `CONTROLLERSTECH <https://controllerstech.com/>`__ and `DeepBlueMbedded <https://deepbluembedded.com>`__.
    
 Some devices, softwares, and programming languages going to be used:
 

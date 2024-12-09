@@ -1,7 +1,7 @@
-STM32 Basic Tutorial
-====================
+STM32 Basics Tutorial
+=====================
 
-In this **STM32 Basic Tutorial**, you will learn to use **GPIO**, **USB**, **SWD**, **UART**, **Timer** and other peripherals of STM32 microcontroller. This tutorial is for beginners who are new to STM32 microcontroller. We will use **STM32CubeMX** to generate the code and **arm-none-eabi-gcc** to compile and **stlink-tools** or **STM32CubeProgrammer** to flash the code. See the `installation <getting_started/installation.html>`__.
+In this **STM32 Basics Tutorial**, you will learn to use **GPIO**, **USB**, **SWD**, **UART**, **Timer** and other peripherals of STM32 microcontroller. This tutorial is for beginners who are new to STM32 microcontroller. We will use **STM32CubeMX** to generate the code and **arm-none-eabi-gcc** to compile and **stlink-tools** or **STM32CubeProgrammer** to flash the code. See the `installation <getting_started/installation.html>`__.
 
 For this tutorial, we are using **STM32F407VGT6** microcontroller used in ``STM32F407VG-DISC1`` board. You can use any other microcontroller as well. The basic concepts are same for all microcontrollers. Before we works on the microcontroller, we need to know about it.
 
@@ -76,9 +76,9 @@ See More
    :caption: Contents:
    :hidden:
 
-   stm32_basic_tutorial/basic_setup
-   stm32_basic_tutorial/gpio
-   stm32_basic_tutorial/usb
-   stm32_basic_tutorial/swd
-   stm32_basic_tutorial/uart
-   stm32_basic_tutorial/timer
+   stm32_basics_tutorial/basic_setup
+   stm32_basics_tutorial/gpio
+   stm32_basics_tutorial/usb
+   stm32_basics_tutorial/swd
+   stm32_basics_tutorial/uart
+   stm32_basics_tutorial/timer
