@@ -1,4 +1,4 @@
-Intermideiate Tutorial
+Intermediate Tutorial
 ======================
 
 In this **STM32 Intermediate Tutorial**, we will learn about the following topics:
