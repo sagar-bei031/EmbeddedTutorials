@@ -48,8 +48,8 @@ Controllers
 
           **Blue Pill**: STM32F103C8, STM32F103C6
 
-.. note::
-   Original Blue Pill has STM32F103C8 microcontroller. But in Nepal, it usually comes with STM32F103C6 microcontroller.
+.. attention::
+   Original Blue Pill has **STM32F103C8** microcontroller. But in Nepal, it usually comes with **STM32F103C6** microcontroller.
 
 
 2. ESP Controllers
@@ -144,8 +144,8 @@ Debuggers
 
           **JLink Edu Mini**
 
-.. note::
-    The **ST-Link V2**, we use, is duplicate. The original is:
+.. Attention::
+    The **ST-Link V2** shown above is duplicate. The original is shown below:
 
     .. image:: images/debuggers/stlink-original.jpeg
        :width: 300

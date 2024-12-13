@@ -4,3 +4,7 @@
     display: block;
     padding-bottom: 20px;
 }
+
+.left-green-border {
+    border-left: 4px solid green;
+}

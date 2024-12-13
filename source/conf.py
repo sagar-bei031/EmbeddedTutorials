@@ -47,13 +47,15 @@ html_css_files = [
     'custom.css',
 ]
 
+html_js_files = []
+
 source_suffix = {
     '.rst': 'restructuredtext',
     '.txt': 'markdown',
     '.md': 'markdown',
 }
 
-
+# -- Options for linkcode extension ------------------------------------------
 def linkcode_resolve(domain, info):
     """
     Determine the URL corresponding to Python object.

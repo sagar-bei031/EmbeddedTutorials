@@ -121,7 +121,7 @@ Rotating encoder is a input device that provides information about the direction
 - Open ``STM32CubeProgrammer`` and see count on ``SWV`` by rotating encoder. If you used USB, see on terminal or serial monitor.
 
 
-.. warning::
+.. attention::
 
    STM32F407VG-DISC1 TIM1 gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.
 

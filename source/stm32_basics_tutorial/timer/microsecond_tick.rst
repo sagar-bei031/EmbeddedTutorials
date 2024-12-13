@@ -23,9 +23,7 @@ Microsecond timing is used generally for sampling, pulse generation, frequency c
 
 - Go to ``Pinout and Congiguration > Timers > TIM1``. Select ``Internal Clock`` for **Clock Source**.
 
-.. note::
-
-   It is better to keep **ARR** value to maximum i.e. `65535` for 32-bit.
+.. Tip:: It is better to keep **ARR** value to maximum i.e. `65535` for 32-bit.
 
 - Generate Code.
 

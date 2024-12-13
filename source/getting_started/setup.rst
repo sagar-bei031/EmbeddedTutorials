@@ -18,12 +18,12 @@ Remove ``brltty``.
 2. Creating ``.desktop`` files for application on Linux
 -----------------------------------------------------------
 
-* Create a ``.desktop`` files at ``/home/$USER/.local/share/applications``.
+Create a ``.desktop`` files at ``/home/$USER/.local/share/applications``.
    
-* Add following informations:
+Add following informations:
 
 .. code-block::
-  
+
    [Desktop Entry]
    Name=<Name>
    Comment=<Content>
@@ -62,7 +62,7 @@ For **STM32CubeMX**:
    X-KDE-Username=root
    StartupWMClass=com-st-microxplorer-maingui-STM32CubeMX
 
-* Update desktop database.
+Update desktop database.
 
 .. code-block:: bash
 
@@ -122,6 +122,6 @@ See the ssh-key.
 
 .. code-block:: 
    
-   cat ~/.ssh/id_ed25519
+   cat ~/.ssh/id_ed25519.pub
 
 Add the ssh-key to your github account. Go to ``Github > Settings > SSH and GPG Keys``. Add new ssh key.
