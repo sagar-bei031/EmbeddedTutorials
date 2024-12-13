@@ -271,6 +271,7 @@ Enabe CXX support by editing the line ``enable_language(C ASM)``.
 ^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: cmake
+   :class: left-green-border
 
    # Add sources to executable
    target_sources(${CMAKE_PROJECT_NAME} PRIVATE
