@@ -18,5 +18,5 @@ make html
 
 # Run Webpages
 cd build/html
-python3 -m http.server # OR, firefox ./build/html/index.html
+python3 -m http.server # OR, firefox index.html
 ```
