@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=0234bcf3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e5e1bfdb" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -302,16 +302,16 @@
 </a>
 <p>Generate the code, change the <strong>duty cycle</strong> between <code class="docutils literal notranslate"><span class="pre">0%</span></code> and <code class="docutils literal notranslate"><span class="pre">100%</span></code>. Observe the output frequency on the oscilloscope.</p>
 <p><strong>Assignment</strong>: Control the angle of a servo motor.</p>
-<p>Hint:</p>
-<blockquote>
-<div><p>For <span class="math notranslate nohighlight">\(f_{\text{PWM}} = 50\,\text{Hz}\)</span>, time period <span class="math notranslate nohighlight">\(T = 20\,\text{ms}\)</span>.
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>For <span class="math notranslate nohighlight">\(f_{\text{PWM}} = 50\,\text{Hz}\)</span>, time period <span class="math notranslate nohighlight">\(T = 20\,\text{ms}\)</span>.
 And <span class="math notranslate nohighlight">\(1\,\text{ms} \equiv 0^\circ\)</span> and <span class="math notranslate nohighlight">\(2\,\text{ms} \equiv 180^\circ\)</span>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">duty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CCR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">htim</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">ARR</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
-</div></blockquote>
+</div>
 </section>
 </section>
 

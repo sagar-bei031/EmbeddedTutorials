@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=0234bcf3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e5e1bfdb" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -82,6 +82,317 @@
              
   <section id="c-setup-in-stm32">
 <h1>C++ Setup in STM32<a class="headerlink" href="#c-setup-in-stm32" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cubemx-configuration" id="id1">1. CubeMX Configuration</a></p></li>
+<li><p><a class="reference internal" href="#update-makefile-to-compile-c-code" id="id2">2. Update Makefile to Compile C++ Code</a></p>
+<ul>
+<li><p><a class="reference internal" href="#add-cxx-sources-after-c-sources" id="id3">2.1. Add <code class="docutils literal notranslate"><span class="pre">CXX_SOURCES</span></code> after <code class="docutils literal notranslate"><span class="pre">C_SOURCES</span></code>:</a></p></li>
+<li><p><a class="reference internal" href="#add-compiler-for-c" id="id4">2.2. Add Compiler for C++:</a></p></li>
+<li><p><a class="reference internal" href="#add-cxx-include-after-c-includes" id="id5">2.3. Add <code class="docutils literal notranslate"><span class="pre">CXX_INCLUDE</span></code> after <code class="docutils literal notranslate"><span class="pre">C_INCLUDES</span></code>:</a></p></li>
+<li><p><a class="reference internal" href="#add-cxxflags" id="id6">2.4. Add CXXFLAGS:</a></p></li>
+<li><p><a class="reference internal" href="#add-list-of-objects-for-cxx" id="id7">2.5. Add list of objects for CXX:</a></p></li>
+<li><p><a class="reference internal" href="#add-to-build-cpp-files" id="id8">2.6. Add to build cpp files:</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#create-new-cplusplus-files-to-project" id="id9">3. Create new cplusplus files to project</a></p></li>
+<li><p><a class="reference internal" href="#add-app-cpp-to-makefile" id="id10">4. Add <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code> to Makefile.</a></p></li>
+<li><p><a class="reference internal" href="#migrate-to-cmake" id="id11">5. Migrate to CMake</a></p></li>
+<li><p><a class="reference internal" href="#update-cmakelists-txt" id="id12">6. Update CMakeLists.txt</a></p>
+<ul>
+<li><p><a class="reference internal" href="#set-c-standard" id="id13">6.1. Set C++ standard:</a></p></li>
+<li><p><a class="reference internal" href="#enabe-cxx-support" id="id14">6.2. Enabe CXX support:</a></p></li>
+<li><p><a class="reference internal" href="#add-cxx-sources" id="id15">6.3. Add CXX sources:</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="cubemx-configuration">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">1. CubeMX Configuration</a><a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
+<p>There is nothing special to do in CubeMX for C++ setup. You can follow the same steps as in <a class="reference external" href="../basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">C setup</a>. First we see <code class="docutils literal notranslate"><span class="pre">makefile</span></code> then <code class="docutils literal notranslate"><span class="pre">cmake</span></code>. Also make a pin <code class="docutils literal notranslate"><span class="pre">GPIO_Output</span></code> for LED. For example, in <code class="docutils literal notranslate"><span class="pre">bluepill</span> <span class="pre">(STM32F103C8)</span></code>, pin <code class="docutils literal notranslate"><span class="pre">PC13</span></code> is connected to LED.</p>
+<a class="reference internal image-reference" href="../_images/cpp_setup_cubemx.png"><img alt="C++ Setup in STM32" class="align-center" src="../_images/cpp_setup_cubemx.png" style="width: 100%;" />
+</a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can generate code using toolchain as <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>, then later migrate to <code class="docutils literal notranslate"><span class="pre">CMake</span></code>, and vice versa.</p>
+</div>
+</section>
+<section id="update-makefile-to-compile-c-code">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Update Makefile to Compile C++ Code</a><a class="headerlink" href="#update-makefile-to-compile-c-code" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Add the block to <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> which have <strong>green border at left</strong>.</p>
+</div>
+<section id="add-cxx-sources-after-c-sources">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">2.1. Add <code class="docutils literal notranslate"><span class="pre">CXX_SOURCES</span></code> after <code class="docutils literal notranslate"><span class="pre">C_SOURCES</span></code>:</a><a class="headerlink" href="#add-cxx-sources-after-c-sources" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># C sources</span>
+<span class="n">C_SOURCES</span> <span class="o">=</span>  \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">gpio</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_it</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_msp</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_rcc</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_rcc_ex</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_flash</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_flash_ex</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_flash_ramfunc</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_gpio</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_dma_ex</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_dma</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_pwr</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_pwr_ex</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_cortex</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_exti</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_tim</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Drivers</span><span class="o">/</span><span class="n">STM32F4xx_HAL_Driver</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">stm32f4xx_hal_tim_ex</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">system_stm32f4xx</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">sysmem</span><span class="o">.</span><span class="n">c</span> \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">syscalls</span><span class="o">.</span><span class="n">c</span>
+</pre></div>
+</div>
+<div class="left-green-border highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="c"># CXX sources</span>
+<span class="nv">CXX_SOURCES</span><span class="w"> </span><span class="o">=</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ASM sources</span>
+<span class="n">ASM_SOURCES</span> <span class="o">=</span>  \
+<span class="n">startup_stm32f407xx</span><span class="o">.</span><span class="n">s</span>
+</pre></div>
+</div>
+</section>
+<section id="add-compiler-for-c">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">2.2. Add Compiler for C++:</a><a class="headerlink" href="#add-compiler-for-c" title="Link to this heading"></a></h3>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="cp">ifdef GCC_PATH</span>
+<span class="nv">CC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>GCC_PATH<span class="k">)</span>/<span class="k">$(</span>PREFIX<span class="k">)</span>gcc
+<span class="nv">AS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>GCC_PATH<span class="k">)</span>/<span class="k">$(</span>PREFIX<span class="k">)</span>gcc<span class="w"> </span>-x<span class="w"> </span>assembler-with-cpp
+<span class="nv">CP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>GCC_PATH<span class="k">)</span>/<span class="k">$(</span>PREFIX<span class="k">)</span>objcopy
+<span class="nv">SZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>GCC_PATH<span class="k">)</span>/<span class="k">$(</span>PREFIX<span class="k">)</span>size
+</pre></div>
+</div>
+<div class="left-green-border highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CXX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>GCC_PATH<span class="k">)</span>/<span class="k">$(</span>PREFIX<span class="k">)</span>g++
+</pre></div>
+</div>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="cp">else</span>
+<span class="nv">CC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>gcc
+<span class="nv">AS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>gcc<span class="w"> </span>-x<span class="w"> </span>assembler-with-cpp
+<span class="nv">CP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>objcopy
+<span class="nv">SZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>size
+</pre></div>
+</div>
+<div class="left-green-border highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CXX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>g++
+</pre></div>
+</div>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="cp">else</span>
+<span class="nv">CC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>gcc
+<span class="nv">AS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>gcc<span class="w"> </span>-x<span class="w"> </span>assembler-with-cpp
+<span class="nv">CP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>objcopy
+<span class="nv">SZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>size
+</pre></div>
+</div>
+</section>
+<section id="add-cxx-include-after-c-includes">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">2.3. Add <code class="docutils literal notranslate"><span class="pre">CXX_INCLUDE</span></code> after <code class="docutils literal notranslate"><span class="pre">C_INCLUDES</span></code>:</a><a class="headerlink" href="#add-cxx-include-after-c-includes" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># C includes
+C_INCLUDES =  \
+-ICore/Inc \
+-IDrivers/STM32F4xx_HAL_Driver/Inc \
+-IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy \
+-IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
+-IDrivers/CMSIS/Include
+</pre></div>
+</div>
+<div class="left-green-border highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="c"># CXX Includes</span>
+<span class="nv">CXX_INCLUDES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="se">\</span>
+<span class="k">$(</span><span class="nv">C_INCLUDES</span><span class="k">)</span>
+</pre></div>
+</div>
+</section>
+<section id="add-cxxflags">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">2.4. Add CXXFLAGS:</a><a class="headerlink" href="#add-cxxflags" title="Link to this heading"></a></h3>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="c"># compile gcc flags</span>
+<span class="nv">ASFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>MCU<span class="k">)</span><span class="w"> </span><span class="k">$(</span>AS_DEFS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>AS_INCLUDES<span class="k">)</span><span class="w"> </span><span class="k">$(</span>OPT<span class="k">)</span><span class="w"> </span>-Wall<span class="w"> </span>-fdata-sections<span class="w"> </span>-ffunction-sections
+
+<span class="nv">CFLAGS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">$(</span>MCU<span class="k">)</span><span class="w"> </span><span class="k">$(</span>C_DEFS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>C_INCLUDES<span class="k">)</span><span class="w"> </span><span class="k">$(</span>OPT<span class="k">)</span><span class="w"> </span>-Wall<span class="w"> </span>-fdata-sections<span class="w"> </span>-ffunction-sections
+
+<span class="cp">ifeq ($(DEBUG), 1)</span>
+<span class="nv">CFLAGS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>-g<span class="w"> </span>-gdwarf-2
+<span class="cp">endif</span>
+
+
+<span class="c"># Generate dependency information</span>
+<span class="nv">CFLAGS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>-MMD<span class="w"> </span>-MP<span class="w"> </span>-MF<span class="s2">&quot;</span><span class="k">$(</span>@:%.o<span class="o">=</span>%.d<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="left-green-border highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CXXFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CXX_INCLUDES<span class="k">)</span>
+</pre></div>
+</div>
+</section>
+<section id="add-list-of-objects-for-cxx">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">2.5. Add list of objects for CXX:</a><a class="headerlink" href="#add-list-of-objects-for-cxx" title="Link to this heading"></a></h3>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="c"># list of objects</span>
+<span class="nv">OBJECTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>addprefix<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/,<span class="k">$(</span>notdir<span class="w"> </span><span class="k">$(</span>C_SOURCES:.c<span class="o">=</span>.o<span class="k">)))</span>
+<span class="cp">vpath %.c $(sort $(dir $(C_SOURCES)))</span>
+<span class="c"># list of ASM program objects</span>
+<span class="nv">OBJECTS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">$(</span>addprefix<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/,<span class="k">$(</span>notdir<span class="w"> </span><span class="k">$(</span>ASM_SOURCES:.s<span class="o">=</span>.o<span class="k">)))</span>
+<span class="cp">vpath %.s $(sort $(dir $(ASM_SOURCES)))</span>
+<span class="nv">OBJECTS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">$(</span>addprefix<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/,<span class="k">$(</span>notdir<span class="w"> </span><span class="k">$(</span>ASMM_SOURCES:.S<span class="o">=</span>.o<span class="k">)))</span>
+<span class="cp">vpath %.S $(sort $(dir $(ASMM_SOURCES)))</span>
+</pre></div>
+</div>
+<div class="left-green-border highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="c"># list of CXX program objects</span>
+<span class="nv">OBJECTS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">$(</span>addprefix<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/,<span class="k">$(</span>notdir<span class="w"> </span><span class="k">$(</span>CXX_SOURCES:.cpp<span class="o">=</span>.o<span class="k">)))</span>
+<span class="cp">vpath %.cpp $(sort $(dir $(CXX_SOURCES)))</span>
+</pre></div>
+</div>
+</section>
+<section id="add-to-build-cpp-files">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">2.6. Add to build cpp files:</a><a class="headerlink" href="#add-to-build-cpp-files" title="Link to this heading"></a></h3>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">$(BUILD_DIR)/%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">c</span> <span class="n">Makefile</span> <span class="p">|</span> <span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span> 
+<span class="w">	</span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>-Wa,-a,-ad,-alms<span class="o">=</span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>notdir<span class="w"> </span><span class="k">$(</span>&lt;:.c<span class="o">=</span>.lst<span class="k">))</span><span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
+
+<span class="nf">$(BUILD_DIR)/%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">s</span> <span class="n">Makefile</span> <span class="p">|</span> <span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>
+<span class="w">	</span><span class="k">$(</span>AS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
+<span class="nf">$(BUILD_DIR)/%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">S</span> <span class="n">Makefile</span> <span class="p">|</span> <span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>
+<span class="w">	</span><span class="k">$(</span>AS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
+</pre></div>
+</div>
+<div class="left-green-border highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">$(BUILD_DIR)/%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">cpp</span> <span class="n">Makefile</span> <span class="p">|</span> <span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>
+<span class="w">	</span><span class="k">$(</span>CXX<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>CXXFLAGS<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
+</pre></div>
+</div>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">$(BUILD_DIR)/$(TARGET).elf</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">OBJECTS</span><span class="k">)</span> <span class="n">Makefile</span>
+<span class="w">	</span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span><span class="k">$(</span>OBJECTS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LDFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
+<span class="w">	</span><span class="k">$(</span>SZ<span class="k">)</span><span class="w"> </span><span class="nv">$@</span>
+
+<span class="nf">$(BUILD_DIR)/%.hex</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/%.<span class="n">elf</span> <span class="p">|</span> <span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>
+<span class="w">	</span><span class="k">$(</span>HEX<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span><span class="nv">$@</span>
+<span class="w">	</span>
+<span class="nf">$(BUILD_DIR)/%.bin</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/%.<span class="n">elf</span> <span class="p">|</span> <span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>
+<span class="w">	</span><span class="k">$(</span>BIN<span class="k">)</span><span class="w"> </span>$&lt;<span class="w"> </span><span class="nv">$@</span><span class="w">	</span>
+<span class="w">	</span>
+<span class="nf">$(BUILD_DIR)</span><span class="o">:</span>
+<span class="w">	</span>mkdir<span class="w"> </span><span class="nv">$@</span><span class="w">	</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Makefile</span></code> is ready to compile <code class="docutils literal notranslate"><span class="pre">C++</span></code> file. We need to add <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> file to <code class="docutils literal notranslate"><span class="pre">CXX_sources</span></code>. Verify makefile syntax.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="o">-</span><span class="n">j</span>
+</pre></div>
+</div>
+<p>It should not give any warning or error.</p>
+</section>
+</section>
+<section id="create-new-cplusplus-files-to-project">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">3. Create new cplusplus files to project</a><a class="headerlink" href="#create-new-cplusplus-files-to-project" title="Link to this heading"></a></h2>
+<p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Inc</span></code>, create a new file <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and copy the following code.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef __APP_H</span>
+<span class="cp">#define __APP_H</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#endif</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">();</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">();</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#endif </span><span class="c1">// __APP_H</span>
+</pre></div>
+</div>
+<p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span> <span class="pre">``,</span> <span class="pre">create</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">file</span> <span class="pre">``app.cpp</span></code> and copy the following code.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;app.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stm32f1xx_hal.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// executes once</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// executes continuesly</span>
+<span class="w">    </span><span class="n">HAL_GPIO_TogglePin</span><span class="p">(</span><span class="n">GPIOC</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">);</span>
+<span class="w">    </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Open <code class="docutils literal notranslate"><span class="pre">main.c</span></code> file and include <code class="docutils literal notranslate"><span class="pre">app.h</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN Includes */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;app.h&quot;</span>
+<span class="cm">/* USER CODE END Includes */</span>
+</pre></div>
+</div>
+<p>Call setup() and loop() function in <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 2 */</span>
+<span class="n">setup</span><span class="p">();</span>
+<span class="cm">/* USER CODE END 2 */</span>
+
+<span class="cm">/* Infinite loop */</span>
+<span class="cm">/* USER CODE BEGIN WHILE */</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">loop</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN 3 */</span>
+<span class="p">}</span>
+<span class="cm">/* USER CODE END 3 */</span>
+</pre></div>
+</div>
+</section>
+<section id="add-app-cpp-to-makefile">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">4. Add <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code> to Makefile.</a><a class="headerlink" href="#add-app-cpp-to-makefile" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CXX sources</span>
+<span class="n">CXX_SOURCES</span> <span class="o">=</span>  \
+<span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">cpp</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup.html" rel="noopener noreferrer" target="_blank">Compile and flash the code</a>. The LED should blink.</p>
+</section>
+<section id="migrate-to-cmake">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">5. Migrate to CMake</a><a class="headerlink" href="#migrate-to-cmake" title="Link to this heading"></a></h2>
+<p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code>, go to <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Manager</span> <span class="pre">&gt;</span> <span class="pre">Project</span></code> and select <code class="docutils literal notranslate"><span class="pre">Toolchain/IDE</span></code> as <code class="docutils literal notranslate"><span class="pre">CMake</span></code>. Generate code. <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> will be generated in the project folder. You donot need to delete <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>. You can use both <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> and <code class="docutils literal notranslate"><span class="pre">CMake</span></code>.</p>
+</section>
+<section id="update-cmakelists-txt">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">6. Update CMakeLists.txt</a><a class="headerlink" href="#update-cmakelists-txt" title="Link to this heading"></a></h2>
+<section id="set-c-standard">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">6.1. Set C++ standard:</a><a class="headerlink" href="#set-c-standard" title="Link to this heading"></a></h3>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Setup compiler settings</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD</span><span class="w"> </span><span class="s">11</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_EXTENSIONS</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="left-green-border highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_EXTENSIONS</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="enabe-cxx-support">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">6.2. Enabe CXX support:</a><a class="headerlink" href="#enabe-cxx-support" title="Link to this heading"></a></h3>
+<p>Enabe CXX support by editing the line <code class="docutils literal notranslate"><span class="pre">enable_language(C</span> <span class="pre">ASM)</span></code>.</p>
+<div class="left-green-border highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">enable_language</span><span class="p">(</span><span class="s">CXX</span><span class="w"> </span><span class="s">C</span><span class="w"> </span><span class="s">ASM</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="add-cxx-sources">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">6.3. Add CXX sources:</a><a class="headerlink" href="#add-cxx-sources" title="Link to this heading"></a></h3>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Add sources to executable</span>
+<span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">    </span><span class="c"># Add user sources here</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/Core/Src/app.cpp</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup.html" rel="noopener noreferrer" target="_blank">Compile and flash the code</a>. The LED should blink.</p>
+</section>
+</section>
 </section>
 
 

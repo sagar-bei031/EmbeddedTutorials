@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=0234bcf3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e5e1bfdb" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -108,9 +108,18 @@
 <h2><a class="toc-backref" href="#id1" role="doc-backlink">1. Using ST-Link</a><a class="headerlink" href="#using-st-link" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Add these at the bottom of <strong>Makefile</strong>.</p>
-<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">flash</span><span class="o">:</span>
-<span class="w">    </span>st-flash<span class="w"> </span>--reset<span class="w"> </span>write<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">flash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="k">$(</span><span class="nv">TARGET</span><span class="k">)</span>.<span class="n">bin</span>
+<span class="w">	</span>st-flash<span class="w"> </span>write<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
 </pre></div>
+</div>
+<p>If you want to <strong>reset after flash</strong>, update to:</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">flash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="k">$(</span><span class="nv">TARGET</span><span class="k">)</span>.<span class="n">bin</span>
+<span class="w">	</span>st-flash<span class="w"> </span>--reset<span class="w"> </span>write<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To <strong>reset after flash</strong>, make sure that <strong>reset pin of st-link is connected to reset pin of microcontroller</strong>. Otherwise, it will not work and give error. In discovery board, it is connected by default.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">st-flash</span></code> command is part of <code class="docutils literal notranslate"><span class="pre">stlink-tools</span></code>. Here, <strong>binary file</strong> is upload to <strong>flash memory</strong> of microcontroller Starting from address <code class="docutils literal notranslate"><span class="pre">0x8000000</span></code>.</p>
 <p>If you want to learn more about <code class="docutils literal notranslate"><span class="pre">st-flash</span> <span class="pre">command</span></code>, run:</p>

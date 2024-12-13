@@ -252,14 +252,13 @@ Generate the code, change the **duty cycle** between ``0%`` and ``100%``. Observ
 
 **Assignment**: Control the angle of a servo motor.
 
-Hint: 
+.. Hint:: 
 
-  For :math:`f_{\text{PWM}} = 50\,\text{Hz}`, time period :math:`T = 20\,\text{ms}`. 
-  And :math:`1\,\text{ms} \equiv 0^\circ` and :math:`2\,\text{ms} \equiv 180^\circ`.
+   For :math:`f_{\text{PWM}} = 50\,\text{Hz}`, time period :math:`T = 20\,\text{ms}`. 
+   And :math:`1\,\text{ms} \equiv 0^\circ` and :math:`2\,\text{ms} \equiv 180^\circ`.
 
+   .. code-block:: c
 
-  .. code-block:: c
+      duty = map<float>(angle, 0, 180, 1, 2);
 
-     duty = map<float>(angle, 0, 180, 1, 2);
-
-     htim1.Instance->CCR1 = (uint32_t)(htim->Instance->ARR * duty / 20);
+      htim1.Instance->CCR1 = (uint32_t)(htim->Instance->ARR * duty / 20);

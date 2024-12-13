@@ -15,11 +15,17 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
 
 - Add these at the bottom of **Makefile**.
 
-  .. code-block:: makefile
+  .. literalinclude:: makefiles/flash
+     :language: makefile
 
-     flash:
-         st-flash --reset write $(BUILD_DIR)/$(TARGET).bin 0x8000000
+  If you want to **reset after flash**, update to:
 
+  .. literalinclude:: makefiles/flash_reset
+     :language: makefile
+
+  .. warning::
+     To **reset after flash**, make sure that **reset pin of st-link is connected to reset pin of microcontroller**. Otherwise, it will not work and give error. In discovery board, it is connected by default.
+  
   ``st-flash`` command is part of ``stlink-tools``. Here, **binary file** is upload to **flash memory** of microcontroller Starting from address ``0x8000000``.
 
   If you want to learn more about ``st-flash command``, run:
@@ -43,18 +49,8 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
 
 - Add these lines at the bottom of the **Makefile**.
 
-  .. code-block:: makefile
-
-     device = STM32F103C8 # change device for your own
-     $(BUILD_DIR)/jflash: $(BUILD_DIR)/$(TARGET).bin
-         @touch $@
-         @echo device $(device) > $@
-         @echo -e si 1'\n'speed 4000 >> $@
-         @echo loadbin $< 0x8000000 >> $@
-         @echo -e r'\n'g'\n'qc >> $@
-
-     jflash: $(BUILD_DIR)/jflash
-         JLinkExe -commanderscript $<
+  .. literalinclude:: makefiles/jflash
+     :language: makefile
 
 - Connect your **JLink** to your microcontroller.
 
