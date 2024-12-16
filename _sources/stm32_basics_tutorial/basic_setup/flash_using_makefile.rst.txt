@@ -66,11 +66,11 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
 
   .. code-block:: bash
 
-      #!/bin/bash
+     #!/bin/bash
 
-      set +e
+     set +e
 
-  JLinkExe -if SWD -speed 4000 -autoconnect 1 -CommanderScript flash.jlink
+     JLinkExe -if SWD -speed 4000 -autoconnect 1 -CommanderScript flash.jlink
 
 - Create ``flash.jlink`` file at your project folder.
 

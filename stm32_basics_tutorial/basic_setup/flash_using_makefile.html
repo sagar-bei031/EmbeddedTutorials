@@ -163,9 +163,10 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nb">set</span><span class="w"> </span>+e
+
+JLinkExe<span class="w"> </span>-if<span class="w"> </span>SWD<span class="w"> </span>-speed<span class="w"> </span><span class="m">4000</span><span class="w"> </span>-autoconnect<span class="w"> </span><span class="m">1</span><span class="w"> </span>-CommanderScript<span class="w"> </span>flash.jlink
 </pre></div>
 </div>
-<p>JLinkExe -if SWD -speed 4000 -autoconnect 1 -CommanderScript flash.jlink</p>
 </li>
 <li><p>Create <code class="docutils literal notranslate"><span class="pre">flash.jlink</span></code> file at your project folder.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="n">STM32F103C6</span>
