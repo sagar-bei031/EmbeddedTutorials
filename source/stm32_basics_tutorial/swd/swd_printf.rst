@@ -6,6 +6,10 @@ SWD Printf
    :local:
 
 
+.. attention::
+   ``ITM SWV Console`` does not work using our ``duplicate ST-Link V2`` adapter.
+
+
 1. Introduction
 ---------------
 
