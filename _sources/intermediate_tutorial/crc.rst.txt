@@ -83,7 +83,7 @@ Generating lookup table for CRC-8:
                remainder = (remainder << 1); // left shift till MSB becomes 1
            }
        }
-       crc8_table[dividend] = remainder; // remainder is the CRC value of dividend
+       crc8_table[(uint8_t)dividend] = remainder; // remainder is the CRC value of dividend
    }
 
 All the CRC value of ``0-256`` is stored in the table with the index as the dividend. For one byte data, the CRC is always in the table and is super easy. But for array, the remainder(CRC) of first byte (from table) is xored with the second byte, and the resulting value acts as dividend whose remainder(CRC from table) xored with third byte and so on. The remainder(CRC) of final byte calculated through this process is the remainder(CRC) of the whole array.
@@ -119,7 +119,7 @@ Generating lookup table for CRC-16:
    uint16_t remainder; 
    uint16_t crc16_table[256];
    
-   for (int dividend = 0; dividend < 256; ++dividend)
+   for (uint dividend = 0; dividend < 256; ++dividend)
    {
        remainder = dividend << 8; // This is the difference from CRC-8. The 8 bits are aligned to MSB of 16-bit. For CRC-32, it is shifted left by 24;
        for (int b = 8; b > 0; --b)
@@ -133,7 +133,7 @@ Generating lookup table for CRC-16:
                remainder = (remainder << 1); // left shift till MSB becomes 1
            }
        }
-       crc16_table[dividend] = remainder; // remainder is the CRC value of dividend
+       crc16_table[(uint8_t)dividend] = remainder; // remainder is the CRC value of dividend
    }
 
 Calculating CRC-16 of array using lookup table:
@@ -143,7 +143,7 @@ Calculating CRC-16 of array using lookup table:
    
    uint8_t data[] = {0x01, 0x02, 0x03, 0x04, 0x05}; // input data
 
-   uint16_t dividend;
+   uint8_t dividend;
    uint16_t remainder = 0;
 
    for (uint index = 0; index < len; ++index)
