@@ -114,33 +114,34 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CRC-8</p></td>
+<tr class="row-even"><td><p>CRC-8-SMBUS</p></td>
 <td><p><span class="math notranslate nohighlight">\(x^8 + x^2 + x + 1\)</span></p></td>
-<td><p>0x07</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x07</span></code></p></td>
 <td><p>Automotive, SMBus</p></td>
 </tr>
 <tr class="row-odd"><td><p>CRC-16-IBM</p></td>
 <td><p><span class="math notranslate nohighlight">\(x^{16} + x^{15} + x^2 + 1\)</span></p></td>
-<td><p>0x8005</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x8005</span></code></p></td>
 <td><p>IBM, ZMODEM</p></td>
 </tr>
 <tr class="row-even"><td><p>CRC-16-CCITT</p></td>
 <td><p><span class="math notranslate nohighlight">\(x^{16} + x^{12} + x^5 + 1\)</span></p></td>
-<td><p>0x1021</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x1021</span></code></p></td>
 <td><p>Telecommunications, Bluetooth</p></td>
 </tr>
-<tr class="row-odd"><td><p>CRC-32 (Ethernet)</p></td>
-<td><p>Standard polynomial for Ethernet</p></td>
-<td><p>0x04C11DB7</p></td>
+<tr class="row-odd"><td><p>CRC-32-ISO</p></td>
+<td><p><span class="math notranslate nohighlight">\(x^{32} + x^{26} + x^{23} + x^{22} + x^{16} + x^{12} + x^{11} + x^{10} + x^8 + x^7 + x^5 + x^4 + x^2 + x + 1\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x04C11DB7</span></code></p></td>
 <td><p>Ethernet, ZIP files</p></td>
 </tr>
 <tr class="row-even"><td><p>CRC-64-ISO</p></td>
 <td><p><span class="math notranslate nohighlight">\(x^{64} + x^4 + x^3 + x + 1\)</span></p></td>
-<td><p>0x1B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x1B</span></code></p></td>
 <td><p>Data storage, digital signatures</p></td>
 </tr>
 </tbody>
 </table>
+<p>See more at <a class="reference external" href="https://crccalc.com/?crc=123456789&amp;method=&amp;datatype=ascii&amp;outtype=hex" rel="noopener noreferrer" target="_blank">crccalc</a> or at <a class="reference external" href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check" rel="noopener noreferrer" target="_blank">wikipedia</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The actual length of the polynomial is one bit longer than the number of bits in the CRC. The most significant bit (MSB) is always 1. So, it is not included in the polynomial.</p>
@@ -148,18 +149,19 @@
 </section>
 <section id="crc-calculation">
 <h3>3.2. CRC Calculation<a class="headerlink" href="#crc-calculation" title="Link to this heading"></a></h3>
-<p>The simplest CRC algorithm is the <code class="docutils literal notranslate"><span class="pre">CRC-8</span></code> algorithm. CRC can be expensive to calculate on real-time systems. So, for small crc sizes, it is better to use a lookup table.</p>
+<p>The simplest CRC algorithm is the <code class="docutils literal notranslate"><span class="pre">CRC-8</span></code> algorithm. CRC can be expensive to calculate on real-time systems. So, it is better to use a lookup table.</p>
 <section id="generating-lookup-table-for-crc-8">
 <h4>Generating lookup table for CRC-8:<a class="headerlink" href="#generating-lookup-table-for-crc-8" title="Link to this heading"></a></h4>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x07</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x07</span><span class="p">;</span>
 <span class="c1">// Do you know? The actual polynomial for CRC-8 is 9-bit long. But, the MSB is always 1. So, it is not included in the polynomial.</span>
 
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
 <span class="kt">uint8_t</span><span class="w"> </span><span class="n">crc8_table</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
 
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">dividend</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dividend</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">b</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">7</span><span class="p">))</span><span class="w">  </span><span class="c1">// if MSB is 1</span>
 <span class="w">        </span><span class="p">{</span>
@@ -183,9 +185,9 @@
 <span class="kt">uint8_t</span><span class="w"> </span><span class="n">dividend</span><span class="p">;</span>
 <span class="kt">uint8_t</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">index</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">index</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="w">    </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
 <span class="w">    </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crc8_table</span><span class="p">[</span><span class="n">dividend</span><span class="p">];</span>
 <span class="p">}</span>
 
@@ -193,7 +195,478 @@
 </pre></div>
 </div>
 <p>Please see <a class="reference external" href="https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html" rel="noopener noreferrer" target="_blank">this article</a> and go through it to understand the CRC algorithm in detail. Take your time. Get a good understanding of the algorithm. This article is the best one, I have found on the internet.</p>
+<p>After you know CRC-8, now it easy to understand other type. CRC8-8 is worth for small size of data but for bigger chunk or less collision, CRC-16 or CRC-32 are used.</p>
 </section>
+<section id="generating-lookup-table-for-crc-16">
+<h4>Generating lookup table for CRC-16:<a class="headerlink" href="#generating-lookup-table-for-crc-16" title="Link to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1021</span><span class="p">;</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">crc16_table</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">dividend</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="c1">// This is the difference from CRC-8. The 8 bits are aligned to MSB of 16-bit. For CRC-32, it is shifted left by 24;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">7</span><span class="p">))</span><span class="w">  </span><span class="c1">// if MSB is 1</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">poly</span><span class="p">;</span><span class="w"> </span><span class="c1">// XOR with polynomial. The MSB is removed because, (MSB of remainder i.e. 1) ^ (MSB of 9-bit polynomial i.e. 1) = 0 always.</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// left shift till MSB becomes 1</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">crc16_table</span><span class="p">[</span><span class="n">dividend</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span><span class="w"> </span><span class="c1">// remainder is the CRC value of dividend</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="calculating-crc-16-of-array-using-lookup-table">
+<h4>Calculating CRC-16 of array using lookup table:<a class="headerlink" href="#calculating-crc-16-of-array-using-lookup-table" title="Link to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mh">0x03</span><span class="p">,</span><span class="w"> </span><span class="mh">0x04</span><span class="p">,</span><span class="w"> </span><span class="mh">0x05</span><span class="p">};</span><span class="w"> </span><span class="c1">// input data</span>
+
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">dividend</span><span class="p">;</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">uint</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">index</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span><span class="w"> </span><span class="c1">// For CRC-16, remainder have to be shifted right by 8. For CRC-32, it is 24.</span>
+<span class="w">    </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crc16_table</span><span class="p">[</span><span class="n">dividend</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;CRC-16: 0x%04X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">remainder</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You got the idea. Now, you can generate the lookup table for CRC-32 and calculate the CRC-32 of the data. The are also some parameters like initial value, final XOR value, input reflected, output reflected and check value, which can be used to improve the CRC calculation. But, the above code is the basic one.</p>
+</section>
+</section>
+</section>
+<section id="implementing-crc-in-c">
+<h2>4. Implementing CRC in C++<a class="headerlink" href="#implementing-crc-in-c" title="Link to this heading"></a></h2>
+<p>Let’s implement the CRC algorithm in C++ using template class. I hope you have basic knowledge of C++ programming. In embedded programming, use of C++ standard library (eg: iostream, std::vector) is not recommended.</p>
+<section id="crc-hpp">
+<h3>crc.hpp:<a class="headerlink" href="#crc-hpp" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cm">/**</span>
+<span class="linenos">  2</span><span class="cm"> * @file crc.hpp</span>
+<span class="linenos">  3</span><span class="cm"> * @brief Header file for the CRC template class, providing support for CRC computation with customizable parameters.</span>
+<span class="linenos">  4</span><span class="cm"> *</span>
+<span class="linenos">  5</span><span class="cm"> * This file defines a template class for calculating CRC (Cyclic Redundancy Check) with support for reflection and various CRC types.</span>
+<span class="linenos">  6</span><span class="cm"> *</span>
+<span class="linenos">  7</span><span class="cm"> * @details</span>
+<span class="linenos">  8</span><span class="cm"> * The `CRC` template class supports 8-bit, 16-bit, and 32-bit CRC calculations with configurable polynomials,</span>
+<span class="linenos">  9</span><span class="cm"> * initial values, final XOR values, and input/output bit reflections. It includes functionality for table generation</span>
+<span class="linenos"> 10</span><span class="cm"> * and bit reflection. The default configuration values and polynomial constants for common CRC types (e.g., CRC-8 SMBus,</span>
+<span class="linenos"> 11</span><span class="cm"> * CRC-16 CCITT, CRC-32 ISO) are also provided.</span>
+<span class="linenos"> 12</span><span class="cm"> *</span>
+<span class="linenos"> 13</span><span class="cm"> * @note</span>
+<span class="linenos"> 14</span><span class="cm"> * This implementation enforces compile-time type checks to ensure only valid CRC types are used.</span>
+<span class="linenos"> 15</span><span class="cm"> *</span>
+<span class="linenos"> 16</span><span class="cm"> * @author</span>
+<span class="linenos"> 17</span><span class="cm"> * Sagar Chaudhary</span>
+<span class="linenos"> 18</span><span class="cm"> *</span>
+<span class="linenos"> 19</span><span class="cm"> * @date</span>
+<span class="linenos"> 20</span><span class="cm"> * 2024</span>
+<span class="linenos"> 21</span><span class="cm"> */</span>
+<span class="linenos"> 22</span>
+<span class="linenos"> 23</span><span class="cp">#ifndef CRC_HPP</span>
+<span class="linenos"> 24</span><span class="cp">#define CRC_HPP</span>
+<span class="linenos"> 25</span>
+<span class="linenos"> 26</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="linenos"> 27</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span>
+<span class="linenos"> 28</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;assert.h&gt;</span>
+<span class="linenos"> 29</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
+<span class="linenos"> 30</span>
+<span class="linenos"> 31</span><span class="cm">/**</span>
+<span class="linenos"> 32</span><span class="cm"> * @typedef CRC8_Type</span>
+<span class="linenos"> 33</span><span class="cm"> * @brief Defines an 8-bit CRC type.</span>
+<span class="linenos"> 34</span><span class="cm"> */</span>
+<span class="linenos"> 35</span><span class="k">using</span><span class="w"> </span><span class="n">CRC8_Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint8_t</span><span class="p">;</span>
+<span class="linenos"> 36</span>
+<span class="linenos"> 37</span><span class="cm">/**</span>
+<span class="linenos"> 38</span><span class="cm"> * @typedef CRC16_Type</span>
+<span class="linenos"> 39</span><span class="cm"> * @brief Defines a 16-bit CRC type.</span>
+<span class="linenos"> 40</span><span class="cm"> */</span>
+<span class="linenos"> 41</span><span class="k">using</span><span class="w"> </span><span class="n">CRC16_Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint16_t</span><span class="p">;</span>
+<span class="linenos"> 42</span>
+<span class="linenos"> 43</span><span class="cm">/**</span>
+<span class="linenos"> 44</span><span class="cm"> * @typedef CRC32_Type</span>
+<span class="linenos"> 45</span><span class="cm"> * @brief Defines a 32-bit CRC type.</span>
+<span class="linenos"> 46</span><span class="cm"> */</span>
+<span class="linenos"> 47</span><span class="k">using</span><span class="w"> </span><span class="n">CRC32_Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint32_t</span><span class="p">;</span>
+<span class="linenos"> 48</span>
+<span class="linenos"> 49</span><span class="c1">// Definitions of some CRC standards</span>
+<span class="linenos"> 50</span><span class="cp">#define CRC8_SMBUS_POLYNOMIAL 0x07      </span><span class="c1">///&lt; Polynomial for CRC-8 SMBus</span>
+<span class="linenos"> 51</span><span class="cp">#define CRC8_SMBUS_INITIAL_CRC 0x00     </span><span class="c1">///&lt; Initial value for CRC-8 SMBus</span>
+<span class="linenos"> 52</span><span class="cp">#define CRC8_SMBUS_FINAL_XOR 0x00       </span><span class="c1">///&lt; Final XOR value for CRC-8 SMBus</span>
+<span class="linenos"> 53</span><span class="cp">#define CRC8_SMBUS_REFLECT_INPUT false  </span><span class="c1">///&lt; Input reflection for CRC-8 SMBus</span>
+<span class="linenos"> 54</span><span class="cp">#define CRC8_SMBUS_REFLECT_OUTPUT false </span><span class="c1">///&lt; Output reflection for CRC-8 SMBus</span>
+<span class="linenos"> 55</span>
+<span class="linenos"> 56</span><span class="cp">#define CRC16_CCITT_POLYNOMIAL 0x1021    </span><span class="c1">///&lt; Polynomial for CRC-16 CCITT</span>
+<span class="linenos"> 57</span><span class="cp">#define CRC16_CCITT_INITIAL_CRC 0xFFFF   </span><span class="c1">///&lt; Initial value for CRC-16 CCITT</span>
+<span class="linenos"> 58</span><span class="cp">#define CRC16_CCITT_FINAL_XOR 0x0000     </span><span class="c1">///&lt; Final XOR value for CRC-16 CCITT</span>
+<span class="linenos"> 59</span><span class="cp">#define CRC16_CCITT_REFLECT_INPUT false  </span><span class="c1">///&lt; Input reflection for CRC-16 CCITT</span>
+<span class="linenos"> 60</span><span class="cp">#define CRC16_CCITT_REFLECT_OUTPUT false </span><span class="c1">///&lt; Output reflection for CRC-16 CCITT</span>
+<span class="linenos"> 61</span>
+<span class="linenos"> 62</span><span class="cp">#define CRC32_ISO_POLYNOMIAL 0x04C11DB7  </span><span class="c1">///&lt; Polynomial for CRC-32 ISO</span>
+<span class="linenos"> 63</span><span class="cp">#define CRC32_ISO_INITIAL_CRC 0xFFFFFFFF </span><span class="c1">///&lt; Initial value for CRC-32 ISO</span>
+<span class="linenos"> 64</span><span class="cp">#define CRC32_ISO_FINAL_XOR 0xFFFFFFFF   </span><span class="c1">///&lt; Final XOR value for CRC-32 ISO</span>
+<span class="linenos"> 65</span><span class="cp">#define CRC32_ISO_REFLECT_INPUT true     </span><span class="c1">///&lt; Input reflection for CRC-32 ISO</span>
+<span class="linenos"> 66</span><span class="cp">#define CRC32_ISO_REFLECR_OUTPUT true    </span><span class="c1">///&lt; Output reflection for CRC-32 ISO</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span><span class="cp">#define CRC_VALIDATION_STRING &quot;123456789&quot; </span><span class="c1">///&lt; Standard validation string for CRC</span>
+<span class="linenos"> 69</span>
+<span class="linenos"> 70</span><span class="cm">/**</span>
+<span class="linenos"> 71</span><span class="cm"> * @class CRC</span>
+<span class="linenos"> 72</span><span class="cm"> * @brief Template class for CRC computation.</span>
+<span class="linenos"> 73</span><span class="cm"> *</span>
+<span class="linenos"> 74</span><span class="cm"> * @tparam CRC_Type The CRC type, must be one of `CRC8_Type`, `CRC16_Type`, or `CRC32_Type`.</span>
+<span class="linenos"> 75</span><span class="cm"> *</span>
+<span class="linenos"> 76</span><span class="cm"> * @details</span>
+<span class="linenos"> 77</span><span class="cm"> * This class allows calculation of CRC using a lookup table for improved performance.</span>
+<span class="linenos"> 78</span><span class="cm"> * It supports customizable parameters such as polynomial, initial value, and bit reflection.</span>
+<span class="linenos"> 79</span><span class="cm"> */</span>
+<span class="linenos"> 80</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos"> 81</span><span class="k">class</span><span class="w"> </span><span class="nc">CRC</span>
+<span class="linenos"> 82</span><span class="p">{</span>
+<span class="linenos"> 83</span><span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="p">,</span><span class="w"> </span><span class="n">CRC8_Type</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span>
+<span class="linenos"> 84</span><span class="w">                      </span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="p">,</span><span class="w"> </span><span class="n">CRC16_Type</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span>
+<span class="linenos"> 85</span><span class="w">                      </span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="p">,</span><span class="w"> </span><span class="n">CRC32_Type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+<span class="linenos"> 86</span><span class="w">                  </span><span class="s">&quot;CRC template class only supports CRC8_Type, CRC16_Type, and CRC32_Type!&quot;</span><span class="p">);</span>
+<span class="linenos"> 87</span>
+<span class="linenos"> 88</span><span class="k">public</span><span class="o">:</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos"> 90</span><span class="cm">     * @brief Default constructor.</span>
+<span class="linenos"> 91</span><span class="cm">     */</span>
+<span class="linenos"> 92</span><span class="w">    </span><span class="n">CRC</span><span class="p">();</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos"> 95</span><span class="cm">     * @brief Constructor with customizable parameters.</span>
+<span class="linenos"> 96</span><span class="cm">     *</span>
+<span class="linenos"> 97</span><span class="cm">     * @param polynomial The polynomial for CRC calculation.</span>
+<span class="linenos"> 98</span><span class="cm">     * @param initial_crc The initial CRC value (default is 0).</span>
+<span class="linenos"> 99</span><span class="cm">     * @param final_xor The final XOR value (default is 0).</span>
+<span class="linenos">100</span><span class="cm">     * @param reflect_input Enable input bit reflection (default is false).</span>
+<span class="linenos">101</span><span class="cm">     * @param reflect_output Enable output bit reflection (default is false).</span>
+<span class="linenos">102</span><span class="cm">     */</span>
+<span class="linenos">103</span><span class="w">    </span><span class="n">CRC</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos">104</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos">105</span>
+<span class="linenos">106</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">107</span><span class="cm">     * @brief Deleted copy constructor.</span>
+<span class="linenos">108</span><span class="cm">     */</span>
+<span class="linenos">109</span><span class="w">    </span><span class="n">CRC</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="linenos">110</span>
+<span class="linenos">111</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">112</span><span class="cm">     * @brief Deleted copy assignment operator.</span>
+<span class="linenos">113</span><span class="cm">     */</span>
+<span class="linenos">114</span><span class="w">    </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">117</span><span class="cm">     * @brief Compute the CRC hash for the given data.</span>
+<span class="linenos">118</span><span class="cm">     *</span>
+<span class="linenos">119</span><span class="cm">     * @param data Pointer to the input data.</span>
+<span class="linenos">120</span><span class="cm">     * @param len Length of the input data.</span>
+<span class="linenos">121</span><span class="cm">     * @return The computed CRC value.</span>
+<span class="linenos">122</span><span class="cm">     */</span>
+<span class="linenos">123</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">compute_hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="linenos">124</span>
+<span class="linenos">125</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">126</span><span class="cm">     * @brief Print the CRC lookup table.</span>
+<span class="linenos">127</span><span class="cm">     */</span>
+<span class="linenos">128</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">print_table</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="linenos">129</span>
+<span class="linenos">130</span><span class="w">    </span><span class="c1">// Getters for class members</span>
+<span class="linenos">131</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_polynomial</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Get the polynomial used for CRC.</span>
+<span class="linenos">132</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_initial_crc</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; Get the initial CRC value.</span>
+<span class="linenos">133</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_final_xor</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Get the final XOR value.</span>
+<span class="linenos">134</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="o">*</span><span class="nf">get_table</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">      </span><span class="c1">///&lt; Get the CRC lookup table.</span>
+<span class="linenos">135</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_check</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">       </span><span class="c1">///&lt; Get the validation CRC value.</span>
+<span class="linenos">136</span>
+<span class="linenos">137</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">138</span><span class="cm">     * @brief Reflect the bits of a value.</span>
+<span class="linenos">139</span><span class="cm">     *</span>
+<span class="linenos">140</span><span class="cm">     * @param value The value to reflect.</span>
+<span class="linenos">141</span><span class="cm">     * @param num_bits Number of bits to reflect.</span>
+<span class="linenos">142</span><span class="cm">     * @return The reflected value.</span>
+<span class="linenos">143</span><span class="cm">     */</span>
+<span class="linenos">144</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">reflect_bits</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_bits</span><span class="p">);</span>
+<span class="linenos">145</span>
+<span class="linenos">146</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CRC_Type</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; CRC width in bits.</span>
+<span class="linenos">147</span>
+<span class="linenos">148</span><span class="k">private</span><span class="o">:</span>
+<span class="linenos">149</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">initialize</span><span class="p">();</span><span class="w">    </span><span class="c1">///&lt; Initialize CRC parameters.</span>
+<span class="linenos">150</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">compute_table</span><span class="p">();</span><span class="w"> </span><span class="c1">///&lt; Compute the CRC lookup table.</span>
+<span class="linenos">151</span>
+<span class="linenos">152</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Polynomial for CRC calculation.</span>
+<span class="linenos">153</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; Initial CRC value.</span>
+<span class="linenos">154</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Final XOR value.</span>
+<span class="linenos">155</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Input bit reflection flag.</span>
+<span class="linenos">156</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Output bit reflection flag.</span>
+<span class="linenos">157</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w">        </span><span class="c1">///&lt; Lookup table for CRC calculation.</span>
+<span class="linenos">158</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">check_</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; Validation CRC value.</span>
+<span class="linenos">159</span><span class="p">};</span>
+<span class="linenos">160</span>
+<span class="linenos">161</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc.tpp&quot;</span>
+<span class="linenos">162</span>
+<span class="linenos">163</span><span class="cp">#endif </span><span class="c1">// CRC_HPP</span>
+</pre></div>
+</div>
+</section>
+<section id="crc-tpp">
+<h3>crc.tpp:<a class="headerlink" href="#crc-tpp" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cm">/**</span>
+<span class="linenos">  2</span><span class="cm"> * @file crc.tpp</span>
+<span class="linenos">  3</span><span class="cm"> * @brief Inline implementation file for the CRC template class.</span>
+<span class="linenos">  4</span><span class="cm"> * </span>
+<span class="linenos">  5</span><span class="cm"> * This file contains the inline implementation of the CRC template class, </span>
+<span class="linenos">  6</span><span class="cm"> * including methods for bit reflection, table computation, and CRC calculation.</span>
+<span class="linenos">  7</span><span class="cm"> * </span>
+<span class="linenos">  8</span><span class="cm"> * @ref https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html</span>
+<span class="linenos">  9</span><span class="cm"> * </span>
+<span class="linenos"> 10</span><span class="cm"> * @details</span>
+<span class="linenos"> 11</span><span class="cm"> * The CRC template class supports computation of CRC values for 8-bit, 16-bit, </span>
+<span class="linenos"> 12</span><span class="cm"> * and 32-bit types. This file includes the reflection function, constructors </span>
+<span class="linenos"> 13</span><span class="cm"> * for default and parameterized configurations, table initialization, and the </span>
+<span class="linenos"> 14</span><span class="cm"> * main hash computation function. Additionally, the CRC lookup table can be printed </span>
+<span class="linenos"> 15</span><span class="cm"> * for debugging or validation purposes.</span>
+<span class="linenos"> 16</span><span class="cm"> * </span>
+<span class="linenos"> 17</span><span class="cm"> * @note</span>
+<span class="linenos"> 18</span><span class="cm"> * Ensure that the CRC polynomial is non-zero when using the parameterized constructor.</span>
+<span class="linenos"> 19</span><span class="cm"> * </span>
+<span class="linenos"> 20</span><span class="cm"> * @warning</span>
+<span class="linenos"> 21</span><span class="cm"> * The CRC template does not allow copy construction or assignment.</span>
+<span class="linenos"> 22</span><span class="cm"> * </span>
+<span class="linenos"> 23</span><span class="cm"> * @author </span>
+<span class="linenos"> 24</span><span class="cm"> * Sagar Chaudhary</span>
+<span class="linenos"> 25</span><span class="cm"> * </span>
+<span class="linenos"> 26</span><span class="cm"> * @date </span>
+<span class="linenos"> 27</span><span class="cm"> * 2024</span>
+<span class="linenos"> 28</span><span class="cm"> */</span>
+<span class="linenos"> 29</span>
+<span class="linenos"> 30</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 31</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 32</span>
+<span class="linenos"> 33</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc.hpp&quot;</span>
+<span class="linenos"> 34</span>
+<span class="linenos"> 35</span><span class="cm">/**</span>
+<span class="linenos"> 36</span><span class="cm"> * @brief Reflects the bits of a value.</span>
+<span class="linenos"> 37</span><span class="cm"> * </span>
+<span class="linenos"> 38</span><span class="cm"> * @tparam CRC_Type The type of the value (e.g., uint8_t, uint16_t, uint32_t).</span>
+<span class="linenos"> 39</span><span class="cm"> * @param value The value to reflect.</span>
+<span class="linenos"> 40</span><span class="cm"> * @param num_bits The number of bits to reflect.</span>
+<span class="linenos"> 41</span><span class="cm"> * @return The reflected value.</span>
+<span class="linenos"> 42</span><span class="cm"> */</span>
+<span class="linenos"> 43</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos"> 44</span><span class="kr">inline</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">reflect_bits</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_bits</span><span class="p">)</span>
+<span class="linenos"> 45</span><span class="p">{</span>
+<span class="linenos"> 46</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">reflected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 47</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bits</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos"> 48</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 49</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">))</span>
+<span class="linenos"> 50</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 51</span><span class="w">            </span><span class="n">reflected</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">num_bits</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">));</span>
+<span class="linenos"> 52</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 53</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 54</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">reflected</span><span class="p">;</span>
+<span class="linenos"> 55</span><span class="p">}</span>
+<span class="linenos"> 56</span>
+<span class="linenos"> 57</span><span class="cm">/**</span>
+<span class="linenos"> 58</span><span class="cm"> * @brief Default constructor for CRC-8 configuration.</span>
+<span class="linenos"> 59</span><span class="cm"> */</span>
+<span class="linenos"> 60</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="linenos"> 61</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC8_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
+<span class="linenos"> 62</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC8_SMBUS_POLYNOMIAL</span><span class="p">),</span>
+<span class="linenos"> 63</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC8_SMBUS_INITIAL_CRC</span><span class="p">),</span>
+<span class="linenos"> 64</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC8_SMBUS_FINAL_XOR</span><span class="p">),</span>
+<span class="linenos"> 65</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC8_SMBUS_REFLECT_INPUT</span><span class="p">),</span>
+<span class="linenos"> 66</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC8_SMBUS_REFLECT_OUTPUT</span><span class="p">)</span>
+<span class="linenos"> 67</span><span class="p">{</span>
+<span class="linenos"> 68</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos"> 69</span><span class="p">}</span>
+<span class="linenos"> 70</span>
+<span class="linenos"> 71</span><span class="cm">/**</span>
+<span class="linenos"> 72</span><span class="cm"> * @brief Default constructor for CRC-16 configuration.</span>
+<span class="linenos"> 73</span><span class="cm"> */</span>
+<span class="linenos"> 74</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="linenos"> 75</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC16_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
+<span class="linenos"> 76</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC16_CCITT_POLYNOMIAL</span><span class="p">),</span>
+<span class="linenos"> 77</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC16_CCITT_INITIAL_CRC</span><span class="p">),</span>
+<span class="linenos"> 78</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC16_CCITT_FINAL_XOR</span><span class="p">),</span>
+<span class="linenos"> 79</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC16_CCITT_REFLECT_INPUT</span><span class="p">),</span>
+<span class="linenos"> 80</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC16_CCITT_REFLECT_OUTPUT</span><span class="p">)</span>
+<span class="linenos"> 81</span><span class="p">{</span>
+<span class="linenos"> 82</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos"> 83</span><span class="p">}</span>
+<span class="linenos"> 84</span>
+<span class="linenos"> 85</span><span class="cm">/**</span>
+<span class="linenos"> 86</span><span class="cm"> * @brief Default constructor for CRC-32 configuration.</span>
+<span class="linenos"> 87</span><span class="cm"> */</span>
+<span class="linenos"> 88</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="linenos"> 89</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC32_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
+<span class="linenos"> 90</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC32_ISO_POLYNOMIAL</span><span class="p">),</span>
+<span class="linenos"> 91</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC32_ISO_INITIAL_CRC</span><span class="p">),</span>
+<span class="linenos"> 92</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC32_ISO_FINAL_XOR</span><span class="p">),</span>
+<span class="linenos"> 93</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC32_ISO_REFLECT_INPUT</span><span class="p">),</span>
+<span class="linenos"> 94</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC32_ISO_REFLECR_OUTPUT</span><span class="p">)</span>
+<span class="linenos"> 95</span><span class="p">{</span>
+<span class="linenos"> 96</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos"> 97</span><span class="p">}</span>
+<span class="linenos"> 98</span>
+<span class="linenos"> 99</span><span class="cm">/**</span>
+<span class="linenos">100</span><span class="cm"> * @brief Parameterized constructor for CRC configuration.</span>
+<span class="linenos">101</span><span class="cm"> * </span>
+<span class="linenos">102</span><span class="cm"> * @param polynomial The polynomial for CRC calculation.</span>
+<span class="linenos">103</span><span class="cm"> * @param initial_crc The initial CRC value.</span>
+<span class="linenos">104</span><span class="cm"> * @param final_xor The final XOR value.</span>
+<span class="linenos">105</span><span class="cm"> * @param reflect_input Flag to enable input bit reflection.</span>
+<span class="linenos">106</span><span class="cm"> * @param reflect_output Flag to enable output bit reflection.</span>
+<span class="linenos">107</span><span class="cm"> */</span>
+<span class="linenos">108</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos">109</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor</span><span class="p">,</span>
+<span class="linenos">110</span><span class="w">                   </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output</span><span class="p">)</span>
+<span class="linenos">111</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">polynomial</span><span class="p">),</span>
+<span class="linenos">112</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">initial_crc</span><span class="p">),</span>
+<span class="linenos">113</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">final_xor</span><span class="p">),</span>
+<span class="linenos">114</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">reflect_input</span><span class="p">),</span>
+<span class="linenos">115</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">reflect_output</span><span class="p">)</span>
+<span class="linenos">116</span><span class="p">{</span>
+<span class="linenos">117</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">polynomial</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">118</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;ERROR::CRC polynomial cannot be zero</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">119</span>
+<span class="linenos">120</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos">121</span><span class="p">}</span>
+<span class="linenos">122</span>
+<span class="linenos">123</span><span class="cm">/**</span>
+<span class="linenos">124</span><span class="cm"> * @brief Initializes the CRC instance, including table computation and validation.</span>
+<span class="linenos">125</span><span class="cm"> */</span>
+<span class="linenos">126</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos">127</span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">initialize</span><span class="p">()</span>
+<span class="linenos">128</span><span class="p">{</span>
+<span class="linenos">129</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">compute_table</span><span class="p">();</span>
+<span class="linenos">130</span>
+<span class="linenos">131</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">crc_validation_string</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC_VALIDATION_STRING</span><span class="p">;</span>
+<span class="linenos">132</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">check_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">compute_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">crc_validation_string</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">crc_validation_string</span><span class="p">));</span>
+<span class="linenos">133</span><span class="p">}</span>
+<span class="linenos">134</span>
+<span class="linenos">135</span><span class="cm">/**</span>
+<span class="linenos">136</span><span class="cm"> * @brief Computes the CRC lookup table.</span>
+<span class="linenos">137</span><span class="cm"> */</span>
+<span class="linenos">138</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos">139</span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">compute_table</span><span class="p">()</span>
+<span class="linenos">140</span><span class="p">{</span>
+<span class="linenos">141</span><span class="w">    </span><span class="c1">// Calculate CRC of all 256 possible byte values.</span>
+<span class="linenos">142</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">dividend</span><span class="p">)</span>
+<span class="linenos">143</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">144</span><span class="w">        </span><span class="c1">// Align the byte to leftmost position.</span>
+<span class="linenos">145</span><span class="w">        </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="linenos">146</span>
+<span class="linenos">147</span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">bit</span><span class="p">)</span>
+<span class="linenos">148</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">149</span><span class="w">            </span><span class="c1">// Left shift till bit 1 found at MSB.</span>
+<span class="linenos">150</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span>
+<span class="linenos">151</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">152</span><span class="w">                </span><span class="c1">// XOR with polynomial if MSB is 1.</span>
+<span class="linenos">153</span><span class="w">                </span><span class="c1">// The MSB of polynomial is always 1 which is not included. So, MSB polynomial ^ MSB of remainder = 0.</span>
+<span class="linenos">154</span><span class="w">                </span><span class="c1">// That&#39;s why it is left lefted first then XORed to find remainder.</span>
+<span class="linenos">155</span><span class="w">                </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">polynomial_</span><span class="p">;</span>
+<span class="linenos">156</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">157</span><span class="w">            </span><span class="k">else</span>
+<span class="linenos">158</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">159</span><span class="w">                </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">160</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">161</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">162</span>
+<span class="linenos">163</span><span class="w">        </span><span class="c1">// Store the remainder in the lookup table.</span>
+<span class="linenos">164</span><span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">table_</span><span class="p">[</span><span class="n">dividend</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">165</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">166</span><span class="p">}</span>
+<span class="linenos">167</span>
+<span class="linenos">168</span><span class="cm">/**</span>
+<span class="linenos">169</span><span class="cm"> * @brief Computes the CRC hash for the given data.</span>
+<span class="linenos">170</span><span class="cm"> * </span>
+<span class="linenos">171</span><span class="cm"> * @param data Pointer to the input data.</span>
+<span class="linenos">172</span><span class="cm"> * @param len Length of the input data.</span>
+<span class="linenos">173</span><span class="cm"> * @return The computed CRC value.</span>
+<span class="linenos">174</span><span class="cm"> */</span>
+<span class="linenos">175</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos">176</span><span class="kr">inline</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">compute_hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="linenos">177</span><span class="p">{</span>
+<span class="linenos">178</span><span class="w">    </span><span class="c1">// Initialize the remainder with the initial CRC value.</span>
+<span class="linenos">179</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initial_crc_</span><span class="p">;</span>
+<span class="linenos">180</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">dividend</span><span class="p">;</span>
+<span class="linenos">181</span>
+<span class="linenos">182</span><span class="w">    </span><span class="c1">// data cannot be nullptr.</span>
+<span class="linenos">183</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span>
+<span class="linenos">184</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">185</span><span class="w">        </span><span class="c1">// Initial CRC is XORed with first byte; the CRC of resulting is XORed with second byte and so on.</span>
+<span class="linenos">186</span><span class="w">        </span><span class="c1">// The final CRC is XORed with final_xor_.</span>
+<span class="linenos">187</span>
+<span class="linenos">188</span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">index</span><span class="p">)</span>
+<span class="linenos">189</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">190</span><span class="w">            </span><span class="c1">// Reflect byte from data if enabled.</span>
+<span class="linenos">191</span><span class="w">            </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reflect_input_</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">reflect_bits</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">],</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+<span class="linenos">192</span><span class="w">            </span>
+<span class="linenos">193</span><span class="w">            </span><span class="c1">// Left most byte of remainder is XORed with data as data is one byte in each step.</span>
+<span class="linenos">194</span><span class="w">            </span><span class="n">dividend</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">8</span><span class="p">));</span>
+<span class="linenos">195</span>
+<span class="linenos">196</span><span class="w">            </span><span class="c1">// CRC of resultant is taken from lookup table.</span>
+<span class="linenos">197</span><span class="w">            </span><span class="c1">// Used left most byte of remainder is removed shifting left by 8.</span>
+<span class="linenos">198</span><span class="w">            </span><span class="c1">// Now, XORed to find new remainder.</span>
+<span class="linenos">199</span><span class="w">            </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="n">dividend</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="linenos">200</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">201</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">202</span>
+<span class="linenos">203</span><span class="w">    </span><span class="c1">// Reflect remainder if enabled and XOR with final xor value.</span>
+<span class="linenos">204</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">reflect_output_</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">reflect_bits</span><span class="p">(</span><span class="n">remainder</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">remainder</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">final_xor_</span><span class="p">;</span>
+<span class="linenos">205</span><span class="p">}</span>
+<span class="linenos">206</span>
+<span class="linenos">207</span><span class="cm">/**</span>
+<span class="linenos">208</span><span class="cm"> * @brief Prints the CRC lookup table to the console.</span>
+<span class="linenos">209</span><span class="cm"> */</span>
+<span class="linenos">210</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos">211</span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">print_table</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="linenos">212</span><span class="p">{</span>
+<span class="linenos">213</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">214</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">215</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0*X&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">table_</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="linenos">216</span>
+<span class="linenos">217</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">218</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">219</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">220</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">221</span><span class="w">        </span><span class="k">else</span>
+<span class="linenos">222</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">223</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">224</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">225</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">226</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="crc-testing-cpp">
+<h3>crc_testing.cpp:<a class="headerlink" href="#crc-testing-cpp" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc.hpp&quot;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="linenos"> 6</span><span class="p">{</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="n">CRC</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">crc</span><span class="p">(</span><span class="mh">0xF4ACFB13</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="n">crc</span><span class="p">.</span><span class="n">print_table</span><span class="p">();</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;check: %08X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">crc</span><span class="p">.</span><span class="n">get_check</span><span class="p">());</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World&quot;</span><span class="p">;</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;hash: %08X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">crc</span><span class="p">.</span><span class="n">compute_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">)));</span>
+<span class="linenos">13</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">14</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Create and copy these three files. Compile and run using your computer. To verify, use online crc calculator: <a class="reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html" rel="noopener noreferrer" target="_blank">sunshine2k</a> or <a class="reference external" href="https://crccalc.com" rel="noopener noreferrer" target="_blank">crccalc</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>STM32 microcontrollers have CRC-32 hardware. We can use it to calculate CRC-32.</p>
+</div>
 </section>
 </section>
 </section>

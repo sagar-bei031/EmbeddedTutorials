@@ -69,7 +69,7 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
      g
      exit
 
-  Change ``binary filename``.
+  Change ``device name`` and ``binary filename``.
 
 - Make ``flash.sh`` executable.
 
