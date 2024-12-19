@@ -47,30 +47,15 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
 2. Using JLink
 --------------
 
-- Add these lines at the bottom of the **Makefile**.
-
-  .. literalinclude:: makefiles/jflash
-     :language: makefile
-
-- Connect your **JLink** to your microcontroller.
-
-- Flash binary.
-
-  .. code-block:: bash
-
-     make jflash
-
-  We can also do it better using ``bash script`` and ``jlink script``.
-
 - Create ``flash.sh`` file at your project folder.
 
   .. code-block:: bash
 
-      #!/bin/bash
+     #!/bin/bash
 
-      set +e
+     set +e
 
-  JLinkExe -if SWD -speed 4000 -autoconnect 1 -CommanderScript flash.jlink
+     JLinkExe -if SWD -speed 4000 -autoconnect 1 -CommanderScript flash.jlink
 
 - Create ``flash.jlink`` file at your project folder.
 
@@ -79,10 +64,12 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
      device STM32F103C6
      r
      h
-     loadbin build/MR_Slave.bin, 0x08000000
+     loadbin build/<your_binary_filename>.bin, 0x08000000
      r
      g
      exit
+
+  Change ``binary filename``.
 
 - Make ``flash.sh`` executable.
 
