@@ -8,7 +8,7 @@ Installation
 OS
 --
 
-We are using **Ubuntu** and **Windows**. Mostly, we will be using **Ubuntu** for development. But some software is only available for **Windows**. So, we will be using **Windows** for those.
+We are using **Ubuntu** and **Windows**. Mostly, we will be using **Ubuntu** for development. But some softwares are only available for **Windows**. So, we will be using **Windows** for those.
 
 1. Ubuntu
 ^^^^^^^^^
