@@ -1,4 +1,5 @@
-/***********************************************************************************************
+/**
+ * *********************************************************************************************
  * @file crc8.cpp
  * @brief Implementation file for the crc8 class
  * @author Robotics Team, IOE Pulchowk Campus
@@ -6,7 +7,8 @@
  *
  * For more information on CRC calculation in C, \
  * see \link https://barrgroup.com/embedded-systems/how-to/crc-calculation-c-code \endlink.
- **********************************************************************************************/
+ ***********************************************************************************************
+ */
 
 #include "crc8.hpp"
 
