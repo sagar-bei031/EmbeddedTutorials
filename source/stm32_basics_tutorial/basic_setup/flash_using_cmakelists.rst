@@ -26,7 +26,7 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
 
 - Connect your **JLink** to your microcontroller.
 
-- Flash binary by running this command from ``build`` folder.
+- Flash binary by running this command from ``build`` folder after building ``binary``.
 
   .. code-block:: bash
 
@@ -57,6 +57,8 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
      r
      g
      exit
+
+  Change ``device name`` and ``binary filename``.
 
 - Make ``flash.sh`` executable.
 
