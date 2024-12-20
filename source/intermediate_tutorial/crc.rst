@@ -210,6 +210,9 @@ STM32 microcontrollers have CRC-32 hardware. We can use it to calculate CRC-32.
    - **Final XOR Value**: None (must be applied manually if needed).
    - **Reflect Input/Output**: Not supported in hardware (manual reflection required).
 
+5.1. CubeMX Setup
+^^^^^^^^^^^^^^^^^
+
 `Generate baisc code <../stm32_basics_tutorial/basic_setup/generate_basic_code.html>`__ with:
 
 - ``microcontroller``: ``STM32F103C8T6``
@@ -223,6 +226,9 @@ Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill usi
    :align: center
    :alt: crc_test_cubemx.png
    :class: padded-image
+
+5.2. Code Implementation
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Navigate to ``Core`` > ``Src`` > ``main.c`` and add the following code. Add the following includes.
 
