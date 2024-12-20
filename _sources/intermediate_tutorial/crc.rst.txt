@@ -126,7 +126,7 @@ Generating lookup table for CRC-16:
    uint16_t remainder; 
    uint16_t crc16_table[256];
    
-   for (uint dividend = 0; dividend < 256; ++dividend)
+   for (int dividend = 0; dividend < 256; ++dividend)
    {
        remainder = dividend << 8; // This is the difference from CRC-8. The 8 bits are aligned to MSB of 16-bit. For CRC-32, it is shifted left by 24;
        for (int b = 8; b > 0; --b)
@@ -153,7 +153,7 @@ Calculating CRC-16 of array using lookup table:
    uint8_t dividend;
    uint16_t remainder = 0;
 
-   for (uint index = 0; index < len; ++index)
+   for (int index = 0; index < len; ++index)
    {
        dividend = data[index] ^ (remainder >> 8); // For CRC-16, remainder have to be shifted right by 8. For CRC-32, it is 24. 
        remainder = crc16_table[dividend];
