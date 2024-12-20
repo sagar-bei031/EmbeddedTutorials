@@ -1,15 +1,22 @@
 Cyclic Redundancy Check (CRC)
 =============================
 
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
 1. Introduction
 ---------------
 
 CRC is a technique to detect errors in data transmission. It is widely used in communication systems to detect errors in data transmission. It is also used in data storage systems to detect errors in stored data. It is a type of hash function that takes an input data stream and produces a fixed-size hash value. The hash value is used to detect errors in the data stream. The hash value is appended to the data stream before transmission. The receiver calculates the hash value of the received data stream and compares it with the hash value received. If the hash values match, the data stream is considered error-free. If the hash values do not match, an error is detected.
 
+
 2. Types of CRC
 ---------------
 
 There are many types of CRC algorithms. The most common types are ``CRC-8``, ``CRC-16``, and ``CRC-32``. The number in the name of the CRC algorithm represents the size of the hash value produced by the algorithm. For example, CRC-8 produces an 8-bit hash value, CRC-16 produces a 16-bit hash value, and CRC-32 produces a 32-bit hash value.
+
 
 3. Understanding CRC
 --------------------
@@ -155,6 +162,7 @@ Calculating CRC-16 of array using lookup table:
    printf("CRC-16: 0x%04X\n", remainder);
 
 You got the idea. Now, you can generate the lookup table for CRC-32 and calculate the CRC-32 of the data. The are also some parameters like initial value, final XOR value, input reflected, output reflected and check value, which can be used to improve the CRC calculation. But, the above code is the basic one.
+
 
 4. Implementing CRC in C++
 --------------------------
