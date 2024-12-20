@@ -102,7 +102,12 @@
 <li><p><a class="reference internal" href="#crc-testing-cpp" id="id10">crc_testing.cpp:</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#using-stm32-crc-hardware" id="id11">5. Using STM32 CRC Hardware</a></p></li>
+<li><p><a class="reference internal" href="#using-stm32-crc-hardware" id="id11">5. Using STM32 CRC Hardware</a></p>
+<ul>
+<li><p><a class="reference internal" href="#cubemx-setup" id="id12">5.1. CubeMX Setup</a></p></li>
+<li><p><a class="reference internal" href="#code-implementation" id="id13">5.2. Code Implementation</a></p></li>
+</ul>
+</li>
 </ul>
 </nav>
 <section id="introduction">
@@ -703,6 +708,8 @@
 <li><p><strong>Reflect Input/Output</strong>: Not supported in hardware (manual reflection required).</p></li>
 </ul>
 </div>
+<section id="cubemx-setup">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">5.1. CubeMX Setup</a><a class="headerlink" href="#cubemx-setup" title="Link to this heading"></a></h3>
 <p><a class="reference external" href="../stm32_basics_tutorial/basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">Generate baisc code</a> with:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">microcontroller</span></code>: <code class="docutils literal notranslate"><span class="pre">STM32F103C8T6</span></code></p></li>
@@ -712,6 +719,9 @@
 <p>Also enable <code class="docutils literal notranslate"><span class="pre">USB</span></code> for <code class="docutils literal notranslate"><span class="pre">printf</span></code> if <code class="docutils literal notranslate"><span class="pre">ITM</span> <span class="pre">SWV</span></code> not woriking (for bluepill using duplicate stlink). See <a class="reference external" href="../stm32_basics_tutorial/usb/usb_cdc.html" rel="noopener noreferrer" target="_blank">this</a> for USB setup.</p>
 <a class="padded-image reference internal image-reference" href="../_images/crc_test_cubemx.png"><img alt="crc_test_cubemx.png" class="padded-image align-center" src="../_images/crc_test_cubemx.png" style="width: 100%;" />
 </a>
+</section>
+<section id="code-implementation">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">5.2. Code Implementation</a><a class="headerlink" href="#code-implementation" title="Link to this heading"></a></h3>
 <p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Src</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">main.c</span></code> and add the following code. Add the following includes.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Private includes ----------------------------------------------------------*/</span>
 <span class="cm">/* USER CODE BEGIN Includes */</span>
@@ -742,6 +752,7 @@
 </pre></div>
 </div>
 <p>Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data.</p>
+</section>
 </section>
 </section>
 
