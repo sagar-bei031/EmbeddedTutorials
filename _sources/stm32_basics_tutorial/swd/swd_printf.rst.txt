@@ -7,7 +7,7 @@ SWD Printf
 
 
 .. attention::
-   ``ITM SWV Console`` does not work using our ``duplicate ST-Link V2`` adapter.
+   ``ITM SWV Console`` does not work using our ``duplicate ST-Link V2`` adapter. So using ``bluepill``, ``USB`` is used for ``printf`` in our case.
 
 
 1. Introduction
