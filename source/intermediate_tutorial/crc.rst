@@ -159,7 +159,7 @@ You got the idea. Now, you can generate the lookup table for CRC-32 and calculat
 4. Implementing CRC in C++
 --------------------------
 
-Let's implement the CRC algorithm in C++ using template class. I hope you have basic knowledge of C++ programming. In embedded programming, use of C++ standard library (eg: iostream, std::vector) is not recommended.
+Let's implement the CRC algorithm in C++ using template class. I hope you have basic knowledge of C++ programming. In embedded programming, use of C++ standard library (eg: iostream, std::vector) is not recommended. Create and copy these three files.
 
 crc.hpp:
 ^^^^^^^^
@@ -182,7 +182,70 @@ crc_testing.cpp:
    :language: cpp
    :linenos:
 
-Create and copy these three files. Compile and run using your computer. To verify, use online crc calculator: `sunshine2k <https://www.sunshine2k.de/coding/javascript/crc/crc_js.html>`__ or `crccalc <https://crccalc.com>`__.
+Compile and run using your computer. To verify, use online crc calculator: `sunshine2k <https://www.sunshine2k.de/coding/javascript/crc/crc_js.html>`__ or `crccalc <https://crccalc.com>`__.
+
+.. code-block:: bash
+
+   g++ crc_testing.cpp -o crc_testing
+   ./crc_testing
+
+5. Using STM32 CRC Hardware
+---------------------------
+
+STM32 microcontrollers have CRC-32 hardware. We can use it to calculate CRC-32.
 
 .. note::
-   STM32 microcontrollers have CRC-32 hardware. We can use it to calculate CRC-32.
+   ``STM32F103C8T6`` and ``STM32F407VGT6`` CRC hardware have no configuration, so only default CRC-32 can be calculated. Their default parameters are:
+
+   - **Polynomial**: 0x04C11DB7
+   - **Initial Value**: 0xFFFFFFFF
+   - **Final XOR Value**: None (must be applied manually if needed).
+   - **Reflect Input/Output**: Not supported in hardware (manual reflection required).
+
+`Generate baisc code <../stm32_basics_tutorial/basic_setup/generate_basic_code.html>`__ with:
+
+- ``microcontroller``: ``STM32F103C8T6``
+- ``project name``: ``crc_test``
+- ``Toolchain/IDE``: ``Makefile``
+ 
+Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill using duplicate stlink). See `this <../stm32_basics_tutorial/usb/usb_cdc.html>`__ for USB setup.
+
+.. image:: images/crc_test_cubemx.png
+   :width: 100%
+   :align: center
+   :alt: crc_test_cubemx.png
+
+Navigate to ``Core`` > ``Src`` > ``main.c`` and add the following code. Add the following includes.
+
+.. code-block:: c
+
+   /* Private includes ----------------------------------------------------------*/
+   /* USER CODE BEGIN Includes */
+   #include <string.h>
+   #include <stdio.h>
+   #include "usbd_cdc_if.h"
+   /* USER CODE END Includes */
+
+Add the following test code to calculate CRC-32.
+
+.. code-block:: c
+
+   /* USER CODE BEGIN 2 */
+   char data[] = "123456789";
+   char buf[100]; // For CDC transmit
+   /* USER CODE END 2 */
+   
+   /* Infinite loop */
+   /* USER CODE BEGIN WHILE */
+   while (1)
+   {
+     uint32_t crc = HAL_CRC_Calculate(&hcrc, (uint32_t *)data, strlen(data));
+     snprintf(buf, sizeof(buf), "data: %s, crc: %lu\n", data, crc);
+     CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
+     /* USER CODE END WHILE */
+   
+     /* USER CODE BEGIN 3 */
+   }
+   /* USER CODE END 3 */
+
+Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data.
