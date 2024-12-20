@@ -139,7 +139,7 @@ template <typename CRC_Type>
 inline void CRC<CRC_Type>::compute_table()
 {
     // Calculate CRC of all 256 possible byte values.
-    for (uint dividend = 0; dividend < 256; ++dividend)
+    for (int dividend = 0; dividend < 256; ++dividend)
     {
         // Align the byte to leftmost position.
         CRC_Type remainder = dividend << (this->width - 8);
