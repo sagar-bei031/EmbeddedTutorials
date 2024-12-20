@@ -214,6 +214,7 @@ Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill usi
    :width: 100%
    :align: center
    :alt: crc_test_cubemx.png
+   :class: padded-image
 
 Navigate to ``Core`` > ``Src`` > ``main.c`` and add the following code. Add the following includes.
 
