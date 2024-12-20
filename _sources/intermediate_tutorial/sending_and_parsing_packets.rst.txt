@@ -74,7 +74,7 @@ I have already discussed about CRC in `previous <crc.html>`__ tutorial. The CRC 
    :language: cpp
    :linenos:
 
-**crc8_testing.cpp**:
+**crc8_test.cpp**:
 
 .. literalinclude:: files/crc8_test.cpp
    :language: cpp
