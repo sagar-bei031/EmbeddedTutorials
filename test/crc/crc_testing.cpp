@@ -8,7 +8,7 @@ int main()
     crc.print_table();
     printf("check: %08X\n", crc.get_check());
 
-    uint8_t data[] = {0xff, 0x19, 0x00, 0x66, 0x11};
-    printf("hash: %08X\n", crc.compute_hash((uint8_t*)data, sizeof(data)));
+    char data[] = "Hello World";
+    printf("hash: %08X\n", crc.compute_hash((uint8_t*)data, strlen(data)));
     return 0;
 }

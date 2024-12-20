@@ -9,7 +9,8 @@ For this Intermediate Tutorial, you should have basic knowledge **STM32 HAL prog
 
    intermediate_tutorial/cpp_setup_in_stm32
    intermediate_tutorial/crc
-..    intermediate_tutorial/sending_packet_using_uart
+   intermediate_tutorial/sending_and_parsing_packets
+
 ..    intermediate_tutorial/joystick
 ..    intermediate_tutorial/omnidirectional_robot
 ..    intermediate_tutorial/bno085

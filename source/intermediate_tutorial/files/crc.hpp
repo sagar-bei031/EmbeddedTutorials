@@ -86,45 +86,16 @@ class CRC
                   "CRC template class only supports CRC8_Type, CRC16_Type, and CRC32_Type!");
 
 public:
-    /**
-     * @brief Default constructor.
-     */
     CRC();
-
-    /**
-     * @brief Constructor with customizable parameters.
-     *
-     * @param polynomial The polynomial for CRC calculation.
-     * @param initial_crc The initial CRC value (default is 0).
-     * @param final_xor The final XOR value (default is 0).
-     * @param reflect_input Enable input bit reflection (default is false).
-     * @param reflect_output Enable output bit reflection (default is false).
-     */
     CRC(CRC_Type polynomial, CRC_Type initial_crc = 0, const CRC_Type final_xor = 0,
         bool reflect_input = false, bool reflect_output = false);
-
-    /**
-     * @brief Deleted copy constructor.
-     */
+    
     CRC(const CRC &) = delete;
-
-    /**
-     * @brief Deleted copy assignment operator.
-     */
     CRC &operator=(const CRC &) = delete;
-
-    /**
-     * @brief Compute the CRC hash for the given data.
-     *
-     * @param data Pointer to the input data.
-     * @param len Length of the input data.
-     * @return The computed CRC value.
-     */
+    
+    static CRC_Type reflect_bits(CRC_Type value, int num_bits);
     CRC_Type compute_hash(const uint8_t *data, const size_t len) const;
-
-    /**
-     * @brief Print the CRC lookup table.
-     */
+    
     void print_table() const;
 
     // Getters for class members
@@ -133,15 +104,6 @@ public:
     const CRC_Type get_final_xor() const;   ///< Get the final XOR value.
     const CRC_Type *get_table() const;      ///< Get the CRC lookup table.
     const CRC_Type get_check() const;       ///< Get the validation CRC value.
-
-    /**
-     * @brief Reflect the bits of a value.
-     *
-     * @param value The value to reflect.
-     * @param num_bits Number of bits to reflect.
-     * @return The reflected value.
-     */
-    static CRC_Type reflect_bits(CRC_Type value, int num_bits);
 
     static constexpr int width = sizeof(CRC_Type) * 8; ///< CRC width in bits.
 

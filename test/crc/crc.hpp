@@ -1,10 +1,23 @@
 /**
- * *********************************************************************************************
- * @file    crc.hpp
- * @brief   Header file for CRC template class
- * @author  Sagar Chaudhary
- * @date    2024
- ***********************************************************************************************
+ * @file crc.hpp
+ * @brief Header file for the CRC template class, providing support for CRC computation with customizable parameters.
+ *
+ * This file defines a template class for calculating CRC (Cyclic Redundancy Check) with support for reflection and various CRC types.
+ *
+ * @details
+ * The `CRC` template class supports 8-bit, 16-bit, and 32-bit CRC calculations with configurable polynomials,
+ * initial values, final XOR values, and input/output bit reflections. It includes functionality for table generation
+ * and bit reflection. The default configuration values and polynomial constants for common CRC types (e.g., CRC-8 SMBus,
+ * CRC-16 CCITT, CRC-32 ISO) are also provided.
+ *
+ * @note
+ * This implementation enforces compile-time type checks to ensure only valid CRC types are used.
+ *
+ * @author
+ * Sagar Chaudhary
+ *
+ * @date
+ * 2024
  */
 
 #ifndef CRC_HPP
@@ -33,34 +46,36 @@ using CRC16_Type = uint16_t;
  */
 using CRC32_Type = uint32_t;
 
-#define CRC8_SMBUS_POLYNOMIAL 0x07
-#define CRC8_SMBUS_INITIAL_CRC 0x00
-#define CRC8_SMBUS_FINAL_XOR 0x00
-#define CRC8_SMBUS_REFLECT_INPUT false
-#define CRC8_SMBUS_REFLECT_OUTPUT false
+// Definitions of some CRC standards
+#define CRC8_SMBUS_POLYNOMIAL 0x07      ///< Polynomial for CRC-8 SMBus
+#define CRC8_SMBUS_INITIAL_CRC 0x00     ///< Initial value for CRC-8 SMBus
+#define CRC8_SMBUS_FINAL_XOR 0x00       ///< Final XOR value for CRC-8 SMBus
+#define CRC8_SMBUS_REFLECT_INPUT false  ///< Input reflection for CRC-8 SMBus
+#define CRC8_SMBUS_REFLECT_OUTPUT false ///< Output reflection for CRC-8 SMBus
 
-/// Polynomial for CRC-16 CCITT
-#define CRC16_CCITT_POLYNOMIAL 0x1021
-#define CRC16_CCITT_INITIAL_CRC 0xFFFF
-#define CRC16_CCITT_FINAL_XOR 0X0000
-#define CRC16_CCITT_REFLECT_INPUT false
-#define CRC16_CCITT_REFLECT_OUTPUT false
+#define CRC16_CCITT_POLYNOMIAL 0x1021    ///< Polynomial for CRC-16 CCITT
+#define CRC16_CCITT_INITIAL_CRC 0xFFFF   ///< Initial value for CRC-16 CCITT
+#define CRC16_CCITT_FINAL_XOR 0x0000     ///< Final XOR value for CRC-16 CCITT
+#define CRC16_CCITT_REFLECT_INPUT false  ///< Input reflection for CRC-16 CCITT
+#define CRC16_CCITT_REFLECT_OUTPUT false ///< Output reflection for CRC-16 CCITT
 
-/// Polynomial for CRC-32 ISO
-#define CRC32_ISO_POLYNOMIAL 0x04C11DB7
-#define CRC32_ISO_INITIAL_CRC 0xFFFFFFFF
-#define CRC32_ISO_FINAL_XOR 0XFFFFFFFF
-#define CRC32_ISO_REFLECT_INPUT true
-#define CRC32_ISO_REFLECR_OUTPUT true
+#define CRC32_ISO_POLYNOMIAL 0x04C11DB7  ///< Polynomial for CRC-32 ISO
+#define CRC32_ISO_INITIAL_CRC 0xFFFFFFFF ///< Initial value for CRC-32 ISO
+#define CRC32_ISO_FINAL_XOR 0xFFFFFFFF   ///< Final XOR value for CRC-32 ISO
+#define CRC32_ISO_REFLECT_INPUT true     ///< Input reflection for CRC-32 ISO
+#define CRC32_ISO_REFLECR_OUTPUT true    ///< Output reflection for CRC-32 ISO
 
-/// Default string used for CRC validation
-#define CRC_VALIDATION_STRING "123456789"
+#define CRC_VALIDATION_STRING "123456789" ///< Standard validation string for CRC
 
 /**
  * @class CRC
- * @brief Template class for CRC calculation with reflection support.
+ * @brief Template class for CRC computation.
  *
- * @tparam CRC_Type The type of CRC (CRC8_Type, CRC16_Type, or CRC32_Type).
+ * @tparam CRC_Type The CRC type, must be one of `CRC8_Type`, `CRC16_Type`, or `CRC32_Type`.
+ *
+ * @details
+ * This class allows calculation of CRC using a lookup table for improved performance.
+ * It supports customizable parameters such as polynomial, initial value, and bit reflection.
  */
 template <typename CRC_Type>
 class CRC
@@ -71,75 +86,38 @@ class CRC
                   "CRC template class only supports CRC8_Type, CRC16_Type, and CRC32_Type!");
 
 public:
-    /**
-     * @brief Default constructor for CRC
-     */
     CRC();
-
-    /**
-     * @brief Parametric Constructor for CRC
-     *
-     * @param polynomial The polynomial for CRC calculation
-     * @param initial_CRC The initial CRC value
-     * @param final_CRC_XOR The final CRC XOR value
-     * @param input_reflection Flag to enable input reflection
-     * @param output_reflection Flag to enable output reflection
-     */
     CRC(CRC_Type polynomial, CRC_Type initial_crc = 0, const CRC_Type final_xor = 0,
         bool reflect_input = false, bool reflect_output = false);
 
-    /**
-     * @brief Delete copy constructor
-     */
     CRC(const CRC &) = delete;
-
-    /**
-     * @brief Delete assignment operator
-     */
     CRC &operator=(const CRC &) = delete;
 
-    /**
-     * @brief Compute the CRC hash for the given data
-     *
-     * @param data The data for which CRC hash is to be computed
-     * @param len The length of the data
-     * @return The computed CRC hash
-     */
+    static CRC_Type reflect_bits(CRC_Type value, int num_bits);
     CRC_Type compute_hash(const uint8_t *data, const size_t len) const;
 
-    /**
-     * @brief Print the CRC table
-     */
     void print_table() const;
 
-    const CRC_Type get_polynomial() const { return polynomial_; }       ///< Get the polynomial
-    const CRC_Type get_initial_crc() const { return initial_crc_; }     ///< Get the initial CRC
-    const CRC_Type get_final_xor() const { return final_xor_; } ///< Get the final CRC XOR
-    const CRC_Type *get_table() const { return table_; }                ///< Get the CRC table
-    const CRC_Type get_check() const { return check_; }                 ///< Get the CRC check
+    // Getters for class members
+    CRC_Type get_polynomial() const { return this->polynomial_; } ///< Get the polynomial used for CRC.
+    CRC_Type get_initial_crc() const { return this->check_; };    ///< Get the initial CRC value.
+    CRC_Type get_final_xor() const { return this->final_xor_; };  ///< Get the final XOR value.
+    CRC_Type get_check() const { return this->check_; };          ///< Get the validation CRC value.
+    const CRC_Type *get_table() const { return this->table_; };   ///< Get the CRC lookup table.
 
-    /**
-     * @brief Reflect bits of a value
-     *
-     * @param value The value whose bits are to be reflected
-     * @param num_bits The number of bits to reflect
-     * @return The reflected value
-     */
-    static CRC_Type reflect_bits(CRC_Type value, int num_bits);
-
-    static constexpr int width = sizeof(CRC_Type) * 8;
+    static constexpr int width = sizeof(CRC_Type) * 8; ///< CRC width in bits.
 
 private:
-    void initialize();
-    void compute_table();
+    void initialize();    ///< Initialize CRC parameters.
+    void compute_table(); ///< Compute the CRC lookup table.
 
-    const CRC_Type polynomial_;
-    const CRC_Type initial_crc_;
-    const CRC_Type final_xor_;
-    const bool reflect_input_;
-    const bool reflect_output_;
-    CRC_Type table_[256];
-    CRC_Type check_;
+    const CRC_Type polynomial_;  ///< Polynomial for CRC calculation.
+    const CRC_Type initial_crc_; ///< Initial CRC value.
+    const CRC_Type final_xor_;   ///< Final XOR value.
+    const bool reflect_input_;   ///< Input bit reflection flag.
+    const bool reflect_output_;  ///< Output bit reflection flag.
+    CRC_Type check_;             ///< Validation CRC value.
+    CRC_Type table_[256];        ///< Lookup table for CRC calculation.
 };
 
 #include "crc.tpp"

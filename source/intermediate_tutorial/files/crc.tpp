@@ -33,28 +33,6 @@
 #include "crc.hpp"
 
 /**
- * @brief Reflects the bits of a value.
- * 
- * @tparam CRC_Type The type of the value (e.g., uint8_t, uint16_t, uint32_t).
- * @param value The value to reflect.
- * @param num_bits The number of bits to reflect.
- * @return The reflected value.
- */
-template <typename CRC_Type>
-inline CRC_Type CRC<CRC_Type>::reflect_bits(CRC_Type value, int num_bits)
-{
-    CRC_Type reflected = 0;
-    for (int i = 0; i < num_bits; ++i)
-    {
-        if (value & (1 << i))
-        {
-            reflected |= (1 << (num_bits - 1 - i));
-        }
-    }
-    return reflected;
-}
-
-/**
  * @brief Default constructor for CRC-8 configuration.
  */
 template <>
@@ -130,6 +108,28 @@ inline void CRC<CRC_Type>::initialize()
 
     const char crc_validation_string[] = CRC_VALIDATION_STRING;
     this->check_ = this->compute_hash((uint8_t *)crc_validation_string, strlen(crc_validation_string));
+}
+
+/**
+ * @brief Reflects the bits of a value.
+ * 
+ * @tparam CRC_Type The type of the value (e.g., uint8_t, uint16_t, uint32_t).
+ * @param value The value to reflect.
+ * @param num_bits The number of bits to reflect.
+ * @return The reflected value.
+ */
+template <typename CRC_Type>
+inline CRC_Type CRC<CRC_Type>::reflect_bits(CRC_Type value, int num_bits)
+{
+    CRC_Type reflected = 0;
+    for (int i = 0; i < num_bits; ++i)
+    {
+        if (value & (1 << i))
+        {
+            reflected |= (1 << (num_bits - 1 - i));
+        }
+    }
+    return reflected;
 }
 
 /**
