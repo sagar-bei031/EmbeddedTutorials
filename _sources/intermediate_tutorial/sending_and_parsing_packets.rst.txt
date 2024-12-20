@@ -85,7 +85,7 @@ Compile and run this code.
 .. code-block:: bash
 
    $ g++ crc8.cpp crc8_test.cpp -o crc8_test
-   $ ./crc8_testing
+   $ ./crc8_test
 
 **Output**:
 
