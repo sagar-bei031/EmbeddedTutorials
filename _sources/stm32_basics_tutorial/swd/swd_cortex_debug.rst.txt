@@ -56,7 +56,7 @@ Update or create ``.vscode/lauch.json`` file.
         ]
        }
 
-For ``jlink``, change "servertype": "jlink".
+Change ``.elf`` filename for ``executable`` and device name for ``device`` (for bluepill, "device": "STM32F103C8").For ``jlink``, change "servertype": "jlink".
 
 
 
@@ -93,7 +93,7 @@ Update ``.vscode/launch.json``.
        ]
    }
 
-For more about **OpenOCD**, watch `this <https://www.youtube.com/watch?v=_1u7IOnivnM>`__.
+Change ``.elf`` filename for ``executable`` and device name for ``device``. Also you need to chage ``configFiles`` (e.g. target/stm32f1x.cfg for bluepill or interface/jlink.cfg for jlink interface). For more about **OpenOCD**, watch `this <https://www.youtube.com/watch?v=_1u7IOnivnM>`__.
 
 
 

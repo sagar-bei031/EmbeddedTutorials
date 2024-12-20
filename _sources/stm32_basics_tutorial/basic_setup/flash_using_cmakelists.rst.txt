@@ -53,7 +53,7 @@ We use **ST-Link** or **JLink** to flash binary to stm32 microcontrollers.
      device STM32F103C6
      r
      h
-     loadbin build/MR_Slave.bin, 0x08000000
+     loadbin build/<binary_file>.bin, 0x08000000
      r
      g
      exit

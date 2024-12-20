@@ -9,7 +9,7 @@ Cyclic Redundancy Check (CRC)
 1. Introduction
 ---------------
 
-CRC is a technique to detect errors in data transmission. It is widely used in communication systems to detect errors in data transmission. It is also used in data storage systems to detect errors in stored data. It is a type of hash function that takes an input data stream and produces a fixed-size hash value. The hash value is used to detect errors in the data stream. The hash value is appended to the data stream before transmission. The receiver calculates the hash value of the received data stream and compares it with the hash value received. If the hash values match, the data stream is considered error-free. If the hash values do not match, an error is detected.
+CRC is a technique to detect errors in data. It is widely used in communication systems to detect errors in data transmission. It is also used in data storage systems to detect errors in stored data. It is a type of hash function that takes an input data stream and produces a fixed-size hash value. The hash value is used to detect errors in the data stream. The hash value is appended to the data stream before transmission. The receiver calculates the hash value of the received data stream and compares it with the hash value received. If the hash values match, the data stream is considered error-free. If the hash values do not match, an error is detected.
 
 
 2. Types of CRC
@@ -176,15 +176,13 @@ crc.hpp:
    :language: cpp
    :linenos:
 
-crc.tpp:
-^^^^^^^^
+**crc.tpp**:
 
 .. literalinclude:: files/crc.tpp
    :language: cpp
    :linenos:
 
-crc_testing.cpp:
-^^^^^^^^^^^^^^^^
+**crc_testing.cpp**:
 
 .. literalinclude:: files/crc_testing.cpp
    :language: cpp
@@ -196,6 +194,45 @@ Compile and run using your computer. To verify, use online crc calculator: `suns
 
    g++ crc_testing.cpp -o crc_testing
    ./crc_testing
+
+**Output**:
+
+.. code-block:: bash
+
+   00000000        F4ACFB13        1DF50D35        E959F626        3BEA1A6A        CF46E179        261F175F        D2B3EC4C
+   77D434D4        8378CFC7        6A2139E1        9E8DC2F2        4C3E2EBE        B892D5AD        51CB238B        A567D898
+   EFA869A8        1B0492BB        F25D649D        06F19F8E        D44273C2        20EE88D1        C9B77EF7        3D1B85E4
+   987C5D7C        6CD0A66F        85895049        7125AB5A        A3964716        573ABC05        BE634A23        4ACFB130
+   2BFC2843        DF50D350        36092576        C2A5DE65        10163229        E4BAC93A        0DE33F1C        F94FC40F
+   5C281C97        A884E784        41DD11A2        B571EAB1        67C206FD        936EFDEE        7A370BC8        8E9BF0DB
+   C45441EB        30F8BAF8        D9A14CDE        2D0DB7CD        FFBE5B81        0B12A092        E24B56B4        16E7ADA7
+   B380753F        472C8E2C        AE75780A        5AD98319        886A6F55        7CC69446        959F6260        61339973
+   57F85086        A354AB95        4A0D5DB3        BEA1A6A0        6C124AEC        98BEB1FF        71E747D9        854BBCCA
+   202C6452        D4809F41        3DD96967        C9759274        1BC67E38        EF6A852B        0633730D        F29F881E
+   B850392E        4CFCC23D        A5A5341B        5109CF08        83BA2344        7716D857        9E4F2E71        6AE3D562
+   CF840DFA        3B28F6E9        D27100CF        26DDFBDC        F46E1790        00C2EC83        E99B1AA5        1D37E1B6
+   7C0478C5        88A883D6        61F175F0        955D8EE3        47EE62AF        B34299BC        5A1B6F9A        AEB79489
+   0BD04C11        FF7CB702        16254124        E289BA37        303A567B        C496AD68        2DCF5B4E        D963A05D
+   93AC116D        6700EA7E        8E591C58        7AF5E74B        A8460B07        5CEAF014        B5B30632        411FFD21
+   E47825B9        10D4DEAA        F98D288C        0D21D39F        DF923FD3        2B3EC4C0        C26732E6        36CBC9F5
+   AFF0A10C        5B5C5A1F        B205AC39        46A9572A        941ABB66        60B64075        89EFB653        7D434D40
+   D82495D8        2C886ECB        C5D198ED        317D63FE        E3CE8FB2        176274A1        FE3B8287        0A977994
+   4058C8A4        B4F433B7        5DADC591        A9013E82        7BB2D2CE        8F1E29DD        6647DFFB        92EB24E8
+   378CFC70        C3200763        2A79F145        DED50A56        0C66E61A        F8CA1D09        1193EB2F        E53F103C
+   840C894F        70A0725C        99F9847A        6D557F69        BFE69325        4B4A6836        A2139E10        56BF6503
+   F3D8BD9B        07744688        EE2DB0AE        1A814BBD        C832A7F1        3C9E5CE2        D5C7AAC4        216B51D7
+   6BA4E0E7        9F081BF4        7651EDD2        82FD16C1        504EFA8D        A4E2019E        4DBBF7B8        B9170CAB
+   1C70D433        E8DC2F20        0185D906        F5292215        279ACE59        D336354A        3A6FC36C        CEC3387F
+   F808F18A        0CA40A99        E5FDFCBF        115107AC        C3E2EBE0        374E10F3        DE17E6D5        2ABB1DC6
+   8FDCC55E        7B703E4D        9229C86B        66853378        B436DF34        409A2427        A9C3D201        5D6F2912
+   17A09822        E30C6331        0A559517        FEF96E04        2C4A8248        D8E6795B        31BF8F7D        C513746E
+   6074ACF6        94D857E5        7D81A1C3        892D5AD0        5B9EB69C        AF324D8F        466BBBA9        B2C740BA
+   D3F4D9C9        275822DA        CE01D4FC        3AAD2FEF        E81EC3A3        1CB238B0        F5EBCE96        01473585
+   A420ED1D        508C160E        B9D5E028        4D791B3B        9FCAF777        6B660C64        823FFA42        76930151
+   3C5CB061        C8F04B72        21A9BD54        D5054647        07B6AA0B        F31A5118        1A43A73E        EEEF5C2D
+   4B8884B5        BF247FA6        567D8980        A2D17293        70629EDF        84CE65CC        6D9793EA        993B68F9
+   check: 1697D06A
+   hash: 07AAD778
 
 5. Using STM32 CRC Hardware
 ---------------------------
@@ -257,6 +294,7 @@ Add the following test code to calculate CRC-32.
      uint32_t crc = HAL_CRC_Calculate(&hcrc, (uint32_t *)data, strlen(data));
      snprintf(buf, sizeof(buf), "data: %s, crc: %lu\n", data, crc);
      CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
+     HAL_Delay(100);
      /* USER CODE END WHILE */
    
      /* USER CODE BEGIN 3 */

@@ -24,6 +24,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sending and Parsing Packets" href="sending_and_parsing_packets.html" />
     <link rel="prev" title="C++ Setup in STM32" href="cpp_setup_in_stm32.html" /> 
 </head>
 
@@ -53,6 +54,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Cyclic Redundancy Check (CRC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sending_and_parsing_packets.html">Sending and Parsing Packets</a></li>
 </ul>
 </li>
 </ul>
@@ -98,21 +100,19 @@
 <li><p><a class="reference internal" href="#implementing-crc-in-c" id="id7">4. Implementing CRC in C++</a></p>
 <ul>
 <li><p><a class="reference internal" href="#crc-hpp" id="id8">crc.hpp:</a></p></li>
-<li><p><a class="reference internal" href="#crc-tpp" id="id9">crc.tpp:</a></p></li>
-<li><p><a class="reference internal" href="#crc-testing-cpp" id="id10">crc_testing.cpp:</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#using-stm32-crc-hardware" id="id11">5. Using STM32 CRC Hardware</a></p>
+<li><p><a class="reference internal" href="#using-stm32-crc-hardware" id="id9">5. Using STM32 CRC Hardware</a></p>
 <ul>
-<li><p><a class="reference internal" href="#cubemx-setup" id="id12">5.1. CubeMX Setup</a></p></li>
-<li><p><a class="reference internal" href="#code-implementation" id="id13">5.2. Code Implementation</a></p></li>
+<li><p><a class="reference internal" href="#cubemx-setup" id="id10">5.1. CubeMX Setup</a></p></li>
+<li><p><a class="reference internal" href="#code-implementation" id="id11">5.2. Code Implementation</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="introduction">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>CRC is a technique to detect errors in data transmission. It is widely used in communication systems to detect errors in data transmission. It is also used in data storage systems to detect errors in stored data. It is a type of hash function that takes an input data stream and produces a fixed-size hash value. The hash value is used to detect errors in the data stream. The hash value is appended to the data stream before transmission. The receiver calculates the hash value of the received data stream and compares it with the hash value received. If the hash values match, the data stream is considered error-free. If the hash values do not match, an error is detected.</p>
+<p>CRC is a technique to detect errors in data. It is widely used in communication systems to detect errors in data transmission. It is also used in data storage systems to detect errors in stored data. It is a type of hash function that takes an input data stream and produces a fixed-size hash value. The hash value is used to detect errors in the data stream. The hash value is appended to the data stream before transmission. The receiver calculates the hash value of the received data stream and compares it with the hash value received. If the hash values match, the data stream is considered error-free. If the hash values do not match, an error is detected.</p>
 </section>
 <section id="types-of-crc">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">2. Types of CRC</a><a class="headerlink" href="#types-of-crc" title="Link to this heading"></a></h2>
@@ -361,86 +361,46 @@
 <span class="linenos"> 86</span><span class="w">                  </span><span class="s">&quot;CRC template class only supports CRC8_Type, CRC16_Type, and CRC32_Type!&quot;</span><span class="p">);</span>
 <span class="linenos"> 87</span>
 <span class="linenos"> 88</span><span class="k">public</span><span class="o">:</span>
-<span class="linenos"> 89</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos"> 90</span><span class="cm">     * @brief Default constructor.</span>
-<span class="linenos"> 91</span><span class="cm">     */</span>
-<span class="linenos"> 92</span><span class="w">    </span><span class="n">CRC</span><span class="p">();</span>
-<span class="linenos"> 93</span>
-<span class="linenos"> 94</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos"> 95</span><span class="cm">     * @brief Constructor with customizable parameters.</span>
-<span class="linenos"> 96</span><span class="cm">     *</span>
-<span class="linenos"> 97</span><span class="cm">     * @param polynomial The polynomial for CRC calculation.</span>
-<span class="linenos"> 98</span><span class="cm">     * @param initial_crc The initial CRC value (default is 0).</span>
-<span class="linenos"> 99</span><span class="cm">     * @param final_xor The final XOR value (default is 0).</span>
-<span class="linenos">100</span><span class="cm">     * @param reflect_input Enable input bit reflection (default is false).</span>
-<span class="linenos">101</span><span class="cm">     * @param reflect_output Enable output bit reflection (default is false).</span>
-<span class="linenos">102</span><span class="cm">     */</span>
-<span class="linenos">103</span><span class="w">    </span><span class="n">CRC</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="linenos">104</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
-<span class="linenos">105</span>
-<span class="linenos">106</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">107</span><span class="cm">     * @brief Deleted copy constructor.</span>
-<span class="linenos">108</span><span class="cm">     */</span>
-<span class="linenos">109</span><span class="w">    </span><span class="n">CRC</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
-<span class="linenos">110</span>
-<span class="linenos">111</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">112</span><span class="cm">     * @brief Deleted copy assignment operator.</span>
-<span class="linenos">113</span><span class="cm">     */</span>
-<span class="linenos">114</span><span class="w">    </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
-<span class="linenos">115</span>
-<span class="linenos">116</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">117</span><span class="cm">     * @brief Compute the CRC hash for the given data.</span>
-<span class="linenos">118</span><span class="cm">     *</span>
-<span class="linenos">119</span><span class="cm">     * @param data Pointer to the input data.</span>
-<span class="linenos">120</span><span class="cm">     * @param len Length of the input data.</span>
-<span class="linenos">121</span><span class="cm">     * @return The computed CRC value.</span>
-<span class="linenos">122</span><span class="cm">     */</span>
-<span class="linenos">123</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">compute_hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="n">CRC</span><span class="p">();</span>
+<span class="linenos"> 90</span><span class="w">    </span><span class="n">CRC</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos"> 91</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 92</span><span class="w">    </span>
+<span class="linenos"> 93</span><span class="w">    </span><span class="n">CRC</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="linenos"> 94</span><span class="w">    </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CRC</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="linenos"> 95</span><span class="w">    </span>
+<span class="linenos"> 96</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">reflect_bits</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_bits</span><span class="p">);</span>
+<span class="linenos"> 97</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">compute_hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="linenos"> 98</span><span class="w">    </span>
+<span class="linenos"> 99</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">print_table</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="linenos">100</span>
+<span class="linenos">101</span><span class="w">    </span><span class="c1">// Getters for class members</span>
+<span class="linenos">102</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_polynomial</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Get the polynomial used for CRC.</span>
+<span class="linenos">103</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_initial_crc</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; Get the initial CRC value.</span>
+<span class="linenos">104</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_final_xor</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Get the final XOR value.</span>
+<span class="linenos">105</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="o">*</span><span class="nf">get_table</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">      </span><span class="c1">///&lt; Get the CRC lookup table.</span>
+<span class="linenos">106</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_check</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">       </span><span class="c1">///&lt; Get the validation CRC value.</span>
+<span class="linenos">107</span>
+<span class="linenos">108</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CRC_Type</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; CRC width in bits.</span>
+<span class="linenos">109</span>
+<span class="linenos">110</span><span class="k">private</span><span class="o">:</span>
+<span class="linenos">111</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">initialize</span><span class="p">();</span><span class="w">    </span><span class="c1">///&lt; Initialize CRC parameters.</span>
+<span class="linenos">112</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">compute_table</span><span class="p">();</span><span class="w"> </span><span class="c1">///&lt; Compute the CRC lookup table.</span>
+<span class="linenos">113</span>
+<span class="linenos">114</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Polynomial for CRC calculation.</span>
+<span class="linenos">115</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; Initial CRC value.</span>
+<span class="linenos">116</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Final XOR value.</span>
+<span class="linenos">117</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Input bit reflection flag.</span>
+<span class="linenos">118</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Output bit reflection flag.</span>
+<span class="linenos">119</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w">        </span><span class="c1">///&lt; Lookup table for CRC calculation.</span>
+<span class="linenos">120</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">check_</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; Validation CRC value.</span>
+<span class="linenos">121</span><span class="p">};</span>
+<span class="linenos">122</span>
+<span class="linenos">123</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc.tpp&quot;</span>
 <span class="linenos">124</span>
-<span class="linenos">125</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">126</span><span class="cm">     * @brief Print the CRC lookup table.</span>
-<span class="linenos">127</span><span class="cm">     */</span>
-<span class="linenos">128</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">print_table</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<span class="linenos">129</span>
-<span class="linenos">130</span><span class="w">    </span><span class="c1">// Getters for class members</span>
-<span class="linenos">131</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_polynomial</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Get the polynomial used for CRC.</span>
-<span class="linenos">132</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_initial_crc</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; Get the initial CRC value.</span>
-<span class="linenos">133</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_final_xor</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Get the final XOR value.</span>
-<span class="linenos">134</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="o">*</span><span class="nf">get_table</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">      </span><span class="c1">///&lt; Get the CRC lookup table.</span>
-<span class="linenos">135</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">get_check</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w">       </span><span class="c1">///&lt; Get the validation CRC value.</span>
-<span class="linenos">136</span>
-<span class="linenos">137</span><span class="w">    </span><span class="cm">/**</span>
-<span class="linenos">138</span><span class="cm">     * @brief Reflect the bits of a value.</span>
-<span class="linenos">139</span><span class="cm">     *</span>
-<span class="linenos">140</span><span class="cm">     * @param value The value to reflect.</span>
-<span class="linenos">141</span><span class="cm">     * @param num_bits Number of bits to reflect.</span>
-<span class="linenos">142</span><span class="cm">     * @return The reflected value.</span>
-<span class="linenos">143</span><span class="cm">     */</span>
-<span class="linenos">144</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="nf">reflect_bits</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_bits</span><span class="p">);</span>
-<span class="linenos">145</span>
-<span class="linenos">146</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CRC_Type</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; CRC width in bits.</span>
-<span class="linenos">147</span>
-<span class="linenos">148</span><span class="k">private</span><span class="o">:</span>
-<span class="linenos">149</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">initialize</span><span class="p">();</span><span class="w">    </span><span class="c1">///&lt; Initialize CRC parameters.</span>
-<span class="linenos">150</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">compute_table</span><span class="p">();</span><span class="w"> </span><span class="c1">///&lt; Compute the CRC lookup table.</span>
-<span class="linenos">151</span>
-<span class="linenos">152</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Polynomial for CRC calculation.</span>
-<span class="linenos">153</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc_</span><span class="p">;</span><span class="w"> </span><span class="c1">///&lt; Initial CRC value.</span>
-<span class="linenos">154</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Final XOR value.</span>
-<span class="linenos">155</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input_</span><span class="p">;</span><span class="w">   </span><span class="c1">///&lt; Input bit reflection flag.</span>
-<span class="linenos">156</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output_</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Output bit reflection flag.</span>
-<span class="linenos">157</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w">        </span><span class="c1">///&lt; Lookup table for CRC calculation.</span>
-<span class="linenos">158</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">check_</span><span class="p">;</span><span class="w">             </span><span class="c1">///&lt; Validation CRC value.</span>
-<span class="linenos">159</span><span class="p">};</span>
-<span class="linenos">160</span>
-<span class="linenos">161</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc.tpp&quot;</span>
-<span class="linenos">162</span>
-<span class="linenos">163</span><span class="cp">#endif </span><span class="c1">// CRC_HPP</span>
+<span class="linenos">125</span><span class="cp">#endif </span><span class="c1">// CRC_HPP</span>
 </pre></div>
 </div>
-</section>
-<section id="crc-tpp">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">crc.tpp:</a><a class="headerlink" href="#crc-tpp" title="Link to this heading"></a></h3>
+<p><strong>crc.tpp</strong>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cm">/**</span>
 <span class="linenos">  2</span><span class="cm"> * @file crc.tpp</span>
 <span class="linenos">  3</span><span class="cm"> * @brief Inline implementation file for the CRC template class.</span>
@@ -476,103 +436,103 @@
 <span class="linenos"> 33</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc.hpp&quot;</span>
 <span class="linenos"> 34</span>
 <span class="linenos"> 35</span><span class="cm">/**</span>
-<span class="linenos"> 36</span><span class="cm"> * @brief Reflects the bits of a value.</span>
-<span class="linenos"> 37</span><span class="cm"> * </span>
-<span class="linenos"> 38</span><span class="cm"> * @tparam CRC_Type The type of the value (e.g., uint8_t, uint16_t, uint32_t).</span>
-<span class="linenos"> 39</span><span class="cm"> * @param value The value to reflect.</span>
-<span class="linenos"> 40</span><span class="cm"> * @param num_bits The number of bits to reflect.</span>
-<span class="linenos"> 41</span><span class="cm"> * @return The reflected value.</span>
-<span class="linenos"> 42</span><span class="cm"> */</span>
-<span class="linenos"> 43</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
-<span class="linenos"> 44</span><span class="kr">inline</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">reflect_bits</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_bits</span><span class="p">)</span>
+<span class="linenos"> 36</span><span class="cm"> * @brief Default constructor for CRC-8 configuration.</span>
+<span class="linenos"> 37</span><span class="cm"> */</span>
+<span class="linenos"> 38</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="linenos"> 39</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC8_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
+<span class="linenos"> 40</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC8_SMBUS_POLYNOMIAL</span><span class="p">),</span>
+<span class="linenos"> 41</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC8_SMBUS_INITIAL_CRC</span><span class="p">),</span>
+<span class="linenos"> 42</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC8_SMBUS_FINAL_XOR</span><span class="p">),</span>
+<span class="linenos"> 43</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC8_SMBUS_REFLECT_INPUT</span><span class="p">),</span>
+<span class="linenos"> 44</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC8_SMBUS_REFLECT_OUTPUT</span><span class="p">)</span>
 <span class="linenos"> 45</span><span class="p">{</span>
-<span class="linenos"> 46</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">reflected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="linenos"> 47</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bits</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="linenos"> 48</span><span class="w">    </span><span class="p">{</span>
-<span class="linenos"> 49</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">))</span>
-<span class="linenos"> 50</span><span class="w">        </span><span class="p">{</span>
-<span class="linenos"> 51</span><span class="w">            </span><span class="n">reflected</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">num_bits</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">));</span>
-<span class="linenos"> 52</span><span class="w">        </span><span class="p">}</span>
-<span class="linenos"> 53</span><span class="w">    </span><span class="p">}</span>
-<span class="linenos"> 54</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">reflected</span><span class="p">;</span>
-<span class="linenos"> 55</span><span class="p">}</span>
-<span class="linenos"> 56</span>
-<span class="linenos"> 57</span><span class="cm">/**</span>
-<span class="linenos"> 58</span><span class="cm"> * @brief Default constructor for CRC-8 configuration.</span>
-<span class="linenos"> 59</span><span class="cm"> */</span>
-<span class="linenos"> 60</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
-<span class="linenos"> 61</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC8_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
-<span class="linenos"> 62</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC8_SMBUS_POLYNOMIAL</span><span class="p">),</span>
-<span class="linenos"> 63</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC8_SMBUS_INITIAL_CRC</span><span class="p">),</span>
-<span class="linenos"> 64</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC8_SMBUS_FINAL_XOR</span><span class="p">),</span>
-<span class="linenos"> 65</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC8_SMBUS_REFLECT_INPUT</span><span class="p">),</span>
-<span class="linenos"> 66</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC8_SMBUS_REFLECT_OUTPUT</span><span class="p">)</span>
-<span class="linenos"> 67</span><span class="p">{</span>
-<span class="linenos"> 68</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
-<span class="linenos"> 69</span><span class="p">}</span>
-<span class="linenos"> 70</span>
-<span class="linenos"> 71</span><span class="cm">/**</span>
-<span class="linenos"> 72</span><span class="cm"> * @brief Default constructor for CRC-16 configuration.</span>
-<span class="linenos"> 73</span><span class="cm"> */</span>
-<span class="linenos"> 74</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
-<span class="linenos"> 75</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC16_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
-<span class="linenos"> 76</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC16_CCITT_POLYNOMIAL</span><span class="p">),</span>
-<span class="linenos"> 77</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC16_CCITT_INITIAL_CRC</span><span class="p">),</span>
-<span class="linenos"> 78</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC16_CCITT_FINAL_XOR</span><span class="p">),</span>
-<span class="linenos"> 79</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC16_CCITT_REFLECT_INPUT</span><span class="p">),</span>
-<span class="linenos"> 80</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC16_CCITT_REFLECT_OUTPUT</span><span class="p">)</span>
-<span class="linenos"> 81</span><span class="p">{</span>
-<span class="linenos"> 82</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
-<span class="linenos"> 83</span><span class="p">}</span>
-<span class="linenos"> 84</span>
-<span class="linenos"> 85</span><span class="cm">/**</span>
-<span class="linenos"> 86</span><span class="cm"> * @brief Default constructor for CRC-32 configuration.</span>
-<span class="linenos"> 87</span><span class="cm"> */</span>
-<span class="linenos"> 88</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
-<span class="linenos"> 89</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC32_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
-<span class="linenos"> 90</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC32_ISO_POLYNOMIAL</span><span class="p">),</span>
-<span class="linenos"> 91</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC32_ISO_INITIAL_CRC</span><span class="p">),</span>
-<span class="linenos"> 92</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC32_ISO_FINAL_XOR</span><span class="p">),</span>
-<span class="linenos"> 93</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC32_ISO_REFLECT_INPUT</span><span class="p">),</span>
-<span class="linenos"> 94</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC32_ISO_REFLECR_OUTPUT</span><span class="p">)</span>
-<span class="linenos"> 95</span><span class="p">{</span>
-<span class="linenos"> 96</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
-<span class="linenos"> 97</span><span class="p">}</span>
-<span class="linenos"> 98</span>
-<span class="linenos"> 99</span><span class="cm">/**</span>
-<span class="linenos">100</span><span class="cm"> * @brief Parameterized constructor for CRC configuration.</span>
-<span class="linenos">101</span><span class="cm"> * </span>
-<span class="linenos">102</span><span class="cm"> * @param polynomial The polynomial for CRC calculation.</span>
-<span class="linenos">103</span><span class="cm"> * @param initial_crc The initial CRC value.</span>
-<span class="linenos">104</span><span class="cm"> * @param final_xor The final XOR value.</span>
-<span class="linenos">105</span><span class="cm"> * @param reflect_input Flag to enable input bit reflection.</span>
-<span class="linenos">106</span><span class="cm"> * @param reflect_output Flag to enable output bit reflection.</span>
-<span class="linenos">107</span><span class="cm"> */</span>
-<span class="linenos">108</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
-<span class="linenos">109</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor</span><span class="p">,</span>
-<span class="linenos">110</span><span class="w">                   </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output</span><span class="p">)</span>
-<span class="linenos">111</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">polynomial</span><span class="p">),</span>
-<span class="linenos">112</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">initial_crc</span><span class="p">),</span>
-<span class="linenos">113</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">final_xor</span><span class="p">),</span>
-<span class="linenos">114</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">reflect_input</span><span class="p">),</span>
-<span class="linenos">115</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">reflect_output</span><span class="p">)</span>
-<span class="linenos">116</span><span class="p">{</span>
-<span class="linenos">117</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">polynomial</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="linenos">118</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;ERROR::CRC polynomial cannot be zero</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="linenos">119</span>
-<span class="linenos">120</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
-<span class="linenos">121</span><span class="p">}</span>
-<span class="linenos">122</span>
-<span class="linenos">123</span><span class="cm">/**</span>
-<span class="linenos">124</span><span class="cm"> * @brief Initializes the CRC instance, including table computation and validation.</span>
-<span class="linenos">125</span><span class="cm"> */</span>
-<span class="linenos">126</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
-<span class="linenos">127</span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">initialize</span><span class="p">()</span>
-<span class="linenos">128</span><span class="p">{</span>
-<span class="linenos">129</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">compute_table</span><span class="p">();</span>
-<span class="linenos">130</span>
-<span class="linenos">131</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">crc_validation_string</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC_VALIDATION_STRING</span><span class="p">;</span>
-<span class="linenos">132</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">check_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">compute_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">crc_validation_string</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">crc_validation_string</span><span class="p">));</span>
+<span class="linenos"> 46</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos"> 47</span><span class="p">}</span>
+<span class="linenos"> 48</span>
+<span class="linenos"> 49</span><span class="cm">/**</span>
+<span class="linenos"> 50</span><span class="cm"> * @brief Default constructor for CRC-16 configuration.</span>
+<span class="linenos"> 51</span><span class="cm"> */</span>
+<span class="linenos"> 52</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="linenos"> 53</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC16_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
+<span class="linenos"> 54</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC16_CCITT_POLYNOMIAL</span><span class="p">),</span>
+<span class="linenos"> 55</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC16_CCITT_INITIAL_CRC</span><span class="p">),</span>
+<span class="linenos"> 56</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC16_CCITT_FINAL_XOR</span><span class="p">),</span>
+<span class="linenos"> 57</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC16_CCITT_REFLECT_INPUT</span><span class="p">),</span>
+<span class="linenos"> 58</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC16_CCITT_REFLECT_OUTPUT</span><span class="p">)</span>
+<span class="linenos"> 59</span><span class="p">{</span>
+<span class="linenos"> 60</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos"> 61</span><span class="p">}</span>
+<span class="linenos"> 62</span>
+<span class="linenos"> 63</span><span class="cm">/**</span>
+<span class="linenos"> 64</span><span class="cm"> * @brief Default constructor for CRC-32 configuration.</span>
+<span class="linenos"> 65</span><span class="cm"> */</span>
+<span class="linenos"> 66</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="linenos"> 67</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC32_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">()</span>
+<span class="linenos"> 68</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">CRC32_ISO_POLYNOMIAL</span><span class="p">),</span>
+<span class="linenos"> 69</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">CRC32_ISO_INITIAL_CRC</span><span class="p">),</span>
+<span class="linenos"> 70</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">CRC32_ISO_FINAL_XOR</span><span class="p">),</span>
+<span class="linenos"> 71</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">CRC32_ISO_REFLECT_INPUT</span><span class="p">),</span>
+<span class="linenos"> 72</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">CRC32_ISO_REFLECR_OUTPUT</span><span class="p">)</span>
+<span class="linenos"> 73</span><span class="p">{</span>
+<span class="linenos"> 74</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos"> 75</span><span class="p">}</span>
+<span class="linenos"> 76</span>
+<span class="linenos"> 77</span><span class="cm">/**</span>
+<span class="linenos"> 78</span><span class="cm"> * @brief Parameterized constructor for CRC configuration.</span>
+<span class="linenos"> 79</span><span class="cm"> * </span>
+<span class="linenos"> 80</span><span class="cm"> * @param polynomial The polynomial for CRC calculation.</span>
+<span class="linenos"> 81</span><span class="cm"> * @param initial_crc The initial CRC value.</span>
+<span class="linenos"> 82</span><span class="cm"> * @param final_xor The final XOR value.</span>
+<span class="linenos"> 83</span><span class="cm"> * @param reflect_input Flag to enable input bit reflection.</span>
+<span class="linenos"> 84</span><span class="cm"> * @param reflect_output Flag to enable output bit reflection.</span>
+<span class="linenos"> 85</span><span class="cm"> */</span>
+<span class="linenos"> 86</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos"> 87</span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">CRC</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">polynomial</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">initial_crc</span><span class="p">,</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">final_xor</span><span class="p">,</span>
+<span class="linenos"> 88</span><span class="w">                   </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_input</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">reflect_output</span><span class="p">)</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">(</span><span class="n">polynomial</span><span class="p">),</span>
+<span class="linenos"> 90</span><span class="w">      </span><span class="n">initial_crc_</span><span class="p">(</span><span class="n">initial_crc</span><span class="p">),</span>
+<span class="linenos"> 91</span><span class="w">      </span><span class="n">final_xor_</span><span class="p">(</span><span class="n">final_xor</span><span class="p">),</span>
+<span class="linenos"> 92</span><span class="w">      </span><span class="n">reflect_input_</span><span class="p">(</span><span class="n">reflect_input</span><span class="p">),</span>
+<span class="linenos"> 93</span><span class="w">      </span><span class="n">reflect_output_</span><span class="p">(</span><span class="n">reflect_output</span><span class="p">)</span>
+<span class="linenos"> 94</span><span class="p">{</span>
+<span class="linenos"> 95</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">polynomial</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos"> 96</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;ERROR::CRC polynomial cannot be zero</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos"> 97</span>
+<span class="linenos"> 98</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">initialize</span><span class="p">();</span>
+<span class="linenos"> 99</span><span class="p">}</span>
+<span class="linenos">100</span>
+<span class="linenos">101</span><span class="cm">/**</span>
+<span class="linenos">102</span><span class="cm"> * @brief Initializes the CRC instance, including table computation and validation.</span>
+<span class="linenos">103</span><span class="cm"> */</span>
+<span class="linenos">104</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos">105</span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">initialize</span><span class="p">()</span>
+<span class="linenos">106</span><span class="p">{</span>
+<span class="linenos">107</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">compute_table</span><span class="p">();</span>
+<span class="linenos">108</span>
+<span class="linenos">109</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">crc_validation_string</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC_VALIDATION_STRING</span><span class="p">;</span>
+<span class="linenos">110</span><span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">check_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">compute_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">crc_validation_string</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">crc_validation_string</span><span class="p">));</span>
+<span class="linenos">111</span><span class="p">}</span>
+<span class="linenos">112</span>
+<span class="linenos">113</span><span class="cm">/**</span>
+<span class="linenos">114</span><span class="cm"> * @brief Reflects the bits of a value.</span>
+<span class="linenos">115</span><span class="cm"> * </span>
+<span class="linenos">116</span><span class="cm"> * @tparam CRC_Type The type of the value (e.g., uint8_t, uint16_t, uint32_t).</span>
+<span class="linenos">117</span><span class="cm"> * @param value The value to reflect.</span>
+<span class="linenos">118</span><span class="cm"> * @param num_bits The number of bits to reflect.</span>
+<span class="linenos">119</span><span class="cm"> * @return The reflected value.</span>
+<span class="linenos">120</span><span class="cm"> */</span>
+<span class="linenos">121</span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CRC_Type</span><span class="o">&gt;</span>
+<span class="linenos">122</span><span class="kr">inline</span><span class="w"> </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">CRC</span><span class="o">&lt;</span><span class="n">CRC_Type</span><span class="o">&gt;::</span><span class="n">reflect_bits</span><span class="p">(</span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_bits</span><span class="p">)</span>
+<span class="linenos">123</span><span class="p">{</span>
+<span class="linenos">124</span><span class="w">    </span><span class="n">CRC_Type</span><span class="w"> </span><span class="n">reflected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">125</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bits</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">126</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">127</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">))</span>
+<span class="linenos">128</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">129</span><span class="w">            </span><span class="n">reflected</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">num_bits</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">));</span>
+<span class="linenos">130</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">131</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">132</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">reflected</span><span class="p">;</span>
 <span class="linenos">133</span><span class="p">}</span>
 <span class="linenos">134</span>
 <span class="linenos">135</span><span class="cm">/**</span>
@@ -669,9 +629,7 @@
 <span class="linenos">226</span><span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="crc-testing-cpp">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">crc_testing.cpp:</a><a class="headerlink" href="#crc-testing-cpp" title="Link to this heading"></a></h3>
+<p><strong>crc_testing.cpp</strong>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
 <span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc.hpp&quot;</span>
@@ -693,10 +651,47 @@
 ./crc_testing
 </pre></div>
 </div>
+<p><strong>Output</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">00000000</span><span class="w">        </span>F4ACFB13<span class="w">        </span>1DF50D35<span class="w">        </span>E959F626<span class="w">        </span>3BEA1A6A<span class="w">        </span>CF46E179<span class="w">        </span>261F175F<span class="w">        </span>D2B3EC4C
+77D434D4<span class="w">        </span>8378CFC7<span class="w">        </span>6A2139E1<span class="w">        </span>9E8DC2F2<span class="w">        </span>4C3E2EBE<span class="w">        </span>B892D5AD<span class="w">        </span>51CB238B<span class="w">        </span>A567D898
+EFA869A8<span class="w">        </span>1B0492BB<span class="w">        </span>F25D649D<span class="w">        </span>06F19F8E<span class="w">        </span>D44273C2<span class="w">        </span>20EE88D1<span class="w">        </span>C9B77EF7<span class="w">        </span>3D1B85E4
+987C5D7C<span class="w">        </span>6CD0A66F<span class="w">        </span><span class="m">85895049</span><span class="w">        </span>7125AB5A<span class="w">        </span>A3964716<span class="w">        </span>573ABC05<span class="w">        </span>BE634A23<span class="w">        </span>4ACFB130
+2BFC2843<span class="w">        </span>DF50D350<span class="w">        </span><span class="m">36092576</span><span class="w">        </span>C2A5DE65<span class="w">        </span><span class="m">10163229</span><span class="w">        </span>E4BAC93A<span class="w">        </span>0DE33F1C<span class="w">        </span>F94FC40F
+5C281C97<span class="w">        </span>A884E784<span class="w">        </span>41DD11A2<span class="w">        </span>B571EAB1<span class="w">        </span>67C206FD<span class="w">        </span>936EFDEE<span class="w">        </span>7A370BC8<span class="w">        </span>8E9BF0DB
+C45441EB<span class="w">        </span>30F8BAF8<span class="w">        </span>D9A14CDE<span class="w">        </span>2D0DB7CD<span class="w">        </span>FFBE5B81<span class="w">        </span>0B12A092<span class="w">        </span>E24B56B4<span class="w">        </span>16E7ADA7
+B380753F<span class="w">        </span>472C8E2C<span class="w">        </span>AE75780A<span class="w">        </span>5AD98319<span class="w">        </span>886A6F55<span class="w">        </span>7CC69446<span class="w">        </span>959F6260<span class="w">        </span><span class="m">61339973</span>
+57F85086<span class="w">        </span>A354AB95<span class="w">        </span>4A0D5DB3<span class="w">        </span>BEA1A6A0<span class="w">        </span>6C124AEC<span class="w">        </span>98BEB1FF<span class="w">        </span>71E747D9<span class="w">        </span>854BBCCA
+202C6452<span class="w">        </span>D4809F41<span class="w">        </span>3DD96967<span class="w">        </span>C9759274<span class="w">        </span>1BC67E38<span class="w">        </span>EF6A852B<span class="w">        </span>0633730D<span class="w">        </span>F29F881E
+B850392E<span class="w">        </span>4CFCC23D<span class="w">        </span>A5A5341B<span class="w">        </span>5109CF08<span class="w">        </span>83BA2344<span class="w">        </span>7716D857<span class="w">        </span>9E4F2E71<span class="w">        </span>6AE3D562
+CF840DFA<span class="w">        </span>3B28F6E9<span class="w">        </span>D27100CF<span class="w">        </span>26DDFBDC<span class="w">        </span>F46E1790<span class="w">        </span>00C2EC83<span class="w">        </span>E99B1AA5<span class="w">        </span>1D37E1B6
+7C0478C5<span class="w">        </span>88A883D6<span class="w">        </span>61F175F0<span class="w">        </span>955D8EE3<span class="w">        </span>47EE62AF<span class="w">        </span>B34299BC<span class="w">        </span>5A1B6F9A<span class="w">        </span>AEB79489
+0BD04C11<span class="w">        </span>FF7CB702<span class="w">        </span><span class="m">16254124</span><span class="w">        </span>E289BA37<span class="w">        </span>303A567B<span class="w">        </span>C496AD68<span class="w">        </span>2DCF5B4E<span class="w">        </span>D963A05D
+93AC116D<span class="w">        </span>6700EA7E<span class="w">        </span>8E591C58<span class="w">        </span>7AF5E74B<span class="w">        </span>A8460B07<span class="w">        </span>5CEAF014<span class="w">        </span>B5B30632<span class="w">        </span>411FFD21
+E47825B9<span class="w">        </span>10D4DEAA<span class="w">        </span>F98D288C<span class="w">        </span>0D21D39F<span class="w">        </span>DF923FD3<span class="w">        </span>2B3EC4C0<span class="w">        </span>C26732E6<span class="w">        </span>36CBC9F5
+AFF0A10C<span class="w">        </span>5B5C5A1F<span class="w">        </span>B205AC39<span class="w">        </span>46A9572A<span class="w">        </span>941ABB66<span class="w">        </span>60B64075<span class="w">        </span>89EFB653<span class="w">        </span>7D434D40
+D82495D8<span class="w">        </span>2C886ECB<span class="w">        </span>C5D198ED<span class="w">        </span>317D63FE<span class="w">        </span>E3CE8FB2<span class="w">        </span>176274A1<span class="w">        </span>FE3B8287<span class="w">        </span>0A977994
+4058C8A4<span class="w">        </span>B4F433B7<span class="w">        </span>5DADC591<span class="w">        </span>A9013E82<span class="w">        </span>7BB2D2CE<span class="w">        </span>8F1E29DD<span class="w">        </span>6647DFFB<span class="w">        </span>92EB24E8
+378CFC70<span class="w">        </span>C3200763<span class="w">        </span>2A79F145<span class="w">        </span>DED50A56<span class="w">        </span>0C66E61A<span class="w">        </span>F8CA1D09<span class="w">        </span>1193EB2F<span class="w">        </span>E53F103C
+840C894F<span class="w">        </span>70A0725C<span class="w">        </span>99F9847A<span class="w">        </span>6D557F69<span class="w">        </span>BFE69325<span class="w">        </span>4B4A6836<span class="w">        </span>A2139E10<span class="w">        </span>56BF6503
+F3D8BD9B<span class="w">        </span><span class="m">07744688</span><span class="w">        </span>EE2DB0AE<span class="w">        </span>1A814BBD<span class="w">        </span>C832A7F1<span class="w">        </span>3C9E5CE2<span class="w">        </span>D5C7AAC4<span class="w">        </span>216B51D7
+6BA4E0E7<span class="w">        </span>9F081BF4<span class="w">        </span>7651EDD2<span class="w">        </span>82FD16C1<span class="w">        </span>504EFA8D<span class="w">        </span>A4E2019E<span class="w">        </span>4DBBF7B8<span class="w">        </span>B9170CAB
+1C70D433<span class="w">        </span>E8DC2F20<span class="w">        </span>0185D906<span class="w">        </span>F5292215<span class="w">        </span>279ACE59<span class="w">        </span>D336354A<span class="w">        </span>3A6FC36C<span class="w">        </span>CEC3387F
+F808F18A<span class="w">        </span>0CA40A99<span class="w">        </span>E5FDFCBF<span class="w">        </span>115107AC<span class="w">        </span>C3E2EBE0<span class="w">        </span>374E10F3<span class="w">        </span>DE17E6D5<span class="w">        </span>2ABB1DC6
+8FDCC55E<span class="w">        </span>7B703E4D<span class="w">        </span>9229C86B<span class="w">        </span><span class="m">66853378</span><span class="w">        </span>B436DF34<span class="w">        </span>409A2427<span class="w">        </span>A9C3D201<span class="w">        </span>5D6F2912
+17A09822<span class="w">        </span>E30C6331<span class="w">        </span>0A559517<span class="w">        </span>FEF96E04<span class="w">        </span>2C4A8248<span class="w">        </span>D8E6795B<span class="w">        </span>31BF8F7D<span class="w">        </span>C513746E
+6074ACF6<span class="w">        </span>94D857E5<span class="w">        </span>7D81A1C3<span class="w">        </span>892D5AD0<span class="w">        </span>5B9EB69C<span class="w">        </span>AF324D8F<span class="w">        </span>466BBBA9<span class="w">        </span>B2C740BA
+D3F4D9C9<span class="w">        </span>275822DA<span class="w">        </span>CE01D4FC<span class="w">        </span>3AAD2FEF<span class="w">        </span>E81EC3A3<span class="w">        </span>1CB238B0<span class="w">        </span>F5EBCE96<span class="w">        </span><span class="m">01473585</span>
+A420ED1D<span class="w">        </span>508C160E<span class="w">        </span>B9D5E028<span class="w">        </span>4D791B3B<span class="w">        </span>9FCAF777<span class="w">        </span>6B660C64<span class="w">        </span>823FFA42<span class="w">        </span><span class="m">76930151</span>
+3C5CB061<span class="w">        </span>C8F04B72<span class="w">        </span>21A9BD54<span class="w">        </span>D5054647<span class="w">        </span>07B6AA0B<span class="w">        </span>F31A5118<span class="w">        </span>1A43A73E<span class="w">        </span>EEEF5C2D
+4B8884B5<span class="w">        </span>BF247FA6<span class="w">        </span>567D8980<span class="w">        </span>A2D17293<span class="w">        </span>70629EDF<span class="w">        </span>84CE65CC<span class="w">        </span>6D9793EA<span class="w">        </span>993B68F9
+check:<span class="w"> </span>1697D06A
+hash:<span class="w"> </span>07AAD778
+</pre></div>
+</div>
 </section>
 </section>
 <section id="using-stm32-crc-hardware">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink">5. Using STM32 CRC Hardware</a><a class="headerlink" href="#using-stm32-crc-hardware" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">5. Using STM32 CRC Hardware</a><a class="headerlink" href="#using-stm32-crc-hardware" title="Link to this heading"></a></h2>
 <p>STM32 microcontrollers have CRC-32 hardware. We can use it to calculate CRC-32.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -709,7 +704,7 @@
 </ul>
 </div>
 <section id="cubemx-setup">
-<h3><a class="toc-backref" href="#id12" role="doc-backlink">5.1. CubeMX Setup</a><a class="headerlink" href="#cubemx-setup" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">5.1. CubeMX Setup</a><a class="headerlink" href="#cubemx-setup" title="Link to this heading"></a></h3>
 <p><a class="reference external" href="../stm32_basics_tutorial/basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">Generate baisc code</a> with:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">microcontroller</span></code>: <code class="docutils literal notranslate"><span class="pre">STM32F103C8T6</span></code></p></li>
@@ -721,7 +716,7 @@
 </a>
 </section>
 <section id="code-implementation">
-<h3><a class="toc-backref" href="#id13" role="doc-backlink">5.2. Code Implementation</a><a class="headerlink" href="#code-implementation" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">5.2. Code Implementation</a><a class="headerlink" href="#code-implementation" title="Link to this heading"></a></h3>
 <p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Src</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">main.c</span></code> and add the following code. Add the following includes.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Private includes ----------------------------------------------------------*/</span>
 <span class="cm">/* USER CODE BEGIN Includes */</span>
@@ -744,6 +739,7 @@
 <span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_CRC_Calculate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hcrc</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
 <span class="w">  </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;data: %s, crc: %lu</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">crc</span><span class="p">);</span>
 <span class="w">  </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+<span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 <span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
 
 <span class="w">  </span><span class="cm">/* USER CODE BEGIN 3 */</span>
@@ -761,6 +757,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="cpp_setup_in_stm32.html" class="btn btn-neutral float-left" title="C++ Setup in STM32" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sending_and_parsing_packets.html" class="btn btn-neutral float-right" title="Sending and Parsing Packets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sending and Parsing Packets &mdash; Embedded Tutorials 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e5e1bfdb" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Cyclic Redundancy Check (CRC)" href="crc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Embedded Tutorials
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crc.html">Cyclic Redundancy Check (CRC)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sending and Parsing Packets</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Embedded Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+      <li class="breadcrumb-item active">Sending and Parsing Packets</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/intermediate_tutorial/sending_and_parsing_packets.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sending-and-parsing-packets">
+<h1>Sending and Parsing Packets<a class="headerlink" href="#sending-and-parsing-packets" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">1. Introduction</a></p></li>
+<li><p><a class="reference internal" href="#understanding-checksum" id="id2">2. Understanding Checksum</a></p>
+<ul>
+<li><p><a class="reference internal" href="#addition-based-checksum" id="id3">2.1. Addition based Checksum</a></p></li>
+<li><p><a class="reference internal" href="#xor-based-checksum" id="id4">2.2. XOR based Checksum</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#need-of-crc" id="id5">3. Need of CRC</a></p></li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Sending and receiving one byte of data is simple. But what if you want to send and receive multiple bytes of data? Now, you need to think of a way to structure the data so that the receiver can determine the first byte when receiving bytes continuously. Long bytes of data are prone to errors. Now, you need to think of error detection. Let’s start packetizing data.</p>
+<p>A simple packet contains sunchronization bytes, data and error detection bytes. The simple synchronization method is using start bytes. Start bytes have a value which also can be present in data. The error detection bytes play important role to detect any misalignment and errors. There are techniques to calculate error detection bytes. The simple technique is checksum and a better technique is cyclic redundancy check (CRC).</p>
+</section>
+<section id="understanding-checksum">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Understanding Checksum</a><a class="headerlink" href="#understanding-checksum" title="Link to this heading"></a></h2>
+<p>It is really easy to calculate checksum of data packet. Checksum is calculated using two method.</p>
+<section id="addition-based-checksum">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">2.1. Addition based Checksum</a><a class="headerlink" href="#addition-based-checksum" title="Link to this heading"></a></h3>
+<p>Checksum is calculated by adding each bytes of data. The addtion can overflowe if size of checksum is small. Consider size of checksum is one byte. Let’s write test code to calculate checksum of bytes using addition.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">getAddBasedChecksum</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="p">{</span>
+<span class="linenos"> 6</span><span class="w">   </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">checksum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 7</span><span class="w">   </span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">10</span><span class="w">   </span><span class="p">{</span>
+<span class="linenos">11</span><span class="w">      </span><span class="n">checksum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="linenos">12</span><span class="w">   </span><span class="p">}</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">checksum</span><span class="p">;</span>
+<span class="linenos">15</span><span class="p">}</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="linenos">18</span><span class="p">{</span>
+<span class="linenos">19</span><span class="w">   </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w"> </span><span class="mi">44</span><span class="p">,</span><span class="w"> </span><span class="mi">55</span><span class="p">,</span><span class="w"> </span><span class="mi">66</span><span class="p">,</span><span class="w"> </span><span class="mi">79</span><span class="p">,</span><span class="w"> </span><span class="mi">89</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">};</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="w">   </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">checksum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getAddBasedChecksum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+<span class="linenos">22</span><span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;checksum: %02X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checksum</span><span class="p">);</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">25</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Compile and run this test code.</p>
+</section>
+<section id="xor-based-checksum">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">2.2. XOR based Checksum</a><a class="headerlink" href="#xor-based-checksum" title="Link to this heading"></a></h3>
+<p>Let’s talk about binary addition and XOR.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Addition</p></th>
+<th class="head"><p>XOR</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 + 0 = 0</p></td>
+<td><p>0 XOR 0 = 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0 + 1 = 1</p></td>
+<td><p>0 XOR 1 = 1</p></td>
+</tr>
+<tr class="row-even"><td><p>1 + 0 = 1</p></td>
+<td><p>1 XOR 0 = 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1 + 1 = 0 (carry 1)</p></td>
+<td><p>1 XOR 1 = 0</p></td>
+</tr>
+</tbody>
+</table>
+<p>Binary Addition and XOR are same for first three. But for two 1’s, Addition takes carry but XOR neglects it. Let’s write test code for XOR based checksum calculation.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">getXORBasedChecksum</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="p">{</span>
+<span class="linenos"> 6</span><span class="w">   </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">checksum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 7</span><span class="w">   </span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">10</span><span class="w">   </span><span class="p">{</span>
+<span class="linenos">11</span><span class="w">      </span><span class="n">checksum</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="linenos">12</span><span class="w">   </span><span class="p">}</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">checksum</span><span class="p">;</span>
+<span class="linenos">15</span><span class="p">}</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="linenos">18</span><span class="p">{</span>
+<span class="linenos">19</span><span class="w">   </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w"> </span><span class="mi">44</span><span class="p">,</span><span class="w"> </span><span class="mi">55</span><span class="p">,</span><span class="w"> </span><span class="mi">66</span><span class="p">,</span><span class="w"> </span><span class="mi">79</span><span class="p">,</span><span class="w"> </span><span class="mi">89</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">};</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="w">   </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">checksum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getXORBasedChecksum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+<span class="linenos">22</span><span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;checksum: %02X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">checksum</span><span class="p">);</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">25</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Compile and run this code.</p>
+</section>
+</section>
+<section id="need-of-crc">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">3. Need of CRC</a><a class="headerlink" href="#need-of-crc" title="Link to this heading"></a></h2>
+<p>Checksum is simple and fast but there is high chance of collision. Suppose two bytes having value <code class="docutils literal notranslate"><span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">4</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code>. Also suppose two bytes having vallue <code class="docutils literal notranslate"><span class="pre">5</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code> too. It is failure of checksum.</p>
+<p>I have already discussed about CRC in <a class="reference external" href="crc.html" rel="noopener noreferrer" target="_blank">previous</a> tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let’s write a simple SMBus CRC-8 class.</p>
+<p><strong>crc8.hpp</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
+<span class="linenos"> 2</span><span class="cm"> ******************************************************************************</span>
+<span class="linenos"> 3</span><span class="cm"> * @file    crc8.hpp</span>
+<span class="linenos"> 4</span><span class="cm"> * @brief   Header file 8-bit SMBus CRC calculation</span>
+<span class="linenos"> 5</span><span class="cm"> * @author  Robotics Team, IOE Pulchowk Campus</span>
+<span class="linenos"> 6</span><span class="cm"> ******************************************************************************</span>
+<span class="linenos"> 7</span><span class="cm"> */</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="cp">#ifndef CRC8_HPP</span>
+<span class="linenos">10</span><span class="cp">#define CRC8_HPP</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="cp">#define CRC8_SMBUS_POLYNOMIAL 0x07 </span><span class="cm">/**&lt; CRC-8 polynomial for SMBus. */</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="cm">/**</span>
+<span class="linenos">17</span><span class="cm"> * @brief Class for CRC-8 checksum calculation.</span>
+<span class="linenos">18</span><span class="cm"> */</span>
+<span class="linenos">19</span><span class="k">class</span><span class="w"> </span><span class="nc">CRC8</span>
+<span class="linenos">20</span><span class="p">{</span>
+<span class="linenos">21</span><span class="k">public</span><span class="o">:</span>
+<span class="linenos">22</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">23</span><span class="cm">     * @brief Calculate CRC-8 checksum for uint8_t type data.</span>
+<span class="linenos">24</span><span class="cm">     * @param buf Pointer to the data buffer.</span>
+<span class="linenos">25</span><span class="cm">     * @param len Length of the data buffer.</span>
+<span class="linenos">26</span><span class="cm">     * @return CRC-8 checksum value.</span>
+<span class="linenos">27</span><span class="cm">     */</span>
+<span class="linenos">28</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">get_hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">31</span><span class="cm">     * @brief Print the CRC hash table.</span>
+<span class="linenos">32</span><span class="cm">     */</span>
+<span class="linenos">33</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print_table</span><span class="p">();</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">get_polynomial</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="cm">/**&lt; Get the CRC polynomial. */</span>
+<span class="linenos">36</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">get_check</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">check_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">           </span><span class="cm">/**&lt; Get the CRC check value. */</span>
+<span class="linenos">37</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="nf">get_table</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">table_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="cm">/**&lt; Get the CRC hash table. */</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CRC8</span><span class="w"> </span><span class="n">Instance</span><span class="p">;</span><span class="w"> </span><span class="cm">/**&lt; Singleton instance of CRC8 class. */</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span><span class="k">private</span><span class="o">:</span>
+<span class="linenos">42</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">;</span><span class="w"> </span><span class="cm">/** CRC polynomial **/</span>
+<span class="linenos">43</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">check_</span><span class="p">;</span><span class="w">      </span><span class="cm">/**&lt; CRC check value. */</span>
+<span class="linenos">44</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"> </span><span class="cm">/**&lt; CRC hash table. */</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">47</span><span class="cm">     * @brief Private constructor for CRC8 class.</span>
+<span class="linenos">48</span><span class="cm">     */</span>
+<span class="linenos">49</span><span class="w">    </span><span class="n">CRC8</span><span class="p">();</span>
+<span class="linenos">50</span>
+<span class="linenos">51</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">52</span><span class="cm">     * @brief Initialize the CRC hash table.</span>
+<span class="linenos">53</span><span class="cm">     */</span>
+<span class="linenos">54</span><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">initialize_table</span><span class="p">();</span>
+<span class="linenos">55</span><span class="p">};</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span><span class="cp">#endif </span><span class="c1">// CRC_HPP</span>
+</pre></div>
+</div>
+<p><strong>crc8.cpp</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
+<span class="linenos"> 2</span><span class="cm"> * *********************************************************************************************</span>
+<span class="linenos"> 3</span><span class="cm"> * @file crc8.cpp</span>
+<span class="linenos"> 4</span><span class="cm"> * @brief Implementation file for the 8-bit SMBus CRC class</span>
+<span class="linenos"> 5</span><span class="cm"> * @author Robotics Team, IOE Pulchowk Campus</span>
+<span class="linenos"> 6</span><span class="cm"> * @date 2024</span>
+<span class="linenos"> 7</span><span class="cm"> *</span>
+<span class="linenos"> 8</span><span class="cm"> * For more information on CRC calculation in C, \</span>
+<span class="linenos"> 9</span><span class="cm"> * see \link https://barrgroup.com/embedded-systems/how-to/crc-calculation-c-code \endlink.</span>
+<span class="linenos">10</span><span class="cm"> ***********************************************************************************************</span>
+<span class="linenos">11</span><span class="cm"> */</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos">14</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">CRC8</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">Instance</span><span class="p">;</span>
+<span class="linenos">17</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">polynomial_</span><span class="p">;</span>
+<span class="linenos">18</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">check_</span><span class="p">;</span>
+<span class="linenos">19</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">table_</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="n">CRC8</span><span class="o">::</span><span class="n">CRC8</span><span class="p">()</span>
+<span class="linenos">22</span><span class="p">{</span>
+<span class="linenos">23</span><span class="w">    </span><span class="n">polynomial_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC8_SMBUS_POLYNOMIAL</span><span class="p">;</span>
+<span class="linenos">24</span><span class="w">    </span><span class="n">initialize_table</span><span class="p">();</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;1&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;2&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;3&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;4&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;5&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;6&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;7&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;8&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;9&#39;</span><span class="p">};</span>
+<span class="linenos">27</span><span class="w">    </span><span class="n">check_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_hash</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+<span class="linenos">28</span><span class="p">}</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="kt">void</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">initialize_table</span><span class="p">()</span>
+<span class="linenos">31</span><span class="p">{</span>
+<span class="linenos">32</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">33</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dividend</span><span class="p">;</span>
+<span class="linenos">34</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bit</span><span class="p">;</span>
+<span class="linenos">35</span>
+<span class="linenos">36</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">dividend</span><span class="p">)</span>
+<span class="linenos">37</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">38</span><span class="w">        </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dividend</span><span class="p">;</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">bit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">bit</span><span class="p">)</span>
+<span class="linenos">41</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">42</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x80</span><span class="p">)</span>
+<span class="linenos">43</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">44</span><span class="w">                </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">polynomial_</span><span class="p">;</span>
+<span class="linenos">45</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">46</span><span class="w">            </span><span class="k">else</span>
+<span class="linenos">47</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">48</span><span class="w">                </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">49</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">50</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">51</span><span class="w">        </span><span class="n">table_</span><span class="p">[(</span><span class="kt">uint8_t</span><span class="p">)</span><span class="n">dividend</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">52</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">53</span><span class="p">}</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">get_hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<span class="linenos">56</span><span class="p">{</span>
+<span class="linenos">57</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">58</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">dividend</span><span class="p">;</span>
+<span class="linenos">59</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="linenos">60</span>
+<span class="linenos">61</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">62</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">63</span><span class="w">        </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">64</span><span class="w">        </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="n">dividend</span><span class="p">];</span>
+<span class="linenos">65</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">66</span>
+<span class="linenos">67</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">68</span><span class="p">}</span>
+<span class="linenos">69</span>
+<span class="linenos">70</span><span class="kt">void</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">print_table</span><span class="p">()</span>
+<span class="linenos">71</span><span class="p">{</span>
+<span class="linenos">72</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">73</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">74</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;0x%02X, &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="linenos">75</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">76</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">77</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">78</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">79</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">80</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">81</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>crc8_testing.cpp</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="linenos"> 5</span><span class="p">{</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="n">CRC8</span><span class="o">::</span><span class="n">print_table</span><span class="p">();</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;1&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;2&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;3&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;4&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;5&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;6&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;7&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;8&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;9&#39;</span><span class="p">};</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">setf</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">hex</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">basefield</span><span class="p">);</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;CRC-8 hash: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">CRC8</span><span class="o">::</span><span class="n">Instance</span><span class="p">.</span><span class="n">get_hash</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">10</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">11</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Compile and run this code.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>g++<span class="w"> </span>crc8.cpp<span class="w"> </span>crc8_test.cpp<span class="w"> </span>-o<span class="w"> </span>crc8_test
+$<span class="w"> </span>./crc8_testing
+</pre></div>
+</div>
+<p><strong>Output</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>0x00,<span class="w"> </span>0x07,<span class="w"> </span>0x0E,<span class="w"> </span>0x09,<span class="w"> </span>0x1C,<span class="w"> </span>0x1B,<span class="w"> </span>0x12,<span class="w"> </span>0x15,
+0x38,<span class="w"> </span>0x3F,<span class="w"> </span>0x36,<span class="w"> </span>0x31,<span class="w"> </span>0x24,<span class="w"> </span>0x23,<span class="w"> </span>0x2A,<span class="w"> </span>0x2D,
+0x70,<span class="w"> </span>0x77,<span class="w"> </span>0x7E,<span class="w"> </span>0x79,<span class="w"> </span>0x6C,<span class="w"> </span>0x6B,<span class="w"> </span>0x62,<span class="w"> </span>0x65,
+0x48,<span class="w"> </span>0x4F,<span class="w"> </span>0x46,<span class="w"> </span>0x41,<span class="w"> </span>0x54,<span class="w"> </span>0x53,<span class="w"> </span>0x5A,<span class="w"> </span>0x5D,
+0xE0,<span class="w"> </span>0xE7,<span class="w"> </span>0xEE,<span class="w"> </span>0xE9,<span class="w"> </span>0xFC,<span class="w"> </span>0xFB,<span class="w"> </span>0xF2,<span class="w"> </span>0xF5,
+0xD8,<span class="w"> </span>0xDF,<span class="w"> </span>0xD6,<span class="w"> </span>0xD1,<span class="w"> </span>0xC4,<span class="w"> </span>0xC3,<span class="w"> </span>0xCA,<span class="w"> </span>0xCD,
+0x90,<span class="w"> </span>0x97,<span class="w"> </span>0x9E,<span class="w"> </span>0x99,<span class="w"> </span>0x8C,<span class="w"> </span>0x8B,<span class="w"> </span>0x82,<span class="w"> </span>0x85,
+0xA8,<span class="w"> </span>0xAF,<span class="w"> </span>0xA6,<span class="w"> </span>0xA1,<span class="w"> </span>0xB4,<span class="w"> </span>0xB3,<span class="w"> </span>0xBA,<span class="w"> </span>0xBD,
+0xC7,<span class="w"> </span>0xC0,<span class="w"> </span>0xC9,<span class="w"> </span>0xCE,<span class="w"> </span>0xDB,<span class="w"> </span>0xDC,<span class="w"> </span>0xD5,<span class="w"> </span>0xD2,
+0xFF,<span class="w"> </span>0xF8,<span class="w"> </span>0xF1,<span class="w"> </span>0xF6,<span class="w"> </span>0xE3,<span class="w"> </span>0xE4,<span class="w"> </span>0xED,<span class="w"> </span>0xEA,
+0xB7,<span class="w"> </span>0xB0,<span class="w"> </span>0xB9,<span class="w"> </span>0xBE,<span class="w"> </span>0xAB,<span class="w"> </span>0xAC,<span class="w"> </span>0xA5,<span class="w"> </span>0xA2,
+0x8F,<span class="w"> </span>0x88,<span class="w"> </span>0x81,<span class="w"> </span>0x86,<span class="w"> </span>0x93,<span class="w"> </span>0x94,<span class="w"> </span>0x9D,<span class="w"> </span>0x9A,
+0x27,<span class="w"> </span>0x20,<span class="w"> </span>0x29,<span class="w"> </span>0x2E,<span class="w"> </span>0x3B,<span class="w"> </span>0x3C,<span class="w"> </span>0x35,<span class="w"> </span>0x32,
+0x1F,<span class="w"> </span>0x18,<span class="w"> </span>0x11,<span class="w"> </span>0x16,<span class="w"> </span>0x03,<span class="w"> </span>0x04,<span class="w"> </span>0x0D,<span class="w"> </span>0x0A,
+0x57,<span class="w"> </span>0x50,<span class="w"> </span>0x59,<span class="w"> </span>0x5E,<span class="w"> </span>0x4B,<span class="w"> </span>0x4C,<span class="w"> </span>0x45,<span class="w"> </span>0x42,
+0x6F,<span class="w"> </span>0x68,<span class="w"> </span>0x61,<span class="w"> </span>0x66,<span class="w"> </span>0x73,<span class="w"> </span>0x74,<span class="w"> </span>0x7D,<span class="w"> </span>0x7A,
+0x89,<span class="w"> </span>0x8E,<span class="w"> </span>0x87,<span class="w"> </span>0x80,<span class="w"> </span>0x95,<span class="w"> </span>0x92,<span class="w"> </span>0x9B,<span class="w"> </span>0x9C,
+0xB1,<span class="w"> </span>0xB6,<span class="w"> </span>0xBF,<span class="w"> </span>0xB8,<span class="w"> </span>0xAD,<span class="w"> </span>0xAA,<span class="w"> </span>0xA3,<span class="w"> </span>0xA4,
+0xF9,<span class="w"> </span>0xFE,<span class="w"> </span>0xF7,<span class="w"> </span>0xF0,<span class="w"> </span>0xE5,<span class="w"> </span>0xE2,<span class="w"> </span>0xEB,<span class="w"> </span>0xEC,
+0xC1,<span class="w"> </span>0xC6,<span class="w"> </span>0xCF,<span class="w"> </span>0xC8,<span class="w"> </span>0xDD,<span class="w"> </span>0xDA,<span class="w"> </span>0xD3,<span class="w"> </span>0xD4,
+0x69,<span class="w"> </span>0x6E,<span class="w"> </span>0x67,<span class="w"> </span>0x60,<span class="w"> </span>0x75,<span class="w"> </span>0x72,<span class="w"> </span>0x7B,<span class="w"> </span>0x7C,
+0x51,<span class="w"> </span>0x56,<span class="w"> </span>0x5F,<span class="w"> </span>0x58,<span class="w"> </span>0x4D,<span class="w"> </span>0x4A,<span class="w"> </span>0x43,<span class="w"> </span>0x44,
+0x19,<span class="w"> </span>0x1E,<span class="w"> </span>0x17,<span class="w"> </span>0x10,<span class="w"> </span>0x05,<span class="w"> </span>0x02,<span class="w"> </span>0x0B,<span class="w"> </span>0x0C,
+0x21,<span class="w"> </span>0x26,<span class="w"> </span>0x2F,<span class="w"> </span>0x28,<span class="w"> </span>0x3D,<span class="w"> </span>0x3A,<span class="w"> </span>0x33,<span class="w"> </span>0x34,
+0x4E,<span class="w"> </span>0x49,<span class="w"> </span>0x40,<span class="w"> </span>0x47,<span class="w"> </span>0x52,<span class="w"> </span>0x55,<span class="w"> </span>0x5C,<span class="w"> </span>0x5B,
+0x76,<span class="w"> </span>0x71,<span class="w"> </span>0x78,<span class="w"> </span>0x7F,<span class="w"> </span>0x6A,<span class="w"> </span>0x6D,<span class="w"> </span>0x64,<span class="w"> </span>0x63,
+0x3E,<span class="w"> </span>0x39,<span class="w"> </span>0x30,<span class="w"> </span>0x37,<span class="w"> </span>0x22,<span class="w"> </span>0x25,<span class="w"> </span>0x2C,<span class="w"> </span>0x2B,
+0x06,<span class="w"> </span>0x01,<span class="w"> </span>0x08,<span class="w"> </span>0x0F,<span class="w"> </span>0x1A,<span class="w"> </span>0x1D,<span class="w"> </span>0x14,<span class="w"> </span>0x13,
+0xAE,<span class="w"> </span>0xA9,<span class="w"> </span>0xA0,<span class="w"> </span>0xA7,<span class="w"> </span>0xB2,<span class="w"> </span>0xB5,<span class="w"> </span>0xBC,<span class="w"> </span>0xBB,
+0x96,<span class="w"> </span>0x91,<span class="w"> </span>0x98,<span class="w"> </span>0x9F,<span class="w"> </span>0x8A,<span class="w"> </span>0x8D,<span class="w"> </span>0x84,<span class="w"> </span>0x83,
+0xDE,<span class="w"> </span>0xD9,<span class="w"> </span>0xD0,<span class="w"> </span>0xD7,<span class="w"> </span>0xC2,<span class="w"> </span>0xC5,<span class="w"> </span>0xCC,<span class="w"> </span>0xCB,
+0xE6,<span class="w"> </span>0xE1,<span class="w"> </span>0xE8,<span class="w"> </span>0xEF,<span class="w"> </span>0xFA,<span class="w"> </span>0xFD,<span class="w"> </span>0xF4,<span class="w"> </span>0xF3,
+
+CRC-8<span class="w"> </span>hash:<span class="w"> </span>f4
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="crc.html" class="btn btn-neutral float-left" title="Cyclic Redundancy Check (CRC)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sagar Chaudhary.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
