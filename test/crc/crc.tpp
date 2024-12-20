@@ -87,7 +87,7 @@ inline void CRC<CRC_Type>::initialize()
 template <typename CRC_Type>
 inline void CRC<CRC_Type>::compute_table()
 {
-    for (uint dividend = 0; dividend < 256; ++dividend)
+    for (unsigned int dividend = 0; dividend < 256; ++dividend)
     {
         CRC_Type remainder = dividend << (this->width - 8);
 
