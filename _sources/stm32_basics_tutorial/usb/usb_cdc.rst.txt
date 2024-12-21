@@ -118,7 +118,7 @@ Now you learn to send data over USB using ``printf`` in `next <usb_printf.html>`
 
 
 .. warning::
-   Many bluepill found in Nepal has ``STM32F103C6T6`` microcontroller and have only 32KB flash memory. Using ``USB`` can overflow the flash memory.
+   Many bluepilsl found in Nepal have ``STM32F103C6T6`` microcontroller and have only 32KB flash memory. Using ``USB`` can overflow the flash memory.
 
 
 References
