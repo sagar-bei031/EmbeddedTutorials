@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hightlights &mdash; Embedded Tutorials 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e5e1bfdb" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Sending and Receiving Packets" href="intermediate_tutorial/sending_and_receiving_packets.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Embedded Tutorials
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hightlights</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Embedded Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Hightlights</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/highlights.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hightlights">
+<h1>Hightlights<a class="headerlink" href="#hightlights" title="Link to this heading"></a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><strong>1</strong>. This ST-Link V2 does not support <code class="docutils literal notranslate"><span class="pre">SWV</span></code>. <a class="reference external" href="stm32_basics_tutorial/usb/usb_printf.html" rel="noopener noreferrer" target="_blank">Use USB instead of SWV</a>.</p>
+<a class="reference internal image-reference" href="_images/stlink.jpeg"><img alt="stlink.jpeg" class="align-center" src="_images/stlink.jpeg" style="width: 300px;" />
+</a>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<div class="line-block">
+<div class="line"><strong>2</strong>. <strong>CH34x USB devices</strong> not pressent at <code class="docutils literal notranslate"><span class="pre">/dev/tty*</span></code>?</div>
+<div class="line">Remove <code class="docutils literal notranslate"><span class="pre">brltty</span></code> package.</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>brltty
+</pre></div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>3</strong>. Remove burden of entering password every time while <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>. <a class="reference external" href="getting_started/setup.html#ssh-setup" rel="noopener noreferrer" target="_blank">Add SSH key to GitHub</a>.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<div class="line-block">
+<div class="line"><strong>4</strong>. Building STM32 project using <code class="docutils literal notranslate"><span class="pre">CMake</span></code> does not generate binary file.</div>
+<div class="line"><a class="reference external" href="stm32_basics_tutorial/basic_setup/build_using_cmakelists.html#generate-binary-using-arm-none-eabi-objcopy" rel="noopener noreferrer" target="_blank">You need to generate binary file</a>.</div>
+</div>
+</div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p><strong>5</strong>. <code class="docutils literal notranslate"><span class="pre">NRST</span></code> pin of ST-Link is not connected to the <code class="docutils literal notranslate"><span class="pre">NRST</span></code> pin of the microcontroller but try to reset using <code class="docutils literal notranslate"><span class="pre">st-flash</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>st-flash<span class="w"> </span>--reset<span class="w"> </span>write<span class="w"> </span>&lt;your_binary_filename&gt;.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+<p>Remove <code class="docutils literal notranslate"><span class="pre">--reset</span></code> and reset manually or common <code class="docutils literal notranslate"><span class="pre">NRST</span></code> pins.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><strong>6</strong>. You must write you code inside comment block. Begin and End are specified by <code class="docutils literal notranslate"><span class="pre">/*</span> <span class="pre">USER</span> <span class="pre">CODE</span> <span class="pre">BEGIN</span> <span class="pre">x</span> <span class="pre">*/</span></code> and <code class="docutils literal notranslate"><span class="pre">/*</span> <span class="pre">USER</span> <span class="pre">CODE</span> <span class="pre">END</span> <span class="pre">x</span> <span class="pre">*/</span></code>. Here <code class="docutils literal notranslate"><span class="pre">x</span></code> is the number. If you write outside this block, your code will be lost when you regenerate the code using CubeMX.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<div class="line-block">
+<div class="line"><strong>7</strong>. Have to disconnect <code class="docutils literal notranslate"><span class="pre">USB</span></code> after pressing <code class="docutils literal notranslate"><span class="pre">reset</span></code> button of STM32?</div>
+<div class="line"><a class="reference external" href="stm32_basics_tutorial/usb/usb_reset_issue.html" rel="noopener noreferrer" target="_blank">You need to add pretreatment</a>.</div>
+</div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<div class="line-block">
+<div class="line"><strong>8</strong>. Using <code class="docutils literal notranslate"><span class="pre">cat</span></code> command to see <code class="docutils literal notranslate"><span class="pre">serial</span></code> data from <code class="docutils literal notranslate"><span class="pre">USB</span></code>?</div>
+<div class="line">Make sure boudrate of Serial is <code class="docutils literal notranslate"><span class="pre">115200</span></code> or use <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">Serial</span> <span class="pre">Monitor</span></code>, <code class="docutils literal notranslate"><span class="pre">PuTTY</span></code> or other software.</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>9</strong>. STM32F407VG-DISC1 default UART1 TX pin (PA9) does not work properly when the USB OTG is used because PA9 pin is also used for USB OTG. For more information, <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-b02_schematic.pdf&amp;ved=2ahUKEwjtzuKMxu6IAxVmR2wGHYkYAl8QFnoECBsQAQ&amp;usg=AOvVaw0S1_y_ksxURXPd02EFhSfS" rel="noopener noreferrer" target="_blank">see the schematic of the board</a>.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<div class="line-block">
+<div class="line"><strong>10</strong>: UART stops receiving but works fine after reset?</div>
+<div class="line">See <a class="reference external" href="stm32_basics_tutorial/uart/uart_issues.html#uart-stops-receiving-but-works-fine-after-reset" rel="noopener noreferrer" target="_blank">UART Issues</a>.</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>11</strong>. Formula for <strong>Frequency of PWM</strong>:</p>
+<div class="math notranslate nohighlight">
+\[f_{\text{PWM}} = \frac{f_{\text{TIM}}}{\text{(ARR + 1) * (PSC + 1)}}\]</div>
+<p>Use calculator for <a class="reference external" href="stm32_basics_tutorial/timer/pwm.html#changing-the-frequency-of-pwm" rel="noopener noreferrer" target="_blank">frequency</a> and also for <a class="reference external" href="stm32_basics_tutorial/timer/pwm.html#_arr_calculator" rel="noopener noreferrer" target="_blank">ARR</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>12</strong>. <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">drain</span></code> encoders need pullup resistors. For <code class="docutils literal notranslate"><span class="pre">3V3</span></code> VDD, <code class="docutils literal notranslate"><span class="pre">4K7</span></code> pull up resistors are better. For <code class="docutils literal notranslate"><span class="pre">5V</span></code> VDD, <code class="docutils literal notranslate"><span class="pre">10K</span></code> pull up resistors are better.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><strong>13</strong>. <strong>STM32F407VG-DISC1 TIM1</strong> gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>14</strong>. If you timer as <strong>counter</strong> like <strong>frequncy counter</strong> or <strong>encoder</strong>. It is better to keep <strong>ARR</strong> value to maximum i.e. <cite>65535</cite> for 32-bit.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>15</strong>. To print floating point, add <code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">_printf_float</span></code> flag to <code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code> in <strong>Makefile</strong>.</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">LDFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>MCU<span class="k">)</span><span class="w"> </span>-specs<span class="o">=</span>nano.specs<span class="w"> </span>-T<span class="k">$(</span>LDSCRIPT<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LIBDIR<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LIBS<span class="k">)</span><span class="w"> </span>-Wl,-Map<span class="o">=</span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.map,--cref<span class="w"> </span>-Wl,--gc-sections<span class="w"> </span>-u<span class="w"> </span>_printf_float
+</pre></div>
+</div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><strong>16</strong>. If <code class="docutils literal notranslate"><span class="pre">PWM</span> <span class="pre">pin</span></code> is pulled up, it sends logic high at reset. So make sure not to use pulled up pins for <code class="docutils literal notranslate"><span class="pre">PWM</span></code> to control <strong>motors</strong>. But you can use the pulled up pins to control <strong>servo motors</strong>. <strong>STM32F407VG-DISC1</strong> board have many pulled up pins as it contains many peripherals. You can check them using <strong>multimeter</strong> under reset. To hold the reset, use <strong>STM32CubeProgrammer</strong>. If you connect it and open <code class="docutils literal notranslate"><span class="pre">SWV</span></code>, it is under reset uintill you press <code class="docutils literal notranslate"><span class="pre">START</span></code>.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><strong>17</strong>. <code class="docutils literal notranslate"><span class="pre">SWV</span></code> does not work in <strong>STM32F407VG-DISC1</strong> board if you use <code class="docutils literal notranslate"><span class="pre">PB3</span></code> pin because it is connected to <code class="docutils literal notranslate"><span class="pre">SWO</span></code> pin of <strong>ST-Link</strong>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>18</strong>. Many bluepill found in Nepal has <code class="docutils literal notranslate"><span class="pre">STM32F103C6T6</span></code> microcontroller and have only 32KB flash memory. Using <code class="docutils literal notranslate"><span class="pre">USB</span></code> can overflow the flash memory.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intermediate_tutorial/sending_and_receiving_packets.html" class="btn btn-neutral float-left" title="Sending and Receiving Packets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sagar Chaudhary.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

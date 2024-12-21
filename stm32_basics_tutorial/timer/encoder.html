@@ -65,6 +65,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../highlights.html">Hightlights</a></li>
 </ul>
 
         </div>
@@ -136,7 +137,7 @@
 </a>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Above <strong>magnetic encoder</strong> does not need pull up resistors as it has <strong>built-in pull up resistors</strong>. But the <strong>open drain encoder</strong> needs <strong>pull up resistors</strong>. For 3V3 VDD, 4K7 pull up resistors are better. For 5V VDD, 10K pull up resistors are better.</p>
+<p>Above <strong>magnetic encoder</strong> does not need pull up resistors as it has <strong>built-in pull up resistors</strong>. But the <strong>open drain encoder</strong> needs <strong>pull up resistors</strong>. For <code class="docutils literal notranslate"><span class="pre">3V3</span></code> VDD, <code class="docutils literal notranslate"><span class="pre">4K7</span></code> pull up resistors are better. For <code class="docutils literal notranslate"><span class="pre">5V</span></code> VDD, <code class="docutils literal notranslate"><span class="pre">10K</span></code> pull up resistors are better.</p>
 </div>
 </section>
 <section id="cubemx-configuration">
@@ -215,9 +216,9 @@
 <li><p>Connect encoder A and B channels to <code class="docutils literal notranslate"><span class="pre">TIM1_CH1</span></code> pin and <code class="docutils literal notranslate"><span class="pre">TIM1_CH2</span></code> pin respectively.</p></li>
 <li><p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeProgrammer</span></code> and see count on <code class="docutils literal notranslate"><span class="pre">SWV</span></code> by rotating encoder. If you used USB, see on terminal or serial monitor.</p></li>
 </ul>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>STM32F407VG-DISC1 TIM1 gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><strong>STM32F407VG-DISC1 TIM1</strong> gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.</p>
 </div>
 <p><strong>Assignment</strong>: Calculate RPM.</p>
 </section>

@@ -66,6 +66,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../highlights.html">Hightlights</a></li>
 </ul>
 
         </div>
@@ -106,12 +107,16 @@ cmake<span class="w"> </span>..
 make<span class="w"> </span>-j
 </pre></div>
 </div>
-<p>But this does not generate <code class="docutils literal notranslate"><span class="pre">.bin</span></code> file which is needed for flashing the microcontroller. To generate, you need to use <code class="docutils literal notranslate"><span class="pre">arm-none-eabi-objcopy</span></code>.</p>
+</li>
+</ol>
+<blockquote id="generate-binary-using-arm-none-eabi-objcopy">
+<div><p>But this does not generate <code class="docutils literal notranslate"><span class="pre">.bin</span></code> file which is needed for flashing the microcontroller. To generate, you need to use <code class="docutils literal notranslate"><span class="pre">arm-none-eabi-objcopy</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>arm-none-eabi-objcopy<span class="w"> </span>-O<span class="w"> </span>binary<span class="w"> </span>&lt;your_project_name.elf&gt;<span class="w"> </span>&lt;your_project_name.bin&gt;
 </pre></div>
 </div>
 <p>We always do this job. So, it is better to generate binary file using CMake.</p>
-</li>
+</div></blockquote>
+<ol class="arabic" start="4">
 <li><p>Add these lines at the bottom of <strong>CMakeLists.txt</strong>.</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Generate binary</span>
 <span class="nb">add_custom_command</span><span class="p">(</span>

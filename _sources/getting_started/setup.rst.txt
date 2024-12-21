@@ -99,6 +99,7 @@ Verify configurations.
 
    git config --list
 
+.. _ssh-setup:
 
 4. SSH Setup
 ------------

@@ -60,6 +60,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="highlights.html">Hightlights</a></li>
 </ul>
 
         </div>
@@ -88,10 +89,21 @@
              
   <section id="stm32-basics-tutorial">
 <h1>STM32 Basics Tutorial<a class="headerlink" href="#stm32-basics-tutorial" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#about-stm32f407vgt6" id="id6">About STM32F407VGT6</a></p></li>
+<li><p><a class="reference internal" href="#about-stm32f103c8t6" id="id7">About STM32F103C8T6</a></p></li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>In this <strong>STM32 Basics Tutorial</strong>, you will learn to use <strong>GPIO</strong>, <strong>USB</strong>, <strong>SWD</strong>, <strong>UART</strong>, <strong>Timer</strong> and other peripherals of STM32 microcontroller. This tutorial is for beginners who are new to STM32 microcontroller. We will use <strong>STM32CubeMX</strong> to generate the code and <strong>arm-none-eabi-gcc</strong> to compile and <strong>stlink-tools</strong> or <strong>STM32CubeProgrammer</strong> to flash the code. See the <a class="reference external" href="getting_started/installation.html" rel="noopener noreferrer" target="_blank">installation</a>.</p>
 <p>For this tutorial, we are using <strong>STM32F407VGT6</strong> microcontroller used in <code class="docutils literal notranslate"><span class="pre">STM32F407VG-DISC1</span></code> board. You can use any other microcontroller as well. The basic concepts are same for all microcontrollers. Before we works on the microcontroller, we need to know about it.</p>
+</section>
 <section id="about-stm32f407vgt6">
-<h2>About STM32F407VGT6<a class="headerlink" href="#about-stm32f407vgt6" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">About STM32F407VGT6</a><a class="headerlink" href="#about-stm32f407vgt6" title="Link to this heading"></a></h2>
 <table class="image-grid docutils align-center">
 <colgroup>
 <col style="width: 50.0%" />
@@ -163,16 +175,134 @@
 </tbody>
 </table>
 <p>You can find its features on <cite>STM32CubeMX</cite>. You also can find datasheet, reference mannual, schematic, footprints and other resources there.</p>
-</section>
-<section id="see-more">
-<h2>See More<a class="headerlink" href="#see-more" title="Link to this heading"></a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.digikey.com/en/maker/tutorials/2020/understanding-stm32-naming-conventions" rel="noopener noreferrer" target="_blank">Naming convenction</a></p></li>
+<li><p><a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/user_manual/um1472-discovery-kit-with-stm32f407vg-mcu-stmicroelectronics.pdf&amp;ved=2ahUKEwjhv-7qubmKAxWOzzgGHfIOBZgQFnoECB8QAQ&amp;usg=AOvVaw2bVxKBN4t1kKDB9FXzgrq7" rel="noopener noreferrer" target="_blank">User mannual</a>.</p></li>
+<li><p><a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-b02_schematic.pdf&amp;ved=2ahUKEwi9jdGcurmKAxWT3jgGHYmPAqUQFnoECBsQAQ&amp;usg=AOvVaw0S1_y_ksxURXPd02EFhSfS" rel="noopener noreferrer" target="_blank">Schematic</a>.</p></li>
 <li><p><a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/datasheet/dm00037051.pdf&amp;ved=2ahUKEwi5uNulx72IAxVR1TgGHfcYAmIQFnoECBQQAQ&amp;usg=AOvVaw07P8BbeoTlMpZCNdsHv1OP" rel="noopener noreferrer" target="_blank">Datasheet</a></p></li>
 <li><p><a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&amp;ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&amp;usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74" rel="noopener noreferrer" target="_blank">Reference mannual</a></p></li>
 <li><p><a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/en/microcontrollers-microprocessors/stm32f4-series/documentation.html&amp;ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBwQAQ&amp;usg=AOvVaw318Y8lno9LsAwj77l78ngk" rel="noopener noreferrer" target="_blank">Documentation</a></p></li>
 </ul>
+</div>
+</section>
+<section id="about-stm32f103c8t6">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">About STM32F103C8T6</a><a class="headerlink" href="#about-stm32f103c8t6" title="Link to this heading"></a></h2>
+<table class="image-grid docutils align-center">
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/stm32f103c8.webp"><img alt="STM32F103C8" src="_images/stm32f103c8.webp" style="height: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>STM32F103C8</strong></span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</td>
+<td><figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/bluepill.jpg"><img alt="Bluepill" src="_images/bluepill.jpg" style="height: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Bluepill</strong></span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Specification</strong></p></th>
+<th class="head"><p><strong>Details</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Processor</p></td>
+<td><p>ARM Cortex-M3</p></td>
+</tr>
+<tr class="row-odd"><td><p>Word length</p></td>
+<td><p>32-bit</p></td>
+</tr>
+<tr class="row-even"><td><p>Max frequency</p></td>
+<td><p>72 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Mainstream performance</p></td>
+</tr>
+<tr class="row-even"><td><p>Total pin count</p></td>
+<td><p>48</p></td>
+</tr>
+<tr class="row-odd"><td><p>Typical operating voltage</p></td>
+<td><p>3.3 V</p></td>
+</tr>
+<tr class="row-even"><td><p>Power supply voltage</p></td>
+<td><p>2.0 V - 3.6 V</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max power consumption</p></td>
+<td><p>34 mA at 72 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>Max I/O pins consumption</p></td>
+<td><p>25 mA each</p></td>
+</tr>
+<tr class="row-odd"><td><p>I/O pin voltage tolerant</p></td>
+<td><p>5 V</p></td>
+</tr>
+<tr class="row-even"><td><p>RAM</p></td>
+<td><p>20 KB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Flash</p></td>
+<td><p>64 KB (some variant have 128 KB)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Many bluepill found in Nepal uses <code class="docutils literal notranslate"><span class="pre">STM32F103C6T6</span></code> microcontroller. It is less powerful than <code class="docutils literal notranslate"><span class="pre">STM32F103C8T6</span></code>.</p>
+</div>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial/basic_setup.html">Basic Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/basic_setup/generate_basic_code.html">Generate Basic Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/basic_setup/build_using_makefile.html">Build Using Makefile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/basic_setup/build_using_cmakelists.html">Build Using CMakeLists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/basic_setup/flash_using_makefile.html">Flash Using Makefile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/basic_setup/flash_using_cmakelists.html">Flash Using CMakeLists</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial/gpio.html">GPIO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/gpio/gpio_output.html">GPIO Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/gpio/gpio_input.html">GPIO Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/gpio/gpio_ext_interrupt.html">GPIO External Interrupt</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial/usb.html">USB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/usb/usb_cdc.html">USB CDC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/usb/usb_printf.html">Printf over USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/usb/usb_reset_issue.html">USB Reset Issue</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial/swd.html">SWD</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/swd/swd_printf.html">SWD Printf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/swd/swd_cortex_debug.html">SWD Cortex Debug</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial/uart.html">UART</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/uart/uart_polling.html">UART with Polling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/uart/uart_interrupt.html">UART with Interrupt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/uart/uart_dma.html">UART with DMA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/uart/uart_issues.html">UART Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial/timer.html">Timer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stm32_basics_tutorial/timer.html#application-of-timers">Application of timers</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 </section>

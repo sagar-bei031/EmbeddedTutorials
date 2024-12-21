@@ -18,6 +18,7 @@ Embedded Tutorials
    getting_started
    stm32_basics_tutorial
    intermediate_tutorial
+   highlights
 
 
 Before starting with the tutorials, let's understand the basics of embedded systems.

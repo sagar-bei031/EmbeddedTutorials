@@ -66,6 +66,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../highlights.html">Hightlights</a></li>
 </ul>
 
         </div>
@@ -117,8 +118,8 @@
 <span class="w">	</span>st-flash<span class="w"> </span>--reset<span class="w"> </span>write<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
 <p>To <strong>reset after flash</strong>, make sure that <strong>reset pin of st-link is connected to reset pin of microcontroller</strong>. Otherwise, it will not work and give error. In discovery board, it is connected by default.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">st-flash</span></code> command is part of <code class="docutils literal notranslate"><span class="pre">stlink-tools</span></code>. Here, <strong>binary file</strong> is upload to <strong>flash memory</strong> of microcontroller Starting from address <code class="docutils literal notranslate"><span class="pre">0x8000000</span></code>.</p>

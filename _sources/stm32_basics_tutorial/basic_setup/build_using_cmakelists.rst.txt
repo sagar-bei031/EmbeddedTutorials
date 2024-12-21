@@ -14,6 +14,8 @@ Build Using CMakeLists
       cmake ..
       make -j
 
+.. _generate-binary-using-arm-none-eabi-objcopy:
+
    But this does not generate ``.bin`` file which is needed for flashing the microcontroller. To generate, you need to use ``arm-none-eabi-objcopy``.
 
    .. code-block:: bash

@@ -66,6 +66,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../highlights.html">Hightlights</a></li>
 </ul>
 
         </div>
@@ -195,6 +196,10 @@
 <li><p>Observe the output on <strong>Oscilloscope</strong>.</p></li>
 </ul>
 <p><strong>Assignment</strong>: Control the speed of a motor using any motor driver available.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">PWM</span> <span class="pre">pin</span></code> is pulled up, it sends logic high at reset. So make sure not to use pulled up pins for <code class="docutils literal notranslate"><span class="pre">PWM</span></code> to control <strong>motors</strong>. But you can use the pulled up pins to control <strong>servo motors</strong>. <strong>STM32F407VG-DISC1</strong> board have many pulled up pins as it contains many peripherals. You can check them using <strong>multimeter</strong> under reset. To hold the reset, use <strong>STM32CubeProgrammer</strong>. If you connect it and open <code class="docutils literal notranslate"><span class="pre">SWV</span></code>, it is under reset uintill you press <code class="docutils literal notranslate"><span class="pre">START</span></code>.</p>
+</div>
 </section>
 <section id="changing-the-frequency-of-pwm">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">5. Changing the Frequency of PWM</a><a class="headerlink" href="#changing-the-frequency-of-pwm" title="Link to this heading"></a></h2>
@@ -293,8 +298,8 @@
 <p class="admonition-title">Note</p>
 <p>We chose <span class="math notranslate nohighlight">\(\text{PSC}\)</span> as <cite>167</cite> because the <span class="math notranslate nohighlight">\(f_{\text{TIM}}\)</span> is <cite>168MHz</cite>. So <span class="math notranslate nohighlight">\(\frac{f_{\text{TIM}}}{\text{PSC} + 1}\)</span> will be <cite>1MHz</cite> for easy calculation.</p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>To get good response from DC motors, higher PWM frequency is better but motordriver should be capable to handle that frequency. Lower frequency can make <strong>tunning sound</strong> from DC motors. I used <code class="docutils literal notranslate"><span class="pre">8KHz</span></code> pwm frequency for <strong>planetary gear motors</strong>.</p>
 </div>
 <p>Go to <code class="docutils literal notranslate"><span class="pre">Pinout</span> <span class="pre">&amp;</span> <span class="pre">Configuration</span> <span class="pre">&gt;</span> <span class="pre">Timers</span> <span class="pre">&gt;</span> <span class="pre">TIM1</span> <span class="pre">&gt;</span> <span class="pre">Parameter</span> <span class="pre">Settings</span></code> and set the <strong>ARR</strong> value to <code class="docutils literal notranslate"><span class="pre">19999</span></code> and <strong>PSC</strong> value to <code class="docutils literal notranslate"><span class="pre">167</span></code>.</p>
