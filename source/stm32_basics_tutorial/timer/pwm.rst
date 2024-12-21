@@ -107,6 +107,10 @@ The average output of a PWM signal is given by :math:`V_{avg} = \frac{\text{Puls
 
 **Assignment**: Control the speed of a motor using any motor driver available.
 
+.. caution::
+
+   If ``PWM pin`` is pulled up, it sends logic high at reset. So make sure not to use pulled up pins for ``PWM`` to control **motors**. But you can use the pulled up pins to control **servo motors**. **STM32F407VG-DISC1** board have many pulled up pins as it contains many peripherals. You can check them using **multimeter** under reset. To hold the reset, use **STM32CubeProgrammer**. If you connect it and open ``SWV``, it is under reset uintill you press ``START``. 
+
 
 5. Changing the Frequency of PWM
 --------------------------------
@@ -193,6 +197,7 @@ If :math:`f_{\text{TIM}}` is ``168MHz``, :math:`\text{PSC}` is ``167`` and :math
 
    = 19999
 
+.. _arr_calculator:
 
 .. raw:: html
 
@@ -237,7 +242,7 @@ If :math:`f_{\text{TIM}}` is ``168MHz``, :math:`\text{PSC}` is ``167`` and :math
 
    We chose :math:`\text{PSC}` as `167` because the :math:`f_{\text{TIM}}` is `168MHz`. So :math:`\frac{f_{\text{TIM}}}{\text{PSC} + 1}` will be `1MHz` for easy calculation.
 
-.. note::
+.. warning::
 
    To get good response from DC motors, higher PWM frequency is better but motordriver should be capable to handle that frequency. Lower frequency can make **tunning sound** from DC motors. I used ``8KHz`` pwm frequency for **planetary gear motors**. 
 

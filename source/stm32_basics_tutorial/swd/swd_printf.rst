@@ -9,6 +9,9 @@ SWD Printf
 .. attention::
    ``ITM SWV Console`` does not work using our ``duplicate ST-Link V2`` adapter. So using ``bluepill``, ``USB`` is used for ``printf`` in our case.
 
+.. attention::
+   ``SWV`` does not work in **STM32F407VG-DISC1** board if you use ``PB3`` pin because it is connected to ``SWO`` pin of **ST-Link**.
+
 
 1. Introduction
 ---------------

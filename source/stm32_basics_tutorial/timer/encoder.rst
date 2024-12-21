@@ -37,7 +37,7 @@ Rotating encoder is a input device that provides information about the direction
 
 .. note::
 
-    Above **magnetic encoder** does not need pull up resistors as it has **built-in pull up resistors**. But the **open drain encoder** needs **pull up resistors**. For 3V3 VDD, 4K7 pull up resistors are better. For 5V VDD, 10K pull up resistors are better. 
+    Above **magnetic encoder** does not need pull up resistors as it has **built-in pull up resistors**. But the **open drain encoder** needs **pull up resistors**. For ``3V3`` VDD, ``4K7`` pull up resistors are better. For ``5V`` VDD, ``10K`` pull up resistors are better. 
 
 
 2. CubeMX Configuration
@@ -121,9 +121,9 @@ Rotating encoder is a input device that provides information about the direction
 - Open ``STM32CubeProgrammer`` and see count on ``SWV`` by rotating encoder. If you used USB, see on terminal or serial monitor.
 
 
-.. attention::
+.. caution::
 
-   STM32F407VG-DISC1 TIM1 gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.
+   **STM32F407VG-DISC1 TIM1** gives problem in high speed encoder reading if cable length is long. It is better to use other timers for high speed encoder reading.
 
 
 **Assignment**: Calculate RPM.
