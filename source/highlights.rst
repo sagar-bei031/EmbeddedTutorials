@@ -117,4 +117,4 @@ Hightlights
 
 .. warning::
 
-   **18**. Many bluepill found in Nepal has ``STM32F103C6T6`` microcontroller and have only 32KB flash memory. Using ``USB`` can overflow the flash memory.
+   **18**. Many bluepills found in Nepal have ``STM32F103C6T6`` microcontroller and have only 32KB flash memory. Using ``USB`` can overflow the flash memory.
