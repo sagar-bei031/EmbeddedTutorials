@@ -1,5 +1,5 @@
-Sending and Parsing Packets
-===========================
+Sending and Receiving Packets
+=============================
 .. contents:: Contents
    :depth: 2
    :local:
@@ -62,17 +62,36 @@ Checksum is simple and fast but there is high chance of collision. Suppose two b
 
 I have already discussed about CRC in `previous <crc.html>`__ tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let's write a simple SMBus CRC-8 class.
 
+
+4. Implementing SMBus CRC-8
+--------------------------- 
+
+.. line-block::
+
+   **Width**: 8
+   **Polynomial**: 0x07
+   **Initial Value**: 0x00
+   **Final XOR Value**: 0x00
+   **Reflect Input**: False
+   **Reflect Output**: False
+
+Let's create header and souce file.
+
 **crc8.hpp**:
 
 .. literalinclude:: files/crc8.hpp
    :language: cpp
    :linenos:
 
+The constructor of ``CRC8`` class is private so no multiple instances will be created by ``user`` except one we created as static member. Such type of class is called ``singletone`` class.
+
 **crc8.cpp**:
 
 .. literalinclude:: files/crc8.cpp
    :language: cpp
    :linenos:
+
+To ensure the ``CRC8`` compatibility with other ``CRC8``, the ``loockup table`` and ``check`` value are compared.  Now write the test code.
 
 **crc8_test.cpp**:
 
@@ -125,3 +144,57 @@ Compile and run this code.
    0xE6, 0xE1, 0xE8, 0xEF, 0xFA, 0xFD, 0xF4, 0xF3, 
    
    CRC-8 hash: f4
+
+
+5. Sending Packets through UART using Arduino
+---------------------------------------------
+
+Let's suppose you want to send packets that contains joystick data twist(vx, vy, w). To do so, select one start byte ``0xA5``, then three bytes for vx, vy and w, and one byte for CRC.
+
+- Create a ``new sketch`` in ``Arduino IDE``. Save it as ``sending_packets``.
+
+- Open ``terminal`` in the ``Arduino IDE`` using ``ctrl`` + `````. Create files ``crc8.hpp`` and ``crc8.cpp``.
+
+  .. code-block:: arduino
+
+     touch crc8.hpp touch crc8.cpp
+
+- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above ``section 4``.
+
+- Now copy and paste these contensts in ``sending_packets.ino``.
+
+  .. literalinclude:: files/sending_packets.ino
+     :language: cpp
+     :linenos:
+
+- Compile and upload the code to your ``Arduino``.
+
+
+6. Receiving Packets through UART using Arduino
+-----------------------------------------------
+
+Now you have to receive packets and parse them. The format used for sending packets should be same while parsing.
+
+- Create a ``new sketch`` in ``Arduino IDE``. Save it as ``receiving_packets``.
+
+- Open ``terminal`` in the ``Arduino IDE`` using ``ctrl`` + `````. Create files ``crc8.hpp`` and ``crc8.cpp``.
+
+   .. code-block:: arduino
+
+      touch crc8.hpp touch crc8.cpp
+
+- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above ``section 4``.
+
+- Now copy and paste these contensts in ``receiving_packets.ino``.
+
+  .. literalinclude:: files/receiving_packets.ino
+     :language: cpp
+     :linenos:
+
+  This receiving code is written for ``Arduino UNO``. You may want to modify it for other boards. It is better to use microcontroller having atleast two UARTs like ``Arduino Mega`` has three UARTs.
+
+- Compile and upload the code to your ``Arduino``.
+
+- Connect the ``TX pin`` of ``Sender`` and ``RX pin`` of ``Receiver``. Common ``GND`` of both.
+
+- Open ``Serial Monitor`` in the ``Arduino IDE``. Set boudrate to ``115200`` or that in your code. You will see the parsed data.
