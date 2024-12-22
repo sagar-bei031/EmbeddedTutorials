@@ -1,5 +1,5 @@
-SWD Cortex Debug
-================
+Debug using SWD
+===============
 
 .. contents:: Contents
    :depth: 2
@@ -105,3 +105,8 @@ Run Debugger
 - Click ``Run`` button.
 
 You will see a floating toolbar which you can use for ``continue``, ``step over``, ``step into``, ``step out``,  ``restart`` and ``stop``.
+
+.. image:: images/cortex_debug.webp
+   :align: center
+   :width: 100%
+   :alt: cortex_debug.webp

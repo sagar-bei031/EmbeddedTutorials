@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SWD Printf" href="swd/swd_printf.html" />
+    <link rel="next" title="Debug using SWD" href="swd/debug_using_swd.html" />
     <link rel="prev" title="USB Reset Issue" href="usb/usb_reset_issue.html" /> 
 </head>
 
@@ -37,6 +37,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Embedded Tutorials
+              <img src="../_static/embedded-logo.webp" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -54,8 +55,8 @@
 <li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SWD</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swd/swd_printf.html">SWD Printf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="swd/swd_cortex_debug.html">SWD Cortex Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swd/debug_using_swd.html">Debug using SWD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="swd/print_using_swd.html">Print using SWD</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a></li>
@@ -93,16 +94,23 @@
              
   <section id="swd">
 <h1>SWD<a class="headerlink" href="#swd" title="Link to this heading"></a></h1>
-<p>Serial Wire Debug  (SWD) is a lightweight debug protocol from ARM. The physical layer of SWD consists of two lines are:</p>
+<p>Serial Wire Debug  (SWD) is a lightweight debug protocol from ARM. The physical layer of SWD consists of following lines:</p>
 <ul class="simple">
-<li><p>SWDIO: a bidirectional data line</p></li>
-<li><p>SWCLK: a clock driver by the host</p></li>
+<li><p><strong>Serial Wire Clock (SWCLK)</strong>: A clock driver by the host.</p></li>
+<li><p><strong>Serial Wire Input Output(SWDIO)</strong>: A bidirectional data line for debugging.</p></li>
+<li><p><strong>Serial Wire Output (SWO)</strong>: A trace output line for <strong>Serial Wire Viewer</strong> (SWV).</p></li>
 </ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This ST-Link V2 does not support <code class="docutils literal notranslate"><span class="pre">SWV</span></code> as there is no <code class="docutils literal notranslate"><span class="pre">SWO</span></code> pin. <a class="reference external" href="stm32_basics_tutorial/usb/usb_printf.html" rel="noopener noreferrer" target="_blank">Use USB instead of SWV</a>.</p>
+<a class="reference internal image-reference" href="../_images/stlink.jpeg"><img alt="stlink.jpeg" class="align-center" src="../_images/stlink.jpeg" style="width: 300px;" />
+</a>
+</div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="swd/swd_printf.html">SWD Printf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swd/swd_cortex_debug.html">SWD Cortex Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swd/debug_using_swd.html">Debug using SWD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swd/print_using_swd.html">Print using SWD</a></li>
 </ul>
 </div>
 </section>
@@ -112,7 +120,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="usb/usb_reset_issue.html" class="btn btn-neutral float-left" title="USB Reset Issue" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="swd/swd_printf.html" class="btn btn-neutral float-right" title="SWD Printf" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="swd/debug_using_swd.html" class="btn btn-neutral float-right" title="Debug using SWD" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

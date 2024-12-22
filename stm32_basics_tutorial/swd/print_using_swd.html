@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SWD Printf &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>Print using SWD &mdash; Embedded Tutorials 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="SWD Cortex Debug" href="swd_cortex_debug.html" />
-    <link rel="prev" title="SWD" href="../swd.html" /> 
+    <link rel="next" title="UART" href="../uart.html" />
+    <link rel="prev" title="Debug using SWD" href="debug_using_swd.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,6 +37,7 @@
           
           <a href="../../index.html" class="icon icon-home">
             Embedded Tutorials
+              <img src="../../_static/embedded-logo.webp" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -54,8 +55,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../gpio.html">GPIO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../usb.html">USB</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../swd.html">SWD</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">SWD Printf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="swd_cortex_debug.html">SWD Cortex Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debug_using_swd.html">Debug using SWD</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Print using SWD</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../uart.html">UART</a></li>
@@ -82,9 +83,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
           <li class="breadcrumb-item"><a href="../swd.html">SWD</a></li>
-      <li class="breadcrumb-item active">SWD Printf</li>
+      <li class="breadcrumb-item active">Print using SWD</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/stm32_basics_tutorial/swd/swd_printf.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/sagar-bei031/EmbeddedTutorials/blob/main/source/stm32_basics_tutorial/swd/print_using_swd.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -92,8 +93,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="swd-printf">
-<h1>SWD Printf<a class="headerlink" href="#swd-printf" title="Link to this heading"></a></h1>
+  <section id="print-using-swd">
+<h1>Print using SWD<a class="headerlink" href="#print-using-swd" title="Link to this heading"></a></h1>
 <nav class="contents local" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -108,8 +109,8 @@
 <p class="admonition-title">Attention</p>
 <p><code class="docutils literal notranslate"><span class="pre">ITM</span> <span class="pre">SWV</span> <span class="pre">Console</span></code> does not work using our <code class="docutils literal notranslate"><span class="pre">duplicate</span> <span class="pre">ST-Link</span> <span class="pre">V2</span></code> adapter. So using <code class="docutils literal notranslate"><span class="pre">bluepill</span></code>, <code class="docutils literal notranslate"><span class="pre">USB</span></code> is used for <code class="docutils literal notranslate"><span class="pre">printf</span></code> in our case.</p>
 </div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">SWV</span></code> does not work in <strong>STM32F407VG-DISC1</strong> board if you use <code class="docutils literal notranslate"><span class="pre">PB3</span></code> pin because it is connected to <code class="docutils literal notranslate"><span class="pre">SWO</span></code> pin of <strong>ST-Link</strong>.</p>
 </div>
 <section id="introduction">
@@ -197,6 +198,9 @@ Core/Src/printf_conf.c
 <li><p>Click on <code class="docutils literal notranslate"><span class="pre">Start</span></code>.</p></li>
 </ul>
 <p>You can see the message “Hello World” on the <code class="docutils literal notranslate"><span class="pre">SWV</span></code> continously.</p>
+<a class="reference internal image-reference" href="../../_images/swv_on_cubeprogrammer.webp"><img alt="swv_on_cubeprogrammer.webp" class="align-center" src="../../_images/swv_on_cubeprogrammer.webp" style="width: 100%;" />
+</a>
+<p>Do not be confused that I used 80MHz in clock frequency. I used different device at the time of this demo. Use your own.</p>
 </section>
 </section>
 
@@ -204,8 +208,8 @@ Core/Src/printf_conf.c
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../swd.html" class="btn btn-neutral float-left" title="SWD" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="swd_cortex_debug.html" class="btn btn-neutral float-right" title="SWD Cortex Debug" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="debug_using_swd.html" class="btn btn-neutral float-left" title="Debug using SWD" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../uart.html" class="btn btn-neutral float-right" title="UART" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
