@@ -256,7 +256,7 @@ STM32 microcontrollers have CRC-32 hardware. We can use it to calculate CRC-32.
 - ``project name``: ``crc_test``
 - ``Toolchain/IDE``: ``Makefile``
  
-Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill using duplicate stlink). See `this <../stm32_basics_tutorial/usb/usb_cdc.html>`__ for USB setup.
+Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill using duplicate stlink which do not have SWO). See `this <../stm32_basics_tutorial/usb/usb_cdc.html>`__ for USB setup.
 
 .. image:: images/crc_test_cubemx.png
    :width: 100%
@@ -292,7 +292,9 @@ Add the following test code to calculate CRC-32.
    while (1)
    {
      uint32_t crc = HAL_CRC_Calculate(&hcrc, (uint32_t *)data, strlen(data));
-     snprintf(buf, sizeof(buf), "data: %s, crc: %lu\n", data, crc);
+     snprintf(buf, sizeof(buf), "data: %s, crc: 0x%8lX\n", data, crc);
+     // if it supports CRC Hardware configurtion
+     // snprintf(buf, sizeof(buf), "POL: 0x%8lX, INIT: 0x%8lX, CRC: 0x%8lX\n", hcrc.Instance->POL, hcrc.Instance->INIT, crc); 
      CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
      HAL_Delay(100);
      /* USER CODE END WHILE */
@@ -301,4 +303,5 @@ Add the following test code to calculate CRC-32.
    }
    /* USER CODE END 3 */
 
-Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data.
+Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data. Verify output using `online CRC calculator <https://www.sunshine2k.de/coding/javascript/crc/crc_js.html>`__.
+

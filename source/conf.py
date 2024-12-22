@@ -55,6 +55,8 @@ source_suffix = {
     '.md': 'markdown',
 }
 
+html_logo = "_static/embedded-logo.webp"
+
 # -- Options for linkcode extension ------------------------------------------
 def linkcode_resolve(domain, info):
     """

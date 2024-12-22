@@ -73,7 +73,7 @@ Controllers
 
 
 3. Raspberry Pi Controllers
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :widths: 50 50
@@ -94,7 +94,7 @@ Controllers
 
 
 4. Arduino Controllers
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :widths: 33 33 33

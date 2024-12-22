@@ -1,5 +1,5 @@
-SWD Printf
-==========
+Print using SWD
+===============
 
 .. contents:: Contents
    :depth: 2
@@ -9,7 +9,7 @@ SWD Printf
 .. attention::
    ``ITM SWV Console`` does not work using our ``duplicate ST-Link V2`` adapter. So using ``bluepill``, ``USB`` is used for ``printf`` in our case.
 
-.. attention::
+.. warning::
    ``SWV`` does not work in **STM32F407VG-DISC1** board if you use ``PB3`` pin because it is connected to ``SWO`` pin of **ST-Link**.
 
 
@@ -117,3 +117,11 @@ SWD also can be used to print data. But we cannot get them normally. We need spe
 
 
 You can see the message "Hello World" on the ``SWV`` continously.
+
+
+.. image:: images/swv_on_cubeprogrammer.webp
+   :align: center
+   :width: 100%
+   :alt: swv_on_cubeprogrammer.webp
+
+Do not be confused that I used 80MHz in clock frequency. I used different device at the time of this demo. Use your own.
