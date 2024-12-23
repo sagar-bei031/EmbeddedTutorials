@@ -1,6 +1,6 @@
 # EmbeddedTutorials
 
-**EmbeddedTutorials** web pages are hosted [here](https://sagar-bei031.github.io/EmbeddedTutorials/).
+**EmbeddedTutorials** web pages are hosted [here](https://Robotics-Club-Pulchowk.github.io/EmbeddedTutorials/).
 
 
 ## Build

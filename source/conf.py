@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Embedded Tutorials'
-copyright = '2024, Sagar Chaudhary'
+copyright = '2024, Robotics Club, Pulchowk Campus'
 author = 'Sagar Chaudhary'
 release = '1.0.0'
 
@@ -37,7 +37,7 @@ html_static_path = ['_static']
 
 html_context = {
     "display_github": True,
-    "github_user": "sagar-bei031",
+    "github_user": "Robotics-Club-Pulchowk",
     "github_repo": "EmbeddedTutorials",
     "github_version": "main",
     "conf_py_path": "/source/",
@@ -68,4 +68,4 @@ def linkcode_resolve(domain, info):
         return None
 
     filename = info["module"].replace(".", "/")
-    return f"https://github.com/sagar-bei031/EmbeddedDocumentation/blob/main/{filename}.py"
+    return f"https://github.com/Robotics-Club-Pulchowk/EmbeddedDocumentation/blob/main/{filename}.py"
