@@ -118,3 +118,8 @@ Hightlights
 .. warning::
 
    **18**. Many bluepills found in Nepal have ``STM32F103C6T6`` microcontroller and have only 32KB flash memory. Using ``USB`` can overflow the flash memory.
+
+
+.. important::
+   
+   **19**. **ITM** uses **SWO**, so select ``Debug`` option as ``Trace Asynchronous SW`` in **STM32CubeMX** configuration.

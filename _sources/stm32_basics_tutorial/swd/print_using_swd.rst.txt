@@ -18,12 +18,22 @@ Print using SWD
 
 SWD also can be used to print data. But we cannot get them normally. We need speacial program to see which is ``Serial Wire Viewer (SWV)``. ``STM32CubeProgrammer`` has  SWV. Download it from `installation <../../getting_started/installation.html>`__.
 
+In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used in **ARM** processors. It uses **SWO** pin for tracing.
 
 
 2. Overwrite Definition of printf
 ---------------------------------
 
 * `Generate baisc code <../basic_setup/generate_basic_code.html>`__.
+
+.. important::
+      **ITM** uses **SWO**, so select ``Debug`` option as ``Trace Asynchronous SW`` in **STM32CubeMX**.
+
+.. image:: images/swo_config_cubemx.webp
+   :align: center
+   :width: 100%
+   :alt: swo_config_cubemx.webp
+   :class: padded-image
 
 * Create a new file ``printf_conf.c`` in ``Core/Src`` folder.
 
@@ -104,7 +114,14 @@ SWD also can be used to print data. But we cannot get them normally. We need spe
 
 * Open ``STM32CubeProgrammer``.
 
-* Connect your microcontroller to your PC using USB cable through ``ST-Link``.
+* Connect your microcontroller to your PC using USB cable through ``ST-Link``. If you use external ``debugger`` like ``JLink`` or ``ST-Link`` adapter, connect it as:
+  
+  * ``SWCLK`` of microcontroller to ``SWCLK`` of debugger.
+  * ``SWDIO`` of microcontroller to ``SWDIO`` of debugger.
+  * ``SWO`` of microcontroller to ``SWO`` of debugger. 
+  * ``NRST`` of microcontroller to ``NRST`` of debugger. (Optional, only if you want to hard reset microcontroller using debugger)
+  * ``GND`` of microcontroller to ``GND`` of debugger.
+  * ``3V3`` of microcontroller to ``3V3`` of debugger.
 
 * Click on ``Connect``.
 
