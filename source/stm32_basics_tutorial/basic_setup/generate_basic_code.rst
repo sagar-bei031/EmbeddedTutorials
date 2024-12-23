@@ -39,7 +39,10 @@ You might be asked to initialize peripheral with their **default mode**. Click `
 
   .. image:: images/sw.webp
      :width: 100%
-     :alt: SW  
+     :alt: SW
+
+  .. important::
+     **ITM** uses **SWO**. If you use **ITM**, select ``Debug`` option as ``Trace Asynchronous SW`` in **STM32CubeMX** configuration.
 
 Now you can select pins for LED, UART, Timers and many more. But leave them for now.
 

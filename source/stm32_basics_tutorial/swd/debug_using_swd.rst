@@ -9,7 +9,7 @@ Debug using SWD
 Introduction
 ------------
 
-Cortex-Debug is an extension for Visual Studio Code to streamline the debug process when working with ARM Cortex-M microcontrollers.
+**Cortex-Debug** is an extension for **Visual Studio Code** to streamline the debug process when working with **ARM Cortex-M** microcontrollers.
 
 
 
@@ -100,7 +100,15 @@ Change ``.elf`` filename for ``executable`` and device name for ``device``. Also
 Run Debugger
 ------------
 
-- Connet your ST-Link or JLink to your microcontroller and your PC.
+- Connet your ST-Link or JLink to your microcontroller and your PC. If you use external ``debugger`` like ``JLink`` or ``ST-Link`` adapter, connect it as:
+  
+  * ``SWCLK`` of microcontroller to ``SWCLK`` of debugger.
+  * ``SWDIO`` of microcontroller to ``SWDIO`` of debugger.
+  * ``SWO`` of microcontroller to ``SWO`` of debugger. (Optional, only if you want to see ITM messages)
+  * ``NRST`` of microcontroller to ``NRST`` of debugger. (Optional, only if you want to hard reset microcontroller using debugger)
+  * ``GND`` of microcontroller to ``GND`` of debugger.
+  * ``3V3`` of microcontroller to ``3V3`` of debugger.
+
 - Go to ``Run and Debug`` section in VSCODE.
 - Click ``Run`` button.
 
@@ -110,3 +118,4 @@ You will see a floating toolbar which you can use for ``continue``, ``step over`
    :align: center
    :width: 100%
    :alt: cortex_debug.webp
+   :class: padded-image
