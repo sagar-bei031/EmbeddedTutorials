@@ -39,7 +39,7 @@ void loop() {
   twist.w = 0.0f;
 
   sending_packet[0] = START_BYTE;
-  memcpy(sending_packet, &twist, sizeof(twist));
+  memcpy(sending_packet+1, &twist, sizeof(twist));
   sending_packet[sizeof(sending_packet) -1] = CRC8::get_hash((uint8_t*)(&twist), sizeof(twist));
 
   Serial.write(sending_packet, sizeof(sending_packet));
