@@ -1,5 +1,5 @@
-Hightlights
-===========
+Highlights
+==========
 
 .. attention::
 

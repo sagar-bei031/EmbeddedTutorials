@@ -22,7 +22,7 @@ It is really easy to calculate checksum of data packet. Checksum is calculated u
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Checksum is calculated by adding each bytes of data. The addtion can overflowe if size of checksum is small. Consider size of checksum is one byte. Let's write test code to calculate checksum of bytes using addition.
 
-.. literalinclude:: files/addition_based_checksum.c
+.. literalinclude:: files/data_packets/addition_based_checksum.c
    :language: c
    :linenos:
 
@@ -48,7 +48,7 @@ Let's talk about binary addition and XOR.
 
 Binary Addition and XOR are same for first three. But for two 1's, Addition takes carry but XOR neglects it. Let's write test code for XOR based checksum calculation.
 
-.. literalinclude:: files/xor_based_checksum.c
+.. literalinclude:: files/data_packets/xor_based_checksum.c
    :language: c
    :linenos:
 
@@ -77,38 +77,34 @@ I have already discussed about CRC in `previous <crc.html>`__ tutorial. The CRC 
 
 Let's create header and souce file.
 
-**crc8.hpp**:
-
-.. literalinclude:: files/crc8.hpp
+.. literalinclude:: files/data_packets/crc8.hpp
    :language: cpp
    :linenos:
+   :caption: crc8.hpp
 
 The constructor of ``CRC8`` class is private so no multiple instances will be created by ``user`` except one we created as static member. Such type of class is called ``singletone`` class.
 
-**crc8.cpp**:
-
-.. literalinclude:: files/crc8.cpp
+.. literalinclude:: files/data_packets/crc8.cpp
    :language: cpp
    :linenos:
+   :caption: crc8.cpp
 
 To ensure the ``CRC8`` compatibility with other ``CRC8``, the ``loockup table`` and ``check`` value are compared.  Now write the test code.
 
-**crc8_test.cpp**:
-
-.. literalinclude:: files/crc8_test.cpp
+.. literalinclude:: files/data_packets/crc8_test.cpp
    :language: cpp
    :linenos:
+   :caption: crc8_test.cpp
 
 Compile and run this code.
 
 .. code-block:: bash
 
-   $ g++ crc8.cpp crc8_test.cpp -o crc8_test
-   $ ./crc8_test
-
-**Output**:
+   g++ crc8.cpp crc8_test.cpp -o crc8_test
+   ./crc8_test
 
 .. code-block:: bash
+   :caption: Output
 
    0x00, 0x07, 0x0E, 0x09, 0x1C, 0x1B, 0x12, 0x15, 
    0x38, 0x3F, 0x36, 0x31, 0x24, 0x23, 0x2A, 0x2D, 
@@ -159,13 +155,14 @@ Let's suppose you want to send packets that contains joystick data twist(vx, vy,
 
      touch crc8.hpp touch crc8.cpp
 
-- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above ``section 4``.
+- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
 
 - Now copy and paste these contensts in ``sending_packets.ino``.
 
-  .. literalinclude:: files/sending_packets.ino
+  .. literalinclude:: files/data_packets/sending_packets.ino
      :language: cpp
      :linenos:
+     :caption: sending_packets.ino
 
 - Compile and upload the code to your ``Arduino``.
 
@@ -183,18 +180,114 @@ Now you have to receive packets and parse them. The format used for sending pack
 
       touch crc8.hpp touch crc8.cpp
 
-- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above ``section 4``.
+- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
 
 - Now copy and paste these contensts in ``receiving_packets.ino``.
 
-  .. literalinclude:: files/receiving_packets.ino
+  .. literalinclude:: files/data_packets/receiving_packets.ino
      :language: cpp
      :linenos:
+     :caption: receiving_packets.ino
 
-  This receiving code is written for ``Arduino UNO``. You may want to modify it for other boards. It is better to use microcontroller having atleast two UARTs like ``Arduino Mega`` has three UARTs.
+  This receiving code is written for ``Arduino Mega``. You may want to modify it for other boards. It is better to use microcontroller having atleast two UARTs like ``Arduino Mega`` has three UARTs.
 
 - Compile and upload the code to your ``Arduino``.
 
 - Connect the ``TX pin`` of ``Sender`` and ``RX pin`` of ``Receiver``. Common ``GND`` of both.
 
 - Open ``Serial Monitor`` in the ``Arduino IDE``. Set boudrate to ``115200`` or that in your code. You will see the parsed data.
+
+.. image:: images/receiving_in_arduino.png
+   :width: 100%
+   :align: center
+   :alt: receiving_in_arduino.png
+   :class: padded-image
+
+
+7. Sending Packets through UART using STM32
+-------------------------------------------
+
+- Create and generate new STM32 project using **STM32CubeMX**.
+
+  - ``Project Name``: ``sending_packets``
+  - ``Microcontroller``: ``STM32F103C8`` or any other STM32 microcontroller
+  - ``Toolchain/IDE``: ``Makefile`` or ``CMake``
+
+- Go to ``Connectivity`` and select any ``USART`` with mode ``Asynchronous``. Under ``DMA settings``, enable ``DMA`` for ``Transmit``. Follow the `UART with DMA tutorial <../stm32_basics_tutorial.html>`__ to setup more details.
+
+- Also assign an ``LED`` pin for ``GPIO_Output.``
+
+  .. image:: images/sending_packets_cubemx.png
+     :width: 100%
+     :align: center
+     :alt: sending_packets_cubemx.png
+     :class: padded-image
+
+- Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`__ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`__, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
+
+- Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
+
+- Update ``app.h`` and ``app.cppp``.
+
+  .. literalinclude:: files/data_packets/send_app.h
+     :language: cpp
+     :linenos:
+     :caption: app.h
+
+  .. literalinclude:: files/data_packets/send_app.cpp
+     :language: cpp
+     :linenos:
+     :caption: app.cpp
+
+- Build and upload the code to your ``STM32``.
+
+
+8. Receiving Packets through UART using STM32
+---------------------------------------------
+
+- Create and generate new STM32 project using **STM32CubeMX**.
+
+  - ``Project Name``: ``receiving_packets``
+  - ``Microcontroller``: ``STM32F103C8`` or any other STM32 microcontroller
+  - ``Toolchain/IDE``: ``Makefile`` or ``CMake``
+
+- Go to ``Connectivity`` and select any ``USART`` with mode ``Asynchronous``. Under ``DMA settings``, enable ``DMA`` for ``Receive``. Follow the `UART with DMA tutorial <../stm32_basics_tutorial.html>`__ to setup more details.
+
+- Assign assign an ``LED`` pin for ``GPIO_Output.`` If you want to print over ``USB``, enable ``USB`` and ``Virtual COM Port``. See `USB tutorial <../stm32_basics_tutorial/usb/usb_printf.html>`__. 
+
+.. image:: images/receiving_packets_cubemx.png
+   :width: 100%
+   :align: center
+   :alt: receiving_packets_cubemx.png
+   :class: padded-image
+
+- Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`__ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`__, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
+
+- Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
+
+- Add ``printf_config.c`` in ``Core > Src``. Copy the contents below.
+
+  .. literalinclude:: files/data_packets/printf_config.c
+     :language: c
+     :linenos:
+     :caption: printf_config.c
+
+  Change definition to use ``ITM``.
+
+- Update ``app.h`` and ``app.cpp``.
+
+  .. literalinclude:: files/data_packets/receive_app.h
+     :language: cpp
+     :linenos:
+     :caption: app.h
+
+  .. literalinclude:: files/data_packets/receive_app.cpp
+     :language: cpp
+     :linenos:
+     :caption: app.cpp
+
+- Add souces to ``Makefile`` or ``CMakeLists.txt``.
+
+- Build and upload the code to your ``STM32``.
+
+Connect the ``TX pin`` of ``Sender`` and ``RX pin`` of ``Receiver``. Common ``GND`` of both. Observe the data on ``USB`` or ``ITM`` using ``Serial Monitor or Terminal`` or ``STM32CubeProgrammer SWV``.

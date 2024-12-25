@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Hightlights" href="../highlights.html" />
+    <link rel="next" title="Highlights" href="../highlights.html" />
     <link rel="prev" title="Cyclic Redundancy Check (CRC)" href="crc.html" /> 
 </head>
 
@@ -57,7 +57,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Sending and Receiving Packets</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../highlights.html">Hightlights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
 </ul>
 
         </div>
@@ -90,29 +90,31 @@
 <nav class="contents local" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#introduction" id="id1">1. Introduction</a></p></li>
-<li><p><a class="reference internal" href="#understanding-checksum" id="id2">2. Understanding Checksum</a></p>
+<li><p><a class="reference internal" href="#introduction" id="id12">1. Introduction</a></p></li>
+<li><p><a class="reference internal" href="#understanding-checksum" id="id13">2. Understanding Checksum</a></p>
 <ul>
-<li><p><a class="reference internal" href="#addition-based-checksum" id="id3">2.1. Addition based Checksum</a></p></li>
-<li><p><a class="reference internal" href="#xor-based-checksum" id="id4">2.2. XOR based Checksum</a></p></li>
+<li><p><a class="reference internal" href="#addition-based-checksum" id="id14">2.1. Addition based Checksum</a></p></li>
+<li><p><a class="reference internal" href="#xor-based-checksum" id="id15">2.2. XOR based Checksum</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#need-of-crc" id="id5">3. Need of CRC</a></p></li>
-<li><p><a class="reference internal" href="#implementing-smbus-crc-8" id="id6">4. Implementing SMBus CRC-8</a></p></li>
-<li><p><a class="reference internal" href="#sending-packets-through-uart-using-arduino" id="id7">5. Sending Packets through UART using Arduino</a></p></li>
-<li><p><a class="reference internal" href="#receiving-packets-through-uart-using-arduino" id="id8">6. Receiving Packets through UART using Arduino</a></p></li>
+<li><p><a class="reference internal" href="#need-of-crc" id="id16">3. Need of CRC</a></p></li>
+<li><p><a class="reference internal" href="#implementing-smbus-crc-8" id="id17">4. Implementing SMBus CRC-8</a></p></li>
+<li><p><a class="reference internal" href="#sending-packets-through-uart-using-arduino" id="id18">5. Sending Packets through UART using Arduino</a></p></li>
+<li><p><a class="reference internal" href="#receiving-packets-through-uart-using-arduino" id="id19">6. Receiving Packets through UART using Arduino</a></p></li>
+<li><p><a class="reference internal" href="#sending-packets-through-uart-using-stm32" id="id20">7. Sending Packets through UART using STM32</a></p></li>
+<li><p><a class="reference internal" href="#receiving-packets-through-uart-using-stm32" id="id21">8. Receiving Packets through UART using STM32</a></p></li>
 </ul>
 </nav>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>Sending and receiving one byte of data is simple. But what if you want to send and receive multiple bytes of data? Now, you need to think of a way to structure the data so that the receiver can determine the first byte when receiving bytes continuously. Long bytes of data are prone to errors. Now, you need to think of error detection. Let’s start packetizing data.</p>
 <p>A simple packet contains sunchronization bytes, data and error detection bytes. The simple synchronization method is using start bytes. Start bytes have a value which also can be present in data. The error detection bytes play important role to detect any misalignment and errors. There are techniques to calculate error detection bytes. The simple technique is checksum and a better technique is cyclic redundancy check (CRC).</p>
 </section>
 <section id="understanding-checksum">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Understanding Checksum</a><a class="headerlink" href="#understanding-checksum" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">2. Understanding Checksum</a><a class="headerlink" href="#understanding-checksum" title="Link to this heading"></a></h2>
 <p>It is really easy to calculate checksum of data packet. Checksum is calculated using two method.</p>
 <section id="addition-based-checksum">
-<h3><a class="toc-backref" href="#id3" role="doc-backlink">2.1. Addition based Checksum</a><a class="headerlink" href="#addition-based-checksum" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">2.1. Addition based Checksum</a><a class="headerlink" href="#addition-based-checksum" title="Link to this heading"></a></h3>
 <p>Checksum is calculated by adding each bytes of data. The addtion can overflowe if size of checksum is small. Consider size of checksum is one byte. Let’s write test code to calculate checksum of bytes using addition.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
@@ -144,7 +146,7 @@
 <p>Compile and run this test code.</p>
 </section>
 <section id="xor-based-checksum">
-<h3><a class="toc-backref" href="#id4" role="doc-backlink">2.2. XOR based Checksum</a><a class="headerlink" href="#xor-based-checksum" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">2.2. XOR based Checksum</a><a class="headerlink" href="#xor-based-checksum" title="Link to this heading"></a></h3>
 <p>Let’s talk about binary addition and XOR.</p>
 <table class="docutils align-default">
 <thead>
@@ -199,12 +201,12 @@
 </section>
 </section>
 <section id="need-of-crc">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">3. Need of CRC</a><a class="headerlink" href="#need-of-crc" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">3. Need of CRC</a><a class="headerlink" href="#need-of-crc" title="Link to this heading"></a></h2>
 <p>Checksum is simple and fast but there is high chance of collision. Suppose two bytes having value <code class="docutils literal notranslate"><span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">4</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code>. Also suppose two bytes having vallue <code class="docutils literal notranslate"><span class="pre">5</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code> too. It is failure of checksum.</p>
 <p>I have already discussed about CRC in <a class="reference external" href="crc.html" rel="noopener noreferrer" target="_blank">previous</a> tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let’s write a simple SMBus CRC-8 class.</p>
 </section>
 <section id="implementing-smbus-crc-8">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">4. Implementing SMBus CRC-8</a><a class="headerlink" href="#implementing-smbus-crc-8" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">4. Implementing SMBus CRC-8</a><a class="headerlink" href="#implementing-smbus-crc-8" title="Link to this heading"></a></h2>
 <div class="line-block">
 <div class="line"><strong>Width</strong>: 8</div>
 <div class="line"><strong>Polynomial</strong>: 0x07</div>
@@ -214,7 +216,8 @@
 <div class="line"><strong>Reflect Output</strong>: False</div>
 </div>
 <p>Let’s create header and souce file.</p>
-<p><strong>crc8.hpp</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">crc8.hpp</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
 <span class="linenos"> 2</span><span class="cm"> ******************************************************************************</span>
 <span class="linenos"> 3</span><span class="cm"> * @file    crc8.hpp</span>
@@ -274,8 +277,10 @@
 <span class="linenos">57</span><span class="cp">#endif </span><span class="c1">// CRC_HPP</span>
 </pre></div>
 </div>
+</div>
 <p>The constructor of <code class="docutils literal notranslate"><span class="pre">CRC8</span></code> class is private so no multiple instances will be created by <code class="docutils literal notranslate"><span class="pre">user</span></code> except one we created as static member. Such type of class is called <code class="docutils literal notranslate"><span class="pre">singletone</span></code> class.</p>
-<p><strong>crc8.cpp</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">crc8.cpp</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
 <span class="linenos"> 2</span><span class="cm"> * *********************************************************************************************</span>
 <span class="linenos"> 3</span><span class="cm"> * @file crc8.cpp</span>
@@ -359,8 +364,10 @@
 <span class="linenos">81</span><span class="p">}</span>
 </pre></div>
 </div>
+</div>
 <p>To ensure the <code class="docutils literal notranslate"><span class="pre">CRC8</span></code> compatibility with other <code class="docutils literal notranslate"><span class="pre">CRC8</span></code>, the <code class="docutils literal notranslate"><span class="pre">loockup</span> <span class="pre">table</span></code> and <code class="docutils literal notranslate"><span class="pre">check</span></code> value are compared.  Now write the test code.</p>
-<p><strong>crc8_test.cpp</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">crc8_test.cpp</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
 <span class="linenos"> 3</span>
@@ -374,12 +381,14 @@
 <span class="linenos">11</span><span class="p">}</span>
 </pre></div>
 </div>
+</div>
 <p>Compile and run this code.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>g++<span class="w"> </span>crc8.cpp<span class="w"> </span>crc8_test.cpp<span class="w"> </span>-o<span class="w"> </span>crc8_test
-$<span class="w"> </span>./crc8_test
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>crc8.cpp<span class="w"> </span>crc8_test.cpp<span class="w"> </span>-o<span class="w"> </span>crc8_test
+./crc8_test
 </pre></div>
 </div>
-<p><strong>Output</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>0x00,<span class="w"> </span>0x07,<span class="w"> </span>0x0E,<span class="w"> </span>0x09,<span class="w"> </span>0x1C,<span class="w"> </span>0x1B,<span class="w"> </span>0x12,<span class="w"> </span>0x15,
 0x38,<span class="w"> </span>0x3F,<span class="w"> </span>0x36,<span class="w"> </span>0x31,<span class="w"> </span>0x24,<span class="w"> </span>0x23,<span class="w"> </span>0x2A,<span class="w"> </span>0x2D,
 0x70,<span class="w"> </span>0x77,<span class="w"> </span>0x7E,<span class="w"> </span>0x79,<span class="w"> </span>0x6C,<span class="w"> </span>0x6B,<span class="w"> </span>0x62,<span class="w"> </span>0x65,
@@ -416,9 +425,10 @@ $<span class="w"> </span>./crc8_test
 CRC-8<span class="w"> </span>hash:<span class="w"> </span>f4
 </pre></div>
 </div>
+</div>
 </section>
 <section id="sending-packets-through-uart-using-arduino">
-<h2><a class="toc-backref" href="#id7" role="doc-backlink">5. Sending Packets through UART using Arduino</a><a class="headerlink" href="#sending-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">5. Sending Packets through UART using Arduino</a><a class="headerlink" href="#sending-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
 <p>Let’s suppose you want to send packets that contains joystick data twist(vx, vy, w). To do so, select one start byte <code class="docutils literal notranslate"><span class="pre">0xA5</span></code>, then three bytes for vx, vy and w, and one byte for CRC.</p>
 <ul>
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">sketch</span></code> in <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code>. Save it as <code class="docutils literal notranslate"><span class="pre">sending_packets</span></code>.</p></li>
@@ -427,8 +437,10 @@ CRC-8<span class="w"> </span>hash:<span class="w"> </span>f4
 </pre></div>
 </div>
 </li>
-<li><p>Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <code class="docutils literal notranslate"><span class="pre">section</span> <span class="pre">4</span></code>.</p></li>
+<li><p>Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8" rel="noopener noreferrer" target="_blank">section 4</a>.</p></li>
 <li><p>Now copy and paste these contensts in <code class="docutils literal notranslate"><span class="pre">sending_packets.ino</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">sending_packets.ino</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="k">struct</span><span class="w"> </span><span class="nc">Twist</span><span class="w"> </span><span class="p">{</span>
@@ -470,7 +482,7 @@ CRC-8<span class="w"> </span>hash:<span class="w"> </span>f4
 <span class="linenos">39</span><span class="w">  </span><span class="n">twist</span><span class="p">.</span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <span class="linenos">40</span>
 <span class="linenos">41</span><span class="w">  </span><span class="n">sending_packet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START_BYTE</span><span class="p">;</span>
-<span class="linenos">42</span><span class="w">  </span><span class="n">memcpy</span><span class="p">(</span><span class="n">sending_packet</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">twist</span><span class="p">));</span>
+<span class="linenos">42</span><span class="w">  </span><span class="n">memcpy</span><span class="p">(</span><span class="n">sending_packet</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">twist</span><span class="p">));</span>
 <span class="linenos">43</span><span class="w">  </span><span class="n">sending_packet</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sending_packet</span><span class="p">)</span><span class="w"> </span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">get_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">twist</span><span class="p">),</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">twist</span><span class="p">));</span>
 <span class="linenos">44</span>
 <span class="linenos">45</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">sending_packet</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">sending_packet</span><span class="p">));</span>
@@ -480,12 +492,13 @@ CRC-8<span class="w"> </span>hash:<span class="w"> </span>f4
 <span class="linenos">49</span><span class="p">}</span>
 </pre></div>
 </div>
+</div>
 </li>
 <li><p>Compile and upload the code to your <code class="docutils literal notranslate"><span class="pre">Arduino</span></code>.</p></li>
 </ul>
 </section>
 <section id="receiving-packets-through-uart-using-arduino">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">6. Receiving Packets through UART using Arduino</a><a class="headerlink" href="#receiving-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">6. Receiving Packets through UART using Arduino</a><a class="headerlink" href="#receiving-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
 <p>Now you have to receive packets and parse them. The format used for sending packets should be same while parsing.</p>
 <ul>
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">sketch</span></code> in <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code>. Save it as <code class="docutils literal notranslate"><span class="pre">receiving_packets</span></code>.</p></li>
@@ -496,108 +509,441 @@ CRC-8<span class="w"> </span>hash:<span class="w"> </span>f4
 </div>
 </div></blockquote>
 </li>
-<li><p>Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <code class="docutils literal notranslate"><span class="pre">section</span> <span class="pre">4</span></code>.</p></li>
+<li><p>Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8" rel="noopener noreferrer" target="_blank">section 4</a>.</p></li>
 <li><p>Now copy and paste these contensts in <code class="docutils literal notranslate"><span class="pre">receiving_packets.ino</span></code>.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SoftwareSerial.h&gt;</span><span class="c1"> // If you only have one hardware serial like UNO</span>
-<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="k">struct</span><span class="w"> </span><span class="nc">Twist</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 5</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="p">;</span>
-<span class="linenos"> 6</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">vy</span><span class="p">;</span>
-<span class="linenos"> 7</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
-<span class="linenos"> 8</span><span class="p">};</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">START_BYTE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xA5</span><span class="p">;</span>
-<span class="linenos">11</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">LED_PIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
-<span class="linenos">12</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">RX_PIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-<span class="linenos">13</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">TX_PIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">receiving_packets.ino</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="k">struct</span><span class="w"> </span><span class="nc">Twist</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="p">;</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">vy</span><span class="p">;</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
+<span class="linenos"> 7</span><span class="p">};</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">START_BYTE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xA5</span><span class="p">;</span>
+<span class="linenos">10</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">LED_PIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="n">Twist</span><span class="w"> </span><span class="n">twist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+<span class="linenos">13</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">receiving_packet</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Twist</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
 <span class="linenos">14</span>
-<span class="linenos">15</span><span class="n">SoftwareSerial</span><span class="w"> </span><span class="nf">soft_serial</span><span class="p">(</span><span class="n">RX_PIN</span><span class="p">,</span><span class="w"> </span><span class="n">TX_PIN</span><span class="p">);</span>
-<span class="linenos">16</span><span class="n">Twist</span><span class="w"> </span><span class="n">twist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
-<span class="linenos">17</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">receiving_packet</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Twist</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
+<span class="linenos">15</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_received_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">16</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_blinked_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">17</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_printed_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="linenos">18</span>
-<span class="linenos">19</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_received_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="linenos">20</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_blinked_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="linenos">21</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_printed_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">19</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="kt">char</span><span class="w"> </span><span class="n">print_buffer</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
 <span class="linenos">22</span>
-<span class="linenos">23</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="linenos">24</span>
-<span class="linenos">25</span><span class="kt">char</span><span class="w"> </span><span class="n">print_buffer</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
-<span class="linenos">26</span>
-<span class="linenos">27</span><span class="kt">void</span><span class="w"> </span><span class="nf">blink_led</span><span class="p">()</span>
-<span class="linenos">28</span><span class="p">{</span>
-<span class="linenos">29</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">millis</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_blinked_tick</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
-<span class="linenos">30</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
-<span class="linenos">31</span>
-<span class="linenos">32</span><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span><span class="w"> </span><span class="o">!</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">));</span>
-<span class="linenos">33</span><span class="w">  </span><span class="n">last_blinked_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
-<span class="linenos">34</span><span class="p">}</span>
-<span class="linenos">35</span>
-<span class="linenos">36</span><span class="kt">void</span><span class="w"> </span><span class="nf">print_twist</span><span class="p">()</span>
-<span class="linenos">37</span><span class="p">{</span>
-<span class="linenos">38</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">last_printed_tick</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
-<span class="linenos">39</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
-<span class="linenos">40</span>
-<span class="linenos">41</span><span class="w">  </span><span class="n">snprintf</span><span class="p">(</span><span class="n">print_buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">print_buffer</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;vx: %f, vy: %f, w: %f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="n">w</span><span class="p">);</span>
-<span class="linenos">42</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">print_buffer</span><span class="p">));</span>
-<span class="linenos">43</span>
-<span class="linenos">44</span><span class="w">  </span><span class="n">last_printed_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
-<span class="linenos">45</span><span class="p">}</span>
+<span class="linenos">23</span><span class="kt">void</span><span class="w"> </span><span class="nf">blink_led</span><span class="p">();</span>
+<span class="linenos">24</span><span class="kt">void</span><span class="w"> </span><span class="nf">print_twist</span><span class="p">();</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="kt">void</span><span class="w"> </span><span class="nf">blink_led</span><span class="p">()</span>
+<span class="linenos">27</span><span class="p">{</span>
+<span class="linenos">28</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">millis</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_blinked_tick</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos">29</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span><span class="w"> </span><span class="o">!</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">));</span>
+<span class="linenos">32</span><span class="w">  </span><span class="n">last_blinked_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
+<span class="linenos">33</span><span class="p">}</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="kt">void</span><span class="w"> </span><span class="nf">print_twist</span><span class="p">()</span>
+<span class="linenos">36</span><span class="p">{</span>
+<span class="linenos">37</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">millis</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_printed_tick</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos">38</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;vx: &quot;</span><span class="p">);</span>
+<span class="linenos">41</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">twist</span><span class="p">.</span><span class="n">vx</span><span class="p">);</span>
+<span class="linenos">42</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> vy: &quot;</span><span class="p">);</span>
+<span class="linenos">43</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">twist</span><span class="p">.</span><span class="n">vy</span><span class="p">);</span>
+<span class="linenos">44</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> w&quot;</span><span class="p">);</span>
+<span class="linenos">45</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">twist</span><span class="p">.</span><span class="n">w</span><span class="p">);</span>
 <span class="linenos">46</span>
-<span class="linenos">47</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">48</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
-<span class="linenos">49</span><span class="w">  </span><span class="n">soft_serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
-<span class="linenos">50</span><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
-<span class="linenos">51</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-<span class="linenos">52</span><span class="p">}</span>
-<span class="linenos">53</span>
-<span class="linenos">54</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">55</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_waiting_for_start_byte</span><span class="p">)</span>
-<span class="linenos">56</span><span class="w">  </span><span class="p">{</span>
-<span class="linenos">57</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">soft_serial</span><span class="p">.</span><span class="n">available</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">START_BYTE</span><span class="p">))</span>
-<span class="linenos">58</span><span class="w">      </span><span class="k">return</span><span class="p">;</span>
-<span class="linenos">59</span>
-<span class="linenos">60</span><span class="w">      </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">received_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soft_serial</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
-<span class="linenos">61</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">received_start_byte</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">START_BYTE</span><span class="p">)</span>
-<span class="linenos">62</span><span class="w">      </span><span class="p">{</span>
-<span class="linenos">63</span><span class="w">        </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="linenos">64</span><span class="w">      </span><span class="p">}</span>
-<span class="linenos">65</span><span class="w">      </span><span class="k">else</span>
-<span class="linenos">66</span><span class="w">      </span><span class="p">{</span>
-<span class="linenos">67</span><span class="w">        </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
-<span class="linenos">68</span><span class="w">      </span><span class="p">}</span>
-<span class="linenos">69</span><span class="w">  </span><span class="p">}</span>
-<span class="linenos">70</span><span class="w">  </span><span class="k">else</span>
-<span class="linenos">71</span><span class="w">  </span><span class="p">{</span>
-<span class="linenos">72</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">soft_serial</span><span class="p">.</span><span class="n">available</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">receiving_packet</span><span class="p">)</span><span class="w"> </span><span class="mi">-1</span><span class="p">))</span>
-<span class="linenos">73</span><span class="w">      </span><span class="k">return</span><span class="p">;</span>
-<span class="linenos">74</span>
-<span class="linenos">75</span><span class="w">    </span><span class="n">Twist</span><span class="w"> </span><span class="n">received_twist</span><span class="p">;</span>
-<span class="linenos">76</span><span class="w">    </span><span class="n">soft_serial</span><span class="p">.</span><span class="n">readBytes</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">received_twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">received_twist</span><span class="p">));</span>
-<span class="linenos">77</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">received_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soft_serial</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
-<span class="linenos">78</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">calculated_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">get_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">received_twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">twist</span><span class="p">));</span>
-<span class="linenos">79</span>
-<span class="linenos">80</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">received_hash</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">calculated_hash</span><span class="p">)</span>
-<span class="linenos">81</span><span class="w">    </span><span class="p">{</span>
-<span class="linenos">82</span><span class="w">      </span><span class="n">twist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">received_twist</span><span class="p">;</span>
-<span class="linenos">83</span><span class="w">      </span><span class="n">print_twist</span><span class="p">();</span>
-<span class="linenos">84</span><span class="w">      </span><span class="n">last_received_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
-<span class="linenos">85</span><span class="w">    </span><span class="p">}</span>
-<span class="linenos">86</span><span class="w">    </span><span class="p">{</span>
-<span class="linenos">87</span><span class="w">      </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
-<span class="linenos">88</span><span class="w">    </span><span class="p">}</span>
-<span class="linenos">89</span>
-<span class="linenos">90</span><span class="w">    </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="linenos">91</span><span class="w">  </span><span class="p">}</span>
-<span class="linenos">92</span><span class="p">}</span>
+<span class="linenos">47</span><span class="w">  </span><span class="n">last_printed_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
+<span class="linenos">48</span><span class="p">}</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">51</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+<span class="linenos">52</span><span class="w">  </span><span class="n">Serial1</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+<span class="linenos">53</span><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="linenos">54</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="linenos">55</span><span class="p">}</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">58</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_waiting_for_start_byte</span><span class="p">)</span>
+<span class="linenos">59</span><span class="w">  </span><span class="p">{</span>
+<span class="linenos">60</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Serial1</span><span class="p">.</span><span class="n">available</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">61</span><span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">62</span>
+<span class="linenos">63</span><span class="w">      </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">received_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Serial1</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+<span class="linenos">64</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">received_start_byte</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">START_BYTE</span><span class="p">)</span>
+<span class="linenos">65</span><span class="w">      </span><span class="p">{</span>
+<span class="linenos">66</span><span class="w">        </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos">67</span><span class="w">      </span><span class="p">}</span>
+<span class="linenos">68</span><span class="w">      </span><span class="k">else</span>
+<span class="linenos">69</span><span class="w">      </span><span class="p">{</span>
+<span class="linenos">70</span><span class="w">        </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Start Byte Error!&quot;</span><span class="p">);</span>
+<span class="linenos">71</span><span class="w">        </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
+<span class="linenos">72</span><span class="w">      </span><span class="p">}</span>
+<span class="linenos">73</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">74</span><span class="w">  </span><span class="k">else</span>
+<span class="linenos">75</span><span class="w">  </span><span class="p">{</span>
+<span class="linenos">76</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Serial1</span><span class="p">.</span><span class="n">available</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">receiving_packet</span><span class="p">)</span><span class="w"> </span><span class="mi">-1</span><span class="p">))</span>
+<span class="linenos">77</span><span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">78</span>
+<span class="linenos">79</span><span class="w">    </span><span class="n">Twist</span><span class="w"> </span><span class="n">received_twist</span><span class="p">;</span>
+<span class="linenos">80</span><span class="w">    </span><span class="n">Serial1</span><span class="p">.</span><span class="n">readBytes</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">received_twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">received_twist</span><span class="p">));</span>
+<span class="linenos">81</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">received_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Serial1</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+<span class="linenos">82</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">calculated_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">get_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">received_twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">twist</span><span class="p">));</span>
+<span class="linenos">83</span>
+<span class="linenos">84</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">received_hash</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">calculated_hash</span><span class="p">)</span>
+<span class="linenos">85</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">86</span><span class="w">      </span><span class="n">twist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">received_twist</span><span class="p">;</span>
+<span class="linenos">87</span><span class="w">      </span><span class="n">print_twist</span><span class="p">();</span>
+<span class="linenos">88</span><span class="w">      </span><span class="n">last_received_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
+<span class="linenos">89</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">90</span><span class="w">    </span><span class="k">else</span>
+<span class="linenos">91</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">92</span><span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;CRC Error&quot;</span><span class="p">);</span>
+<span class="linenos">93</span><span class="w">      </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
+<span class="linenos">94</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">95</span>
+<span class="linenos">96</span><span class="w">    </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos">97</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">98</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>This receiving code is written for <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">UNO</span></code>. You may want to modify it for other boards. It is better to use microcontroller having atleast two UARTs like <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">Mega</span></code> has three UARTs.</p>
+</div>
+<p>This receiving code is written for <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">Mega</span></code>. You may want to modify it for other boards. It is better to use microcontroller having atleast two UARTs like <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">Mega</span></code> has three UARTs.</p>
 </li>
 <li><p>Compile and upload the code to your <code class="docutils literal notranslate"><span class="pre">Arduino</span></code>.</p></li>
 <li><p>Connect the <code class="docutils literal notranslate"><span class="pre">TX</span> <span class="pre">pin</span></code> of <code class="docutils literal notranslate"><span class="pre">Sender</span></code> and <code class="docutils literal notranslate"><span class="pre">RX</span> <span class="pre">pin</span></code> of <code class="docutils literal notranslate"><span class="pre">Receiver</span></code>. Common <code class="docutils literal notranslate"><span class="pre">GND</span></code> of both.</p></li>
 <li><p>Open <code class="docutils literal notranslate"><span class="pre">Serial</span> <span class="pre">Monitor</span></code> in the <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code>. Set boudrate to <code class="docutils literal notranslate"><span class="pre">115200</span></code> or that in your code. You will see the parsed data.</p></li>
 </ul>
+<a class="padded-image reference internal image-reference" href="../_images/receiving_in_arduino.png"><img alt="receiving_in_arduino.png" class="padded-image align-center" src="../_images/receiving_in_arduino.png" style="width: 100%;" />
+</a>
+</section>
+<section id="sending-packets-through-uart-using-stm32">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">7. Sending Packets through UART using STM32</a><a class="headerlink" href="#sending-packets-through-uart-using-stm32" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Create and generate new STM32 project using <strong>STM32CubeMX</strong>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Name</span></code>: <code class="docutils literal notranslate"><span class="pre">sending_packets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Microcontroller</span></code>: <code class="docutils literal notranslate"><span class="pre">STM32F103C8</span></code> or any other STM32 microcontroller</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Toolchain/IDE</span></code>: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMake</span></code></p></li>
+</ul>
+</li>
+<li><p>Go to <code class="docutils literal notranslate"><span class="pre">Connectivity</span></code> and select any <code class="docutils literal notranslate"><span class="pre">USART</span></code> with mode <code class="docutils literal notranslate"><span class="pre">Asynchronous</span></code>. Under <code class="docutils literal notranslate"><span class="pre">DMA</span> <span class="pre">settings</span></code>, enable <code class="docutils literal notranslate"><span class="pre">DMA</span></code> for <code class="docutils literal notranslate"><span class="pre">Transmit</span></code>. Follow the <a class="reference external" href="../stm32_basics_tutorial.html" rel="noopener noreferrer" target="_blank">UART with DMA tutorial</a> to setup more details.</p></li>
+<li><p>Also assign an <code class="docutils literal notranslate"><span class="pre">LED</span></code> pin for <code class="docutils literal notranslate"><span class="pre">GPIO_Output.</span></code></p>
+<a class="padded-image reference internal image-reference" href="../_images/sending_packets_cubemx.png"><img alt="sending_packets_cubemx.png" class="padded-image align-center" src="../_images/sending_packets_cubemx.png" style="width: 100%;" />
+</a>
+</li>
+<li><p>Follow <a class="reference external" href="cpp_setup_in_stm32.html" rel="noopener noreferrer" target="_blank">C++ setup tutorial</a> and setup up to compile <code class="docutils literal notranslate"><span class="pre">C++</span></code> souce codes. In the <a class="reference external" href="cpp_setup_in_stm32.html" rel="noopener noreferrer" target="_blank">C++ setup tutorial</a>, you have already created <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code>, and blinked the LED. Reach to that point.</p></li>
+<li><p>Create a new file <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> in <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Inc</span></code> and <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> respectively. Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8" rel="noopener noreferrer" target="_blank">section 4</a>.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cppp</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">app.h</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#ifndef __APP_H</span>
+<span class="linenos"> 2</span><span class="cp">#define __APP_H</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="cp">#ifdef __cplusplus</span>
+<span class="linenos"> 5</span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 6</span><span class="cp">#endif</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">();</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">();</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="kt">void</span><span class="w"> </span><span class="nf">blink_led</span><span class="p">();</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="cp">#ifdef __cplusplus</span>
+<span class="linenos">15</span><span class="p">}</span>
+<span class="linenos">16</span><span class="cp">#endif</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="cp">#endif </span><span class="c1">// __APP_H</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">app.cpp</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory.h&gt;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stm32f1xx_hal.h&quot;</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usart.h&quot;</span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;app.h&quot;</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="cp">#define START_BYTE 0xA5</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="k">struct</span><span class="w"> </span><span class="nc">Twist</span>
+<span class="linenos">11</span><span class="p">{</span>
+<span class="linenos">12</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="p">;</span>
+<span class="linenos">13</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vy</span><span class="p">;</span>
+<span class="linenos">14</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
+<span class="linenos">15</span><span class="p">};</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="n">Twist</span><span class="w"> </span><span class="n">twist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+<span class="linenos">18</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">transmitting_bytes</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Twist</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_tranmsit_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">21</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_led_blink_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span>
+<span class="linenos">24</span><span class="p">{</span>
+<span class="linenos">25</span><span class="p">}</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span>
+<span class="linenos">28</span><span class="p">{</span>
+<span class="linenos">29</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GetTick</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_tranmsit_tick</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">30</span><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="w">    </span><span class="n">twist</span><span class="p">.</span><span class="n">vx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+<span class="linenos">33</span><span class="w">    </span><span class="n">twist</span><span class="p">.</span><span class="n">vy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+<span class="linenos">34</span><span class="w">    </span><span class="n">twist</span><span class="p">.</span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="linenos">35</span>
+<span class="linenos">36</span><span class="w">    </span><span class="n">transmitting_bytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START_BYTE</span><span class="p">;</span>
+<span class="linenos">37</span><span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="n">transmitting_bytes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">twist</span><span class="p">));</span>
+<span class="linenos">38</span><span class="w">    </span><span class="n">transmitting_bytes</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">transmitting_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">get_hash</span><span class="p">((</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">twist</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">twist</span><span class="p">));</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span><span class="w">    </span><span class="n">HAL_UART_Transmit_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">transmitting_bytes</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">transmitting_bytes</span><span class="p">));</span>
+<span class="linenos">41</span>
+<span class="linenos">42</span><span class="w">    </span><span class="n">last_tranmsit_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_GetTick</span><span class="p">();</span>
+<span class="linenos">43</span><span class="p">}</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span><span class="kt">void</span><span class="w"> </span><span class="nf">blink_led</span><span class="p">()</span>
+<span class="linenos">46</span><span class="p">{</span>
+<span class="linenos">47</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GetTick</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_led_blink_tick</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos">48</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">49</span><span class="w">        </span><span class="n">HAL_GPIO_TogglePin</span><span class="p">(</span><span class="n">GPIOC</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">);</span>
+<span class="linenos">50</span><span class="w">        </span><span class="n">last_led_blink_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_GetTick</span><span class="p">();</span>
+<span class="linenos">51</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">52</span><span class="p">}</span>
+<span class="linenos">53</span>
+<span class="linenos">54</span><span class="c1">// Make sure you have enabled the UART interrupt in the CubeMX</span>
+<span class="linenos">55</span><span class="kt">void</span><span class="w"> </span><span class="nf">HAL_UART_TxCpltCallback</span><span class="p">(</span><span class="n">UART_HandleTypeDef</span><span class="w"> </span><span class="o">*</span><span class="n">huart</span><span class="p">)</span>
+<span class="linenos">56</span><span class="p">{</span>
+<span class="linenos">57</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">huart1</span><span class="p">.</span><span class="n">Instance</span><span class="p">)</span>
+<span class="linenos">58</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">59</span><span class="w">        </span><span class="n">blink_led</span><span class="p">();</span>
+<span class="linenos">60</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">61</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Build and upload the code to your <code class="docutils literal notranslate"><span class="pre">STM32</span></code>.</p></li>
+</ul>
+</section>
+<section id="receiving-packets-through-uart-using-stm32">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">8. Receiving Packets through UART using STM32</a><a class="headerlink" href="#receiving-packets-through-uart-using-stm32" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Create and generate new STM32 project using <strong>STM32CubeMX</strong>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Name</span></code>: <code class="docutils literal notranslate"><span class="pre">receiving_packets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Microcontroller</span></code>: <code class="docutils literal notranslate"><span class="pre">STM32F103C8</span></code> or any other STM32 microcontroller</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Toolchain/IDE</span></code>: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMake</span></code></p></li>
+</ul>
+</li>
+<li><p>Go to <code class="docutils literal notranslate"><span class="pre">Connectivity</span></code> and select any <code class="docutils literal notranslate"><span class="pre">USART</span></code> with mode <code class="docutils literal notranslate"><span class="pre">Asynchronous</span></code>. Under <code class="docutils literal notranslate"><span class="pre">DMA</span> <span class="pre">settings</span></code>, enable <code class="docutils literal notranslate"><span class="pre">DMA</span></code> for <code class="docutils literal notranslate"><span class="pre">Receive</span></code>. Follow the <a class="reference external" href="../stm32_basics_tutorial.html" rel="noopener noreferrer" target="_blank">UART with DMA tutorial</a> to setup more details.</p></li>
+<li><p>Assign assign an <code class="docutils literal notranslate"><span class="pre">LED</span></code> pin for <code class="docutils literal notranslate"><span class="pre">GPIO_Output.</span></code> If you want to print over <code class="docutils literal notranslate"><span class="pre">USB</span></code>, enable <code class="docutils literal notranslate"><span class="pre">USB</span></code> and <code class="docutils literal notranslate"><span class="pre">Virtual</span> <span class="pre">COM</span> <span class="pre">Port</span></code>. See <a class="reference external" href="../stm32_basics_tutorial/usb/usb_printf.html" rel="noopener noreferrer" target="_blank">USB tutorial</a>.</p></li>
+</ul>
+<a class="padded-image reference internal image-reference" href="../_images/receiving_packets_cubemx.png"><img alt="receiving_packets_cubemx.png" class="padded-image align-center" src="../_images/receiving_packets_cubemx.png" style="width: 100%;" />
+</a>
+<ul>
+<li><p>Follow <a class="reference external" href="cpp_setup_in_stm32.html" rel="noopener noreferrer" target="_blank">C++ setup tutorial</a> and setup up to compile <code class="docutils literal notranslate"><span class="pre">C++</span></code> souce codes. In the <a class="reference external" href="cpp_setup_in_stm32.html" rel="noopener noreferrer" target="_blank">C++ setup tutorial</a>, you have already created <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code>, and blinked the LED. Reach to that point.</p></li>
+<li><p>Create a new file <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> in <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Inc</span></code> and <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> respectively. Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8" rel="noopener noreferrer" target="_blank">section 4</a>.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">printf_config.c</span></code> in <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code>. Copy the contents below.</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">printf_config.c</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stm32f1xx_hal.h&quot;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="cp">#define USE_USB_CDC</span>
+<span class="linenos"> 4</span><span class="cp">#ifdef USE_USB_CDC</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usbd_cdc_if.h&quot;</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="kt">int</span><span class="w"> </span><span class="nf">_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="p">{</span>
+<span class="linenos">10</span><span class="w">    </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">len</span><span class="p">);</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+<span class="linenos">12</span><span class="p">}</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="cp">#else</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="kt">int</span><span class="w"> </span><span class="nf">_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<span class="linenos">17</span><span class="p">{</span>
+<span class="linenos">18</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">19</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">20</span><span class="w">        </span><span class="n">ITM_SendChar</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="linenos">21</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">22</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+<span class="linenos">23</span><span class="p">}</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+<p>Change definition to use <code class="docutils literal notranslate"><span class="pre">ITM</span></code>.</p>
+</li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">app.h</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#ifndef __APP_H</span>
+<span class="linenos"> 2</span><span class="cp">#define __APP_H</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="cp">#ifdef __cplusplus</span>
+<span class="linenos"> 5</span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 6</span><span class="cp">#endif</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">();</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">();</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="kt">void</span><span class="w"> </span><span class="nf">blink_led</span><span class="p">();</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="kt">void</span><span class="w"> </span><span class="nf">print_twist</span><span class="p">();</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="cp">#ifdef __cplusplus</span>
+<span class="linenos">17</span><span class="p">}</span>
+<span class="linenos">18</span><span class="cp">#endif</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="cp">#endif </span><span class="c1">// __APP_H</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">app.cpp</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory.h&gt;</span>
+<span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos">  3</span>
+<span class="linenos">  4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stm32f1xx_hal.h&quot;</span>
+<span class="linenos">  5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usart.h&quot;</span>
+<span class="linenos">  6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos">  7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;app.h&quot;</span>
+<span class="linenos">  8</span>
+<span class="linenos">  9</span><span class="cp">#define START_BYTE 0xA5</span>
+<span class="linenos"> 10</span>
+<span class="linenos"> 11</span><span class="k">struct</span><span class="w"> </span><span class="nc">Twist</span>
+<span class="linenos"> 12</span><span class="p">{</span>
+<span class="linenos"> 13</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="p">;</span>
+<span class="linenos"> 14</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vy</span><span class="p">;</span>
+<span class="linenos"> 15</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
+<span class="linenos"> 16</span><span class="p">};</span>
+<span class="linenos"> 17</span>
+<span class="linenos"> 18</span><span class="n">Twist</span><span class="w"> </span><span class="n">twist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">};</span>
+<span class="linenos"> 19</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">receiving_bytes</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Twist</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
+<span class="linenos"> 20</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 21</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rx_seq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 22</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">used_rx_seq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 23</span>
+<span class="linenos"> 24</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_receive_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 25</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_led_blink_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 26</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_print_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 27</span>
+<span class="linenos"> 28</span>
+<span class="linenos"> 29</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span>
+<span class="linenos"> 30</span><span class="p">{</span>
+<span class="linenos"> 31</span><span class="w">    </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">receiving_bytes</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 32</span><span class="w">    </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 33</span><span class="p">}</span>
+<span class="linenos"> 34</span>
+<span class="linenos"> 35</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span>
+<span class="linenos"> 36</span><span class="p">{</span>
+<span class="linenos"> 37</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GetTick</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_tranmsit_tick</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos"> 38</span><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 39</span>
+<span class="linenos"> 40</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rx_seq</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">used_rx_seq</span><span class="p">)</span>
+<span class="linenos"> 41</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 42</span><span class="w">        </span><span class="n">print_twist</span><span class="p">();</span>
+<span class="linenos"> 43</span><span class="w">        </span><span class="n">used_rx_seq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rx_seq</span><span class="p">;</span>
+<span class="linenos"> 44</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 45</span>
+<span class="linenos"> 46</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart1</span><span class="p">.</span><span class="n">gstate</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">HAL_UART_STATE_BUSY_TX</span><span class="p">)</span>
+<span class="linenos"> 47</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 48</span><span class="w">        </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">receiving_bytes</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 49</span><span class="w">        </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 50</span><span class="w">        </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
+<span class="linenos"> 51</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 52</span>
+<span class="linenos"> 53</span><span class="w">    </span><span class="n">last_tranmsit_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_GetTick</span><span class="p">();</span>
+<span class="linenos"> 54</span><span class="p">}</span>
+<span class="linenos"> 55</span>
+<span class="linenos"> 56</span><span class="kt">void</span><span class="w"> </span><span class="nf">blink_led</span><span class="p">()</span>
+<span class="linenos"> 57</span><span class="p">{</span>
+<span class="linenos"> 58</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GetTick</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_led_blink_tick</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos"> 59</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 60</span><span class="w">        </span><span class="n">HAL_GPIO_TogglePin</span><span class="p">(</span><span class="n">GPIOC</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">);</span>
+<span class="linenos"> 61</span><span class="w">        </span><span class="n">last_led_blink_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_GetTick</span><span class="p">();</span>
+<span class="linenos"> 62</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 63</span><span class="p">}</span>
+<span class="linenos"> 64</span>
+<span class="linenos"> 65</span><span class="kt">void</span><span class="w"> </span><span class="nf">print_twist</span><span class="p">()</span>
+<span class="linenos"> 66</span><span class="p">{</span>
+<span class="linenos"> 67</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GetTick</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_print_tick</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos"> 68</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 69</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;vx: %f, vy: %f, w: %f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="n">twist</span><span class="p">.</span><span class="n">w</span><span class="p">);</span>
+<span class="linenos"> 70</span><span class="w">        </span><span class="n">last_print_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_GetTick</span><span class="p">();</span>
+<span class="linenos"> 71</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 72</span><span class="p">}</span>
+<span class="linenos"> 73</span>
+<span class="linenos"> 74</span><span class="kt">void</span><span class="w"> </span><span class="nf">HAL_UART_RxCpltCallback</span><span class="p">(</span><span class="n">UART_HandleTypeDef</span><span class="w"> </span><span class="o">*</span><span class="n">huart</span><span class="p">)</span>
+<span class="linenos"> 75</span><span class="p">{</span>
+<span class="linenos"> 76</span><span class="w">    </span><span class="n">__HAL_UART_FLUSH_DRREGISTER</span><span class="p">(</span><span class="n">huart</span><span class="p">);</span>
+<span class="linenos"> 77</span>
+<span class="linenos"> 78</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">huart1</span><span class="p">.</span><span class="n">Instance</span><span class="p">)</span>
+<span class="linenos"> 79</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_waiting_for_start_byte</span><span class="p">)</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 82</span><span class="w">            </span><span class="c1">// verify start byte</span>
+<span class="linenos"> 83</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">receiving_bytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">START_BYTE</span><span class="p">)</span>
+<span class="linenos"> 84</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos"> 85</span><span class="w">                </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">receiving_bytes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Twist</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 86</span><span class="w">                </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 87</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos"> 88</span><span class="w">            </span><span class="k">else</span>
+<span class="linenos"> 89</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos"> 90</span><span class="w">                </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">receiving_bytes</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 91</span><span class="w">                </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
+<span class="linenos"> 92</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos"> 93</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 94</span><span class="w">        </span><span class="k">else</span>
+<span class="linenos"> 95</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 96</span><span class="w">            </span><span class="c1">// verify hash</span>
+<span class="linenos"> 97</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">receiving_bytes</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">receiving_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">get_hash</span><span class="p">(</span><span class="n">receiving_bytes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Twist</span><span class="p">)))</span>
+<span class="linenos"> 98</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos"> 99</span><span class="w">                </span><span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">twist</span><span class="p">,</span><span class="w"> </span><span class="n">receiving_bytes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Twist</span><span class="p">));</span>
+<span class="linenos">100</span><span class="w">                </span><span class="n">rx_seq</span><span class="o">++</span><span class="p">;</span>
+<span class="linenos">101</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">102</span><span class="w">            </span><span class="k">else</span>
+<span class="linenos">103</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">104</span><span class="w">                </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
+<span class="linenos">105</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">106</span>
+<span class="linenos">107</span><span class="w">            </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos">108</span><span class="w">            </span><span class="n">last_receive_tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_GetTick</span><span class="p">();</span>
+<span class="linenos">109</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">110</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">111</span><span class="p">}</span>
+<span class="linenos">112</span>
+<span class="linenos">113</span><span class="kt">void</span><span class="w"> </span><span class="nf">HAL_UART_ErrorCallback</span><span class="p">(</span><span class="n">UART_HandleTypeDef</span><span class="w"> </span><span class="o">*</span><span class="n">huart</span><span class="p">)</span>
+<span class="linenos">114</span><span class="p">{</span>
+<span class="linenos">115</span><span class="w">    </span><span class="n">__HAL_UART_FLUSH_DRREGISTER</span><span class="p">(</span><span class="n">huart</span><span class="p">);</span>
+<span class="linenos">116</span>
+<span class="linenos">117</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">huart1</span><span class="p">.</span><span class="n">Instance</span><span class="p">)</span>
+<span class="linenos">118</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">119</span><span class="w">        </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">receiving_bytes</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">120</span><span class="w">        </span><span class="n">is_waiting_for_start_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos">121</span><span class="w">        </span><span class="n">blink_led</span><span class="p">();</span><span class="w"> </span><span class="c1">// blink led to show error</span>
+<span class="linenos">122</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">123</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Add souces to <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p></li>
+<li><p>Build and upload the code to your <code class="docutils literal notranslate"><span class="pre">STM32</span></code>.</p></li>
+</ul>
+<p>Connect the <code class="docutils literal notranslate"><span class="pre">TX</span> <span class="pre">pin</span></code> of <code class="docutils literal notranslate"><span class="pre">Sender</span></code> and <code class="docutils literal notranslate"><span class="pre">RX</span> <span class="pre">pin</span></code> of <code class="docutils literal notranslate"><span class="pre">Receiver</span></code>. Common <code class="docutils literal notranslate"><span class="pre">GND</span></code> of both. Observe the data on <code class="docutils literal notranslate"><span class="pre">USB</span></code> or <code class="docutils literal notranslate"><span class="pre">ITM</span></code> using <code class="docutils literal notranslate"><span class="pre">Serial</span> <span class="pre">Monitor</span> <span class="pre">or</span> <span class="pre">Terminal</span></code> or <code class="docutils literal notranslate"><span class="pre">STM32CubeProgrammer</span> <span class="pre">SWV</span></code>.</p>
 </section>
 </section>
 
@@ -606,7 +952,7 @@ CRC-8<span class="w"> </span>hash:<span class="w"> </span>f4
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="crc.html" class="btn btn-neutral float-left" title="Cyclic Redundancy Check (CRC)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../highlights.html" class="btn btn-neutral float-right" title="Hightlights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../highlights.html" class="btn btn-neutral float-right" title="Highlights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

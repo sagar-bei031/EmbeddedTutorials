@@ -19,10 +19,10 @@ The callback function ``HAL_UART_ErrorCallback`` is called when an error occurs.
 
    void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
    {
+     // Handle error
      if (huart->Instance == huart2.Instance)
      {
-         // Handle error
-         HAL_UART_Receive_DMA(&huart2, (uint8_t *)RxBuffer, RXBUFFERSIZE);
+         HAL_UART_Receive_DMA(&huart2, (uint8_t *)&c, sizeof(c)); // Receive again
      }
      else if (huart->Instance == joystick.uart.get_uart_instance())
      {
@@ -41,7 +41,7 @@ You can check the DMA status to ensure that the DMA is working properly. While r
    {
       if (huart->hdmarx->State != HAL_DMA_STATE_BUSY)
       {
-          HAL_UART_Receive_DMA(&huart2, (uint8_t *)RxBuffer, RXBUFFERSIZE);
+          HAL_UART_Receive_DMA(&huart2, (uint8_t *)&c, sizeof(c)); // Receive again
       }
       else if (joystick.uart.hdmarx->State != HAL_DMA_STATE_BUSY)
       {

@@ -66,7 +66,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermediate Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../highlights.html">Hightlights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../highlights.html">Highlights</a></li>
 </ul>
 
         </div>
@@ -118,10 +118,10 @@
 <p>The callback function <code class="docutils literal notranslate"><span class="pre">HAL_UART_ErrorCallback</span></code> is called when an error occurs. You can use this callback to handle the error. For example:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">HAL_UART_ErrorCallback</span><span class="p">(</span><span class="n">UART_HandleTypeDef</span><span class="w"> </span><span class="o">*</span><span class="n">huart</span><span class="p">)</span>
 <span class="p">{</span>
+<span class="w">  </span><span class="c1">// Handle error</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">huart2</span><span class="p">.</span><span class="n">Instance</span><span class="p">)</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// Handle error</span>
-<span class="w">      </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">RxBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">RXBUFFERSIZE</span><span class="p">);</span>
+<span class="w">      </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="w"> </span><span class="c1">// Receive again</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">joystick</span><span class="p">.</span><span class="n">uart</span><span class="p">.</span><span class="n">get_uart_instance</span><span class="p">())</span>
 <span class="w">  </span><span class="p">{</span>
@@ -139,7 +139,7 @@
 <span class="p">{</span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">huart</span><span class="o">-&gt;</span><span class="n">hdmarx</span><span class="o">-&gt;</span><span class="n">State</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">HAL_DMA_STATE_BUSY</span><span class="p">)</span>
 <span class="w">   </span><span class="p">{</span>
-<span class="w">       </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">RxBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">RXBUFFERSIZE</span><span class="p">);</span>
+<span class="w">       </span><span class="n">HAL_UART_Receive_DMA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">huart2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="w"> </span><span class="c1">// Receive again</span>
 <span class="w">   </span><span class="p">}</span>
 <span class="w">   </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">joystick</span><span class="p">.</span><span class="n">uart</span><span class="p">.</span><span class="n">hdmarx</span><span class="o">-&gt;</span><span class="n">State</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">HAL_DMA_STATE_BUSY</span><span class="p">)</span>
 <span class="w">   </span><span class="p">{</span>

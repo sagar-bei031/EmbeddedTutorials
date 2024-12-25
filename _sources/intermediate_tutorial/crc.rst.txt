@@ -172,19 +172,19 @@ Let's implement the CRC algorithm in C++ using template class. I hope you have b
 crc.hpp:
 ^^^^^^^^
 
-.. literalinclude:: files/crc.hpp
+.. literalinclude:: files/crc/crc.hpp
    :language: cpp
    :linenos:
 
 **crc.tpp**:
 
-.. literalinclude:: files/crc.tpp
+.. literalinclude:: files/crc/crc.tpp
    :language: cpp
    :linenos:
 
 **crc_testing.cpp**:
 
-.. literalinclude:: files/crc_testing.cpp
+.. literalinclude:: files/crc/crc_testing.cpp
    :language: cpp
    :linenos:
 
