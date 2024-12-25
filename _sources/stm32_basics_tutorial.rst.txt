@@ -140,7 +140,7 @@ About STM32F103C8T6
      - 64 KB (some variant have 128 KB)
 
 .. warning::
-   Many bluepills found in Nepal use ``STM32F103C6T6`` microcontroller. It is less powerful than ``STM32F103C8T6``.
+   Many bluepills found in Nepal use ``STM32F103C6T6`` microcontroller. It hass less memory and peripherals than ``STM32F103C8T6``.
 
 
 .. toctree::
