@@ -100,10 +100,8 @@ There is nothing special to do in CubeMX for C++ setup. You can follow the same 
 .. code-block:: makefile
 
    else
-   CC = $(PREFIX)gcc
-   AS = $(PREFIX)gcc -x assembler-with-cpp
-   CP = $(PREFIX)objcopy
-   SZ = $(PREFIX)size
+   HEX = $(CP) -O ihex
+   BIN = $(CP) -O binary -S
 
 2.3. Add ``CXX_INCLUDE`` after ``C_INCLUDES``:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

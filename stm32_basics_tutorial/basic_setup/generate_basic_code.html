@@ -129,7 +129,7 @@
 <section id="pinout-configuration">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Pinout &amp; Configuration</a><a class="headerlink" href="#pinout-configuration" title="Link to this heading"></a></h2>
 <ul>
-<li><p>Clear default pinouts by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p></li>
+<li><p>Clear default pinouts by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Enter</span></code>. This is not recommended as some pins are already used with other peripherals on the board and might cause problems if you use them. But for now, just do as we are not using them.</p></li>
 <li><p>Go to <code class="docutils literal notranslate"><span class="pre">RCC</span> <span class="pre">&gt;</span> <span class="pre">High</span> <span class="pre">Speed</span> <span class="pre">Clock</span> <span class="pre">(HSE)</span></code> and select <code class="docutils literal notranslate"><span class="pre">Crystal</span> <span class="pre">Ceramic</span> <span class="pre">Resonator</span></code>.</p>
 <a class="reference internal image-reference" href="../../_images/rcc.webp"><img alt="RCC" src="../../_images/rcc.webp" style="width: 100%;" />
 </a>
@@ -162,7 +162,7 @@
 <div><ul>
 <li><p>Write <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Name</span></code>.</p></li>
 <li><p>Write <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Location`</span></code>.</p></li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Toolchanin/IDE</span></code>. We prefer to choose <strong>Makefile</strong>. <strong>CMake</strong> was not available before.</p>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Toolchanin/IDE</span></code>. We prefer to choose <strong>Makefile</strong>. <strong>CMake</strong> is new in <strong>STM32CubeMX</strong>. You can use both parallelly without any problem as generating for one tool does not remove other tool. <strong>CubeIDE</strong> is the best as it has many features and easy to use but it is heavy so we do not use as much.</p>
 <a class="reference internal image-reference" href="../../_images/project.webp"><img alt="Project" src="../../_images/project.webp" style="width: 100%;" />
 </a>
 </li>

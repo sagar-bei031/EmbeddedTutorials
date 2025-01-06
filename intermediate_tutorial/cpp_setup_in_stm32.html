@@ -192,10 +192,8 @@
 </pre></div>
 </div>
 <div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="cp">else</span>
-<span class="nv">CC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>gcc
-<span class="nv">AS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>gcc<span class="w"> </span>-x<span class="w"> </span>assembler-with-cpp
-<span class="nv">CP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>objcopy
-<span class="nv">SZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>PREFIX<span class="k">)</span>size
+<span class="nv">HEX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>CP<span class="k">)</span><span class="w"> </span>-O<span class="w"> </span>ihex
+<span class="nv">BIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>CP<span class="k">)</span><span class="w"> </span>-O<span class="w"> </span>binary<span class="w"> </span>-S
 </pre></div>
 </div>
 </section>

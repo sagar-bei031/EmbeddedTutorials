@@ -17,7 +17,7 @@ In STM32 project, ``arm_math`` header and source files are inside ``Drivers >  C
 2. Linking Arm Math Library for ARM Cortex-M3
 ---------------------------------------------
 
-For GCC, you can link the library by adding the library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag "libarm_cortexM3l_math.a in the Makefile.
+You can link the library by adding the GCC library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag "libarm_cortexM3l_math.a in the Makefile.
 
 .. code-block:: none
 
@@ -29,11 +29,21 @@ For GCC, you can link the library by adding the library path ``Drivers/CMSIS/Lib
 3. Using Arm Math Library
 -------------------------
 
+Add the DSP include path in the **Makefile**.
+
+.. code-block:: none
+
+   # C includes
+   C_INCLUDES =  \
+   ...
+   -IDrivers/CMSIS/DSP/Include
+
 To use the arm math library, you need to include the header file ``arm_math.h`` in your source file.
 
 .. code-block:: c
 
    #include "arm_math.h"
+
 
 Let's suppose you want to calculate **sine** and **cosine** of an angle. To do so, you need to add the respective sources in the **Makefile**.
 
@@ -78,3 +88,5 @@ You may get such error for **Cortex M4** or others having **FPU**. To solve this
    C_DEFS =  \
    ...
    -D__FPU_PRESENT=1U # For having FPU
+
+Now let's learn to use matrix function

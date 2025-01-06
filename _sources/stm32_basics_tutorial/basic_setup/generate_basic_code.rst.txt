@@ -27,7 +27,7 @@ You might be asked to initialize peripheral with their **default mode**. Click `
 2. Pinout & Configuration
 -------------------------
 
-- Clear default pinouts by pressing ``Ctrl + P`` and ``Enter``.
+- Clear default pinouts by pressing ``Ctrl + P`` and ``Enter``. This is not recommended as some pins are already used with other peripherals on the board and might cause problems if you use them. But for now, just do as we are not using them.
 
 - Go to ``RCC > High Speed Clock (HSE)`` and select ``Crystal Ceramic Resonator``.
 
@@ -67,7 +67,7 @@ Now you can select pins for LED, UART, Timers and many more. But leave them for 
   
   - Write ``Project Location```.
   
-  - Select ``Toolchanin/IDE``. We prefer to choose **Makefile**. **CMake** was not available before.
+  - Select ``Toolchanin/IDE``. We prefer to choose **Makefile**. **CMake** is new in **STM32CubeMX**. You can use both parallelly without any problem as generating for one tool does not remove other tool. **CubeIDE** is the best as it has many features and easy to use but it is heavy so we do not use as much.
   
     .. image:: images/project.webp
        :width: 100%

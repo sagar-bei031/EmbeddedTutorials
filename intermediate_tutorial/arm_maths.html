@@ -105,7 +105,7 @@
 </section>
 <section id="linking-arm-math-library-for-arm-cortex-m3">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Linking Arm Math Library for ARM Cortex-M3</a><a class="headerlink" href="#linking-arm-math-library-for-arm-cortex-m3" title="Link to this heading"></a></h2>
-<p>For GCC, you can link the library by adding the library path <code class="docutils literal notranslate"><span class="pre">Drivers/CMSIS/Lib/GCC</span></code> and the linker flag “libarm_cortexM3l_math.a in the Makefile.</p>
+<p>You can link the library by adding the GCC library path <code class="docutils literal notranslate"><span class="pre">Drivers/CMSIS/Lib/GCC</span></code> and the linker flag “libarm_cortexM3l_math.a in the Makefile.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span># libraries
 LIBS = -lc -lm -lnosys -l:libarm_cortexM3l_math.a
 LIBDIR = -LDrivers/CMSIS/Lib/GCC/
@@ -114,6 +114,13 @@ LIBDIR = -LDrivers/CMSIS/Lib/GCC/
 </section>
 <section id="using-arm-math-library">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">3. Using Arm Math Library</a><a class="headerlink" href="#using-arm-math-library" title="Link to this heading"></a></h2>
+<p>Add the DSP include path in the <strong>Makefile</strong>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># C includes
+C_INCLUDES =  \
+...
+-IDrivers/CMSIS/DSP/Include
+</pre></div>
+</div>
 <p>To use the arm math library, you need to include the header file <code class="docutils literal notranslate"><span class="pre">arm_math.h</span></code> in your source file.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;arm_math.h&quot;</span>
 </pre></div>
@@ -156,6 +163,7 @@ C_DEFS =  \
 -D__FPU_PRESENT=1U # For having FPU
 </pre></div>
 </div>
+<p>Now let’s learn to use matrix function</p>
 </section>
 </section>
 
