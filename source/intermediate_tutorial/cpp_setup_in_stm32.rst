@@ -151,24 +151,24 @@ There is nothing special to do in CubeMX for C++ setup. You can follow the same 
 2.5. Add list of objects for CXX:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: makefiles/c_asm_objects
+.. literalinclude:: makefiles/cpp_setup/c_asm_objects
    :language: makefile
 
-.. literalinclude:: makefiles/cpp_objects
+.. literalinclude:: makefiles/cpp_setup/cpp_objects
    :language: makefile
    :class: left-green-border
 
 2.6. Add to build cpp files:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: makefiles/build_c_asm
+.. literalinclude:: makefiles/cpp_setup/build_c_asm
    :language: makefile
 
-.. literalinclude:: makefiles/build_cpp
+.. literalinclude:: makefiles/cpp_setup/build_cpp
    :language: makefile
    :class: left-green-border
 
-.. literalinclude:: makefiles/build_target
+.. literalinclude:: makefiles/cpp_setup/build_target
    :language: makefile
 
 ``Makefile`` is ready to compile ``C++`` file. We need to add ``.cpp`` file to ``CXX_sources``. Verify makefile syntax.

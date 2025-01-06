@@ -21,7 +21,7 @@ extensions = [
     'myst_parser',
     'sphinx.ext.linkcode',
     'sphinx.ext.mathjax',
-    'sphinx_new_tab_link',
+    'sphinx.ext.extlinks',
 ]
 
 templates_path = ['_templates']
@@ -47,7 +47,9 @@ html_css_files = [
     'custom.css',
 ]
 
-html_js_files = []
+html_js_files = [
+    'custom.js',
+]
 
 source_suffix = {
     '.rst': 'restructuredtext',
@@ -69,3 +71,7 @@ def linkcode_resolve(domain, info):
 
     filename = info["module"].replace(".", "/")
     return f"https://github.com/Robotics-Club-Pulchowk/EmbeddedDocumentation/blob/main/{filename}.py"
+
+extlinks = {
+    'newtab': ('%s', '')
+}
