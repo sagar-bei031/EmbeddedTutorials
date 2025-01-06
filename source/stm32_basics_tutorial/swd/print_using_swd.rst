@@ -16,7 +16,7 @@ Print using SWD
 1. Introduction
 ---------------
 
-SWD also can be used to print data. But we cannot get them normally. We need speacial program to see which is ``Serial Wire Viewer (SWV)``. ``STM32CubeProgrammer`` has  SWV. Download it from `installation <../../getting_started/installation.html>`__.
+SWD also can be used to print data. But we cannot get them normally. We need speacial program to see which is ``Serial Wire Viewer (SWV)``. ``STM32CubeProgrammer`` has  SWV. Download it from `installation <../../getting_started/installation.html>`_.
 
 In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used in **ARM** processors. It uses **SWO** pin for tracing.
 
@@ -24,7 +24,7 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
 2. Overwrite Definition of printf
 ---------------------------------
 
-* `Generate baisc code <../basic_setup/generate_basic_code.html>`__.
+* `Generate baisc code <../basic_setup/generate_basic_code.html>`_.
 
 .. important::
       **ITM** uses **SWO**, so select ``Debug`` option as ``Trace Asynchronous SW`` in **STM32CubeMX**.

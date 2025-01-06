@@ -9,7 +9,7 @@ GPIO Output
 1. CubeMX Configuration
 ------------------------
 
-Open ``STM32CubeMx``. Generate basic code by assing osccillator pins, serial wire pins, configuring clock and project detail. Follow the `generate_basic_code <../basic_setup/generate_basic_code.html>`_ with:
+Open ``STM32CubeMx``. Generate basic code by assing osccillator pins, serial wire pins, configuring clock and project detail. Follow the :newtab:`generate_basic_code <../basic_setup/generate_basic_code.html>` with:
 
 - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
 - project name: ``gpio_example``
@@ -117,7 +117,7 @@ Now, build and flash the code.
    make -j
    make flash
 
-This code only works with ``ST-Link``. If you are using ``JLink``, see `build_using_makefile <../basic_setup/build_using_makefile.html>`__ and `flash_using_makefile <../basic_setup/flash_using_makefile.html>`__.
+This code only works with ``ST-Link``. If you are using ``JLink``, see `build_using_makefile <../basic_setup/build_using_makefile.html>`_ and `flash_using_makefile <../basic_setup/flash_using_makefile.html>`_.
 
 We will continue it for `gpio input <gpio_input.html>`_.
 

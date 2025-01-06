@@ -15,7 +15,7 @@ Microsecond timing is used generally for sampling, pulse generation, frequency c
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``microtick``

@@ -15,7 +15,7 @@ Direct Memory Access (DMA) is very useful feature in microcontrollers. It allows
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``usb_polling``

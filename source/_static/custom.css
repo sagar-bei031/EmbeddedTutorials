@@ -8,3 +8,7 @@
 .left-green-border {
     border-left: 4px solid green;
 }
+
+.center-caption figcaption {
+    text-align: center;
+}

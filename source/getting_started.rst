@@ -18,8 +18,8 @@ Introduction
 
 In this **Embedded Tutorials** section, I will guide you through programming **STM32 controllers**, **ESP32** and **Rashberry PI Pico**, sharing the techniques and approaches I commonly use." I will guide more on **STM32 controllers** from basic but not for others. I generally use **Arduino IDE** for programming **ESP32** and **Rashberry PI Pico**. I am not going to guide the basics of **Arduino programming**.
 
-For **Arduino programming**, I recommend to watch `New Arduino Tutorials by Paul McWhorter <https://youtube.com/playlist?list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP&si=MG7z_3GhUvpTm6F_>`_ on ``YouTube``. Even you do not need hardware for learning **Arduino programming**. You can use `Tinkercad <https://www.tinkercad.com/>`__ for simulation. Also see `arduino documentation <https://docs.arduino.cc/>`__.
-For **extra tutorials** for both **Arduino** and **STM32**, I recommend `CONTROLLERSTECH <https://controllerstech.com/>`__ and `DeepBlueMbedded <https://deepbluembedded.com>`__.
+For **Arduino programming**, I recommend to watch :newtab:`New Arduino Tutorials by Paul McWhorter <https://youtube.com/playlist?list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP&si=MG7z_3GhUvpTm6F_>` on ``YouTube``. Even you do not need hardware for learning **Arduino programming**. You can use :newtab:`Tinkercad <https://www.tinkercad.com/>` for simulation. Also see `arduino documentation <https://docs.arduino.cc/>`__.
+For **extra tutorials** for both **Arduino** and **STM32**, I recommend :newtab:`CONTROLLERSTECH <https://controllerstech.com/>` and :newtab:`DeepBlueMbedded <https://deepbluembedded.com>`.
    
 Some devices, softwares, and programming languages going to be used:
 

@@ -15,7 +15,7 @@ The frequency counter counts the number of cycles of an input signal over a spec
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``frequency_counter``
@@ -156,4 +156,4 @@ The frequency counter counts the number of cycles of an input signal over a spec
 
 - Open ``STM32CubeProgrammer`` and view output on ``SWV``. If you used USB, see on terminal or serial monitor.
 
-- Now, change the frequency of PWM signal to 50Hz and again view the output. To know how change PWM frequency, see `PWM tutorial <pwm.html>`_.
+- Now, change the frequency of PWM signal to 50Hz and again view the output. To know how change PWM frequency, see :newtab:`PWM tutorial <pwm.html>`.

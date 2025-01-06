@@ -16,7 +16,7 @@ UART in polling mode transmit data and receive data untill the data is transmitt
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``uart_polling``

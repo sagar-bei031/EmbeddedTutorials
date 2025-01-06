@@ -228,7 +228,7 @@ Call setup() and loop() function in ``main()``.
    CXX_SOURCES =  \
    Core/Src/app.cpp
 
-`Compile and flash the code <../stm32_basics_tutorial/basic_setup.html>`__. The LED should blink.
+`Compile and flash the code <../stm32_basics_tutorial/basic_setup.html>`_. The LED should blink.
 
 
 5. Migrate to CMake
@@ -279,4 +279,4 @@ Enabe CXX support by editing the line ``enable_language(C ASM)``.
        ${CMAKE_SOURCE_DIR}/Core/Src/app.cpp
    )
 
-`Compile and flash the code <../stm32_basics_tutorial/basic_setup.html>`__. The LED should blink.
+`Compile and flash the code <../stm32_basics_tutorial/basic_setup.html>`_. The LED should blink.
