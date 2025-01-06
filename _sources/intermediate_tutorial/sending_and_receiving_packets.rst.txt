@@ -1,5 +1,6 @@
 Sending and Receiving Packets
 =============================
+
 .. contents:: Contents
    :depth: 2
    :local:
@@ -103,7 +104,7 @@ Compile and run this code.
    g++ crc8.cpp crc8_test.cpp -o crc8_test
    ./crc8_test
 
-.. code-block:: bash
+.. code-block:: none
    :caption: Output
 
    0x00, 0x07, 0x0E, 0x09, 0x1C, 0x1B, 0x12, 0x15, 
@@ -155,7 +156,7 @@ Let's suppose you want to send packets that contains joystick data twist(vx, vy,
 
      touch crc8.hpp touch crc8.cpp
 
-- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
+- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`_.
 
 - Now copy and paste these contensts in ``sending_packets.ino``.
 
@@ -180,7 +181,7 @@ Now you have to receive packets and parse them. The format used for sending pack
 
       touch crc8.hpp touch crc8.cpp
 
-- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
+- Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`_.
 
 - Now copy and paste these contensts in ``receiving_packets.ino``.
 
@@ -225,7 +226,7 @@ Now you have to receive packets and parse them. The format used for sending pack
 
 - Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`__ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`__, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
 
-- Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
+- Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`_.
 
 - Update ``app.h`` and ``app.cppp``.
 
@@ -238,6 +239,8 @@ Now you have to receive packets and parse them. The format used for sending pack
      :language: cpp
      :linenos:
      :caption: app.cpp
+
+- Add souces to ``Makefile`` or ``CMakeLists.txt``.
 
 - Build and upload the code to your ``STM32``.
 
@@ -263,7 +266,7 @@ Now you have to receive packets and parse them. The format used for sending pack
 
 - Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`__ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`__, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
 
-- Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`__.
+- Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`_.
 
 - Add ``printf_config.c`` in ``Core > Src``. Copy the contents below.
 

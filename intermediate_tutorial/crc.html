@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cyclic Redundancy Check (CRC) &mdash; Embedded Tutorials 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e5e1bfdb" />
@@ -21,6 +21,7 @@
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/custom.js?v=5fde6192"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,6 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Cyclic Redundancy Check (CRC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sending_and_receiving_packets.html">Sending and Receiving Packets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_maths.html">ARM Maths</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
@@ -169,7 +171,7 @@
 </tr>
 </tbody>
 </table>
-<p>See more at <a class="reference external" href="https://crccalc.com/?crc=123456789&amp;method=&amp;datatype=ascii&amp;outtype=hex" rel="noopener noreferrer" target="_blank">crccalc</a> or at <a class="reference external" href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check" rel="noopener noreferrer" target="_blank">wikipedia</a>.</p>
+<p>See more at <a class="reference external" href="https://crccalc.com/?crc=123456789&amp;method=&amp;datatype=ascii&amp;outtype=hex">crccalc</a> or at <a class="reference external" href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">wikipedia</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The actual length of the polynomial is one bit longer than the number of bits in the CRC. The most significant bit (MSB) is always 1. So, it is not included in the polynomial.</p>
@@ -222,7 +224,7 @@
 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CRC-8: 0x%02X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">remainder</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Please see <a class="reference external" href="https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html" rel="noopener noreferrer" target="_blank">this article</a> and go through it to understand the CRC algorithm in detail. Take your time. Get a good understanding of the algorithm. This article is the best one, I have found on the internet.</p>
+<p>Please see <a class="reference external" href="https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html">this article</a> and go through it to understand the CRC algorithm in detail. Take your time. Get a good understanding of the algorithm. This article is the best one, I have found on the internet.</p>
 <p>After you know CRC-8, now it easy to understand other type. CRC8-8 is worth for small size of data but for bigger chunk or less collision, CRC-16 or CRC-32 are used.</p>
 </section>
 <section id="generating-lookup-table-for-crc-16">
@@ -648,7 +650,7 @@
 <span class="linenos">14</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Compile and run using your computer. To verify, use online crc calculator: <a class="reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html" rel="noopener noreferrer" target="_blank">sunshine2k</a> or <a class="reference external" href="https://crccalc.com" rel="noopener noreferrer" target="_blank">crccalc</a>.</p>
+<p>Compile and run using your computer. To verify, use online crc calculator: <a class="reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html">sunshine2k</a> or <a class="reference external" href="https://crccalc.com">crccalc</a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>crc_testing.cpp<span class="w"> </span>-o<span class="w"> </span>crc_testing
 ./crc_testing
 </pre></div>
@@ -707,13 +709,13 @@ hash:<span class="w"> </span>07AAD778
 </div>
 <section id="cubemx-setup">
 <h3><a class="toc-backref" href="#id10" role="doc-backlink">5.1. CubeMX Setup</a><a class="headerlink" href="#cubemx-setup" title="Link to this heading"></a></h3>
-<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">Generate baisc code</a> with:</p>
+<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup/generate_basic_code.html">Generate baisc code</a> with:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">microcontroller</span></code>: <code class="docutils literal notranslate"><span class="pre">STM32F103C8T6</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">project</span> <span class="pre">name</span></code>: <code class="docutils literal notranslate"><span class="pre">crc_test</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Toolchain/IDE</span></code>: <code class="docutils literal notranslate"><span class="pre">Makefile</span></code></p></li>
 </ul>
-<p>Also enable <code class="docutils literal notranslate"><span class="pre">USB</span></code> for <code class="docutils literal notranslate"><span class="pre">printf</span></code> if <code class="docutils literal notranslate"><span class="pre">ITM</span> <span class="pre">SWV</span></code> not woriking (for bluepill using duplicate stlink which do not have SWO). See <a class="reference external" href="../stm32_basics_tutorial/usb/usb_cdc.html" rel="noopener noreferrer" target="_blank">this</a> for USB setup.</p>
+<p>Also enable <code class="docutils literal notranslate"><span class="pre">USB</span></code> for <code class="docutils literal notranslate"><span class="pre">printf</span></code> if <code class="docutils literal notranslate"><span class="pre">ITM</span> <span class="pre">SWV</span></code> not woriking (for bluepill using duplicate stlink which do not have SWO). See <a class="reference external" href="../stm32_basics_tutorial/usb/usb_cdc.html">this</a> for USB setup.</p>
 <a class="padded-image reference internal image-reference" href="../_images/crc_test_cubemx.png"><img alt="crc_test_cubemx.png" class="padded-image align-center" src="../_images/crc_test_cubemx.png" style="width: 100%;" />
 </a>
 </section>
@@ -751,7 +753,7 @@ hash:<span class="w"> </span>07AAD778
 <span class="cm">/* USER CODE END 3 */</span>
 </pre></div>
 </div>
-<p>Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data. Verify output using <a class="reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html" rel="noopener noreferrer" target="_blank">online CRC calculator</a>.</p>
+<p>Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data. Verify output using <a class="reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html">online CRC calculator</a>.</p>
 </section>
 </section>
 </section>

@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Highlights &mdash; Embedded Tutorials 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e5e1bfdb" />
@@ -21,10 +21,11 @@
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/custom.js?v=5fde6192"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Sending and Receiving Packets" href="intermediate_tutorial/sending_and_receiving_packets.html" /> 
+    <link rel="prev" title="ARM Maths" href="intermediate_tutorial/arm_maths.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -83,7 +84,7 @@
 <h1>Highlights<a class="headerlink" href="#highlights" title="Link to this heading"></a></h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p><strong>1</strong>. This ST-Link V2 does not support <code class="docutils literal notranslate"><span class="pre">SWV</span></code> as there is no <code class="docutils literal notranslate"><span class="pre">SWO</span></code> pin. <a class="reference external" href="stm32_basics_tutorial/usb/usb_printf.html" rel="noopener noreferrer" target="_blank">Use USB instead of SWV</a>.</p>
+<p><strong>1</strong>. This ST-Link V2 does not support <code class="docutils literal notranslate"><span class="pre">SWV</span></code> as there is no <code class="docutils literal notranslate"><span class="pre">SWO</span></code> pin. <a class="reference external" href="stm32_basics_tutorial/usb/usb_printf.html">Use USB instead of SWV</a>.</p>
 <a class="reference internal image-reference" href="_images/stlink.jpeg"><img alt="stlink.jpeg" class="align-center" src="_images/stlink.jpeg" style="width: 300px;" />
 </a>
 </div>
@@ -99,13 +100,13 @@
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><strong>3</strong>. Remove burden of entering password every time while <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>. <a class="reference external" href="getting_started/setup.html#ssh-setup" rel="noopener noreferrer" target="_blank">Add SSH key to GitHub</a>.</p>
+<p><strong>3</strong>. Remove burden of entering password every time while <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>. <a class="reference external" href="getting_started/setup.html#ssh-setup">Add SSH key to GitHub</a>.</p>
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <div class="line-block">
 <div class="line"><strong>4</strong>. Building STM32 project using <code class="docutils literal notranslate"><span class="pre">CMake</span></code> does not generate binary file.</div>
-<div class="line"><a class="reference external" href="stm32_basics_tutorial/basic_setup/build_using_cmakelists.html#generate-binary-using-arm-none-eabi-objcopy" rel="noopener noreferrer" target="_blank">You need to generate binary file</a>.</div>
+<div class="line"><a class="reference external" href="stm32_basics_tutorial/basic_setup/build_using_cmakelists.html#generate-binary-using-arm-none-eabi-objcopy">You need to generate binary file</a>.</div>
 </div>
 </div>
 <div class="admonition error">
@@ -124,7 +125,7 @@
 <p class="admonition-title">Attention</p>
 <div class="line-block">
 <div class="line"><strong>7</strong>. Have to disconnect <code class="docutils literal notranslate"><span class="pre">USB</span></code> after pressing <code class="docutils literal notranslate"><span class="pre">reset</span></code> button of STM32?</div>
-<div class="line"><a class="reference external" href="stm32_basics_tutorial/usb/usb_reset_issue.html" rel="noopener noreferrer" target="_blank">You need to add pretreatment</a>.</div>
+<div class="line"><a class="reference external" href="stm32_basics_tutorial/usb/usb_reset_issue.html">You need to add pretreatment</a>.</div>
 </div>
 </div>
 <div class="admonition attention">
@@ -136,13 +137,13 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>9</strong>. STM32F407VG-DISC1 default UART1 TX pin (PA9) does not work properly when the USB OTG is used because PA9 pin is also used for USB OTG. For more information, <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-b02_schematic.pdf&amp;ved=2ahUKEwjtzuKMxu6IAxVmR2wGHYkYAl8QFnoECBsQAQ&amp;usg=AOvVaw0S1_y_ksxURXPd02EFhSfS" rel="noopener noreferrer" target="_blank">see the schematic of the board</a>.</p>
+<p><strong>9</strong>. STM32F407VG-DISC1 default UART1 TX pin (PA9) does not work properly when the USB OTG is used because PA9 pin is also used for USB OTG. For more information, <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/schematic_pack/mb997-f407vgt6-b02_schematic.pdf&amp;ved=2ahUKEwjtzuKMxu6IAxVmR2wGHYkYAl8QFnoECBsQAQ&amp;usg=AOvVaw0S1_y_ksxURXPd02EFhSfS">see the schematic of the board</a>.</p>
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <div class="line-block">
 <div class="line"><strong>10</strong>: UART stops receiving but works fine after reset?</div>
-<div class="line">See <a class="reference external" href="stm32_basics_tutorial/uart/uart_issues.html#uart-stops-receiving-but-works-fine-after-reset" rel="noopener noreferrer" target="_blank">UART Issues</a>.</div>
+<div class="line">See <a class="reference external" href="stm32_basics_tutorial/uart/uart_issues.html#uart-stops-receiving-but-works-fine-after-reset">UART Issues</a>.</div>
 </div>
 </div>
 <div class="admonition note">
@@ -150,7 +151,7 @@
 <p><strong>11</strong>. Formula for <strong>Frequency of PWM</strong>:</p>
 <div class="math notranslate nohighlight">
 \[f_{\text{PWM}} = \frac{f_{\text{TIM}}}{\text{(ARR + 1) * (PSC + 1)}}\]</div>
-<p>Use calculator for <a class="reference external" href="stm32_basics_tutorial/timer/pwm.html#changing-the-frequency-of-pwm" rel="noopener noreferrer" target="_blank">frequency</a> and also for <a class="reference external" href="stm32_basics_tutorial/timer/pwm.html#_arr_calculator" rel="noopener noreferrer" target="_blank">ARR</a>.</p>
+<p>Use calculator for <a class="reference external" href="stm32_basics_tutorial/timer/pwm.html#changing-the-frequency-of-pwm">frequency</a> and also for <a class="reference external" href="stm32_basics_tutorial/timer/pwm.html#_arr_calculator">ARR</a>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -193,7 +194,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="intermediate_tutorial/sending_and_receiving_packets.html" class="btn btn-neutral float-left" title="Sending and Receiving Packets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="intermediate_tutorial/arm_maths.html" class="btn btn-neutral float-left" title="ARM Maths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

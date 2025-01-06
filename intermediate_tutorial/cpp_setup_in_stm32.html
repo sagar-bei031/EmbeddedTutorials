@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>C++ Setup in STM32 &mdash; Embedded Tutorials 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e5e1bfdb" />
@@ -20,6 +20,7 @@
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/custom.js?v=5fde6192"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -55,6 +56,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">C++ Setup in STM32</a></li>
 <li class="toctree-l2"><a class="reference internal" href="crc.html">Cyclic Redundancy Check (CRC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sending_and_receiving_packets.html">Sending and Receiving Packets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_maths.html">ARM Maths</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
@@ -115,7 +117,7 @@
 </nav>
 <section id="cubemx-configuration">
 <h2><a class="toc-backref" href="#id1" role="doc-backlink">1. CubeMX Configuration</a><a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
-<p>There is nothing special to do in CubeMX for C++ setup. You can follow the same steps as in <a class="reference external" href="../basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">C setup</a>. First we see <code class="docutils literal notranslate"><span class="pre">makefile</span></code> then <code class="docutils literal notranslate"><span class="pre">cmake</span></code>. Also make a pin <code class="docutils literal notranslate"><span class="pre">GPIO_Output</span></code> for LED. For example, in <code class="docutils literal notranslate"><span class="pre">bluepill</span> <span class="pre">(STM32F103C8)</span></code>, pin <code class="docutils literal notranslate"><span class="pre">PC13</span></code> is connected to LED.</p>
+<p>There is nothing special to do in CubeMX for C++ setup. You can follow the same steps as in <a class="reference external" href="../basic_setup/generate_basic_code.html">C setup</a>. First we see <code class="docutils literal notranslate"><span class="pre">makefile</span></code> then <code class="docutils literal notranslate"><span class="pre">cmake</span></code>. Also make a pin <code class="docutils literal notranslate"><span class="pre">GPIO_Output</span></code> for LED. For example, in <code class="docutils literal notranslate"><span class="pre">bluepill</span> <span class="pre">(STM32F103C8)</span></code>, pin <code class="docutils literal notranslate"><span class="pre">PC13</span></code> is connected to LED.</p>
 <a class="reference internal image-reference" href="../_images/cpp_setup_cubemx.png"><img alt="C++ Setup in STM32" class="align-center" src="../_images/cpp_setup_cubemx.png" style="width: 100%;" />
 </a>
 <div class="admonition note">
@@ -357,7 +359,7 @@ C_INCLUDES =  \
 <span class="n">Core</span><span class="o">/</span><span class="n">Src</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">cpp</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup.html" rel="noopener noreferrer" target="_blank">Compile and flash the code</a>. The LED should blink.</p>
+<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup.html">Compile and flash the code</a>. The LED should blink.</p>
 </section>
 <section id="migrate-to-cmake">
 <h2><a class="toc-backref" href="#id11" role="doc-backlink">5. Migrate to CMake</a><a class="headerlink" href="#migrate-to-cmake" title="Link to this heading"></a></h2>
@@ -395,7 +397,7 @@ C_INCLUDES =  \
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup.html" rel="noopener noreferrer" target="_blank">Compile and flash the code</a>. The LED should blink.</p>
+<p><a class="reference external" href="../stm32_basics_tutorial/basic_setup.html">Compile and flash the code</a>. The LED should blink.</p>
 </section>
 </section>
 </section>

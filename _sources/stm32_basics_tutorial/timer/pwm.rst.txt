@@ -264,6 +264,7 @@ Generate the code, change the **duty cycle** between ``0%`` and ``100%``. Observ
 
    .. code-block:: c
 
-      duty = map<float>(angle, 0, 180, 1, 2);
+      const float timePeriod = 20.0f; // in ms
+      float duty = map<float>(angle, 0, 180, 1, 2); // in ms
 
-      htim1.Instance->CCR1 = (uint32_t)(htim->Instance->ARR * duty / 20);
+      htim1.Instance->CCR1 = (uint32_t)(htim1.Instance->ARR * duty / timePeriod);

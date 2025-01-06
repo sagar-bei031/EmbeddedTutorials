@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PWM &mdash; Embedded Tutorials 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e5e1bfdb" />
@@ -21,6 +21,7 @@
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../_static/custom.js?v=5fde6192"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -119,7 +120,7 @@
 <section id="cubemx-configuration">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">2. CubeMX Configuration</a><a class="headerlink" href="#cubemx-configuration" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Open CubeMX and <a class="reference external" href="../basic_setup/generate_basic_code.html" rel="noopener noreferrer" target="_blank">generate basic code</a> with:</p>
+<li><p>Open CubeMX and <a class="reference external" href="../basic_setup/generate_basic_code.html">generate basic code</a> with:</p>
 <ul>
 <li><p>microcontroller: <code class="docutils literal notranslate"><span class="pre">stm32f407vgt6</span></code> or board: <code class="docutils literal notranslate"><span class="pre">STM32F407VG-DISC1</span></code></p></li>
 <li><p>project name: <code class="docutils literal notranslate"><span class="pre">pwm_test</span></code></p></li>
@@ -245,7 +246,7 @@
 </script><p>To determine the <strong>frequency of timer</strong>, first you need to find out the <strong>APB timer clock</strong> in the <strong>reference mannual</strong> of the microcontroller.</p>
 <ul>
 <li><p>On <code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code>, hover the cursor on <code class="docutils literal notranslate"><span class="pre">Timers</span></code>.</p></li>
-<li><p>Click the <code class="docutils literal notranslate"><span class="pre">details</span> <span class="pre">and</span> <span class="pre">documentation</span></code> and then <code class="docutils literal notranslate"><span class="pre">Reference</span> <span class="pre">mannual</span></code>. Or click <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&amp;ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&amp;usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74" rel="noopener noreferrer" target="_blank">reference mannual link</a>.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">details</span> <span class="pre">and</span> <span class="pre">documentation</span></code> and then <code class="docutils literal notranslate"><span class="pre">Reference</span> <span class="pre">mannual</span></code>. Or click <a class="reference external" href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&amp;ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&amp;usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74">reference mannual link</a>.</p></li>
 <li><p>You can find the <strong>APB</strong> number under <strong>Memory and bus architecture</strong>.</p>
 <a class="reference internal image-reference" href="../../_images/apb_check.png"><img alt="APB Peripheral Clock" class="align-center" src="../../_images/apb_check.png" style="width: 100%;" />
 </a>
@@ -312,9 +313,10 @@
 <p class="admonition-title">Hint</p>
 <p>For <span class="math notranslate nohighlight">\(f_{\text{PWM}} = 50\,\text{Hz}\)</span>, time period <span class="math notranslate nohighlight">\(T = 20\,\text{ms}\)</span>.
 And <span class="math notranslate nohighlight">\(1\,\text{ms} \equiv 0^\circ\)</span> and <span class="math notranslate nohighlight">\(2\,\text{ms} \equiv 180^\circ\)</span>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">duty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">timePeriod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">;</span><span class="w"> </span><span class="c1">// in ms</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// in ms</span>
 
-<span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CCR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">htim</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">ARR</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CCR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">ARR</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">timePeriod</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
