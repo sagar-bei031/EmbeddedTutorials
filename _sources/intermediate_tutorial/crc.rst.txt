@@ -56,7 +56,7 @@ Many industries have standardized on specific polynomials for compatibility and 
      - ``0x1B``
      - Data storage, digital signatures
 
-See more at `crccalc <https://crccalc.com/?crc=123456789&method=&datatype=ascii&outtype=hex>`__ or at `wikipedia <https://en.wikipedia.org/wiki/Cyclic_redundancy_check>`__.
+See more at :newtab:`crccalc <https://crccalc.com/?crc=123456789&method=&datatype=ascii&outtype=hex>` or at :newtab:`wikipedia <https://en.wikipedia.org/wiki/Cyclic_redundancy_check>`.
 
 .. note::
    The actual length of the polynomial is one bit longer than the number of bits in the CRC. The most significant bit (MSB) is always 1. So, it is not included in the polynomial.
@@ -113,7 +113,7 @@ Calculating CRC-8 of array using lookup table:
 
    printf("CRC-8: 0x%02X\n", remainder);
 
-Please see `this article <https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html>`__ and go through it to understand the CRC algorithm in detail. Take your time. Get a good understanding of the algorithm. This article is the best one, I have found on the internet.
+Please see :newtab:`this article <https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html>` and go through it to understand the CRC algorithm in detail. Take your time. Get a good understanding of the algorithm. This article is the best one, I have found on the internet.
 
 After you know CRC-8, now it easy to understand other type. CRC8-8 is worth for small size of data but for bigger chunk or less collision, CRC-16 or CRC-32 are used.
 
@@ -188,7 +188,7 @@ crc.hpp:
    :language: cpp
    :linenos:
 
-Compile and run using your computer. To verify, use online crc calculator: `sunshine2k <https://www.sunshine2k.de/coding/javascript/crc/crc_js.html>`__ or `crccalc <https://crccalc.com>`__.
+Compile and run using your computer. To verify, use online crc calculator: :newtab:`sunshine2k <https://www.sunshine2k.de/coding/javascript/crc/crc_js.html>` or :newtab:`crccalc <https://crccalc.com>`.
 
 .. code-block:: bash
 
@@ -250,13 +250,13 @@ STM32 microcontrollers have CRC-32 hardware. We can use it to calculate CRC-32.
 5.1. CubeMX Setup
 ^^^^^^^^^^^^^^^^^
 
-`Generate baisc code <../stm32_basics_tutorial/basic_setup/generate_basic_code.html>`__ with:
+`Generate baisc code <../stm32_basics_tutorial/basic_setup/generate_basic_code.html>`_ with:
 
 - ``microcontroller``: ``STM32F103C8T6``
 - ``project name``: ``crc_test``
 - ``Toolchain/IDE``: ``Makefile``
  
-Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill using duplicate stlink which do not have SWO). See `this <../stm32_basics_tutorial/usb/usb_cdc.html>`__ for USB setup.
+Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill using duplicate stlink which do not have SWO). See `this <../stm32_basics_tutorial/usb/usb_cdc.html>`_ for USB setup.
 
 .. image:: images/crc_test_cubemx.png
    :width: 100%
@@ -303,5 +303,5 @@ Add the following test code to calculate CRC-32.
    }
    /* USER CODE END 3 */
 
-Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data. Verify output using `online CRC calculator <https://www.sunshine2k.de/coding/javascript/crc/crc_js.html>`__.
+Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data. Verify output using :newtab:`online CRC calculator <https://www.sunshine2k.de/coding/javascript/crc/crc_js.html>`.
 

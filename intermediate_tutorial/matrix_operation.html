@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SWD &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>&lt;no title&gt; &mdash; Embedded Tutorials 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Debug using SWD" href="swd/debug_using_swd.html" />
-    <link rel="prev" title="USB Reset Issue" href="usb/usb_reset_issue.html" /> 
+    <link rel="next" title="Highlights" href="../highlights.html" />
+    <link rel="prev" title="ARM Maths" href="arm_maths.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,21 +49,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="basic_setup.html">Basic Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">SWD</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="swd/debug_using_swd.html">Debug using SWD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="swd/print_using_swd.html">Print using SWD</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timer.html">Timer</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
 </ul>
@@ -82,10 +70,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
-      <li class="breadcrumb-item active">SWD</li>
+          <li class="breadcrumb-item"><a href="../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/Robotics-Club-Pulchowk/EmbeddedTutorials/blob/main/source/stm32_basics_tutorial/swd.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/Robotics-Club-Pulchowk/EmbeddedTutorials/blob/main/source/intermediate_tutorial/matrix_operation.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -93,35 +81,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="swd">
-<h1>SWD<a class="headerlink" href="#swd" title="Link to this heading"></a></h1>
-<p>Serial Wire Debug  (SWD) is a lightweight debug protocol from ARM. The physical layer of SWD consists of following lines:</p>
-<ul class="simple">
-<li><p><strong>Serial Wire Clock (SWCLK)</strong>: A clock driver by the host.</p></li>
-<li><p><strong>Serial Wire Input Output(SWDIO)</strong>: A bidirectional data line for debugging.</p></li>
-<li><p><strong>Serial Wire Output (SWO)</strong>: A trace output line for <strong>Serial Wire Viewer</strong> (SWV).</p></li>
-</ul>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>This ST-Link V2 does not support <code class="docutils literal notranslate"><span class="pre">SWV</span></code> as there is no <code class="docutils literal notranslate"><span class="pre">SWO</span></code> pin. <a class="reference external" href="stm32_basics_tutorial/usb/usb_printf.html">Use USB instead of SWV</a>.</p>
-<a class="reference internal image-reference" href="../_images/stlink.jpeg"><img alt="stlink.jpeg" class="align-center" src="../_images/stlink.jpeg" style="width: 300px;" />
-</a>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="swd/debug_using_swd.html">Debug using SWD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="swd/print_using_swd.html">Print using SWD</a></li>
-</ul>
-</div>
-</section>
-
+  
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="usb/usb_reset_issue.html" class="btn btn-neutral float-left" title="USB Reset Issue" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="swd/debug_using_swd.html" class="btn btn-neutral float-right" title="Debug using SWD" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="arm_maths.html" class="btn btn-neutral float-left" title="ARM Maths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../highlights.html" class="btn btn-neutral float-right" title="Highlights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -13,12 +13,12 @@ We are using **Ubuntu** and **Windows**. Mostly, we will be using **Ubuntu** for
 1. Ubuntu
 ^^^^^^^^^
 
-   Download Ubuntu ISO from `here <https://ubuntu.com/download/desktop>`__.
+   Download Ubuntu ISO from newtab:`here <https://ubuntu.com/download/desktop>`.
 
 2. Windows
 ^^^^^^^^^^
 
-   Download Windows 10/11 ISO from `here <https://www.microsoft.com/en-us/software-download>`__.
+   Download Windows 10/11 ISO from :newtab:`here <https://www.microsoft.com/en-us/software-download>`.
 
 
 Fundamental Tools and Software
@@ -51,35 +51,35 @@ Fundamental Tools and Software
    * - 5.
      - STM32CubeMx
      - STM32 configuration tool
-     - Install from `STM32CubeMx <https://www.st.com/en/development-tools/stm32cubemx.html>`__.
+     - Install from :newtab:`STM32CubeMx <https://www.st.com/en/development-tools/stm32cubemx.html>`.
    * - 6.
      - STM32CubeProgrammer
      - Program and debug STM32 devices
-     - Install `STM32CubeProgrammer <https://www.st.com/en/development-tools/stm32cubeprog.html>`__.
+     - Install :newtab:`STM32CubeProgrammer <https://www.st.com/en/development-tools/stm32cubeprog.html>`.
    * - 7.
      - STM32CubeMonitor
      - Plot graphs for monitoring
-     - Install `STM32CubeMonitor <https://www.st.com/en/development-tools/stm32cubemonitor.html>`__.
+     - Install :newtab:`STM32CubeMonitor <https://www.st.com/en/development-tools/stm32cubemonitor.html>`.
    * - 8.
      - Arduino IDE
      - Arduino IDE
-     - Install `Arduino IDE <https://www.arduino.cc/en/software>`__.
+     - Install :newtab:`Arduino IDE <https://www.arduino.cc/en/software>`.
    * - 9.
      - Pico SDK
      - Raspberry Pi Pico SDK
-     - Install from `Pico SDK Guide <https://datasheets.raspberrypi.org/pico/getting-started-with-pico.pdf>`__.
+     - Install from :newtab:`Pico SDK Guide <https://datasheets.raspberrypi.org/pico/getting-started-with-pico.pdf>`.
    * - 10.
      - JLink
      - JLink debugger
-     - Install `JLink Debugger <https://www.segger.com/downloads/jlink/>`__.
+     - Install :newtab:`JLink Debugger <https://www.segger.com/downloads/jlink/>`.
    * - 11.
      - VSCode
      - Visual Studio Code
-     - Install `Visual Studio Code <https://code.visualstudio.com/>`__.
+     - Install :newtab:`Visual Studio Code <https://code.visualstudio.com/>`.
    * - 12.
      - Cortex Debug
      - VSCode extension for debugging
-     - Install `Cortex Debug Extension <https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug>`__.
+     - Install :newtab:`Cortex Debug Extension <https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug>`.
    * - 13.
      - OpenOCD
      - Open On-Chip Debugger
@@ -104,7 +104,7 @@ Other (Optional)
    * - 1.
      - SixaxisPairTool (Windows)
      - Pair PS4 controller with devices (ESP32).
-     - Install `SixaxisPairTool <https://sixaxispairtool.en.lo4d.com/windows>`__.
+     - Install :newtab:`SixaxisPairTool <https://sixaxispairtool.en.lo4d.com/windows>`.
    * - 2. 
      - DFU Util
      - Device Firmware Upgrade utility
@@ -112,16 +112,16 @@ Other (Optional)
    * - 3.
      - PlatformIO
      - PlatformIO IDE
-     - Install `PlatformIO <https://platformio.org/install/ide?install=vscode>`__.
+     - Install :newtab:`PlatformIO <https://platformio.org/install/ide?install=vscode>`.
    * - 4.
      - Arduino CLI
      - Command line interface for Arduino
-     - Install `Arduino CLI <https://arduino.github.io/arduino-cli/installation/>`__.
+     - Install :newtab:`Arduino CLI <https://arduino.github.io/arduino-cli/installation/>`.
    * - 5.
      - STM32CubeIDE
      - STM32CubeIDE
-     - Install `STM32CubeIDE <https://www.st.com/en/development-tools/stm32cubeide.html>`__.
+     - Install :newtab:`STM32CubeIDE <https://www.st.com/en/development-tools/stm32cubeide.html>`.
    * - 6.
      - ESP-IDF
      - ESP32 SDK
-     - Install from `ESP-IDF Guide <https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/>`__.
+     - Install from :newtab:`ESP-IDF Guide <https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/>`.

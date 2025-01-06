@@ -93,7 +93,7 @@ Update ``.vscode/launch.json``.
        ]
    }
 
-Change ``.elf`` filename for ``executable`` and device name for ``device``. Also you need to chage ``configFiles`` (e.g. target/stm32f1x.cfg for bluepill or interface/jlink.cfg for jlink interface). For more about **OpenOCD**, watch `this <https://www.youtube.com/watch?v=_1u7IOnivnM>`__.
+Change ``.elf`` filename for ``executable`` and device name for ``device``. Also you need to chage ``configFiles`` (e.g. target/stm32f1x.cfg for bluepill or interface/jlink.cfg for jlink interface). For more about **OpenOCD**, watch ::newtab:`this <https://www.youtube.com/watch?v=_1u7IOnivnM>`.
 
 
 

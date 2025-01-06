@@ -61,7 +61,7 @@ Compile and run this code.
 
 Checksum is simple and fast but there is high chance of collision. Suppose two bytes having value ``3`` and ``4``. The sum is ``7``. Also suppose two bytes having vallue ``5`` and ``2``. The sum is ``7`` too. It is failure of checksum.
 
-I have already discussed about CRC in `previous <crc.html>`__ tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let's write a simple SMBus CRC-8 class.
+I have already discussed about CRC in `previous <crc.html>`_ tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let's write a simple SMBus CRC-8 class.
 
 
 4. Implementing SMBus CRC-8
@@ -214,7 +214,7 @@ Now you have to receive packets and parse them. The format used for sending pack
   - ``Microcontroller``: ``STM32F103C8`` or any other STM32 microcontroller
   - ``Toolchain/IDE``: ``Makefile`` or ``CMake``
 
-- Go to ``Connectivity`` and select any ``USART`` with mode ``Asynchronous``. Under ``DMA settings``, enable ``DMA`` for ``Transmit``. Follow the `UART with DMA tutorial <../stm32_basics_tutorial.html>`__ to setup more details.
+- Go to ``Connectivity`` and select any ``USART`` with mode ``Asynchronous``. Under ``DMA settings``, enable ``DMA`` for ``Transmit``. Follow the `UART with DMA tutorial <../stm32_basics_tutorial.html>`_ to setup more details.
 
 - Also assign an ``LED`` pin for ``GPIO_Output.``
 
@@ -224,7 +224,7 @@ Now you have to receive packets and parse them. The format used for sending pack
      :alt: sending_packets_cubemx.png
      :class: padded-image
 
-- Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`__ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`__, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
+- Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`_ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`__, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
 
 - Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`_.
 
@@ -254,9 +254,9 @@ Now you have to receive packets and parse them. The format used for sending pack
   - ``Microcontroller``: ``STM32F103C8`` or any other STM32 microcontroller
   - ``Toolchain/IDE``: ``Makefile`` or ``CMake``
 
-- Go to ``Connectivity`` and select any ``USART`` with mode ``Asynchronous``. Under ``DMA settings``, enable ``DMA`` for ``Receive``. Follow the `UART with DMA tutorial <../stm32_basics_tutorial.html>`__ to setup more details.
+- Go to ``Connectivity`` and select any ``USART`` with mode ``Asynchronous``. Under ``DMA settings``, enable ``DMA`` for ``Receive``. Follow the `UART with DMA tutorial <../stm32_basics_tutorial.html>`_ to setup more details.
 
-- Assign assign an ``LED`` pin for ``GPIO_Output.`` If you want to print over ``USB``, enable ``USB`` and ``Virtual COM Port``. See `USB tutorial <../stm32_basics_tutorial/usb/usb_printf.html>`__. 
+- Assign assign an ``LED`` pin for ``GPIO_Output.`` If you want to print over ``USB``, enable ``USB`` and ``Virtual COM Port``. See `USB tutorial <../stm32_basics_tutorial/usb/usb_printf.html>`_. 
 
 .. image:: images/receiving_packets_cubemx.png
    :width: 100%
@@ -264,7 +264,7 @@ Now you have to receive packets and parse them. The format used for sending pack
    :alt: receiving_packets_cubemx.png
    :class: padded-image
 
-- Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`__ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`__, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
+- Follow `C++ setup tutorial <cpp_setup_in_stm32.html>`_ and setup up to compile ``C++`` souce codes. In the `C++ setup tutorial <cpp_setup_in_stm32.html>`_, you have already created ``app.h`` and ``app.cpp``, and blinked the LED. Reach to that point.
 
 - Create a new file ``crc8.hpp`` and ``crc8.cpp`` in ``Core > Inc`` and ``Core > Src`` respectively. Copy the contents of ``crc8.hpp`` and ``crc8.cpp`` from above `section 4 <#implementing-smbus-crc-8>`_.
 

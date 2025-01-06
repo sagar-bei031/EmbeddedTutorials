@@ -16,7 +16,7 @@ In interrupt mode, the UART hardware generates an interrupt signal to the CPU wh
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate_basic_code <../basic_setup/generate_basic_code.html>`__ with:
+- Open CubeMX and `generate_basic_code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``uart_interrupt``

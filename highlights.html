@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e5e1bfdb" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e9d84906" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -25,7 +25,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="ARM Maths" href="intermediate_tutorial/arm_maths.html" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="intermediate_tutorial/matrix_operation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -188,13 +188,19 @@
 <p class="admonition-title">Important</p>
 <p><strong>19</strong>. <strong>ITM</strong> uses <strong>SWO</strong>, so select <code class="docutils literal notranslate"><span class="pre">Debug</span></code> option as <code class="docutils literal notranslate"><span class="pre">Trace</span> <span class="pre">Asynchronous</span> <span class="pre">SW</span></code> in <strong>STM32CubeMX</strong> configuration.</p>
 </div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p><strong>20</strong>.Drivers/CMSIS/Include/core_cm4.h:105:8: error: #error “Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)”</p>
+<p>105 |       #error “Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)”</p>
+<p>To solve this <strong>compilation error</strong> when using <strong>arm math</strong> for <strong>Cortex M4</strong> or others having <strong>FPU</strong>, add <code class="docutils literal notranslate"><span class="pre">-D__FPU_PRESENT=1U</span></code> to <strong>C_DEFS</strong> in the <strong>Makefile</strong>:</p>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="intermediate_tutorial/arm_maths.html" class="btn btn-neutral float-left" title="ARM Maths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="intermediate_tutorial/matrix_operation.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

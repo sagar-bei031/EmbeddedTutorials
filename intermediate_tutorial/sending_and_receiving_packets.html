@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e5e1bfdb" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e9d84906" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -92,31 +92,31 @@
 <nav class="contents local" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#introduction" id="id15">1. Introduction</a></p></li>
-<li><p><a class="reference internal" href="#understanding-checksum" id="id16">2. Understanding Checksum</a></p>
+<li><p><a class="reference internal" href="#introduction" id="id18">1. Introduction</a></p></li>
+<li><p><a class="reference internal" href="#understanding-checksum" id="id19">2. Understanding Checksum</a></p>
 <ul>
-<li><p><a class="reference internal" href="#addition-based-checksum" id="id17">2.1. Addition based Checksum</a></p></li>
-<li><p><a class="reference internal" href="#xor-based-checksum" id="id18">2.2. XOR based Checksum</a></p></li>
+<li><p><a class="reference internal" href="#addition-based-checksum" id="id20">2.1. Addition based Checksum</a></p></li>
+<li><p><a class="reference internal" href="#xor-based-checksum" id="id21">2.2. XOR based Checksum</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#need-of-crc" id="id19">3. Need of CRC</a></p></li>
-<li><p><a class="reference internal" href="#implementing-smbus-crc-8" id="id20">4. Implementing SMBus CRC-8</a></p></li>
-<li><p><a class="reference internal" href="#sending-packets-through-uart-using-arduino" id="id21">5. Sending Packets through UART using Arduino</a></p></li>
-<li><p><a class="reference internal" href="#receiving-packets-through-uart-using-arduino" id="id22">6. Receiving Packets through UART using Arduino</a></p></li>
-<li><p><a class="reference internal" href="#sending-packets-through-uart-using-stm32" id="id23">7. Sending Packets through UART using STM32</a></p></li>
-<li><p><a class="reference internal" href="#receiving-packets-through-uart-using-stm32" id="id24">8. Receiving Packets through UART using STM32</a></p></li>
+<li><p><a class="reference internal" href="#need-of-crc" id="id22">3. Need of CRC</a></p></li>
+<li><p><a class="reference internal" href="#implementing-smbus-crc-8" id="id23">4. Implementing SMBus CRC-8</a></p></li>
+<li><p><a class="reference internal" href="#sending-packets-through-uart-using-arduino" id="id24">5. Sending Packets through UART using Arduino</a></p></li>
+<li><p><a class="reference internal" href="#receiving-packets-through-uart-using-arduino" id="id25">6. Receiving Packets through UART using Arduino</a></p></li>
+<li><p><a class="reference internal" href="#sending-packets-through-uart-using-stm32" id="id26">7. Sending Packets through UART using STM32</a></p></li>
+<li><p><a class="reference internal" href="#receiving-packets-through-uart-using-stm32" id="id27">8. Receiving Packets through UART using STM32</a></p></li>
 </ul>
 </nav>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id15" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>Sending and receiving one byte of data is simple. But what if you want to send and receive multiple bytes of data? Now, you need to think of a way to structure the data so that the receiver can determine the first byte when receiving bytes continuously. Long bytes of data are prone to errors. Now, you need to think of error detection. Let’s start packetizing data.</p>
 <p>A simple packet contains sunchronization bytes, data and error detection bytes. The simple synchronization method is using start bytes. Start bytes have a value which also can be present in data. The error detection bytes play important role to detect any misalignment and errors. There are techniques to calculate error detection bytes. The simple technique is checksum and a better technique is cyclic redundancy check (CRC).</p>
 </section>
 <section id="understanding-checksum">
-<h2><a class="toc-backref" href="#id16" role="doc-backlink">2. Understanding Checksum</a><a class="headerlink" href="#understanding-checksum" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">2. Understanding Checksum</a><a class="headerlink" href="#understanding-checksum" title="Link to this heading"></a></h2>
 <p>It is really easy to calculate checksum of data packet. Checksum is calculated using two method.</p>
 <section id="addition-based-checksum">
-<h3><a class="toc-backref" href="#id17" role="doc-backlink">2.1. Addition based Checksum</a><a class="headerlink" href="#addition-based-checksum" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">2.1. Addition based Checksum</a><a class="headerlink" href="#addition-based-checksum" title="Link to this heading"></a></h3>
 <p>Checksum is calculated by adding each bytes of data. The addtion can overflowe if size of checksum is small. Consider size of checksum is one byte. Let’s write test code to calculate checksum of bytes using addition.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
@@ -148,7 +148,7 @@
 <p>Compile and run this test code.</p>
 </section>
 <section id="xor-based-checksum">
-<h3><a class="toc-backref" href="#id18" role="doc-backlink">2.2. XOR based Checksum</a><a class="headerlink" href="#xor-based-checksum" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">2.2. XOR based Checksum</a><a class="headerlink" href="#xor-based-checksum" title="Link to this heading"></a></h3>
 <p>Let’s talk about binary addition and XOR.</p>
 <table class="docutils align-default">
 <thead>
@@ -203,12 +203,12 @@
 </section>
 </section>
 <section id="need-of-crc">
-<h2><a class="toc-backref" href="#id19" role="doc-backlink">3. Need of CRC</a><a class="headerlink" href="#need-of-crc" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">3. Need of CRC</a><a class="headerlink" href="#need-of-crc" title="Link to this heading"></a></h2>
 <p>Checksum is simple and fast but there is high chance of collision. Suppose two bytes having value <code class="docutils literal notranslate"><span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">4</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code>. Also suppose two bytes having vallue <code class="docutils literal notranslate"><span class="pre">5</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code> too. It is failure of checksum.</p>
 <p>I have already discussed about CRC in <a class="reference external" href="crc.html">previous</a> tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let’s write a simple SMBus CRC-8 class.</p>
 </section>
 <section id="implementing-smbus-crc-8">
-<h2><a class="toc-backref" href="#id20" role="doc-backlink">4. Implementing SMBus CRC-8</a><a class="headerlink" href="#implementing-smbus-crc-8" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">4. Implementing SMBus CRC-8</a><a class="headerlink" href="#implementing-smbus-crc-8" title="Link to this heading"></a></h2>
 <div class="line-block">
 <div class="line"><strong>Width</strong>: 8</div>
 <div class="line"><strong>Polynomial</strong>: 0x07</div>
@@ -218,8 +218,8 @@
 <div class="line"><strong>Reflect Output</strong>: False</div>
 </div>
 <p>Let’s create header and souce file.</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">crc8.hpp</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">crc8.hpp</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
 <span class="linenos"> 2</span><span class="cm"> ******************************************************************************</span>
 <span class="linenos"> 3</span><span class="cm"> * @file    crc8.hpp</span>
@@ -281,8 +281,8 @@
 </div>
 </div>
 <p>The constructor of <code class="docutils literal notranslate"><span class="pre">CRC8</span></code> class is private so no multiple instances will be created by <code class="docutils literal notranslate"><span class="pre">user</span></code> except one we created as static member. Such type of class is called <code class="docutils literal notranslate"><span class="pre">singletone</span></code> class.</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">crc8.cpp</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">crc8.cpp</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
 <span class="linenos"> 2</span><span class="cm"> * *********************************************************************************************</span>
 <span class="linenos"> 3</span><span class="cm"> * @file crc8.cpp</span>
@@ -368,8 +368,8 @@
 </div>
 </div>
 <p>To ensure the <code class="docutils literal notranslate"><span class="pre">CRC8</span></code> compatibility with other <code class="docutils literal notranslate"><span class="pre">CRC8</span></code>, the <code class="docutils literal notranslate"><span class="pre">loockup</span> <span class="pre">table</span></code> and <code class="docutils literal notranslate"><span class="pre">check</span></code> value are compared.  Now write the test code.</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">crc8_test.cpp</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">crc8_test.cpp</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
 <span class="linenos"> 3</span>
@@ -389,8 +389,8 @@
 ./crc8_test
 </pre></div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0x00, 0x07, 0x0E, 0x09, 0x1C, 0x1B, 0x12, 0x15,
 0x38, 0x3F, 0x36, 0x31, 0x24, 0x23, 0x2A, 0x2D,
 0x70, 0x77, 0x7E, 0x79, 0x6C, 0x6B, 0x62, 0x65,
@@ -430,7 +430,7 @@ CRC-8 hash: f4
 </div>
 </section>
 <section id="sending-packets-through-uart-using-arduino">
-<h2><a class="toc-backref" href="#id21" role="doc-backlink">5. Sending Packets through UART using Arduino</a><a class="headerlink" href="#sending-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">5. Sending Packets through UART using Arduino</a><a class="headerlink" href="#sending-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
 <p>Let’s suppose you want to send packets that contains joystick data twist(vx, vy, w). To do so, select one start byte <code class="docutils literal notranslate"><span class="pre">0xA5</span></code>, then three bytes for vx, vy and w, and one byte for CRC.</p>
 <ul>
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">sketch</span></code> in <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code>. Save it as <code class="docutils literal notranslate"><span class="pre">sending_packets</span></code>.</p></li>
@@ -441,8 +441,8 @@ CRC-8 hash: f4
 </li>
 <li><p>Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8">section 4</a>.</p></li>
 <li><p>Now copy and paste these contensts in <code class="docutils literal notranslate"><span class="pre">sending_packets.ino</span></code>.</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">sending_packets.ino</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">sending_packets.ino</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="k">struct</span><span class="w"> </span><span class="nc">Twist</span><span class="w"> </span><span class="p">{</span>
@@ -500,7 +500,7 @@ CRC-8 hash: f4
 </ul>
 </section>
 <section id="receiving-packets-through-uart-using-arduino">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">6. Receiving Packets through UART using Arduino</a><a class="headerlink" href="#receiving-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">6. Receiving Packets through UART using Arduino</a><a class="headerlink" href="#receiving-packets-through-uart-using-arduino" title="Link to this heading"></a></h2>
 <p>Now you have to receive packets and parse them. The format used for sending packets should be same while parsing.</p>
 <ul>
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">sketch</span></code> in <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code>. Save it as <code class="docutils literal notranslate"><span class="pre">receiving_packets</span></code>.</p></li>
@@ -513,8 +513,8 @@ CRC-8 hash: f4
 </li>
 <li><p>Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8">section 4</a>.</p></li>
 <li><p>Now copy and paste these contensts in <code class="docutils literal notranslate"><span class="pre">receiving_packets.ino</span></code>.</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">receiving_packets.ino</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">receiving_packets.ino</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="k">struct</span><span class="w"> </span><span class="nc">Twist</span><span class="w"> </span><span class="p">{</span>
@@ -626,7 +626,7 @@ CRC-8 hash: f4
 </a>
 </section>
 <section id="sending-packets-through-uart-using-stm32">
-<h2><a class="toc-backref" href="#id23" role="doc-backlink">7. Sending Packets through UART using STM32</a><a class="headerlink" href="#sending-packets-through-uart-using-stm32" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">7. Sending Packets through UART using STM32</a><a class="headerlink" href="#sending-packets-through-uart-using-stm32" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Create and generate new STM32 project using <strong>STM32CubeMX</strong>.</p>
 <ul class="simple">
@@ -643,8 +643,8 @@ CRC-8 hash: f4
 <li><p>Follow <a class="reference external" href="cpp_setup_in_stm32.html">C++ setup tutorial</a> and setup up to compile <code class="docutils literal notranslate"><span class="pre">C++</span></code> souce codes. In the <a class="reference external" href="cpp_setup_in_stm32.html">C++ setup tutorial</a>, you have already created <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code>, and blinked the LED. Reach to that point.</p></li>
 <li><p>Create a new file <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> in <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Inc</span></code> and <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> respectively. Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8">section 4</a>.</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cppp</span></code>.</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">app.h</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">app.h</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#ifndef __APP_H</span>
 <span class="linenos"> 2</span><span class="cp">#define __APP_H</span>
 <span class="linenos"> 3</span>
@@ -666,8 +666,8 @@ CRC-8 hash: f4
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">app.cpp</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">app.cpp</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory.h&gt;</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stm32f1xx_hal.h&quot;</span>
@@ -738,7 +738,7 @@ CRC-8 hash: f4
 </ul>
 </section>
 <section id="receiving-packets-through-uart-using-stm32">
-<h2><a class="toc-backref" href="#id24" role="doc-backlink">8. Receiving Packets through UART using STM32</a><a class="headerlink" href="#receiving-packets-through-uart-using-stm32" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">8. Receiving Packets through UART using STM32</a><a class="headerlink" href="#receiving-packets-through-uart-using-stm32" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Create and generate new STM32 project using <strong>STM32CubeMX</strong>.</p>
 <ul>
@@ -756,8 +756,8 @@ CRC-8 hash: f4
 <li><p>Follow <a class="reference external" href="cpp_setup_in_stm32.html">C++ setup tutorial</a> and setup up to compile <code class="docutils literal notranslate"><span class="pre">C++</span></code> souce codes. In the <a class="reference external" href="cpp_setup_in_stm32.html">C++ setup tutorial</a>, you have already created <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code>, and blinked the LED. Reach to that point.</p></li>
 <li><p>Create a new file <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> in <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Inc</span></code> and <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> respectively. Copy the contents of <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> from above <a class="reference external" href="#implementing-smbus-crc-8">section 4</a>.</p></li>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">printf_config.c</span></code> in <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code>. Copy the contents below.</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">printf_config.c</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">printf_config.c</span><a class="headerlink" href="#id15" title="Link to this code"></a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;stm32f1xx_hal.h&quot;</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="cp">#define USE_USB_CDC</span>
@@ -789,8 +789,8 @@ CRC-8 hash: f4
 <p>Change definition to use <code class="docutils literal notranslate"><span class="pre">ITM</span></code>.</p>
 </li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">app.h</span></code> and <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code>.</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">app.h</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">app.h</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#ifndef __APP_H</span>
 <span class="linenos"> 2</span><span class="cp">#define __APP_H</span>
 <span class="linenos"> 3</span>
@@ -814,8 +814,8 @@ CRC-8 hash: f4
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">app.cpp</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">app.cpp</span><a class="headerlink" href="#id17" title="Link to this code"></a></div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory.h&gt;</span>
 <span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos">  3</span>

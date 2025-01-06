@@ -123,3 +123,10 @@ Highlights
 .. important::
    
    **19**. **ITM** uses **SWO**, so select ``Debug`` option as ``Trace Asynchronous SW`` in **STM32CubeMX** configuration.
+
+.. error::
+   **20**.Drivers/CMSIS/Include/core_cm4.h:105:8: error: #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+   
+   105 |       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+
+   To solve this **compilation error** when using **arm math** for **Cortex M4** or others having **FPU**, add ``-D__FPU_PRESENT=1U`` to **C_DEFS** in the **Makefile**:

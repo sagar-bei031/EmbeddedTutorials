@@ -24,7 +24,7 @@ The average output of a PWM signal is given by :math:`V_{avg} = \frac{\text{Puls
 2. CubeMX Configuration
 -----------------------
 
-- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`__ with:
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
   - project name: ``pwm_test``
@@ -167,7 +167,7 @@ To determine the **frequency of timer**, first you need to find out the **APB ti
 
 - On ``STM32CubeMX``, hover the cursor on ``Timers``. 
 
-- Click the ``details and documentation`` and then ``Reference mannual``. Or click `reference mannual link <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74>`__.
+- Click the ``details and documentation`` and then ``Reference mannual``. Or click :newtab:`reference mannual link <https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf&ved=2ahUKEwiS2sXckL2IAxW3_aACHV3sIHsQFnoECBoQAQ&usg=AOvVaw2x8tbTRz8d9PfqXBk3qZ74>`.
 
 - You can find the **APB** number under **Memory and bus architecture**.
 
@@ -252,6 +252,7 @@ Go to ``Pinout & Configuration > Timers > TIM1 > Parameter Settings`` and set th
    :width: 100%
    :align: center
    :alt: PWM Frequency Configuration
+   :class: padded-image
 
 Generate the code, change the **duty cycle** between ``0%`` and ``100%``. Observe the output frequency on the oscilloscope.
 
@@ -268,3 +269,19 @@ Generate the code, change the **duty cycle** between ``0%`` and ``100%``. Observ
       float duty = map<float>(angle, 0, 180, 1, 2); // in ms
 
       htim1.Instance->CCR1 = (uint32_t)(htim1.Instance->ARR * duty / timePeriod);
+
+.. Tip::
+
+   .. figure:: images/esc.webp
+      :figwidth: 200px
+      :align: right
+      :alt: ESC
+      :figclass: center-caption
+      
+      ESC
+
+   To control **Brushless DC Motor (BLDC)**, **Electronic Speed Controller (ESC)** is used that accepts **RC Servo PWM** signal. Servo can run just after power on, but **ESC** does not allow you run just after **power on**. There are **calibration** and **arming** process just after **power on** indicated by **beep sound**. **Calibration** is to set the full and low throttle for control and **arming** is for safety purpose that does not allow to run accidentally. Generally calibrate zero throttle **1ms** and high throttle **2ms** at **50Hz**.
+   
+   To **calibrate**, use **full throttle (2ms pulse)** for **2 seconds** and then use **zero throttle (1ms pulse)** for **2 seconds**. You don't need to **calibrate** it again until you change the **ESC** or **BLDC**.
+   
+   To **arm**, use **zero throttle** for **2 seconds**. You need to **arm** every time after **power on** otherwise **ESC** wiil make **rapid beeping sound** to alert.

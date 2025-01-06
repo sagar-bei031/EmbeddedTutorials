@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e5e1bfdb" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e9d84906" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -171,7 +171,7 @@
 </tr>
 </tbody>
 </table>
-<p>See more at <a class="reference external" href="https://crccalc.com/?crc=123456789&amp;method=&amp;datatype=ascii&amp;outtype=hex">crccalc</a> or at <a class="reference external" href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">wikipedia</a>.</p>
+<p>See more at <a class="extlink-newtab reference external" href="https://crccalc.com/?crc=123456789&amp;method=&amp;datatype=ascii&amp;outtype=hex">crccalc</a> or at <a class="extlink-newtab reference external" href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">wikipedia</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The actual length of the polynomial is one bit longer than the number of bits in the CRC. The most significant bit (MSB) is always 1. So, it is not included in the polynomial.</p>
@@ -224,7 +224,7 @@
 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CRC-8: 0x%02X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">remainder</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Please see <a class="reference external" href="https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html">this article</a> and go through it to understand the CRC algorithm in detail. Take your time. Get a good understanding of the algorithm. This article is the best one, I have found on the internet.</p>
+<p>Please see <a class="extlink-newtab reference external" href="https://www.sunshine2k.de/articles/coding/crc/understanding_crc.html">this article</a> and go through it to understand the CRC algorithm in detail. Take your time. Get a good understanding of the algorithm. This article is the best one, I have found on the internet.</p>
 <p>After you know CRC-8, now it easy to understand other type. CRC8-8 is worth for small size of data but for bigger chunk or less collision, CRC-16 or CRC-32 are used.</p>
 </section>
 <section id="generating-lookup-table-for-crc-16">
@@ -650,7 +650,7 @@
 <span class="linenos">14</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Compile and run using your computer. To verify, use online crc calculator: <a class="reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html">sunshine2k</a> or <a class="reference external" href="https://crccalc.com">crccalc</a>.</p>
+<p>Compile and run using your computer. To verify, use online crc calculator: <a class="extlink-newtab reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html">sunshine2k</a> or <a class="extlink-newtab reference external" href="https://crccalc.com">crccalc</a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>crc_testing.cpp<span class="w"> </span>-o<span class="w"> </span>crc_testing
 ./crc_testing
 </pre></div>
@@ -753,7 +753,7 @@ hash:<span class="w"> </span>07AAD778
 <span class="cm">/* USER CODE END 3 */</span>
 </pre></div>
 </div>
-<p>Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data. Verify output using <a class="reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html">online CRC calculator</a>.</p>
+<p>Compile and upload the code. Open the serial terminal and you will see the CRC-32 of the data. Verify output using <a class="extlink-newtab reference external" href="https://www.sunshine2k.de/coding/javascript/crc/crc_js.html">online CRC calculator</a>.</p>
 </section>
 </section>
 </section>
