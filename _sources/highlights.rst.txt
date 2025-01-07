@@ -29,7 +29,7 @@ Highlights
 .. attention::
 
    | **4**. Building STM32 project using ``CMake`` does not generate binary file.
-   | `You need to generate binary file <stm32_basics_tutorial/basic_setup/build_using_cmakelists.html#generate-binary-using-arm-none-eabi-objcopy>`__.
+   | `You need to generate binary file <stm32_basics_tutorial/basic_setup/build_setup.html#generate-binary-using-arm-none-eabi-objcopy>`__.
 
 
 .. error::

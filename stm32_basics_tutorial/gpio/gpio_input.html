@@ -151,30 +151,30 @@
 <span class="w">  </span><span class="cm">/* USER CODE BEGIN WHILE */</span>
 <span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Check pin PA0</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GPIO_ReadPin</span><span class="p">(</span><span class="n">GPIOA</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_0</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// turn on green led on pin PD12.</span>
-<span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_12</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">else</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// turn off green led on pin PD12</span>
-<span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_12</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_RESET</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// Check pin PA1</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GPIO_ReadPin</span><span class="p">(</span><span class="n">GPIOA</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// turn on orange led on pin PA13</span>
-<span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_RESET</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">else</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// turn off orange led on pin PA13</span>
-<span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="cm">/* USER CODE END WHILE */</span>
+<span class="hll"><span class="w">    </span><span class="c1">// Check pin PA0</span>
+</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GPIO_ReadPin</span><span class="p">(</span><span class="n">GPIOA</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_0</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">)</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="c1">// turn on green led on pin PD12.</span>
+</span><span class="hll"><span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_12</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="k">else</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="c1">// turn off green led on pin PD12</span>
+</span><span class="hll"><span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_12</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_RESET</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">    </span><span class="c1">// Check pin PA1</span>
+</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_GPIO_ReadPin</span><span class="p">(</span><span class="n">GPIOA</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">)</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="c1">// turn on orange led on pin PA13</span>
+</span><span class="hll"><span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_RESET</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="k">else</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="c1">// turn off orange led on pin PA13</span>
+</span><span class="hll"><span class="w">      </span><span class="n">HAL_GPIO_WritePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_SET</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="w">    </span><span class="cm">/* USER CODE END WHILE */</span>
 
 <span class="w">    </span><span class="cm">/* USER CODE BEGIN 3 */</span>
 <span class="w">  </span><span class="p">}</span>

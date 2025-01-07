@@ -13,6 +13,7 @@ Print using SWD
    ``SWV`` does not work in **STM32F407VG-DISC1** board if you use ``PB3`` pin because it is connected to ``SWO`` pin of **ST-Link**.
 
 
+
 1. Introduction
 ---------------
 
@@ -40,37 +41,71 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
 * Add the following code to the file:
   
   .. code-block:: c
+     :linenos:
+     :caption: printf_conf.c
      
      #include "stm32f4xx_hal.h"
-
+     #include "usbd_cdc_if.h"
+     
      int _write(int file, char *data, int len)
      {
-         for (int i = 0; i < len; ++i)
-         {
-             ITM_SendChar(data[i]);
-         }
+         CDC_Transmit_FS((uint8_t*)data, (uint16_t)len);
          return len;
      }
 
 
 
-3. Update Makefile
-------------------
+3. Update Makefile or CMakeLists.txt
+------------------------------------
 
-* Add ``printf_conf.c`` to ``Makefile > C_SOURCES``.
+* Add ``printf_config.c`` to source.
 
-  .. code-block:: none
+  .. tabs::
   
-     C_SOURCES = \
-     ... \
-     ... \
-     Core/Src/printf_conf.c
+     .. tab:: Makefile
+          
+        .. code-block:: none
+           :emphasize-lines: 4
+  
+           C_SOURCES = \
+           ... \
+           ... \
+           Core/Src/printf_conf.c
+  
+     .. tab:: CMakeLists.txt
+  
+        .. code-block:: CMake
+           :emphasize-lines: 4
+  
+           # Add sources to executable
+           target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+              # Add user sources here
+              Core/Src/printf_conf.c
+           )  
+  
+* Add ``-u _printf_float`` flag.
 
-* Add ``-u _printf_float`` flag to ``LDFLAGS``. This is for floating point support.
-
-  .. code-block:: makefile
+  .. tabs::
      
-     LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections -u _printf_float
+     .. tab:: Makefile
+
+        Add to ``LDFLAGS``.
+
+        .. code-block:: Makefile
+           :emphasize-lines: 2
+           
+           LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+           LDFLAGS += -u _printf_float
+
+     .. tab:: CMakeLists.txt
+
+        Create target_link_options at the bottom.
+
+        .. code:: CMake
+
+           target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
+               -u _printf_float
+           )
 
 
 
@@ -80,6 +115,7 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
 * Open ``Core > Src > main.c``. Add ``stdio.h`` header.
 
   .. code-block:: c
+     :emphasize-lines: 3
 
      /* Private includes ----------------------------------------------------------*/
      /* USER CODE BEGIN Includes */
@@ -90,6 +126,7 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
 * Update ``main`` function to print "Hello World" over SWD.
 
   .. code-block:: c
+     :emphasize-lines: 2, 8-9
      
      /* USER CODE BEGIN 2 */
      uint32_t n = 0;

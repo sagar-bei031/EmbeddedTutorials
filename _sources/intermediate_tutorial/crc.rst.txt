@@ -270,6 +270,7 @@ Also enable ``USB`` for ``printf`` if ``ITM SWV`` not woriking (for bluepill usi
 Navigate to ``Core`` > ``Src`` > ``main.c`` and add the following code. Add the following includes.
 
 .. code-block:: c
+   :emphasize-lines: 3-5
 
    /* Private includes ----------------------------------------------------------*/
    /* USER CODE BEGIN Includes */
@@ -281,6 +282,7 @@ Navigate to ``Core`` > ``Src`` > ``main.c`` and add the following code. Add the 
 Add the following test code to calculate CRC-32.
 
 .. code-block:: c
+   :emphasize-lines: 2-3, 10-16
 
    /* USER CODE BEGIN 2 */
    char data[] = "123456789";

@@ -57,7 +57,8 @@
 <li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/crc.html">Cyclic Redundancy Check (CRC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html">Sending and Receiving Packets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/arm_maths.html">ARM Maths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/arm_math.html">ARM Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/matrix_operation.html">Matrix Operation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="highlights.html">Highlights</a></li>
@@ -93,41 +94,11 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html">C++ Setup in STM32</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html#cubemx-configuration">1. CubeMX Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html#update-makefile-to-compile-c-code">2. Update Makefile to Compile C++ Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html#create-new-cplusplus-files-to-project">3. Create new cplusplus files to project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html#add-app-cpp-to-makefile">4. Add <code class="docutils literal notranslate"><span class="pre">app.cpp</span></code> to Makefile.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html#migrate-to-cmake">5. Migrate to CMake</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html#update-cmakelists-txt">6. Update CMakeLists.txt</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/crc.html">Cyclic Redundancy Check (CRC)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/crc.html#introduction">1. Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/crc.html#types-of-crc">2. Types of CRC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/crc.html#understanding-crc">3. Understanding CRC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/crc.html#implementing-crc-in-c">4. Implementing CRC in C++</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/crc.html#using-stm32-crc-hardware">5. Using STM32 CRC Hardware</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html">Sending and Receiving Packets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#introduction">1. Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#understanding-checksum">2. Understanding Checksum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#need-of-crc">3. Need of CRC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#implementing-smbus-crc-8">4. Implementing SMBus CRC-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#sending-packets-through-uart-using-arduino">5. Sending Packets through UART using Arduino</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#receiving-packets-through-uart-using-arduino">6. Receiving Packets through UART using Arduino</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#sending-packets-through-uart-using-stm32">7. Sending Packets through UART using STM32</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html#receiving-packets-through-uart-using-stm32">8. Receiving Packets through UART using STM32</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/arm_maths.html">ARM Maths</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/arm_maths.html#introduction">1. Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/arm_maths.html#linking-arm-math-library-for-arm-cortex-m3">2. Linking Arm Math Library for ARM Cortex-M3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/arm_maths.html#using-arm-math-library">3. Using Arm Math Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intermediate_tutorial/arm_maths.html#issues">Issues</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/crc.html">Cyclic Redundancy Check (CRC)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/sending_and_receiving_packets.html">Sending and Receiving Packets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/arm_math.html">ARM Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial/matrix_operation.html">Matrix Operation</a></li>
 </ul>
 </div>
 </section>

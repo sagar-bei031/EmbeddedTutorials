@@ -166,19 +166,19 @@
 <span class="w">  </span><span class="n">MX_GPIO_Init</span><span class="p">();</span>
 <span class="w">  </span><span class="n">MX_TIM1_Init</span><span class="p">();</span>
 <span class="w">  </span><span class="cm">/* USER CODE BEGIN 2 */</span>
-<span class="w">  </span><span class="n">HAL_TIM_PWM_Start</span><span class="p">(</span><span class="o">&amp;</span><span class="n">htim1</span><span class="p">,</span><span class="w"> </span><span class="n">TIM_CHANNEL_1</span><span class="p">);</span>
-<span class="w">  </span><span class="cm">/* USER CODE END 2 */</span>
+<span class="hll"><span class="w">  </span><span class="n">HAL_TIM_PWM_Start</span><span class="p">(</span><span class="o">&amp;</span><span class="n">htim1</span><span class="p">,</span><span class="w"> </span><span class="n">TIM_CHANNEL_1</span><span class="p">);</span>
+</span><span class="w">  </span><span class="cm">/* USER CODE END 2 */</span>
 
 <span class="w">  </span><span class="cm">/* Infinite loop */</span>
 <span class="w">  </span><span class="cm">/* USER CODE BEGIN WHILE */</span>
 <span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
-<span class="w">    </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CCR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">duty</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">ARR</span><span class="p">);</span>
-
-<span class="w">    </span><span class="c1">// You can also use the HAL function to set the duty cycle:</span>
-<span class="w">    </span><span class="c1">// __HAL_TIM_SET_COMPARE(&amp;htim1, TIM_CHANNEL_1, (uint32_t)(duty * htim1.Instance-&gt;ARR));</span>
-
+<span class="hll"><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">duty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CCR1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">duty</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">ARR</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">    </span><span class="c1">// You can also use the HAL function to set the duty cycle:</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// __HAL_TIM_SET_COMPARE(&amp;htim1, TIM_CHANNEL_1, (uint32_t)(duty * htim1.Instance-&gt;ARR));</span>
+</span>
 <span class="w">    </span><span class="cm">/* USER CODE END WHILE */</span>
 
 <span class="w">    </span><span class="cm">/* USER CODE BEGIN 3 */</span>

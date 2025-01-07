@@ -141,23 +141,23 @@
 <li><p>Open project folder and navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span> <span class="pre">&gt;</span> <span class="pre">main.c</span></code>.</p></li>
 <li><p>Add header <code class="docutils literal notranslate"><span class="pre">usb_cdc_if.h</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN INCLUDE */</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usbd_cdc_if.h&quot;</span>
-<span class="cm">/* USER CODE END INCLUDE */</span>
+<span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usbd_cdc_if.h&quot;</span>
+</span><span class="cm">/* USER CODE END INCLUDE */</span>
 </pre></div>
 </div>
 </li>
 <li><p>Add the following code to the <code class="docutils literal notranslate"><span class="pre">main</span></code> function to transmit “Hello World” over USB.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 2 */</span>
-<span class="kt">char</span><span class="w"> </span><span class="n">msg</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="cm">/* USER CODE END 2 */</span>
+<span class="hll"><span class="kt">char</span><span class="w"> </span><span class="n">msg</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class="cm">/* USER CODE END 2 */</span>
 
 <span class="cm">/* Infinite loop */</span>
 <span class="cm">/* USER CODE BEGIN WHILE */</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
-<span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-<span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
+<span class="hll"><span class="w">  </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
+</span><span class="hll"><span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span><span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
 
 <span class="w">  </span><span class="cm">/* USER CODE BEGIN 3 */</span>
 <span class="p">}</span>

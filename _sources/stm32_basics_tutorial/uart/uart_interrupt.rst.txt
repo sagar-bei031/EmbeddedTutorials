@@ -40,32 +40,67 @@ In interrupt mode, the UART hardware generates an interrupt signal to the CPU wh
 
 - Navigate to ``Core > Src`` and open ``main.c``. 
 
-- Include ``stdio.h`` for printf to print received data.
+- Include header file.
 
-  .. code-block:: c
-  
-     /* USER CODE BEGIN Includes */
-     #include <stdio.h>
-     /* USER CODE END Includes */
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           /* USER CODE END Includes */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-3
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           #include "usbd_cdc_if.h"
+           /* USER CODE END Includes */
+
 
 - Overwrite definition of ``_write`` as:
 
-  .. code-block:: c
-  
-     /* USER CODE BEGIN 0 */
-     int _write(int file, char *data, int len)
-     {
-       for (int i = 0; i < len; ++i)
-       {
-         ITM_SendChar(data[i]);
-       }
-       return len;
-     }
-     /* USER CODE END 0 */
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2-9
+        
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             for (int i = 0; i < len; ++i)
+             {
+               ITM_SendChar(data[i]);
+             }
+             return len;
+           }
+           /* USER CODE END 0 */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-6
+          
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             CDC_Transmit_FS((uint8_t*)data, (uint16_t)len);
+             return len;
+           }
+           /* USER CODE END 0 */
 
 - Add global variable to store received data.
 
   .. code-block:: c
+     :emphasize-lines: 2
   
      /* USER CODE BEGIN PV */
      char c;
@@ -74,16 +109,17 @@ In interrupt mode, the UART hardware generates an interrupt signal to the CPU wh
 - Add code for sending as well as receiving in ``main()``.
 
   .. code-block:: c
+     :emphasize-lines: 2-5, 12-22
      
      /* USER CODE BEGIN 2 */
      char msg[] = "Hello from controller 1\n";
+     uint32_t last_transmit = 0;
 
      HAL_UART_Receive_IT(&huart2, (uint8_t *)&c, sizeof(c)); // Start receiving
      /* USER CODE END 2 */
 
      /* Infinite loop */
      /* USER CODE BEGIN WHILE */
-     uint32_t last_transmit = 0;
      while (1)
      {
        if (HAL_GetTick() - last_transmit > 1000)
@@ -96,15 +132,16 @@ In interrupt mode, the UART hardware generates an interrupt signal to the CPU wh
        {
         HAL_UART_Receive_IT(&huart2, (uint8_t *)&c, sizeof(c)); // Start receiving in case of no reception
        }
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-    }
-    /* USER CODE END 3 */
+     /* USER CODE END WHILE */
+ 
+     /* USER CODE BEGIN 3 */
+     }
+     /* USER CODE END 3 */
 
 - Add callback function for UART RX interrupt just above ``main()``.
 
   .. code-block:: c
+     :emphasize-lines: 1-8
   
      void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
      {

@@ -34,6 +34,9 @@ For **ST-Link** or **JLink**
 Update or create ``.vscode/lauch.json`` file.
 
 .. code-block:: json
+   :linenos:
+   :emphasize-lines: 10, 14-17
+   :caption: lauch.json
 
        {
         // Use IntelliSense to learn about possible attributes.
@@ -70,6 +73,9 @@ Install ``OpenOCD`` by executing command ``sudo apt install openocd``.
 Update ``.vscode/launch.json``.
 
 .. code-block:: json
+   :linenos:
+   :emphasize-lines: 7, 11-18
+   :caption: launch.json
 
    {
        "version": "0.2.0",

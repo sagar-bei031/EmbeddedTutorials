@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flash Binary &mdash; Embedded Tutorials 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e9d84906" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/tabs.js?v=3030b3cb"></script>
+      <script src="../../_static/custom.js?v=5fde6192"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GPIO" href="../gpio.html" />
+    <link rel="prev" title="Build setup" href="build_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Embedded Tutorials
+              <img src="../../_static/embedded-logo.webp" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../stm32_basics_tutorial.html">STM32 Basics Tutorial</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../basic_setup.html">Basic Setup</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="generate_basic_code.html">Generate Basic Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_setup.html">Build setup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Flash Binary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../gpio.html">GPIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usb.html">USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../swd.html">SWD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uart.html">UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timer.html">Timer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../highlights.html">Highlights</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Embedded Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../basic_setup.html">Basic Setup</a></li>
+      <li class="breadcrumb-item active">Flash Binary</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Robotics-Club-Pulchowk/EmbeddedTutorials/blob/main/source/stm32_basics_tutorial/basic_setup/flash_binary.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flash-binary">
+<h1>Flash Binary<a class="headerlink" href="#flash-binary" title="Link to this heading"></a></h1>
+<p>There are different methods to flash binary. We use <strong>ST-Link</strong> or <strong>JLink</strong> to flash binary to stm32 microcontrollers.</p>
+<p>To install <strong>stlink-tools</strong>, <strong>jlink</strong> and <strong>STM32CubeProgrammer</strong>, see <a class="reference external" href="../../getting_started/installation.html">installation</a> and also <a class="reference external" href="../../getting_started/setup.html">setup</a>.</p>
+<section id="flash-using-st-link">
+<h2>1. Flash using ST-Link<a class="headerlink" href="#flash-using-st-link" title="Link to this heading"></a></h2>
+<p>Connect your <strong>ST-Link</strong> to your <strong>microcontroller</strong>:</p>
+<div class="line-block">
+<div class="line">- <strong>SWCLK</strong> of stlink to <strong>SWCLK</strong> of controller</div>
+<div class="line">- <strong>SWIO</strong> of stlink to <strong>SWIO</strong> of controller</div>
+<div class="line">- <strong>GND</strong> of stlink to <strong>GND</strong> of controller</div>
+</div>
+<p>If you want to provide power to controller using stlink, connect their <code class="docutils literal notranslate"><span class="pre">3V3</span></code>.They are connected internally or through mini jumpers on the boards.</p>
+<section id="flash-using-command">
+<h3>1.1. Flash using command<a class="headerlink" href="#flash-using-command" title="Link to this heading"></a></h3>
+<p>Run this commnad in Terminal.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-c3RsaW5rLXRvb2xz" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tab" tabindex="0">stlink-tools</button><button aria-controls="panel-0-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tab" tabindex="-1">STM32CubeProgrammer</button></div><div aria-labelledby="tab-0-c3RsaW5rLXRvb2xz" class="sphinx-tabs-panel group-tab" id="panel-0-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># st-flash [--reset] write &lt;build-directory/binaryfile.bin&gt; &lt;start-address&gt;</span>
+st-flash<span class="w"> </span>write<span class="w"> </span>buid/BasicSetup.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--reset</span></code> option to reset afetr flash. Change binary file name to your program name.</p>
+</div><div aria-labelledby="tab-0-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># CubeProgrammer -c port=SWD -w &lt;build_directory&gt;/&lt;program_name&gt;.bin 0x8000000</span>
+CubeProgrammer<span class="w"> </span>-c<span class="w"> </span><span class="nv">port</span><span class="o">=</span>SWD<span class="w"> </span>-w<span class="w"> </span>build/BasicSetup.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">port=SWD</span> <span class="pre">reset=SWrst</span></code> at the end of line to reset after flash. Change binary file name to your program name.</p>
+</div></div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>To <strong>reset after flash</strong>, make sure that <strong>reset pin of st-link is connected to reset pin of microcontroller</strong>. Otherwise, it will not work and give error. In discovery board, it is connected by default.</p>
+</div>
+<p>You do not need to write the long commnad every time, you can add them in <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>, <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> or create <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code>.</p>
+</section>
+<section id="makefile-setup-for-flasing-using-st-link">
+<h3>1.2. Makefile setup for flasing using ST-Link<a class="headerlink" href="#makefile-setup-for-flasing-using-st-link" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Add these at the bottom of <strong>Makefile</strong>.</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">flash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="k">$(</span><span class="nv">TARGET</span><span class="k">)</span>.<span class="n">bin</span>
+<span class="w">	</span>st-flash<span class="w"> </span>write<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
+
+<span class="nf">pflash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="k">$(</span><span class="nv">TARGET</span><span class="k">)</span>.<span class="n">bin</span>
+<span class="w">	</span>CubeProgrammer<span class="w"> </span>-c<span class="w"> </span><span class="nv">port</span><span class="o">=</span>SWD<span class="w"> </span>-w<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+<p>If you want to <strong>reset after flash</strong>, update to:</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">flash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="k">$(</span><span class="nv">TARGET</span><span class="k">)</span>.<span class="n">bin</span>
+<span class="w">	</span>st-flash<span class="w"> </span>--reset<span class="w"> </span>write<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000
+
+<span class="nf">pflash</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">BUILD_DIR</span><span class="k">)</span>/<span class="k">$(</span><span class="nv">TARGET</span><span class="k">)</span>.<span class="n">bin</span>
+<span class="w">	</span>CubeProgrammer<span class="w"> </span>-c<span class="w"> </span><span class="nv">port</span><span class="o">=</span>SWD<span class="w"> </span>-w<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.bin<span class="w"> </span>0x8000000<span class="w"> </span>-c<span class="w"> </span><span class="nv">port</span><span class="o">=</span>SWD<span class="w"> </span><span class="nv">reset</span><span class="o">=</span>SWrst
+</pre></div>
+</div>
+</li>
+<li><p>Flash binary.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-1-c3RsaW5rLXRvb2xz" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tab" tabindex="0">stlink-tools</button><button aria-controls="panel-1-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tab" tabindex="-1">STM32CubeProgrammer</button></div><div aria-labelledby="tab-1-c3RsaW5rLXRvb2xz" class="sphinx-tabs-panel group-tab" id="panel-1-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>flash
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>pflash
+</pre></div>
+</div>
+</div></div>
+</li>
+</ul>
+</section>
+<section id="cmakelists-txt-setup-for-flashing-using-st-link">
+<h3>1.2. CMakeLists.txt setup for flashing using ST-Link<a class="headerlink" href="#cmakelists-txt-setup-for-flashing-using-st-link" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Add these lines at the bottom of <strong>CMakeLists.txt</strong>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Flash target</span>
+<span class="nb">add_custom_target</span><span class="p">(</span><span class="s">flash</span>
+<span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">st-flash</span><span class="w"> </span><span class="s">write</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="s">.bin</span><span class="w"> </span><span class="s">0x8000000</span>
+<span class="w">    </span><span class="s">DEPENDS</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span>
+<span class="w">    </span><span class="s">COMMENT</span><span class="w"> </span><span class="s2">&quot;Flashing binary to microcontroller&quot;</span>
+<span class="w">    </span><span class="s">WORKING_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span>
+<span class="p">)</span>
+
+<span class="c"># Flash target</span>
+<span class="nb">add_custom_target</span><span class="p">(</span><span class="s">pflash</span>
+<span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">CubeProgrammer</span><span class="w"> </span><span class="s">-c</span><span class="w"> </span><span class="s">port=SWD</span><span class="w"> </span><span class="s">-w</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="s">.bin</span><span class="w"> </span><span class="s">0x8000000</span>
+<span class="w">    </span><span class="s">DEPENDS</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span>
+<span class="w">    </span><span class="s">COMMENT</span><span class="w"> </span><span class="s2">&quot;Flashing binary to microcontroller&quot;</span>
+<span class="w">    </span><span class="s">WORKING_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Flash binary by running this command from <code class="docutils literal notranslate"><span class="pre">build</span></code> folder after building <code class="docutils literal notranslate"><span class="pre">binary</span></code>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-2-c3RsaW5rLXRvb2xz" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tab" tabindex="0">stlink-tools</button><button aria-controls="panel-2-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tab" tabindex="-1">STM32CubeProgrammer</button></div><div aria-labelledby="tab-2-c3RsaW5rLXRvb2xz" class="sphinx-tabs-panel group-tab" id="panel-2-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>flash
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>pflash
+</pre></div>
+</div>
+</div></div>
+</li>
+</ul>
+</section>
+<section id="bash-script-setup-for-flashing-using-st-link">
+<h3>1.3. Bash script setup for flashing using ST-Link<a class="headerlink" href="#bash-script-setup-for-flashing-using-st-link" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> at project folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>flash.sh
+</pre></div>
+</div>
+</li>
+<li><p>Add follwing lines.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-3-c3RsaW5rLXRvb2xz" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tab" tabindex="0">stlink-tools</button><button aria-controls="panel-3-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tab" tabindex="-1">STM32CubeProgrammer</button></div><div aria-labelledby="tab-3-c3RsaW5rLXRvb2xz" class="sphinx-tabs-panel group-tab" id="panel-3-c3RsaW5rLXRvb2xz" name="c3RsaW5rLXRvb2xz" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">flash.sh</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span><span class="w"> </span>+e
+
+st-flash<span class="w"> </span>write<span class="w"> </span>buid/BasicSetup.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+</div>
+</div><div aria-labelledby="tab-3-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-U1RNMzJDdWJlUHJvZ3JhbW1lcg==" name="U1RNMzJDdWJlUHJvZ3JhbW1lcg==" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">flash.sh</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span><span class="w"> </span>+e
+
+CubeProgrammer<span class="w"> </span>-c<span class="w"> </span><span class="nv">port</span><span class="o">=</span>SWD<span class="w"> </span>-w<span class="w"> </span>build/BasicSetup.bin<span class="w"> </span>0x8000000
+</pre></div>
+</div>
+</div>
+</div></div>
+<p>Change binary file name to your program name.</p>
+</li>
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> executable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>flash.sh
+</pre></div>
+</div>
+</li>
+<li><p>Flash binary.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./flash.sh
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The most preferred method for <strong>Makefile</strong> is writting command in the <strong>Makefile</strong> and for <strong>CMake</strong> is creating <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code>.</p>
+</section>
+</section>
+<section id="flash-using-jlink">
+<h2>2. Flash using JLink<a class="headerlink" href="#flash-using-jlink" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Connect your <strong>JLLink</strong> to your <strong>microcontroller</strong>:</p>
+<ul class="simple">
+<li><p><strong>SWCLK</strong> of stlink to <strong>SWCLK</strong> of controller</p></li>
+<li><p><strong>SWIO</strong> of stlink to <strong>SWIO</strong> of controller</p></li>
+<li><p><strong>GND</strong> of stlink to <strong>GND</strong> of controller</p></li>
+<li><p><strong>VREF</strong> of jlink to <strong>3V3</strong> of controller</p></li>
+</ul>
+<p>Jlink does not provide power to controller. <code class="docutils literal notranslate"><span class="pre">VREF</span></code> is used to check the voltage logic only.</p>
+</li>
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> file at your project folder.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">flash.sh</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span><span class="w"> </span>+e
+
+JLinkExe<span class="w"> </span>-if<span class="w"> </span>SWD<span class="w"> </span>-speed<span class="w"> </span><span class="m">4000</span><span class="w"> </span>-autoconnect<span class="w"> </span><span class="m">1</span><span class="w"> </span>-CommanderScript<span class="w"> </span>flash.jlink
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">flash.jlink</span></code> file at your project folder.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">flash.jlink</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="n">STM32F103C6</span>
+<span class="n">r</span>
+<span class="n">h</span>
+<span class="n">loadbin</span> <span class="n">build</span><span class="o">/&lt;</span><span class="n">your_binary_filename</span><span class="o">&gt;.</span><span class="n">bin</span><span class="p">,</span> <span class="mh">0x08000000</span>
+<span class="n">r</span>
+<span class="n">g</span>
+<span class="n">exit</span>
+</pre></div>
+</div>
+</div>
+<p>Change <code class="docutils literal notranslate"><span class="pre">device</span> <span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">binary</span> <span class="pre">filename</span></code>.</p>
+</li>
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> executable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>flash.sh
+</pre></div>
+</div>
+</li>
+<li><p>Flash binary.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./flash.sh
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="build_setup.html" class="btn btn-neutral float-left" title="Build setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../gpio.html" class="btn btn-neutral float-right" title="GPIO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Robotics Club, Pulchowk Campus.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

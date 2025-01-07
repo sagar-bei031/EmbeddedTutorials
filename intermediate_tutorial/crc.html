@@ -57,7 +57,8 @@
 <li class="toctree-l2"><a class="reference internal" href="cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Cyclic Redundancy Check (CRC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sending_and_receiving_packets.html">Sending and Receiving Packets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="arm_maths.html">ARM Maths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_math.html">ARM Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrix_operation.html">Matrix Operation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
@@ -724,30 +725,30 @@ hash:<span class="w"> </span>07AAD778
 <p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Src</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">main.c</span></code> and add the following code. Add the following includes.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Private includes ----------------------------------------------------------*/</span>
 <span class="cm">/* USER CODE BEGIN Includes */</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usbd_cdc_if.h&quot;</span>
-<span class="cm">/* USER CODE END Includes */</span>
+<span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+</span><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+</span><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usbd_cdc_if.h&quot;</span>
+</span><span class="cm">/* USER CODE END Includes */</span>
 </pre></div>
 </div>
 <p>Add the following test code to calculate CRC-32.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 2 */</span>
-<span class="kt">char</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789&quot;</span><span class="p">;</span>
-<span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span><span class="w"> </span><span class="c1">// For CDC transmit</span>
-<span class="cm">/* USER CODE END 2 */</span>
+<span class="hll"><span class="kt">char</span><span class="w"> </span><span class="n">data</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123456789&quot;</span><span class="p">;</span>
+</span><span class="hll"><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span><span class="w"> </span><span class="c1">// For CDC transmit</span>
+</span><span class="cm">/* USER CODE END 2 */</span>
 
 <span class="cm">/* Infinite loop */</span>
 <span class="cm">/* USER CODE BEGIN WHILE */</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_CRC_Calculate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hcrc</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
-<span class="w">  </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;data: %s, crc: 0x%8lX</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">crc</span><span class="p">);</span>
-<span class="w">  </span><span class="c1">// if it supports CRC Hardware configurtion</span>
-<span class="w">  </span><span class="c1">// snprintf(buf, sizeof(buf), &quot;POL: 0x%8lX, INIT: 0x%8lX, CRC: 0x%8lX\n&quot;, hcrc.Instance-&gt;POL, hcrc.Instance-&gt;INIT, crc);</span>
-<span class="w">  </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
-<span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-<span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
-
+<span class="hll"><span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">crc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_CRC_Calculate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hcrc</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+</span><span class="hll"><span class="w">  </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;data: %s, crc: 0x%8lX</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">crc</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="c1">// if it supports CRC Hardware configurtion</span>
+</span><span class="hll"><span class="w">  </span><span class="c1">// snprintf(buf, sizeof(buf), &quot;POL: 0x%8lX, INIT: 0x%8lX, CRC: 0x%8lX\n&quot;, hcrc.Instance-&gt;POL, hcrc.Instance-&gt;INIT, crc);</span>
+</span><span class="hll"><span class="w">  </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+</span><span class="hll"><span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
+</span>
 <span class="w">  </span><span class="cm">/* USER CODE BEGIN 3 */</span>
 <span class="p">}</span>
 <span class="cm">/* USER CODE END 3 */</span>

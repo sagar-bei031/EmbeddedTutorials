@@ -51,7 +51,8 @@ USB Device Middleware is added to the project. The middleware provides the USB C
 - Add header ``usb_cdc_if.h``.
 
   .. code-block:: c
-     
+     :emphasize-lines: 2
+
      /* USER CODE BEGIN INCLUDE */
      #include "usbd_cdc_if.h"
      /* USER CODE END INCLUDE */
@@ -59,6 +60,7 @@ USB Device Middleware is added to the project. The middleware provides the USB C
 - Add the following code to the ``main`` function to transmit "Hello World" over USB.
 
   .. code-block:: c
+     :emphasize-lines: 2, 9-10
 
      /* USER CODE BEGIN 2 */
      char msg[] = "Hello World\n";

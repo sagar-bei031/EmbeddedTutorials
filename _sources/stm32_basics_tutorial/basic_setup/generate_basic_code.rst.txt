@@ -90,4 +90,7 @@ Now you can select pins for LED, UART, Timers and many more. But leave them for 
        :width: 100%
        :alt: Code Generator
 
-Navigate to project folder, open it using ``VSCODE``. If you chose ``Makefile`` as your toolchain, you would find ``Makefile``` in the project folder. If you chose ``CMake`` as your toolchain, you would find ``CMakeLists.txt`` in the project folder. We shall later talk about the project structure, now move to **build** the project.
+Navigate to project folder, open it using ``VSCODE``. If you chose ``Makefile`` as your toolchain, you would find ``Makefile``` in the project folder. If you chose ``CMake`` as your toolchain, you would find ``CMakeLists.txt`` in the project folder.
+
+.. Tip::
+   For practice, generate using both ``Makefile`` and ``CMake``.

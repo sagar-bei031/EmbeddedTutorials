@@ -139,15 +139,15 @@
 <ul>
 <li><p>Open project folder. Navigate to <code class="docutils literal notranslate"><span class="pre">Core/Src/main.c</span></code>. Add <code class="docutils literal notranslate"><span class="pre">HAL_GPIO_EXTI_Callback</span></code> function above the <code class="docutils literal notranslate"><span class="pre">main</span></code> function.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 0 */</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">HAL_GPIO_EXTI_Callback</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">GPIO_Pin</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">  </span><span class="c1">// Toggle green led on pin PD12 when button is pressed.</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GPIO_Pin</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GPIO_PIN_0</span><span class="p">)</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="n">HAL_GPIO_TogglePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_12</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-<span class="cm">/* USER CODE END 0 */</span>
+<span class="hll"><span class="kt">void</span><span class="w"> </span><span class="nf">HAL_GPIO_EXTI_Callback</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">GPIO_Pin</span><span class="p">)</span>
+</span><span class="hll"><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="c1">// Toggle green led on pin PD12 when button is pressed.</span>
+</span><span class="hll"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GPIO_Pin</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GPIO_PIN_0</span><span class="p">)</span>
+</span><span class="hll"><span class="w">  </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="n">HAL_GPIO_TogglePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_12</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
+</span><span class="hll"><span class="p">}</span>
+</span><span class="cm">/* USER CODE END 0 */</span>
 </pre></div>
 </div>
 </li>
@@ -162,10 +162,10 @@
 <span class="cm">/* USER CODE BEGIN WHILE */</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="c1">// Toggle Orage Led Continously</span>
-<span class="w">  </span><span class="n">HAL_GPIO_TogglePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">);</span>
-<span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-<span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
+<span class="hll"><span class="w">  </span><span class="c1">// Toggle Orage Led Continously</span>
+</span><span class="hll"><span class="w">  </span><span class="n">HAL_GPIO_TogglePin</span><span class="p">(</span><span class="n">GPIOD</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_PIN_13</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span><span class="w">  </span><span class="cm">/* USER CODE END WHILE */</span>
 
 <span class="w">  </span><span class="cm">/* USER CODE BEGIN 3 */</span>
 <span class="p">}</span>
