@@ -1,5 +1,38 @@
-Build Using CMakeLists
-======================
+Build setup
+===========
+
+.. contents:: Contents
+   :depth: 2
+   :local:
+
+
+Buid using Makefile
+-------------------
+
+1. Open your project folder. It is better to use ``VSCODE``.
+
+2. Open ``terminal`` from your project folder.
+
+3. Build project using ``make`` command.
+
+   It is very easy this time to build the project using Makefile. You just need to use the ``make`` command and nothig.
+   
+   .. code-block:: bash
+   
+      make -j
+   
+   ``-j`` is for doing all jobs code at once. It speeds up build time using parallel processing. If you want to do ``n`` jobs at once, use ``-jn``. For example, executing ``8`` tasks at once:
+   
+   .. code-block:: bash
+   
+      make -j8
+
+
+4. If you want to clean the project, use ``make clean``.
+
+
+Build using CMake
+-----------------
 
 1. Open your project folder. It is better to use ``VSCODE``.
 
@@ -47,6 +80,7 @@ Build Using CMakeLists
 5. Create a ``build.sh`` file at your project folder for compiling and generating binary file.
 
    .. code-block:: bash
+      :caption: flash.sh
 
       #!/bin/bash
 
@@ -82,6 +116,3 @@ Build Using CMakeLists
    .. code-block:: bash
    
        ./build.sh clean
-
-
-Hope you are successful to build the project. If not, please check scripts you added before carefully.

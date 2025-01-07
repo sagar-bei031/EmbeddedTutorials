@@ -1,5 +1,5 @@
-ARM Maths
-=========
+ARM Math
+========
 
 .. contents:: Contents
    :depth: 2
@@ -9,7 +9,7 @@ ARM Maths
 1. Introduction
 ---------------
 
-**Microcontrollers** generally have microprocessors having **low computation capacity**. Even some of them do not have **Floating-Point Processing Unit (FPU)**. So it can be very expensive to do even common mathematics like **floating point** calculation, **trigonometric** calculation, **matrix** calculation etc. So, to do such calculation efficienty, we use **Cortex Microcontroller Software Interface Standard (CMSIS)** **arm maths library**. If you are more interested about floating point and floating point library, search for **Qfplib** and **IEE 754**.
+**Microcontrollers** generally have microprocessors having **low computation capacity**. Even some of them do not have **Floating-Point Processing Unit (FPU)**. So it can be very expensive to do even common mathematics like **floating point** calculation, **trigonometric** calculation, **matrix** calculation etc. So, to do such calculation efficienty, we use **Cortex Microcontroller Software Interface Standard (CMSIS)** **arm maths library**. If you are more interested about floating point and floating point library, search for **IEE 754** and **Qfplib**.
 
 In STM32 project, ``arm_math`` header and source files are inside ``Drivers >  CMSIS > DSP``. ``Cortex M3`` microcontrollers do not have **FPU** so there is **linkable math library** inside ``Drivers > CMSIS > Lib``.
 

@@ -76,7 +76,18 @@ Update desktop database.
       sudo chmod +x <path/to/executable>
 
 
-3. Git Setup
+3. STM32CubeProgrammer Setup
+----------------------------
+
+First, create a symbolic link to your ``STM32_Programmer_CLI`` in ``~/.local/bin``.
+
+.. code-block:: bash
+
+   mkdir -p ~/.local/bin
+   ln -s ~/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI ~/.local/bin/CubeProgrammer
+
+
+4. Git Setup
 ------------
 
 Set username and email.
@@ -99,9 +110,8 @@ Verify configurations.
 
    git config --list
 
-.. _ssh-setup:
 
-4. SSH Setup
+5. SSH Setup
 ------------
 
 Generate an SSH key:

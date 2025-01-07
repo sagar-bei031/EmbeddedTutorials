@@ -11,7 +11,7 @@ python3 -m venv venv
 source ./venv/bin/acivate
 
 # Install sphinx package and extensions
-pip3 install sphinx sphinx_rtd_theme myst-parser sphinx-copybutton sphinx_new_tab_link
+pip3 install sphinx sphinx_rtd_theme myst-parser sphinx-copybutton sphinx-tabs
 
 # Build html
 make html

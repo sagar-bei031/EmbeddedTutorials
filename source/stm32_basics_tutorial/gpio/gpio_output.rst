@@ -117,7 +117,7 @@ Now, build and flash the code.
    make -j
    make flash
 
-This code only works with ``ST-Link``. If you are using ``JLink``, see `build_using_makefile <../basic_setup/build_using_makefile.html>`_ and `flash_using_makefile <../basic_setup/flash_using_makefile.html>`_.
+This code only works with ``ST-Link``. If you are using ``JLink``, see `build_setup <../basic_setup/build_setup.html>`_ and `flash binary <../basic_setup/flash_binary.html>`_.
 
 We will continue it for `gpio input <gpio_input.html>`_.
 

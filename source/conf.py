@@ -22,6 +22,7 @@ extensions = [
     'sphinx.ext.linkcode',
     'sphinx.ext.mathjax',
     'sphinx.ext.extlinks',
+    'sphinx_tabs.tabs',
 ]
 
 templates_path = ['_templates']
@@ -75,3 +76,5 @@ def linkcode_resolve(domain, info):
 extlinks = {
     'newtab': ('%s', '')
 }
+
+sphinx_tabs_disable_tab_closing = True

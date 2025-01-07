@@ -10,7 +10,7 @@ For this Intermediate Tutorial, you should have basic knowledge **STM32 HAL prog
    intermediate_tutorial/cpp_setup_in_stm32
    intermediate_tutorial/crc
    intermediate_tutorial/sending_and_receiving_packets
-   intermediate_tutorial/arm_maths
+   intermediate_tutorial/arm_math
    intermediate_tutorial/matrix_operation
 
 ..    intermediate_tutorial/joystick
