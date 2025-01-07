@@ -48,6 +48,7 @@ The average output of a PWM signal is given by :math:`V_{avg} = \frac{\text{Puls
 - Add to the ``main()`` as:
 
    .. code-block:: c
+      :emphasize-lines: 28, 35-39
    
       int main(void)
       {

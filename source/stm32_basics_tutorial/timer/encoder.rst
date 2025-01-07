@@ -66,32 +66,67 @@ Rotating encoder is a input device that provides information about the direction
 
 - Navigate to ``Core > Src`` and open ``main.c``. 
 
-- Include ``stdio.h`` for printf to print received data.
+- Include header file.
 
-.. code-block:: c
-  
-  /* USER CODE BEGIN Includes */
-  #include <stdio.h>
-  /* USER CODE END Includes */
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           /* USER CODE END Includes */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-3
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           #include "usbd_cdc_if.h"
+           /* USER CODE END Includes */
+
 
 - Overwrite definition of ``_write`` as:
 
-  .. code-block:: c
-  
-     /* USER CODE BEGIN 0 */
-     int _write(int file, char *data, int len)
-     {
-       for (int i = 0; i < len; ++i)
-       {
-         ITM_SendChar(data[i]);
-       }
-       return len;
-     }
-     /* USER CODE END 0 */
+  .. tabs::
+     
+     .. group-tab:: SWV
 
+        .. code-block:: c
+           :emphasize-lines: 2-9
+        
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             for (int i = 0; i < len; ++i)
+             {
+               ITM_SendChar(data[i]);
+             }
+             return len;
+           }
+           /* USER CODE END 0 */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-6
+          
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             CDC_Transmit_FS((uint8_t*)data, (uint16_t)len);
+             return len;
+           }
+           /* USER CODE END 0 */
+  
 - Add code to read encoder count.
     
     .. code-block:: c
+       :emphasize-lines: 2-3, 10-16
       
        /* USER CODE BEGIN 2 */
        HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);

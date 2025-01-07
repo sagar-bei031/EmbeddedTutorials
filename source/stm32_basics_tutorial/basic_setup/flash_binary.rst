@@ -23,7 +23,7 @@ Run this commnad in Terminal.
 
 .. tabs::
 
-   .. tab:: stlink-tools
+   .. group-tab:: stlink-tools
       
       .. code-block:: bash
       
@@ -32,7 +32,7 @@ Run this commnad in Terminal.
 
       Use ``--reset`` option to reset afetr flash. Change binary file name to your program name.
 
-   .. tab:: STM32CubeProgrammer
+   .. group-tab:: STM32CubeProgrammer
 
       .. code-block:: bash
 
@@ -63,13 +63,13 @@ You do not need to write the long commnad every time, you can add them in ``Make
 
   .. tabs::
 
-     .. tab:: stlink-tools
+     .. group-tab:: stlink-tools
 
         .. code-block:: bash
         
            make flash
 
-     .. tab:: STM32CubeProgrammer
+     .. group-tab:: STM32CubeProgrammer
 
         .. code-block:: bash
         
@@ -97,19 +97,17 @@ You do not need to write the long commnad every time, you can add them in ``Make
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
      )
 
-- Connect your **JLink** to your microcontroller.
-
 - Flash binary by running this command from ``build`` folder after building ``binary``.
 
   .. tabs::
 
-     .. tab:: stlink-tools
+     .. group-tab:: stlink-tools
 
         .. code-block:: bash
 
            make flash
 
-     .. tab:: STM32CubeProgrammer
+     .. group-tab:: STM32CubeProgrammer
 
         .. code-block:: bash
         
@@ -128,7 +126,7 @@ You do not need to write the long commnad every time, you can add them in ``Make
 
   .. tabs::
 
-     .. tab:: stlink-tools
+     .. group-tab:: stlink-tools
 
         .. code-block:: sh
            :caption: flash.sh
@@ -139,7 +137,7 @@ You do not need to write the long commnad every time, you can add them in ``Make
    
            st-flash write buid/BasicSetup.bin 0x8000000
 
-     .. tab:: STM32CubeProgrammer
+     .. group-tab:: STM32CubeProgrammer
 
         .. code-block:: sh
            :caption: flash.sh

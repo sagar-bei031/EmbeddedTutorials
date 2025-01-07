@@ -62,20 +62,21 @@ Open project folder. Navigate to ``Core/Src/main.c``. You can see codes with lot
 To make LED blink, move to ``while`` block of `main()`. You can use the following code:
 
 .. code-block:: c
+   :emphasize-lines: 5-8
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-    HAL_Delay(1000);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-    HAL_Delay(1000);
-    /* USER CODE END WHILE */
+   /* Infinite loop */
+   /* USER CODE BEGIN WHILE */
+   while (1)
+   {
+     HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+     HAL_Delay(1000);
+     HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+     HAL_Delay(1000);
+     /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+     /* USER CODE BEGIN 3 */
+   }
+   /* USER CODE END 3 */
 
 Let's understand the code:
 

@@ -38,28 +38,61 @@ Microsecond timing is used generally for sampling, pulse generation, frequency c
 
 - Navigate to ``Core > Src`` and open ``main.c``.
 
-- Include ``stdio.h`` for printf to print received data.
+- Include header file.
 
-.. code-block:: c
-  
-  /* USER CODE BEGIN Includes */
-  #include <stdio.h>
-  /* USER CODE END Includes */
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           /* USER CODE END Includes */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-3
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           #include "usbd_cdc_if.h"
+           /* USER CODE END Includes */
 
 - Overwrite definition of ``_write`` as:
 
-  .. code-block:: c
-  
-     /* USER CODE BEGIN 0 */
-     int _write(int file, char *data, int len)
-     {
-       for (int i = 0; i < len; ++i)
-       {
-         ITM_SendChar(data[i]);
-       }
-       return len;
-     }
-     /* USER CODE END 0 */
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2-9
+        
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             for (int i = 0; i < len; ++i)
+             {
+               ITM_SendChar(data[i]);
+             }
+             return len;
+           }
+           /* USER CODE END 0 */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-6
+          
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             CDC_Transmit_FS((uint8_t*)data, (uint16_t)len);
+             return len;
+           }
+           /* USER CODE END 0 */
 
 - Create variable to store timer period ellapsed count.
 
@@ -72,6 +105,7 @@ Microsecond timing is used generally for sampling, pulse generation, frequency c
 - When timer period ellapse, ``HAL_TIM_PeriodElapsedCallback`` is fired. Increment the ``htim1PeriodEllapsedCount`` in this callback. Also add function to get microtick.
 
   .. code-block:: c
+     :emphasize-lines: 5-16
      
      /* USER CODE BEGIN 0 */
      // ...
@@ -94,6 +128,7 @@ Microsecond timing is used generally for sampling, pulse generation, frequency c
 - Start the timer in interrupt mode inside `main()`.
 
   .. code-block:: c
+     :emphasize-lines: 2
 
      /* USER CODE BEGIN 2 */
      HAL_TIM_Base_Start_IT(&htim1);
@@ -102,6 +137,7 @@ Microsecond timing is used generally for sampling, pulse generation, frequency c
 - Now, you can use ``GetMicros()`` to get microsecond tick.
 
   .. code-block:: c
+     :emphasize-lines: 5-6
 
      /* Infinite loop */
      /* USER CODE BEGIN WHILE */

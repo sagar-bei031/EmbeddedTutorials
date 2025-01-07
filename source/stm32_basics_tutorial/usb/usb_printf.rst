@@ -23,6 +23,8 @@ We cannot understand non character data type after printed on screen. In order t
 * Add the following code to the file:
   
   .. code-block:: c
+     :linenos:
+     :caption: printf_conf.c
      
      #include "stm32f4xx_hal.h"
      #include "usbd_cdc_if.h"
@@ -35,24 +37,57 @@ We cannot understand non character data type after printed on screen. In order t
 
 
 
-3. Update Makefile
-------------------
+3. Update Makefile or CMakeLists.txt
+------------------------------------
 
-* Add ``printf_conf.c`` to ``Makefile > C_SOURCES``.
+* Add ``printf_config.c`` to source.
 
-  .. code-block:: none
+  .. tabs::
   
-     C_SOURCES = \
-     ... \
-     ... \
-     Core/Src/printf_conf.c
+     .. group-tab:: Makefile
+          
+        .. code-block:: none
+           :emphasize-lines: 4
+  
+           C_SOURCES = \
+           ... \
+           ... \
+           Core/Src/printf_conf.c
+  
+     .. group-tab:: CMakeLists.txt
+  
+        .. code-block:: CMake
+           :emphasize-lines: 4
+  
+           # Add sources to executable
+           target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+              # Add user sources here
+              Core/Src/printf_conf.c
+           )  
+  
+* Add ``-u _printf_float`` flag.
 
-* Add ``-u _printf_float`` flag to ``LDFLAGS``. This is for floating point support.
-
-  .. code-block:: makefile
+  .. tabs::
      
-     LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections -u _printf_float
+     .. group-tab:: Makefile
 
+        Add to ``LDFLAGS``.
+
+        .. code-block:: Makefile
+           :emphasize-lines: 2
+           
+           LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+           LDFLAGS += -u _printf_float
+
+     .. group-tab:: CMakeLists.txt
+
+        Create target_link_options at the bottom.
+
+        .. code:: CMake
+
+           target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
+               -u _printf_float
+           )
 
 
 4. Update main.c
@@ -61,6 +96,7 @@ We cannot understand non character data type after printed on screen. In order t
 * Open ``Core > Src > main.c``. Add ``stdio.h`` header.
 
   .. code-block:: c
+     :emphasize-lines: 3-4
 
      /* Private includes ----------------------------------------------------------*/
      /* USER CODE BEGIN Includes */
@@ -71,6 +107,7 @@ We cannot understand non character data type after printed on screen. In order t
 * Update ``main`` function to print "Hello World" over USB.
 
   .. code-block:: c
+     :emphasize-lines: 2, 8-9
      
      /* USER CODE BEGIN 2 */
      uint32_t n = 0;

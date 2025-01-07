@@ -72,6 +72,7 @@ Now generate code.
 Open project folder. Navigate to ``Core/Src/main.c``. Update the ``while`` block.
 
 .. code-block:: c
+   :emphasize-lines: 5-27
 
    /* Infinite loop */
      /* USER CODE BEGIN WHILE */

@@ -17,26 +17,68 @@ In STM32 project, ``arm_math`` header and source files are inside ``Drivers >  C
 2. Linking Arm Math Library for ARM Cortex-M3
 ---------------------------------------------
 
-You can link the library by adding the GCC library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag "libarm_cortexM3l_math.a in the Makefile.
+You can link the library by adding the GCC library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag "libarm_cortexM3l_math.a in the Makefile or CMakeList.txt.
 
-.. code-block:: none
+.. tabs::
 
-   # libraries
-   LIBS = -lc -lm -lnosys -l:libarm_cortexM3l_math.a
-   LIBDIR = -LDrivers/CMSIS/Lib/GCC/
+   .. group-tab:: Makefile
+
+      .. code-block:: none
+
+         # libraries
+         LIBS = -lc -lm -lnosys -larm_cortexM3l_math.a
+         LIBDIR = -LDrivers/CMSIS/Lib/GCC/
+
+   .. group-tab:: CMakeLists.txt
+
+      .. code-block:: cmake
+         :emphasize-lines: 4
+
+         # Link directories setup
+         target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
+             # Add user defined library search paths
+             Drivers/CMSIS/Lib/GCC
+         )
+
+      .. code-block:: cmake
+         :emphasize-lines: 6
+
+         # Add linked libraries
+         target_link_libraries(${CMAKE_PROJECT_NAME}
+             stm32cubemx
+
+             # Add user defined libraries
+             arm_cortexM3l_math
+         )
 
 
 3. Using Arm Math Library
 -------------------------
 
-Add the DSP include path in the **Makefile**.
+Add the DSP include path.
 
-.. code-block:: none
+.. tabs::
 
-   # C includes
-   C_INCLUDES =  \
-   ...
-   -IDrivers/CMSIS/DSP/Include
+   .. group-tab:: Makefile
+
+      .. code-block:: none
+         :emphasize-lines: 4
+
+         # C includes
+         C_INCLUDES =  \
+         ...
+         -IDrivers/CMSIS/DSP/Include
+
+   .. group-tab:: CMakeLists.txt
+
+      .. code-block:: cmake
+         :emphasize-lines: 4
+          
+         # Add include paths
+         target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+            # Add user defined include paths
+            Drivers/CMSIS/DSP/Include
+         )
 
 To use the arm math library, you need to include the header file ``arm_math.h`` in your source file.
 
@@ -44,25 +86,57 @@ To use the arm math library, you need to include the header file ``arm_math.h`` 
 
    #include "arm_math.h"
 
+Let's suppose you want to calculate **sine** and **cosine** of an angle. To do so, you need to add the respective sources in the **Makefile** or **CMakeLists.txt**.
 
-Let's suppose you want to calculate **sine** and **cosine** of an angle. To do so, you need to add the respective sources in the **Makefile**.
+.. tabs::
 
-.. code-block:: none
+   .. group-tab:: Makefile
 
-   # C sources
-   C_SOURCES = \
-   ...
-   Drivers/CMSIS/DSP/Source/FastMathFunctions/arm_sin_f32.c \
-   Drivers/CMSIS/DSP/Source/FastMathFunctions/arm_cos_f32.c
+      .. code-block:: none
+         :emphasize-lines: 4-5
+      
+         # C sources
+         C_SOURCES = \
+         ...
+         Drivers/CMSIS/DSP/Source/FastMathFunctions/arm_sin_f32.c \
+         Drivers/CMSIS/DSP/Source/FastMathFunctions/arm_cos_f32.c
 
-Don't forget to define ARM_MATH version in the **Makefile**.
+   .. group-tab:: CMakeLists.txt
 
-.. code-block:: none
+      .. code-block:: cmake
+         :emphasize-lines: 4-5
 
-   # C defines
-   C_DEFS =  \
-   ...
-   -DARM_MATH_CM3 # For Cortex M3, -DARM_MATH_CM4 for Cortex M4
+         # Add sources to executable
+         target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+            # Add user sources here
+            Drivers/CMSIS/DSP/Source/FastMathFunctions/arm_sin_f32.c
+            Drivers/CMSIS/DSP/Source/FastMathFunctions/arm_cos_f32.c
+         )
+
+Don't forget to define ARM_MATH version in the **Makefile** or **CMakeLists.txt**.
+
+.. tabs:: 
+
+   .. group-tab:: Makefile
+
+      .. code-block:: none
+         :emphasize-lines: 4
+
+         # C defines
+         C_DEFS =  \
+         ...
+         -DARM_MATH_CM3 # For Cortex M3, -DARM_MATH_CM4 for Cortex M4
+
+   .. group-tab:: CMakeLists.txt
+
+      .. code-block:: cmake
+         :emphasize-lines: 4
+
+         # Add project symbols (macros)
+         target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+            # Add user definitions
+            ARM_MATH_CM3 # For Cortex M3, ARM_MATH_CM4 for Cortex M4
+         )
 
 Now you can use the functions ``arm_sin_f32`` and ``arm_cos_f32`` to calculate the sine and cosine of an angle.
 
@@ -80,13 +154,29 @@ Issues
    Drivers/CMSIS/Include/core_cm4.h:105:8: error: #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
       105 |       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
 
-You may get such error for **Cortex M4** or others having **FPU**. To solve this, define ``-D__FPU_PRESENT=1U`` in the **Makefile**.
+You may get such error for **Cortex M4** or others having **FPU**. To solve this, define ``__FPU_PRESENT=1U`` in the **Makefile** or **CMakeList**.
 
-.. code-block:: none
+.. tabs::
 
-   # C defines
-   C_DEFS =  \
-   ...
-   -D__FPU_PRESENT=1U # For having FPU
+   .. tab:: Makefile
+
+      .. code-block:: none
+         :emphasize-lines: 4
+
+         # C defines
+         C_DEFS =  \
+         ...
+         -D__FPU_PRESENT=1U # For having FPU
+
+   .. tab:: CMakeLists.txt
+
+      .. code-block:: cmake
+         :emphasize-lines: 4
+
+         # Add project symbols (macros)
+         target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+            # Add user definitions
+            __FPU_PRESENT=1U # For having FPU
+         )
 
 Now let's learn to use matrix function

@@ -38,36 +38,71 @@ UART in polling mode transmit data and receive data untill the data is transmitt
     
 - Navigate to ``Core > Src`` and open ``main.c``. 
 
-- Include ``stdio.h`` for printf to print received data.
+- Include header file.
 
-  .. code-block:: c
-  
-     /* USER CODE BEGIN Includes */
-     #include <stdio.h>
-     /* USER CODE END Includes */
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           /* USER CODE END Includes */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-3
+          
+           /* USER CODE BEGIN Includes */
+           #include <stdio.h>
+           #include "usbd_cdc_if.h"
+           /* USER CODE END Includes */
+
 
 - Overwrite definition of ``_write`` as:
 
-  .. code-block:: c
-  
-     /* USER CODE BEGIN 0 */
-     int _write(int file, char *data, int len)
-     {
-       for (int i = 0; i < len; ++i)
-       {
-         ITM_SendChar(data[i]);
-       }
-       return len;
-     }
-     /* USER CODE END 0 */
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2-9
+        
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             for (int i = 0; i < len; ++i)
+             {
+               ITM_SendChar(data[i]);
+             }
+             return len;
+           }
+           /* USER CODE END 0 */
+
+     .. group-tab:: USB
+
+        .. code-block:: c
+           :emphasize-lines: 2-6
+          
+           /* USER CODE BEGIN 0 */
+           int _write(int file, char *data, int len)
+           {
+             CDC_Transmit_FS((uint8_t*)data, (uint16_t)len);
+             return len;
+           }
+           /* USER CODE END 0 */
 
 - Add code for sender as well as receiver.
 
   .. code-block:: c
+     :emphasize-lines: 3-6, 10-18
      
      /* Infinite loop */
      /* USER CODE BEGIN WHILE */
-     #define SENDER // comment this line to make the code a receiver
+     #define SENDER // comment this line to make for receiver
      
      #ifdef SENDER
        char msg[] = "Hello World\n";

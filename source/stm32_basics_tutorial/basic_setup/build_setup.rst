@@ -27,6 +27,14 @@ Buid using Makefile
    
       make -j8
 
+.. Tip::
+   Add ``-Wl,--print-memory-usage`` to ``LDFLAGS`` in **Makefile** to print memory usage.
+
+   .. code-block:: makefile
+      :emphasize-lines: 2
+
+      LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+      LDFLAGS += -Wl,--print-memory-usage
 
 4. If you want to clean the project, use ``make clean``.
 

@@ -48,6 +48,7 @@ In this tutorial, we will see how to use external interrupt to detect rising edg
 - Open project folder. Navigate to ``Core/Src/main.c``. Add ``HAL_GPIO_EXTI_Callback`` function above the ``main`` function. 
 
   .. code-block:: c
+     :emphasize-lines: 2-9
   
      /* USER CODE BEGIN 0 */
      void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
@@ -67,6 +68,7 @@ In this tutorial, we will see how to use external interrupt to detect rising edg
 - Update the ``while`` block of the ``main`` function to show processor can do other job simultaneously.
 
   .. code-block:: c
+     :emphasize-lines: 5-7
 
      /* Infinite loop */
      /* USER CODE BEGIN WHILE */
