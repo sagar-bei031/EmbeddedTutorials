@@ -49,11 +49,11 @@ Characteristics
 Applications
 ^^^^^^^^^^^^
 
-.. image:: images/embedded_system_applications.webp
+.. image:: images/Applications-of-Embedded-System.webp
    :width: 400
    :align: center
    :class: padded-image
-   :alt: embedded_system_applications
+   :alt: Apllciations of embedded system
 
 
 .. raw:: html

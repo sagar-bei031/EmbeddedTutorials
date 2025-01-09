@@ -158,7 +158,7 @@ You may get such error for **Cortex M4** or others having **FPU**. To solve this
 
 .. tabs::
 
-   .. tab:: Makefile
+   .. group-tab:: Makefile
 
       .. code-block:: none
          :emphasize-lines: 4
@@ -168,7 +168,7 @@ You may get such error for **Cortex M4** or others having **FPU**. To solve this
          ...
          -D__FPU_PRESENT=1U # For having FPU
 
-   .. tab:: CMakeLists.txt
+   .. group-tab:: CMakeLists.txt
 
       .. code-block:: cmake
          :emphasize-lines: 4

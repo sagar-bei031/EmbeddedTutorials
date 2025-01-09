@@ -207,13 +207,13 @@ C_DEFS =  \
 </div>
 <p>You may get such error for <strong>Cortex M4</strong> or others having <strong>FPU</strong>. To solve this, define <code class="docutils literal notranslate"><span class="pre">__FPU_PRESENT=1U</span></code> in the <strong>Makefile</strong> or <strong>CMakeList</strong>.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">Makefile</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">CMakeLists.txt</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span># C defines
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-4-TWFrZWZpbGU=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-4-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tab" tabindex="0">Makefile</button><button aria-controls="panel-4-Q01ha2VMaXN0cy50eHQ=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tab" tabindex="-1">CMakeLists.txt</button></div><div aria-labelledby="tab-4-TWFrZWZpbGU=" class="sphinx-tabs-panel group-tab" id="panel-4-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span># C defines
 C_DEFS =  \
 ...
 <span class="hll">-D__FPU_PRESENT=1U # For having FPU
 </span></pre></div>
 </div>
-</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Add project symbols (macros)</span>
+</div><div aria-labelledby="tab-4-Q01ha2VMaXN0cy50eHQ=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tabpanel" tabindex="0"><div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Add project symbols (macros)</span>
 <span class="nb">target_compile_definitions</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
 <span class="w">   </span><span class="c"># Add user definitions</span>
 <span class="hll"><span class="w">   </span><span class="s">__FPU_PRESENT=1U</span><span class="w"> </span><span class="c"># For having FPU</span>
