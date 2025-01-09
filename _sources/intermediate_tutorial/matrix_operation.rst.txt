@@ -273,3 +273,165 @@ Matrix Operation
    3.000000        6.000000        9.000000
    Inverting m1
    Matrix is not invertible
+
+
+4. Creating Matrix Class and Overloading Operators
+--------------------------------------------------
+
+* Setup your ``Makefile`` or ``CMakeLists.txt``for ``C++``. See `cpp setup <./cpp_setup_in_stm32.html>`_.
+
+* Create ``matrix32.hpp`` inside ``Core/Inc``. Copy these contents.
+  
+  .. literalinclude:: files/matrix/matrix32.hpp
+     :language: cpp
+     :linenos:
+     :caption: matrix32.hpp
+
+* Create ``app.h`` inside ``Core/Inc`` and ``app.cpp`` inside ``Core/Src``. Copy these contents.
+  
+  .. literalinclude:: files/matrix/app.h
+     :language: cpp
+     :linenos:
+     :caption: app.h
+
+  .. literalinclude:: files/matrix/app.cpp
+     :language: cpp
+     :linenos:
+     :caption: app.cpp
+
+* Include ``app.h`` in ``main.c``.
+  
+  .. code-block:: c
+     :emphasize-lines: 3
+     
+     /* USER CODE BEGIN Includes */
+     // ..
+     #include "app.h"
+     /* USER CODE END Includes */
+
+* Call ``init()`` and ``run()`` functions. Also comment out previous codes from while loop.
+  
+  .. code-block:: c
+     :emphasize-lines: 14, 22
+
+     /* USER CODE BEGIN 2 */
+     // arm_matrix_instance_f32 m1;
+     // float m1data[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+     // arm_mat_init_f32(&m1, 3, 3, m1data);
+   
+     // arm_matrix_instance_f32 m2;
+     // float m2data[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+     // arm_mat_init_f32(&m2, 3, 3, m2data);
+   
+     // arm_matrix_instance_f32 result;
+     // float resultdata[9];
+     // arm_mat_init_f32(&result, 3, 3, resultdata);
+   
+     init();
+     /* USER CODE END 2 */
+   
+     /* Infinite loop */
+     /* USER CODE BEGIN WHILE */
+     while (1)
+     {
+       /* USER CODE END WHILE */
+       run();
+       // printf("Adding m1 and m2, result:\n");
+       // arm_mat_add_f32(&m1, &m2, &result);
+       // print_matrix(&result);
+       // HAL_Delay(1000);
+   
+       // printf("Subtracting m1 and m2, result:\n");
+       // arm_mat_sub_f32(&m1, &m2, &result);
+       // print_matrix(&result);
+       // HAL_Delay(1000);
+   
+       // printf("Multiplying m1 and m2, result:\n");
+       // arm_mat_mult_f32(&m1, &m2, &result);
+       // print_matrix(&result);
+       // HAL_Delay(1000);
+   
+       // printf("Multiplying m1 by 2\n");
+       // arm_mat_scale_f32(&m1, 2, &result);
+       // print_matrix(&result);
+       // HAL_Delay(1000);
+   
+       // printf("Transposing m1\n");
+       // arm_mat_trans_f32(&m1, &result);
+       // print_matrix(&result);
+       // HAL_Delay(1000);
+   
+       // printf("Inverting m1\n");
+       // if (arm_mat_inverse_f32(&m1, &result) == ARM_MATH_SUCCESS)
+       // {
+       //   print_matrix(&result);
+       // }
+       // else
+       // {
+       //   printf("Matrix is not invertible\n");
+       // }
+       /* USER CODE BEGIN 3 */
+     }
+     /* USER CODE END 3 */
+
+* Add sources to ``Makefile`` or ``CMakeLists.txt``.
+  
+  .. tabs::
+
+     .. group-tab:: Makefile
+         
+        .. code-block:: none
+           :emphasize-lines: 4
+
+           # C sources
+           C_SOURCES = \
+           ... \
+           Drivers/CMSIS/DSP/Source/SupportFunctions/arm_fill_f32.c
+
+        .. code-block:: cpp
+           :emphasize-lines: 3
+           
+           # CXX sources
+           CXX_SOURCES =  \
+           Core/Src/app.cpp
+
+     .. group-tab:: CMakeLists.txt
+
+        .. code-block:: CMake
+           :emphasize-lines: 4-5
+
+            # Add sources to executable
+            target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+                # ...
+                Drivers/CMSIS/DSP/Source/SupportFunctions/arm_fill_f32.c
+                Core/Src/app.cpp
+            )
+
+
+5. Test Ouput of Matrix Class 
+-----------------------------
+
+.. code-block:: text
+
+   Adding m1 and m2, result:
+   10.000000       10.000000       10.000000
+   10.000000       10.000000       10.000000
+   10.000000       10.000000       10.000000
+   Subtracting m1 and m2, result:
+   -8.000000       -6.000000       -4.000000
+   -2.000000       0.000000        2.000000
+   4.000000        6.000000        8.000000
+   Multiplying m1 and m2, result:
+   30.000000       24.000000       18.000000
+   84.000000       69.000000       54.000000
+   138.000000      114.000000      90.000000
+   Multiplying m1 by 2
+   2.000000        4.000000        6.000000
+   8.000000        10.000000       12.000000
+   14.000000       16.000000       18.000000
+   Transposing m1
+   1.000000        4.000000        7.000000
+   2.000000        5.000000        8.000000
+   3.000000        6.000000        9.000000
+   Inverting m1
+   EXCEPTION:: MATRIX INVERSION FAILED !!

@@ -264,6 +264,23 @@ STM32_Programmer_CLI<span class="w"> </span>-c<span class="w"> </span><span clas
 </li>
 <li><p>Then press <code class="docutils literal notranslate"><span class="pre">R</span></code> to <code class="docutils literal notranslate"><span class="pre">reset</span></code> and <code class="docutils literal notranslate"><span class="pre">start</span></code>. You can see the message “Hello World” on the terminal continously.</p></li>
 <li><p>Press <code class="docutils literal notranslate"><span class="pre">S</span></code> to stop and <code class="docutils literal notranslate"><span class="pre">E</span></code> to exit.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">STM32_Programmer_CLI</span></code> command at the bottom of <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p>
+<blockquote>
+<div><div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-2-TWFrZWZpbGU=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tab" tabindex="0">Makefile</button><button aria-controls="panel-2-Q01ha2VMaXN0cy50eHQ=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tab" tabindex="-1">CMakeLists.txt</button></div><div aria-labelledby="tab-2-TWFrZWZpbGU=" class="sphinx-tabs-panel group-tab" id="panel-2-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tabpanel" tabindex="0"><div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c"># Open SWV</span>
+<span class="linenos">2</span><span class="nf">swv</span><span class="o">:</span>
+<span class="linenos">3</span><span class="w">    </span>STM32_Programmer_CLI<span class="w"> </span>-c<span class="w"> </span><span class="nv">port</span><span class="o">=</span>swd<span class="w"> </span>-swv<span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">168</span><span class="w"> </span><span class="nv">portnumber</span><span class="o">=</span><span class="m">0</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-Q01ha2VMaXN0cy50eHQ=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tabpanel" tabindex="0"><div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><span class="c"># Open SWV</span>
+<span class="nb">add_custom_target</span><span class="p">(</span><span class="s">swv</span>
+<span class="w">   </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">STM32_Programmer_CLI</span><span class="w"> </span><span class="s">-c</span><span class="w"> </span><span class="s">port=swd</span><span class="w"> </span><span class="s">-swv</span><span class="w"> </span><span class="s">freq=168</span><span class="w"> </span><span class="s">portnumber=0</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</div></blockquote>
+</li>
 </ul>
 </section>
 </section>
