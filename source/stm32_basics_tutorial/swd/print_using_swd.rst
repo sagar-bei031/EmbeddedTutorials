@@ -104,7 +104,8 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
         Create target_link_options at the bottom.
 
         .. code:: CMake
-
+           
+           # Add compiler flags
            target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
                -u _printf_float
            )
