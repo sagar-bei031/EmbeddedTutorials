@@ -36,8 +36,8 @@ Run this commnad in Terminal.
 
       .. code-block:: bash
 
-         # CubeProgrammer -c port=SWD -w <build_directory>/<program_name>.bin 0x8000000
-         CubeProgrammer -c port=SWD -w build/BasicSetup.bin 0x8000000
+         # STM32_Programmer_CLI -c port=SWD -w <build_directory>/<program_name>.bin 0x8000000
+         STM32_Programmer_CLI -c port=SWD -w build/BasicSetup.bin 0x8000000
 
       Add ``-c port=SWD reset=SWrst`` at the end of line to reset after flash. Change binary file name to your program name.
 
@@ -91,7 +91,7 @@ You do not need to write the long commnad every time, you can add them in ``Make
 
      # Flash target
      add_custom_target(pflash
-         COMMAND CubeProgrammer -c port=SWD -w ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin 0x8000000
+         COMMAND STM32_Programmer_CLI -c port=SWD -w ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin 0x8000000
          DEPENDS ${CMAKE_PROJECT_NAME}
          COMMENT "Flashing binary to microcontroller"
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -146,7 +146,7 @@ You do not need to write the long commnad every time, you can add them in ``Make
 
            set +e
         
-           CubeProgrammer -c port=SWD -w build/BasicSetup.bin 0x8000000
+           STM32_Programmer_CLI -c port=SWD -w build/BasicSetup.bin 0x8000000
 
   Change binary file name to your program name.
 
@@ -214,3 +214,6 @@ The most preferred method for **Makefile** is writting command in the **Makefile
   .. code-block:: bash
   
      ./flash.sh
+
+
+There are also other methods to flash binary. You can use internal bootloader and USB to UART converter to flash binary using UART pins. To get into bootloader mode, you need to connect ``BOOT0`` to ``3V3`` and reset the controller. Then you can use ``stm32flash`` or ``STM32CubeProgrammer`` to flash binary. Some microcontrollers supports internal USB bootloader. If not, you can also create USB bootloader. Then, you can use ``dfu-util`` to flash binary using USB. Making USB bootloader is a bit complex and need to be done carefully. It also consumes some flash memory. So, it is not recommended for small memory microcontrollers.

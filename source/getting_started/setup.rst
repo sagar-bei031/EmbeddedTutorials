@@ -79,12 +79,12 @@ Update desktop database.
 3. STM32CubeProgrammer Setup
 ----------------------------
 
-First, create a symbolic link to your ``STM32_Programmer_CLI`` in ``~/.local/bin``.
+Create a symbolic link to your ``STM32_Programmer_CLI`` in ``~/.local/bin``.
 
 .. code-block:: bash
 
-   mkdir -p ~/.local/bin
-   ln -s ~/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI ~/.local/bin/CubeProgrammer
+   mkdir -p ~/.local/bin # if does not exist
+   ln -s ~/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI ~/.local/bin/STM32_Programmer_CLI
 
 
 4. Git Setup
