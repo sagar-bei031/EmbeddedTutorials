@@ -92,8 +92,18 @@
              
   <section id="matrix-operation">
 <h1>Matrix Operation<a class="headerlink" href="#matrix-operation" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#basic-setup" id="id4">1. Basic Setup</a></p></li>
+<li><p><a class="reference internal" href="#test-matrix-functions" id="id5">2. Test Matrix Functions</a></p></li>
+<li><p><a class="reference internal" href="#test-output" id="id6">3. Test Output:</a></p></li>
+<li><p><a class="reference internal" href="#creating-matrix-class-and-overloading-operators" id="id7">4. Creating Matrix Class and Overloading Operators</a></p></li>
+<li><p><a class="reference internal" href="#test-ouput-of-matrix-class" id="id8">5. Test Ouput of Matrix Class</a></p></li>
+</ul>
+</nav>
 <section id="basic-setup">
-<h2>1. Basic Setup<a class="headerlink" href="#basic-setup" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">1. Basic Setup</a><a class="headerlink" href="#basic-setup" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Open STM32CubeMX and <a class="reference external" href="../stm32_basics_tutorial/basic_setup/generate_basic_code.html">generate basic code</a> for your board.</p></li>
 <li><p>Setup <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> for <strong>ARM Math</strong>. See <a class="reference external" href="arm_math.html">arm math tutorial</a>.</p></li>
@@ -148,7 +158,7 @@ C_DEFS = \
 </ul>
 </section>
 <section id="test-matrix-functions">
-<h2>2. Test Matrix Functions<a class="headerlink" href="#test-matrix-functions" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">2. Test Matrix Functions</a><a class="headerlink" href="#test-matrix-functions" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> and open <code class="docutils literal notranslate"><span class="pre">main.c</span></code>.</p></li>
 <li><p>Include headers.</p>
@@ -296,7 +306,7 @@ C_DEFS = \
 </ul>
 </section>
 <section id="test-output">
-<h2>3. Test Output:<a class="headerlink" href="#test-output" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">3. Test Output:</a><a class="headerlink" href="#test-output" title="Link to this heading"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Adding m1 and m2, result:
 10.000000       10.000000       10.000000
 10.000000       10.000000       10.000000
@@ -323,7 +333,7 @@ Matrix is not invertible
 </div>
 </section>
 <section id="creating-matrix-class-and-overloading-operators">
-<h2>4. Creating Matrix Class and Overloading Operators<a class="headerlink" href="#creating-matrix-class-and-overloading-operators" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">4. Creating Matrix Class and Overloading Operators</a><a class="headerlink" href="#creating-matrix-class-and-overloading-operators" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Setup your <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt``for</span> <span class="pre">``C++</span></code>. See <a class="reference external" href="./cpp_setup_in_stm32.html">cpp setup</a>.</p></li>
 <li><p>Create <code class="docutils literal notranslate"><span class="pre">matrix32.hpp</span></code> inside <code class="docutils literal notranslate"><span class="pre">Core/Inc</span></code>. Copy these contents.</p>
@@ -653,7 +663,7 @@ C_SOURCES = \
 </ul>
 </section>
 <section id="test-ouput-of-matrix-class">
-<h2>5. Test Ouput of Matrix Class<a class="headerlink" href="#test-ouput-of-matrix-class" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">5. Test Ouput of Matrix Class</a><a class="headerlink" href="#test-ouput-of-matrix-class" title="Link to this heading"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Adding m1 and m2, result:
 10.000000       10.000000       10.000000
 10.000000       10.000000       10.000000
