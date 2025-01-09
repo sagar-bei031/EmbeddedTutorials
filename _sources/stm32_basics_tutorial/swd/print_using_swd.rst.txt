@@ -104,7 +104,8 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
         Create target_link_options at the bottom.
 
         .. code:: CMake
-
+           
+           # Add compiler flags
            target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
                -u _printf_float
            )
@@ -151,6 +152,9 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
 5. Open SWV on STM32CubeProgrammer
 ----------------------------------
 
+5.1. Using STM32CubeProgrammer GUI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 * Open ``STM32CubeProgrammer``.
 
 * Connect your microcontroller to your PC using USB cable through ``ST-Link``. If you use external ``debugger`` like ``JLink`` or ``ST-Link`` adapter, connect it as:
@@ -170,10 +174,7 @@ In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used
 
 * Click on ``Start``.
 
-
-
 You can see the message "Hello World" on the ``SWV`` continously.
-
 
 .. image:: images/swv_on_cubeprogrammer.webp
    :align: center
@@ -181,3 +182,17 @@ You can see the message "Hello World" on the ``SWV`` continously.
    :alt: swv_on_cubeprogrammer.webp
 
 Do not be confused that I used 80MHz in clock frequency. I used different device at the time of this demo. Use your own.
+
+5.2. Using STM32CubeProgrammer CLI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Use the following command to open SWV:
+
+  .. code-block:: bash
+
+     # STM32_Programmer_CLI -c port=swd -swv freq=<HCLK_freq_in_MHz> portnumber=0
+     STM32_Programmer_CLI -c port=swd -swv freq=168 portnumber=0
+
+* Then press ``R`` to ``reset`` and ``start``. You can see the message "Hello World" on the terminal continously.
+
+* Press ``S`` to stop and ``E`` to exit.

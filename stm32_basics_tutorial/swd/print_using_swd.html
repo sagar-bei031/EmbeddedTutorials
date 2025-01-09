@@ -105,7 +105,12 @@
 <li><p><a class="reference internal" href="#overwrite-definition-of-printf" id="id3">2. Overwrite Definition of printf</a></p></li>
 <li><p><a class="reference internal" href="#update-makefile-or-cmakelists-txt" id="id4">3. Update Makefile or CMakeLists.txt</a></p></li>
 <li><p><a class="reference internal" href="#update-main-c" id="id5">4. Update main.c</a></p></li>
-<li><p><a class="reference internal" href="#open-swv-on-stm32cubeprogrammer" id="id6">5. Open SWV on STM32CubeProgrammer</a></p></li>
+<li><p><a class="reference internal" href="#open-swv-on-stm32cubeprogrammer" id="id6">5. Open SWV on STM32CubeProgrammer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-stm32cubeprogrammer-gui" id="id7">5.1. Using STM32CubeProgrammer GUI</a></p></li>
+<li><p><a class="reference internal" href="#using-stm32cubeprogrammer-cli" id="id8">5.2. Using STM32CubeProgrammer CLI</a></p></li>
+</ul>
+</li>
 </ul>
 </nav>
 <div class="admonition attention">
@@ -181,7 +186,8 @@
 </span></pre></div>
 </div>
 </div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><p>Create target_link_options at the bottom.</p>
-<div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><span class="nb">target_link_options</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><span class="c"># Add compiler flags</span>
+<span class="nb">target_link_options</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
 <span class="w">    </span><span class="s">-u</span><span class="w"> </span><span class="s">_printf_float</span>
 <span class="p">)</span>
 </pre></div>
@@ -223,6 +229,8 @@
 </section>
 <section id="open-swv-on-stm32cubeprogrammer">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">5. Open SWV on STM32CubeProgrammer</a><a class="headerlink" href="#open-swv-on-stm32cubeprogrammer" title="Link to this heading"></a></h2>
+<section id="using-stm32cubeprogrammer-gui">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">5.1. Using STM32CubeProgrammer GUI</a><a class="headerlink" href="#using-stm32cubeprogrammer-gui" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeProgrammer</span></code>.</p></li>
 <li><p>Connect your microcontroller to your PC using USB cable through <code class="docutils literal notranslate"><span class="pre">ST-Link</span></code>. If you use external <code class="docutils literal notranslate"><span class="pre">debugger</span></code> like <code class="docutils literal notranslate"><span class="pre">JLink</span></code> or <code class="docutils literal notranslate"><span class="pre">ST-Link</span></code> adapter, connect it as:</p>
@@ -244,6 +252,20 @@
 <a class="reference internal image-reference" href="../../_images/swv_on_cubeprogrammer.webp"><img alt="swv_on_cubeprogrammer.webp" class="align-center" src="../../_images/swv_on_cubeprogrammer.webp" style="width: 100%;" />
 </a>
 <p>Do not be confused that I used 80MHz in clock frequency. I used different device at the time of this demo. Use your own.</p>
+</section>
+<section id="using-stm32cubeprogrammer-cli">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">5.2. Using STM32CubeProgrammer CLI</a><a class="headerlink" href="#using-stm32cubeprogrammer-cli" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Use the following command to open SWV:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># STM32_Programmer_CLI -c port=swd -swv freq=&lt;HCLK_freq_in_MHz&gt; portnumber=0</span>
+STM32_Programmer_CLI<span class="w"> </span>-c<span class="w"> </span><span class="nv">port</span><span class="o">=</span>swd<span class="w"> </span>-swv<span class="w"> </span><span class="nv">freq</span><span class="o">=</span><span class="m">168</span><span class="w"> </span><span class="nv">portnumber</span><span class="o">=</span><span class="m">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Then press <code class="docutils literal notranslate"><span class="pre">R</span></code> to <code class="docutils literal notranslate"><span class="pre">reset</span></code> and <code class="docutils literal notranslate"><span class="pre">start</span></code>. You can see the message “Hello World” on the terminal continously.</p></li>
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">S</span></code> to stop and <code class="docutils literal notranslate"><span class="pre">E</span></code> to exit.</p></li>
+</ul>
+</section>
 </section>
 </section>
 

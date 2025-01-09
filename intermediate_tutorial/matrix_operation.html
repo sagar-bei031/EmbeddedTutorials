@@ -10,6 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e9d84906" />
 
   
@@ -20,6 +21,7 @@
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
       <script src="../_static/custom.js?v=5fde6192"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -90,6 +92,236 @@
              
   <section id="matrix-operation">
 <h1>Matrix Operation<a class="headerlink" href="#matrix-operation" title="Link to this heading"></a></h1>
+<section id="basic-setup">
+<h2>1. Basic Setup<a class="headerlink" href="#basic-setup" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Open STM32CubeMX and <a class="reference external" href="../stm32_basics_tutorial/basic_setup/generate_basic_code.html">generate basic code</a> for your board.</p></li>
+<li><p>Setup <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> for <strong>ARM Math</strong>. See <a class="reference external" href="arm_math.html">arm math tutorial</a>.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> to add <strong>matrix functions</strong>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-TWFrZWZpbGU=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tab" tabindex="0">Makefile</button><button aria-controls="panel-0-Q01ha2VMaXN0cy50eHQ=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tab" tabindex="-1">CMakeLists.txt</button></div><div aria-labelledby="tab-0-TWFrZWZpbGU=" class="sphinx-tabs-panel group-tab" id="panel-0-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>C_SOURCES = \
+... \
+... \
+<span class="hll">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_init_f32.c \
+</span><span class="hll">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_add_f32.c \
+</span><span class="hll">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_sub_f32.c \
+</span><span class="hll">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_scale_f32.c \
+</span><span class="hll">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_f32.c \
+</span><span class="hll">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_inverse_f32.c \
+</span><span class="hll">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_trans_f32.c
+</span></pre></div>
+</div>
+</div><div aria-labelledby="tab-0-Q01ha2VMaXN0cy50eHQ=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tabpanel" tabindex="0"><div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># Add sources to executable</span>
+<span class="w"> </span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">     </span><span class="c"># Add user sources here</span>
+<span class="hll"><span class="w">     </span><span class="s">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_init_f32.c</span>
+</span><span class="hll"><span class="w">     </span><span class="s">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_add_f32.c</span>
+</span><span class="hll"><span class="w">     </span><span class="s">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_sub_f32.c</span>
+</span><span class="hll"><span class="w">     </span><span class="s">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_scale_f32.c</span>
+</span><span class="hll"><span class="w">     </span><span class="s">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_f32.c</span>
+</span><span class="hll"><span class="w">     </span><span class="s">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_inverse_f32.c</span>
+</span><span class="hll"><span class="w">     </span><span class="s">Drivers/CMSIS/DSP/Source/MatrixFunctions/arm_mat_trans_f32.c</span>
+</span><span class="w"> </span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</li>
+<li><p>Add matrix check definition in <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-1-TWFrZWZpbGU=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tab" tabindex="0">Makefile</button><button aria-controls="panel-1-Q01ha2VMaXN0cy50eHQ=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tab" tabindex="-1">CMakeLists.txt</button></div><div aria-labelledby="tab-1-TWFrZWZpbGU=" class="sphinx-tabs-panel group-tab" id="panel-1-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span># C defines
+C_DEFS = \
+... \
+-DARM_MATH_CM4 \
+<span class="hll">-DARM_MATH_MATRIX_CHECK
+</span></pre></div>
+</div>
+</div><div aria-labelledby="tab-1-Q01ha2VMaXN0cy50eHQ=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tabpanel" tabindex="0"><div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><span class="c"># Add project symbols (macros)</span>
+<span class="nb">target_compile_definitions</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">    </span><span class="c"># Add user defined symbols</span>
+<span class="w">    </span><span class="s">ARM_MATH_CM4</span>
+<span class="hll"><span class="w">    </span><span class="s">ARM_MATH_MATRIX_CHECK</span>
+</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</li>
+</ul>
+</section>
+<section id="test-matrix-functions">
+<h2>2. Test Matrix Functions<a class="headerlink" href="#test-matrix-functions" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> and open <code class="docutils literal notranslate"><span class="pre">main.c</span></code>.</p></li>
+<li><p>Include headers.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-2-U1dW" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-U1dW" name="U1dW" role="tab" tabindex="0">SWV</button><button aria-controls="panel-2-VVNC" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-VVNC" name="VVNC" role="tab" tabindex="-1">USB</button></div><div aria-labelledby="tab-2-U1dW" class="sphinx-tabs-panel group-tab" id="panel-2-U1dW" name="U1dW" role="tabpanel" tabindex="0"><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN Includes */</span>
+<span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+</span><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;arm_math.h&quot;</span>
+</span><span class="cm">/* USER CODE END Includes */</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-VVNC" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-VVNC" name="VVNC" role="tabpanel" tabindex="0"><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN Includes */</span>
+<span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+</span><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;arm_math.h&quot;</span>
+</span><span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;usbd_cdc_if.h&quot;</span>
+</span><span class="cm">/* USER CODE END Includes */</span>
+</pre></div>
+</div>
+</div></div>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not forget to add compiler flag <code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">_printf_float</span></code> in <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> to print floating point numbers otherwise it will not print the numbers.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-3-TWFrZWZpbGU=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tab" tabindex="0">Makefile</button><button aria-controls="panel-3-Q01ha2VMaXN0cy50eHQ=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tab" tabindex="-1">CMakeLists.txt</button></div><div aria-labelledby="tab-3-TWFrZWZpbGU=" class="sphinx-tabs-panel group-tab" id="panel-3-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tabpanel" tabindex="0"><p>Add to <code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code>.</p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">LDFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>MCU<span class="k">)</span><span class="w"> </span>-specs<span class="o">=</span>nano.specs<span class="w"> </span>-T<span class="k">$(</span>LDSCRIPT<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LIBDIR<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LIBS<span class="k">)</span><span class="w"> </span>-Wl,-Map<span class="o">=</span><span class="k">$(</span>BUILD_DIR<span class="k">)</span>/<span class="k">$(</span>TARGET<span class="k">)</span>.map,--cref<span class="w"> </span>-Wl,--gc-sections
+<span class="hll"><span class="nv">LDFLAGS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>-u<span class="w"> </span>_printf_float
+</span></pre></div>
+</div>
+</div><div aria-labelledby="tab-3-Q01ha2VMaXN0cy50eHQ=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tabpanel" tabindex="0"><p>Create target_link_options at the bottom.</p>
+<div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><span class="c"># Add compiler flags</span>
+<span class="nb">target_link_options</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">    </span><span class="s">-u</span><span class="w"> </span><span class="s">_printf_float</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<ul>
+<li><p>Overwrite definition of <code class="docutils literal notranslate"><span class="pre">_write</span></code> for <code class="docutils literal notranslate"><span class="pre">printf</span></code> as:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-4-U1dW" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-4-U1dW" name="U1dW" role="tab" tabindex="0">SWV</button><button aria-controls="panel-4-VVNC" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-VVNC" name="VVNC" role="tab" tabindex="-1">USB</button></div><div aria-labelledby="tab-4-U1dW" class="sphinx-tabs-panel group-tab" id="panel-4-U1dW" name="U1dW" role="tabpanel" tabindex="0"><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 0 */</span>
+<span class="hll"><span class="kt">int</span><span class="w"> </span><span class="nf">_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+</span><span class="hll"><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+</span><span class="hll"><span class="w">  </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="n">ITM_SendChar</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
+</span><span class="hll"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span><span class="cm">/* USER CODE END 0 */</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-VVNC" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-VVNC" name="VVNC" role="tabpanel" tabindex="0"><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 0 */</span>
+<span class="hll"><span class="kt">int</span><span class="w"> </span><span class="nf">_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+</span><span class="hll"><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="n">CDC_Transmit_FS</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">len</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span><span class="cm">/* USER CODE END 0 */</span>
+</pre></div>
+</div>
+</div></div>
+</li>
+</ul>
+<ul>
+<li><p>Write code to print matrix.</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
+
+<span class="hll"><span class="kt">void</span><span class="w"> </span><span class="nf">print_matrix</span><span class="p">(</span><span class="n">arm_matrix_instance_f32</span><span class="w"> </span><span class="o">*</span><span class="n">matrix</span><span class="p">)</span>
+</span><span class="hll"><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">matrix</span><span class="o">-&gt;</span><span class="n">numRows</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class="hll"><span class="w">  </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">matrix</span><span class="o">-&gt;</span><span class="n">numCols</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%f</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">matrix</span><span class="o">-&gt;</span><span class="n">pData</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">matrix</span><span class="o">-&gt;</span><span class="n">numCols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
+</span><span class="hll"><span class="p">}</span>
+</span><span class="cm">/* USER CODE END 0 */</span>
+</pre></div>
+</div>
+</li>
+<li><p>Write code to test matrix functions.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 2 */</span>
+<span class="hll"><span class="w">  </span><span class="n">arm_matrix_instance_f32</span><span class="w"> </span><span class="n">m1</span><span class="p">;</span>
+</span><span class="hll"><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">m1data</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">};</span>
+</span><span class="hll"><span class="w">  </span><span class="n">arm_mat_init_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">m1data</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">  </span><span class="n">arm_matrix_instance_f32</span><span class="w"> </span><span class="n">m2</span><span class="p">;</span>
+</span><span class="hll"><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">m2data</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span>
+</span><span class="hll"><span class="w">  </span><span class="n">arm_mat_init_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">m2data</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">  </span><span class="n">arm_matrix_instance_f32</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span class="hll"><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">resultdata</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
+</span><span class="hll"><span class="w">  </span><span class="n">arm_mat_init_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">resultdata</span><span class="p">);</span>
+</span><span class="w">  </span><span class="cm">/* USER CODE END 2 */</span>
+
+<span class="w">  </span><span class="cm">/* Infinite loop */</span>
+<span class="w">  </span><span class="cm">/* USER CODE BEGIN WHILE */</span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* USER CODE END WHILE */</span>
+<span class="hll"><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Adding m1 and m2, result:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">arm_mat_add_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">m2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">print_matrix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Subtracting m1 and m2, result:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">arm_mat_sub_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">m2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">print_matrix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Multiplying m1 and m2, result:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">arm_mat_mult_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">m2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">print_matrix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Multiplying m1 by 2</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">arm_mat_scale_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">print_matrix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Transposing m1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">arm_mat_trans_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">print_matrix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">HAL_Delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Inverting m1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">arm_mat_inverse_f32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ARM_MATH_SUCCESS</span><span class="p">)</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="n">print_matrix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="k">else</span>
+</span><span class="hll"><span class="w">    </span><span class="p">{</span>
+</span><span class="hll"><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Matrix is not invertible</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="w">    </span><span class="cm">/* USER CODE BEGIN 3 */</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="cm">/* USER CODE END 3 */</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="test-output">
+<h2>3. Test Output:<a class="headerlink" href="#test-output" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Adding m1 and m2, result:
+10.000000       10.000000       10.000000
+10.000000       10.000000       10.000000
+10.000000       10.000000       10.000000
+Subtracting m1 and m2, result:
+-8.000000       -6.000000       -4.000000
+-2.000000       0.000000        2.000000
+4.000000        6.000000        8.000000
+Multiplying m1 and m2, result:
+30.000000       24.000000       18.000000
+84.000000       69.000000       54.000000
+138.000000      114.000000      90.000000
+Multiplying m1 by 2
+2.000000        4.000000        6.000000
+8.000000        10.000000       12.000000
+14.000000       16.000000       18.000000
+Transposing m1
+1.000000        4.000000        7.000000
+2.000000        5.000000        8.000000
+3.000000        6.000000        9.000000
+Inverting m1
+Matrix is not invertible
+</pre></div>
+</div>
+</section>
 </section>
 
 

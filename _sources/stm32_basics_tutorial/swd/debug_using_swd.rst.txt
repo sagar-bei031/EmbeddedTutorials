@@ -68,9 +68,7 @@ For **OpenOCD**
 
 ``OpenOCD`` server is better than ``ST-Link`` server. We also prefer to use ``OpenOCD`` instead of ``ST-Link`` but it is not neccessary. 
 
-Install ``OpenOCD`` by executing command ``sudo apt install openocd``.
-
-Update ``.vscode/launch.json``.
+Install ``OpenOCD`` by executing command ``sudo apt install openocd``. Update ``.vscode/launch.json``.
 
 .. code-block:: json
    :linenos:
