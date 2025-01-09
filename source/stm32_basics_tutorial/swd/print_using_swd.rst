@@ -196,3 +196,22 @@ Do not be confused that I used 80MHz in clock frequency. I used different device
 * Then press ``R`` to ``reset`` and ``start``. You can see the message "Hello World" on the terminal continously.
 
 * Press ``S`` to stop and ``E`` to exit.
+
+* Add ``STM32_Programmer_CLI`` command at the bottom of ``Makefile`` or ``CMakeLists.txt``.
+
+   .. tabs::
+   
+       .. group-tab:: Makefile
+   
+         .. literalinclude:: files/swv
+            :language: make
+            :linenos:
+   
+       .. group-tab:: CMakeLists.txt
+   
+         .. code-block:: CMake
+   
+             # Open SWV
+             add_custom_target(swv
+                COMMAND STM32_Programmer_CLI -c port=swd -swv freq=168 portnumber=0
+             )
