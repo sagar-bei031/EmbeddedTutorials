@@ -60,13 +60,13 @@ Controllers
    :class: image-grid
 
    * - .. figure:: images/controllers/esp32_wroom.jpg
-          :height: 300
+          :width: 300
           :alt: ESP32 WROOM32
 
           **ESP32 WROOM32**
 
      - .. figure:: images/controllers/nodemcu.jpg
-          :height: 300
+          :width: 300
           :alt: NodeMCU
 
           **NodeMCU**: ESP8266
@@ -86,7 +86,7 @@ Controllers
 
           **Raspberry PI PICO**: RP2040
 
-     - .. figure:: images/controllers/pi_pico_w.png
+     - .. figure:: images/controllers/pi_pico_w.jpg
           :height: 300
           :alt: PI PICO W
 
@@ -102,19 +102,19 @@ Controllers
    :class: image-grid
 
    * - .. figure:: images/controllers/arduino_uno.jpg
-          :height: 300
+          :width: 300
           :alt: Arduino UNO
 
           **Arduino UNO**
 
-     - .. figure:: images/controllers/arduino_nano.jpg
-          :height: 300
+     - .. figure:: images/controllers/arduino_nano_t.jpg
+          :width: 300
           :alt: Arduino NANO
 
           **Arduino NANO**
 
      - .. figure:: images/controllers/arduino_mega.jpg
-         :height: 300
+         :width: 300
          :alt: Arduino MEGA
 
          **Arduino MEGA**
@@ -132,19 +132,19 @@ Debuggers
    :class: image-grid
 
    * - .. figure:: images/debuggers/stlink.jpeg
-          :height: 300
+          :width: 300
           :alt: ST-Link V2 Duplicate
 
           **ST-Link V2**
 
      - .. figure:: images/debuggers/jlink-edu.jpeg
-          :height: 300
+          :width: 300
           :alt: JLink Edu Mini
 
           **JLink Edu Mini**
 
 .. Attention::
-    The **ST-Link V2** shown above is duplicate. The original is shown below:
+    The **ST-Link V2** shown aide is duplicate. The original is shown below:
 
     .. image:: images/debuggers/stlink-original.jpeg
        :width: 300
@@ -156,42 +156,41 @@ Programming and Scripting Laguages
 ----------------------------------
 
 .. list-table::
-   :widths: 33 33 33
    :align: center
    :class: image-grid
 
    * - .. figure:: images/program_logos/c_logo.png
-          :height: 150
+          :width: 150
           :alt: C
 
           **C**
 
      - .. figure:: images/program_logos/cpp_logo.png
-          :height: 150
+          :width: 150
           :alt: C++
 
           **C++**
 
      - .. figure:: images/program_logos/python_logo.png
-          :height: 150
+          :width: 150
           :alt: Python
 
           **Python**
 
    * - .. figure:: images/program_logos/makefile_logo.png
-          :height: 100
+          :width: 150
           :alt: Make
 
           **Make**
 
      - .. figure:: images/program_logos/cmake_logo.png
-          :height: 100
+          :width: 150
           :alt: CMake
    
           **CMake**
 
-     - .. figure:: images/program_logos/bash_logo.png
-          :height: 100
+     - .. figure:: images/program_logos/bash-icon.svg
+          :width: 150
           :alt: Bash
  
           **Bash**
