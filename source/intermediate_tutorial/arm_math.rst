@@ -175,7 +175,7 @@ You may get such error for **Cortex M4** or others having **FPU**. To solve this
 
          # Add project symbols (macros)
          target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
-            # Add user definitions
+            # ...
             __FPU_PRESENT=1U # For having FPU
          )
 
