@@ -3,12 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. important::
-   This tutorial is tailored for **students of IOE, Pulchowk Campus**, addressing their specific requirements and constraints.
-
-Embedded Tutorials
-==================
-
 .. toctree::
    :titlesonly:
    :maxdepth: 2
@@ -20,6 +14,48 @@ Embedded Tutorials
    intermediate_tutorial
    highlights
 
+.. note::
+   This tutorial is tailored for **students of IOE, Pulchowk Campus**, addressing their specific requirements and constraints.
+
+Embedded Tutorials
+==================
+
+In this **Embedded Tutorials**, we will guide you through programming **Arduino**, **STM32 controllers**, **ESP32**, and **Raspberry Pi Pico**, sharing the techniques and approaches we commonly use. We will focus more on **STM32 controllers** from the basics, while also providing links for the basics of **Arduino Programming**. We generally use the **Arduino IDE** for programming **ESP32** and **Raspberry Pi Pico**, and **STM32CubeMX** and **STM32CubeProgrammer** for **STM32 controllers**.
+
+.. important::
+   After completing this tutorial, you will be able to:
+
+   - Program these controllers.
+   - Use them for controlling actuators, communication, interfacing sensors, writing CRC, and more.
+   - Accelerate your learning and use this tutorial as a reference for your projects.
+
+.. note::
+   We are continuously adding more content to this tutorial. If you contribute, we will be happy to include your content in this tutorial.
+
+
+.. raw:: html
+
+   <a href="getting_started.html">
+      <h2 style="
+       text-align: center; 
+       color: #fff; 
+       font-family: 'Cursive', 'Comic Sans MS', sans-serif; 
+       font-weight: bold; 
+       margin-top: 20px; 
+       padding: 20px; 
+       background-color: dodgerblue;
+       border-radius: 10px; 
+       line-height: 1.5;">
+       Let's Get Started with <br>
+         <span style="
+           color: #fff; 
+           text-decoration: none; 
+           font-size: 1.2em;">
+            Embedded Tutorials
+         </span>
+      </h2>
+   </a>
+
 
 .. raw:: html
 
@@ -27,8 +63,8 @@ Embedded Tutorials
        <!-- First Row -->
        <div class="carousel">
            <div class="carousel-track" id="carousel-track-1">
-               <div class="carousel-slide"><img src="_static/images/controllers/arduino_uno.jpg" alt="arduino"></div>
                <div class="carousel-slide"><img src="_static/images/controllers/STM32F407G-DISC1_Blue.jpg" alt="STM32F407G-DISC1"></div>
+               <div class="carousel-slide"><img src="_static/images/controllers/arduino_uno.jpg" alt="arduino"></div>
                <div class="carousel-slide"><img src="_static/images/controllers/esp32_wroom.jpg" alt="esp32_wroom"></div>
            </div>
        </div>
@@ -36,9 +72,9 @@ Embedded Tutorials
        <!-- Second Row -->
        <div class="carousel">
            <div class="carousel-track" id="carousel-track-2">
-               <div class="carousel-slide"><img src="_static/images/controllers/arduino_uno.jpg" alt="arduino"></div>
-               <div class="carousel-slide"><img src="_static/images/controllers/STM32F407G-DISC1_Blue.jpg" alt="STM32F407G-DISC1"></div>
-               <div class="carousel-slide"><img src="_static/images/controllers/esp32_wroom.jpg" alt="esp32_wroom"></div>
+               <div class="carousel-slide"><img src="_static/images/program_logos/c_logo.png" alt="c_logo"></div>
+               <div class="carousel-slide"><img src="_static/images/program_logos/python_logo.png" alt="python_logo"></div>
+               <div class="carousel-slide"><img src="_static/images/program_logos/cpp_logo.png" alt="cpp_logo"></div>
            </div>
        </div>
    </div>
@@ -52,8 +88,7 @@ Embedded Tutorials
 
        .carousel {
            position: relative;
-           width: 80%;
-           max-width: 600px;
+           width: 100%;
            overflow: hidden;
            border: 2px solid #ccc;
            border-radius: 10px;
@@ -67,7 +102,7 @@ Embedded Tutorials
 
        .carousel-slide {
            min-width: 100%;
-           height: 200px;
+           height: 300px;
            display: flex;
            justify-content: center;
            align-items: center;
@@ -139,4 +174,4 @@ Embedded Tutorials
 
        setInterval(slideImages, 3000); // Change images every 3 seconds
    </script>
-
+ 
