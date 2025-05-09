@@ -23,14 +23,14 @@ About STM32F407VGT6
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/controllers/stm32f407vgt6.jpg
+   * - .. figure:: _static/images/controllers/stm32f407vgt6.jpg
           :height: 300
           :align: center
           :alt: STM32F407VGT6
 
           **STM32F407VGT6**
    
-     - .. figure:: images/controllers/stm32f407vg-disc1.avif
+     - .. figure:: _static/images/controllers/stm32f407vg-disc1.avif
           :height: 300
           :align: center
           :alt: STM32F407VG-DISC1
@@ -95,14 +95,14 @@ About STM32F103C8T6
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/controllers/stm32f103c8.webp
+   * - .. figure:: _static/images/controllers/stm32f103c8.webp
           :height: 300
           :align: center
           :alt: STM32F103C8
 
           **STM32F103C8**
    
-     - .. figure:: images/controllers/bluepill.jpg
+     - .. figure:: _static/images/controllers/bluepill.jpg
           :height: 300
           :align: center
           :alt: Bluepill

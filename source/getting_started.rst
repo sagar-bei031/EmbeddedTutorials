@@ -35,13 +35,13 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/controllers/STM32F407G-DISC1_Blue.jpg
+   * - .. figure:: _static/images/controllers/STM32F407G-DISC1_Blue.jpg
           :height: 300
           :alt: STM32F407VG-DISC1
 
           **STM32F407VG-DISC1**: STM32F407VGT6
 
-     - .. figure:: images/controllers/bluepill.jpg
+     - .. figure:: _static/images/controllers/bluepill.jpg
           :height: 300
           :alt: Blue Pill
 
@@ -59,13 +59,13 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/controllers/esp32_wroom.jpg
+   * - .. figure:: _static/images/controllers/esp32_wroom.jpg
           :width: 300
           :alt: ESP32 WROOM32
 
           **ESP32 WROOM32**
 
-     - .. figure:: images/controllers/nodemcu.jpg
+     - .. figure:: _static/images/controllers/nodemcu.jpg
           :width: 300
           :alt: NodeMCU
 
@@ -80,13 +80,13 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/controllers/pi_pico.jpg
+   * - .. figure:: _static/images/controllers/pi_pico.jpg
           :height: 300
           :alt: PI PICO
 
           **Raspberry PI PICO**: RP2040
 
-     - .. figure:: images/controllers/pi_pico_w.jpg
+     - .. figure:: _static/images/controllers/pi_pico_w.jpg
           :height: 300
           :alt: PI PICO W
 
@@ -101,19 +101,19 @@ Controllers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/controllers/arduino_uno.jpg
+   * - .. figure:: _static/images/controllers/arduino_uno.jpg
           :width: 300
           :alt: Arduino UNO
 
           **Arduino UNO**
 
-     - .. figure:: images/controllers/arduino_nano_t.jpg
+     - .. figure:: _static/images/controllers/arduino_nano_t.jpg
           :width: 300
           :alt: Arduino NANO
 
           **Arduino NANO**
 
-     - .. figure:: images/controllers/arduino_mega.jpg
+     - .. figure:: _static/images/controllers/arduino_mega.jpg
          :width: 300
          :alt: Arduino MEGA
 
@@ -131,13 +131,13 @@ Debuggers
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/debuggers/stlink.jpeg
+   * - .. figure:: _static/images/debuggers/stlink.jpeg
           :width: 300
           :alt: ST-Link V2 Duplicate
 
           **ST-Link V2**
 
-     - .. figure:: images/debuggers/jlink-edu.jpeg
+     - .. figure:: _static/images/debuggers/jlink-edu.jpeg
           :width: 300
           :alt: JLink Edu Mini
 
@@ -146,7 +146,7 @@ Debuggers
 .. Attention::
     The **ST-Link V2** shown aide is duplicate. The original is shown below:
 
-    .. image:: images/debuggers/stlink-original.jpeg
+    .. image:: _static/images/debuggers/stlink-original.jpeg
        :width: 300
        :align: center
        :alt: ST-Link V2 Original
@@ -159,37 +159,37 @@ Programming and Scripting Laguages
    :align: center
    :class: image-grid
 
-   * - .. figure:: images/program_logos/c_logo.png
+   * - .. figure:: _static/images/program_logos/c_logo.png
           :width: 150
           :alt: C
 
           **C**
 
-     - .. figure:: images/program_logos/cpp_logo.png
+     - .. figure:: _static/images/program_logos/cpp_logo.png
           :width: 150
           :alt: C++
 
           **C++**
 
-     - .. figure:: images/program_logos/python_logo.png
+     - .. figure:: _static/images/program_logos/python_logo.png
           :width: 150
           :alt: Python
 
           **Python**
 
-   * - .. figure:: images/program_logos/makefile_logo.png
+   * - .. figure:: _static/images/program_logos/makefile_logo.png
           :width: 150
           :alt: Make
 
           **Make**
 
-     - .. figure:: images/program_logos/cmake_logo.png
+     - .. figure:: _static/images/program_logos/cmake_logo.png
           :width: 150
           :alt: CMake
    
           **CMake**
 
-     - .. figure:: images/program_logos/bash-icon.svg
+     - .. figure:: _static/images/program_logos/bash-icon.svg
           :width: 150
           :alt: Bash
  

@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Embedded Tutorials'
-copyright = '2024, Robotics Club, Pulchowk Campus'
+copyright = '2024-2025, Robotics Club Pulchowk Campus'
 author = 'Sagar Chaudhary'
 release = '1.0.0'
 
@@ -35,6 +35,7 @@ language = 'en'
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_logo = "_static/club-logo.svg"
 
 html_context = {
     "display_github": True,
@@ -57,8 +58,6 @@ source_suffix = {
     '.txt': 'markdown',
     '.md': 'markdown',
 }
-
-html_logo = "_static/embedded-logo.webp"
 
 # -- Options for linkcode extension ------------------------------------------
 def linkcode_resolve(domain, info):

@@ -5,21 +5,7 @@ Installation
    :depth: 2
    :local:
 
-OS
---
-
 We are using **Ubuntu** and **Windows**. Mostly, we will be using **Ubuntu** for development. But some softwares are only available for **Windows**. So, we will be using **Windows** for those.
-
-1. Ubuntu
-^^^^^^^^^
-
-   Download Ubuntu ISO from newtab:`here <https://ubuntu.com/download/desktop>`.
-
-2. Windows
-^^^^^^^^^^
-
-   Download Windows 10/11 ISO from :newtab:`here <https://www.microsoft.com/en-us/software-download>`.
-
 
 Fundamental Tools and Software
 ------------------------------
