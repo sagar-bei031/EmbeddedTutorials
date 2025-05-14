@@ -8,6 +8,8 @@ Setup
 1. CH34x USB Driver Setup
 -----------------------------
 
+We sometimes get problem with USB driver for ``CH340/CH341`` USB to serial converter. It can be solved by removing ``brltty`` package.
+
 Remove ``brltty``.
 
 .. code-block:: bash
@@ -18,9 +20,7 @@ Remove ``brltty``.
 2. Creating ``.desktop`` files for application on Linux
 -----------------------------------------------------------
 
-Create a ``.desktop`` files at ``/home/$USER/.local/share/applications``.
-   
-Add following informations:
+Some applications do not appear on application menu which can be solved by creating ``.desktop`` file. Create a ``.desktop`` files at ``/home/$USER/.local/share/applications``. Add following informations:
 
 .. code-block::
 
@@ -30,7 +30,12 @@ Add following informations:
    Exec=<path/to/executable>
    Icon=<path/to/icon>
 
-For example, for **Arduino IDE**:
+Some applications which do not appear on application menu are:
+
+Arduino IDE
+~~~~~~~~~~~
+
+Creat 'arduino-ide.desktop' file in ``~/.local/share/applications`` directory, and add the following content:
 
 .. code-block::
 
@@ -43,7 +48,9 @@ For example, for **Arduino IDE**:
    Type=Application
    Categories=Development
 
-For **STM32CubeMX**:
+STM32CubeMX
+~~~~~~~~~~~
+Create 'STM32CubeMX.desktop' file in ``~/.local/share/applications`` directory, and add the following content:
 
 .. code-block::
 
@@ -62,6 +69,8 @@ For **STM32CubeMX**:
    X-KDE-Username=root
    StartupWMClass=com-st-microxplorer-maingui-STM32CubeMX
 
+``STM32CubeMX`` icon does not appear on dock. The last three lines solve the problem. 
+
 Update desktop database.
 
 .. code-block:: bash
@@ -79,7 +88,7 @@ Update desktop database.
 3. STM32CubeProgrammer Setup
 ----------------------------
 
-Create a symbolic link to your ``STM32_Programmer_CLI`` in ``~/.local/bin``.
+``STM32Cube_Programmer_CLI`` is not on environment by default. So, create a symbolic link to your ``STM32_Programmer_CLI`` in ``~/.local/bin``.
 
 .. code-block:: bash
 
@@ -113,6 +122,7 @@ Verify configurations.
 
 5. SSH Setup
 ------------
+To push code on repository using ``https``, you need to enter password every time. So, we use ``ssh`` for authentication.
 
 Generate an SSH key:
 

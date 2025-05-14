@@ -10,12 +10,13 @@
    :hidden:
 
    getting_started
+   arduino_basics_tutorial
    stm32_basics_tutorial
    intermediate_tutorial
    highlights
 
 .. note::
-   This tutorial is tailored for **students of IOE, Pulchowk Campus**, addressing their specific requirements and constraints.
+   This tutorial is tailored for **students of IOE, Pulchowk Campus**, addressing their specific requirements and constraints. In some sections, students may be required to contact the team for further assistance. We are open to suggestions and contributions from students, and we will be happy to include them in this tutorial.
 
 Embedded Tutorials
 ==================
@@ -43,7 +44,7 @@ In this **Embedded Tutorials**, we will guide you through programming **Arduino*
        font-weight: bold; 
        margin-top: 20px; 
        padding: 20px; 
-       background-color: dodgerblue;
+       background-color: #2980b9;
        border-radius: 10px; 
        line-height: 1.5;">
        Let's Get Started with <br>
@@ -78,6 +79,7 @@ In this **Embedded Tutorials**, we will guide you through programming **Arduino*
            </div>
        </div>
    </div>
+
 
    <style>
        .carousel-container {

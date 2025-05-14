@@ -7,6 +7,8 @@ Installation
 
 We are using **Ubuntu** and **Windows**. Mostly, we will be using **Ubuntu** for development. But some softwares are only available for **Windows**. So, we will be using **Windows** for those.
 
+Seeing below, you might think, "There are too many software to install. I don't want to install all of them." But don't worry. You can skip the software you don't need right now. When you realize you need it, you can install directly from official website or use this page for help. Fundamental tools are those we are going to use. Optional tools are alternative tools and are not neccessary now.
+
 Fundamental Tools and Software
 ------------------------------
 
