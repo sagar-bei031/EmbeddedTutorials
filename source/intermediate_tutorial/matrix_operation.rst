@@ -283,7 +283,7 @@ Matrix Operation
 4. Creating Matrix Class and Overloading Operators
 --------------------------------------------------
 
-* Setup your ``Makefile`` or ``CMakeLists.txt``for ``C++``. See `cpp setup <./cpp_setup_in_stm32.html>`_.
+* Setup your ``Makefile`` or ``CMakeLists.txt`` for ``C++``. See `cpp setup <./cpp_setup_in_stm32.html>`_.
 
 * Create ``matrix32.hpp`` inside ``Core/Inc``. Copy these contents.
   
@@ -440,3 +440,8 @@ Matrix Operation
    3.000000        6.000000        9.000000
    Inverting m1
    EXCEPTION:: MATRIX INVERSION FAILED !!
+
+
+.. tip::
+
+   The raw arm math matrix functions are efficient than the matrix class. So use the matrix class for small matrices only.
