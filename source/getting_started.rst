@@ -142,7 +142,7 @@ Device Programmers and Debuggers
           **JLink Edu Mini**
 
 .. Attention::
-    The **ST-Link V2** shown aide is duplicate. The original is shown below:
+    The **ST-Link V2** shown above is duplicate. The original one looks shown below:
 
     .. image:: _static/images/debuggers/stlink-original.jpeg
        :width: 300
