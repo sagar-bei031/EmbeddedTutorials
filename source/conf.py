@@ -23,7 +23,6 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.extlinks',
     'sphinx_tabs.tabs',
-    "sphinx_issues",
 ]
 
 templates_path = ['_templates']
