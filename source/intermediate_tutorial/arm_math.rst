@@ -17,7 +17,7 @@ In STM32 project, ``arm_math`` header and source files are inside ``Drivers >  C
 2. Linking Arm Math Library for ARM Cortex-M3
 ---------------------------------------------
 
-You can link the library by adding the GCC library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag "libarm_cortexM3l_math.a in the Makefile or CMakeList.txt.
+You can link the library by adding the GCC library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag ``libarm_cortexM3l_math.a`` in the Makefile or CMakeList.txt.
 
 .. tabs::
 

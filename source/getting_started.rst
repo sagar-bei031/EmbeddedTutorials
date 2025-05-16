@@ -144,7 +144,7 @@ Device Programmers and Debuggers
 .. Attention::
     The **ST-Link V2** shown above is duplicate. The original one looks shown below:
 
-    .. image:: _static/images/debuggers/stlink-original.jpeg
+    .. image:: _static/images/debuggers/stlink-original.jpg
        :width: 300
        :align: center
        :alt: ST-Link V2 Original

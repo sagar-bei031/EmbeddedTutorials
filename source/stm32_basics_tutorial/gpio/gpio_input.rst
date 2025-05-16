@@ -27,7 +27,7 @@ When VCC is appled to input pin, the input state will be high. And when GND is a
 Microcontrollers have internal pull-up/pull-down resistors which can be connectd by programming. We also can connect external pull-up/pull-down resistors. Typical value for pull-up/pull-down resistors are **4.7K** and **10K**.
 
 .. image:: images/Pull-up-and-Pull-down-Resistor.png
-   :width: 100%
+   :width: 300
    :align: center
    :alt: Pull-up-and-Pull-down-Resistor
 

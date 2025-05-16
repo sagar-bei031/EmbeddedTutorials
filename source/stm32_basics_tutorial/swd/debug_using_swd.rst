@@ -28,8 +28,8 @@ If you did not install these previously, you need to install now.
 
 
    
-For **ST-Link** or **JLink**
-----------------------------
+Setup for **ST-Link** or **JLink**
+----------------------------------
 
 Update or create ``.vscode/lauch.json`` file.
 
@@ -63,8 +63,8 @@ Change ``.elf`` filename for ``executable`` and device name for ``device`` (for 
 
 
 
-For **OpenOCD**
----------------
+Setup for **OpenOCD**
+---------------------
 
 ``OpenOCD`` server is better than ``ST-Link`` server. We also prefer to use ``OpenOCD`` instead of ``ST-Link`` but it is not neccessary. 
 
