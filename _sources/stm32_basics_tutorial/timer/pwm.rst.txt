@@ -129,6 +129,9 @@ The PWM frequency on an STM32 microcontroller can be calculated using the formul
    :math:`\text{ARR}`: Auto Reload Register Value
    :math:`\text{PSC}`: Prescaler
 
+.. _pwm_calculator:
+
+Use the following calculator to calculate the **PWM frequency**.
 
 .. raw:: html
 
@@ -163,6 +166,24 @@ The PWM frequency on an STM32 microcontroller can be calculated using the formul
        }
    </script>
 
+
+Increasing ``PSC`` and ``ARR`` decreases PWM frequency, and decreasing them increases PWM frequency. There is another point to note that decreasing ``ARR`` also decreases ``resolution`` of duty cycle. To change the duty cycle, you need to set the value of **CCR** register. The value of **CCR** register is between ``0`` and ``ARR``. The formula to calculate the duty cycle is:
+
+.. math::
+
+   \text{Duty Cycle} = \frac{\text{CCR}}{\text{ARR}} \cdot 100\%
+
+.. math::
+
+   \text{Pulse Width} = \frac{\text{CCR}}{f_{\text{PWM}}} \cdot 10^6\, \mu s = \text{CCR} \cdot T_{\text{PWM}} \cdot 10^6\,\mu s
+
+This is useful for applications like servo control, where the pulse width determines the position.
+
+The resolution of pulse width is the change in pulse width that can be achieved by changing the value of **CCR** register by 1. It is calculated as:
+
+.. math::
+
+   \text{Resolution} = \frac{T_{PWM}}{\text{ARR} + 1}
 
 To determine the **frequency of timer**, first you need to find out the **APB timer clock** in the **reference mannual** of the microcontroller. 
 
@@ -199,6 +220,8 @@ If :math:`f_{\text{TIM}}` is ``168MHz``, :math:`\text{PSC}` is ``167`` and :math
    = 19999
 
 .. _arr_calculator:
+
+Use the following calculator to calculate the **ARR** value.
 
 .. raw:: html
 
@@ -286,3 +309,11 @@ Generate the code, change the **duty cycle** between ``0%`` and ``100%``. Observ
    To **calibrate**, use **full throttle (2ms pulse)** for **2 seconds** and then use **zero throttle (1ms pulse)** for **2 seconds**. You don't need to **calibrate** it again until you change the **ESC** or **BLDC**.
    
    To **arm**, use **zero throttle** for **2 seconds**. You need to **arm** every time after **power on** otherwise **ESC** wiil make **rapid beeping sound** to alert.
+
+For more concept, you can watch this video:
+
+.. raw:: html
+
+   <div style="text-align: center;">
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/AjN58ceQaF4?si=AzN28pgfnjgrLI2S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   </div>

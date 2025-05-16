@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Embedded Tutorials &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>Embedded Tutorials &mdash; Embedded Tutorials 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -15,12 +15,11 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/documentation_options.js?v=fc837d61"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       <script src="_static/custom.js?v=5fde6192"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -38,7 +37,7 @@
           
           <a href="#" class="icon icon-home">
             Embedded Tutorials
-              <img src="_static/embedded-logo.webp" class="logo" alt="Logo"/>
+              <img src="_static/club-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -51,6 +50,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arduino_basics_tutorial.html">Arduino Basics Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial.html">Intermediate Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="highlights.html">Highlights</a></li>
@@ -80,51 +80,163 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="admonition note">
+  <div class="toctree-wrapper compound">
+</div>
+<div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial is tailored for <strong>students of IOE, Pulchowk Campus</strong>, addressing their specific requirements and constraints.</p>
+<p>This tutorial is tailored for <strong>students of IOE, Pulchowk Campus</strong>, addressing their specific requirements and constraints. In some sections, students may be required to contact the team for further assistance. We are open to suggestions and contributions from students, and we will be happy to include them in this tutorial.</p>
 </div>
 <section id="embedded-tutorials">
 <h1>Embedded Tutorials<a class="headerlink" href="#embedded-tutorials" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
+<p>In this <strong>Embedded Tutorials</strong>, we will guide you through programming <strong>Arduino</strong>, <strong>STM32 controllers</strong>, <strong>ESP32</strong>, and <strong>Raspberry Pi Pico</strong>, sharing the techniques and approaches we commonly use. We will focus more on <strong>STM32 controllers</strong> from the basics, while also providing links for the basics of <strong>Arduino Programming</strong>. We generally use the <strong>Arduino IDE</strong> for programming <strong>ESP32</strong> and <strong>Raspberry Pi Pico</strong>, and <strong>STM32CubeMX</strong> and <strong>STM32CubeProgrammer</strong> for <strong>STM32 controllers</strong>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>After completing this tutorial, you will be able to:</p>
+<ul class="simple">
+<li><p>Program these controllers.</p></li>
+<li><p>Use them for controlling actuators, communication, interfacing sensors, writing CRC, and more.</p></li>
+<li><p>Accelerate your learning and use this tutorial as a reference for your projects.</p></li>
+</ul>
 </div>
-<p>Before starting with the tutorials, let’s understand the basics of embedded systems.</p>
-<section id="embedded-systems">
-<h2>Embedded Systems<a class="headerlink" href="#embedded-systems" title="Link to this heading"></a></h2>
-<a class="padded-image reference internal image-reference" href="_images/embedded_system_intro.webp"><img alt="embedded_system" class="padded-image align-center" src="_images/embedded_system_intro.webp" style="width: 100%;" />
-</a>
-<p><strong>Embedded Systems</strong> play a crucial role in electronic devices, control systems, and <strong>robotics</strong>. They are composed of two primary components: <strong>hardware and software</strong>. The hardware forms the physical foundation of the system, while the software consists of the programs that operate on it. Common programming languages for embedded systems include <strong>Embedded C, C++, and Python</strong>. The performance, efficiency, and durability of an embedded system are heavily influenced by its design and implementation.</p>
-<section id="characteristics">
-<h3>Characteristics<a class="headerlink" href="#characteristics" title="Link to this heading"></a></h3>
-<a class="padded-image reference internal image-reference" href="_images/embedded_system_characteristics.webp"><img alt="embedded_system_characteristics" class="padded-image align-center" src="_images/embedded_system_characteristics.webp" style="width: 400px;" />
-</a>
-</section>
-<section id="applications">
-<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading"></a></h3>
-<a class="padded-image reference internal image-reference" href="_images/Applications-of-Embedded-System.webp"><img alt="Apllciations of embedded system" class="padded-image align-center" src="_images/Applications-of-Embedded-System.webp" style="width: 400px;" />
-</a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We are continuously adding more content to this tutorial. If you contribute, we will be happy to include your content in this tutorial.</p>
+</div>
 <a href="getting_started.html">
    <h2 style="
     text-align: center;
-    color: #FFFFFF;
+    color: #fff;
     font-family: 'Cursive', 'Comic Sans MS', sans-serif;
     font-weight: bold;
     margin-top: 20px;
     padding: 20px;
-    background-color: teal;
+    background-color: #2980b9;
     border-radius: 10px;
     line-height: 1.5;">
     Let's Get Started with <br>
       <span style="
-        color: #FFEB3B;
+        color: #fff;
         text-decoration: none;
         font-size: 1.2em;">
          Embedded Tutorials
       </span>
    </h2>
-</a></section>
-</section>
-</section>
+</a><div class="carousel-container">
+    <!-- First Row -->
+    <div class="carousel">
+        <div class="carousel-track" id="carousel-track-1">
+            <div class="carousel-slide"><img src="_static/images/controllers/STM32F407G-DISC1_Blue.jpg" alt="STM32F407G-DISC1"></div>
+            <div class="carousel-slide"><img src="_static/images/controllers/arduino_uno.jpg" alt="arduino"></div>
+            <div class="carousel-slide"><img src="_static/images/controllers/esp32_wroom.jpg" alt="esp32_wroom"></div>
+        </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="carousel">
+        <div class="carousel-track" id="carousel-track-2">
+            <div class="carousel-slide"><img src="_static/images/program_logos/c_logo.png" alt="c_logo"></div>
+            <div class="carousel-slide"><img src="_static/images/program_logos/python_logo.png" alt="python_logo"></div>
+            <div class="carousel-slide"><img src="_static/images/program_logos/cpp_logo.png" alt="cpp_logo"></div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .carousel-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .carousel {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+        min-width: 100%;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .carousel-slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+</style>
+
+<script>
+    const track1 = document.querySelector('#carousel-track-1');
+    const slides1 = Array.from(track1.children);
+    const track2 = document.querySelector('#carousel-track-2');
+    const slides2 = Array.from(track2.children);
+
+    // Clone first and last slides for seamless looping
+    const firstSlide1 = slides1[0].cloneNode(true);
+    const lastSlide1 = slides1[slides1.length - 1].cloneNode(true);
+    track1.appendChild(firstSlide1);
+    track1.insertBefore(lastSlide1, slides1[0]);
+
+    const firstSlide2 = slides2[0].cloneNode(true);
+    const lastSlide2 = slides2[slides2.length - 1].cloneNode(true);
+    track2.appendChild(firstSlide2);
+    track2.insertBefore(lastSlide2, slides2[0]);
+
+    // Update slide arrays after cloning
+    const updatedSlides1 = Array.from(track1.children);
+    const updatedSlides2 = Array.from(track2.children);
+
+    // Set initial position to the first "real" slide
+    let currentIndex1 = 1;
+    let currentIndex2 = 1;
+    const slideWidth1 = slides1[0].getBoundingClientRect().width;
+    const slideWidth2 = slides2[0].getBoundingClientRect().width;
+    track1.style.transform = `translateX(-${currentIndex1 * slideWidth1}px)`;
+    track2.style.transform = `translateX(-${currentIndex2 * slideWidth2}px)`;
+
+    function slideImages() {
+        // First row slides left
+        currentIndex1++;
+        track1.style.transition = 'transform 0.5s ease-in-out';
+        track1.style.transform = `translateX(-${currentIndex1 * slideWidth1}px)`;
+
+        // Second row slides right
+        currentIndex2--;
+        track2.style.transition = 'transform 0.5s ease-in-out';
+        track2.style.transform = `translateX(-${currentIndex2 * slideWidth2}px)`;
+
+        // Reset position for seamless looping
+        setTimeout(() => {
+            if (currentIndex1 === updatedSlides1.length - 1) {
+                track1.style.transition = 'none';
+                currentIndex1 = 1;
+                track1.style.transform = `translateX(-${currentIndex1 * slideWidth1}px)`;
+            }
+            if (currentIndex2 === 0) {
+                track2.style.transition = 'none';
+                currentIndex2 = updatedSlides2.length - 2;
+                track2.style.transform = `translateX(-${currentIndex2 * slideWidth2}px)`;
+            }
+        }, 500); // Match the transition duration
+    }
+
+    setInterval(slideImages, 3000); // Change images every 3 seconds
+</script></section>
 
 
            </div>
@@ -136,7 +248,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Robotics Club, Pulchowk Campus.</p>
+    <p>&#169; Copyright 2024 - 2025, Robotics Club, Pulchowk Campus.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

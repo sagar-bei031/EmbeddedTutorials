@@ -12,7 +12,7 @@ For this Intermediate Tutorial, you should have basic knowledge **STM32 HAL prog
    intermediate_tutorial/sending_and_receiving_packets
    intermediate_tutorial/arm_math
    intermediate_tutorial/matrix_operation
+   intermediate_tutorial/game_controller.rst
 
-..    intermediate_tutorial/joystick
 ..    intermediate_tutorial/omnidirectional_robot
 ..    intermediate_tutorial/bno085

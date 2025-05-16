@@ -11,7 +11,7 @@ Serial Wire Debug  (SWD) is a lightweight debug protocol from ARM. The physical 
 .. attention::
    This ST-Link V2 does not support ``SWV`` as there is no ``SWO`` pin. `Use USB instead of SWV <stm32_basics_tutorial/usb/usb_printf.html>`_.
 
-   .. image:: ../images/debuggers/stlink.jpeg
+   .. image:: ../_static/images/debuggers/stlink.jpeg
       :width: 300
       :align: center
       :alt: stlink.jpeg

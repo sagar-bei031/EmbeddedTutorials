@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Setup &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>Setup &mdash; Embedded Tutorials 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/documentation_options.js?v=fc837d61"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -24,7 +24,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="STM32 Basics Tutorial" href="../stm32_basics_tutorial.html" />
+    <link rel="next" title="Arduino Basics Tutorial" href="../arduino_basics_tutorial.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -38,7 +38,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Embedded Tutorials
-              <img src="../_static/embedded-logo.webp" class="logo" alt="Logo"/>
+              <img src="../_static/club-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -55,6 +55,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Setup</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../arduino_basics_tutorial.html">Arduino Basics Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
@@ -91,14 +92,20 @@
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#ch34x-usb-driver-setup" id="id1">1. CH34x USB Driver Setup</a></p></li>
-<li><p><a class="reference internal" href="#creating-desktop-files-for-application-on-linux" id="id2">2. Creating <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files for application on Linux</a></p></li>
-<li><p><a class="reference internal" href="#stm32cubeprogrammer-setup" id="id3">3. STM32CubeProgrammer Setup</a></p></li>
-<li><p><a class="reference internal" href="#git-setup" id="id4">4. Git Setup</a></p></li>
-<li><p><a class="reference internal" href="#ssh-setup" id="id5">5. SSH Setup</a></p></li>
+<li><p><a class="reference internal" href="#creating-desktop-files-for-application-on-linux" id="id2">2. Creating <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files for application on Linux</a></p>
+<ul>
+<li><p><a class="reference internal" href="#arduino-ide" id="id3">Arduino IDE</a></p></li>
+<li><p><a class="reference internal" href="#stm32cubemx" id="id4">STM32CubeMX</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#stm32cubeprogrammer-setup" id="id5">3. STM32CubeProgrammer Setup</a></p></li>
+<li><p><a class="reference internal" href="#git-setup" id="id6">4. Git Setup</a></p></li>
+<li><p><a class="reference internal" href="#ssh-setup" id="id7">5. SSH Setup</a></p></li>
 </ul>
 </nav>
 <section id="ch34x-usb-driver-setup">
 <h2><a class="toc-backref" href="#id1" role="doc-backlink">1. CH34x USB Driver Setup</a><a class="headerlink" href="#ch34x-usb-driver-setup" title="Link to this heading"></a></h2>
+<p>We sometimes get problem with USB driver for <code class="docutils literal notranslate"><span class="pre">CH340/CH341</span></code> USB to serial converter. It can be solved by removing <code class="docutils literal notranslate"><span class="pre">brltty</span></code> package.</p>
 <p>Remove <code class="docutils literal notranslate"><span class="pre">brltty</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>brltty
 </pre></div>
@@ -106,8 +113,7 @@
 </section>
 <section id="creating-desktop-files-for-application-on-linux">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Creating <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files for application on Linux</a><a class="headerlink" href="#creating-desktop-files-for-application-on-linux" title="Link to this heading"></a></h2>
-<p>Create a <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files at <code class="docutils literal notranslate"><span class="pre">/home/$USER/.local/share/applications</span></code>.</p>
-<p>Add following informations:</p>
+<p>Some applications do not appear on application menu which can be solved by creating <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> file. Create a <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files at <code class="docutils literal notranslate"><span class="pre">/home/$USER/.local/share/applications</span></code>. Add following informations:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Desktop</span> <span class="n">Entry</span><span class="p">]</span>
 <span class="n">Name</span><span class="o">=&lt;</span><span class="n">Name</span><span class="o">&gt;</span>
 <span class="n">Comment</span><span class="o">=&lt;</span><span class="n">Content</span><span class="o">&gt;</span>
@@ -115,7 +121,10 @@
 <span class="n">Icon</span><span class="o">=&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">icon</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>For example, for <strong>Arduino IDE</strong>:</p>
+<p>Some applications which do not appear on application menu are:</p>
+<section id="arduino-ide">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">Arduino IDE</a><a class="headerlink" href="#arduino-ide" title="Link to this heading"></a></h3>
+<p>Creat ‘arduino-ide.desktop’ file in <code class="docutils literal notranslate"><span class="pre">~/.local/share/applications</span></code> directory, and add the following content:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Desktop</span> <span class="n">Entry</span><span class="p">]</span>
 <span class="n">Name</span><span class="o">=</span><span class="n">Arduino</span> <span class="n">IDE</span>
 <span class="n">Comment</span><span class="o">=</span><span class="n">Arduino</span> <span class="n">IDE</span> <span class="mf">2.3.2</span>
@@ -126,7 +135,10 @@
 <span class="n">Categories</span><span class="o">=</span><span class="n">Development</span>
 </pre></div>
 </div>
-<p>For <strong>STM32CubeMX</strong>:</p>
+</section>
+<section id="stm32cubemx">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">STM32CubeMX</a><a class="headerlink" href="#stm32cubemx" title="Link to this heading"></a></h3>
+<p>Create ‘STM32CubeMX.desktop’ file in <code class="docutils literal notranslate"><span class="pre">~/.local/share/applications</span></code> directory, and add the following content:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Desktop</span> <span class="n">Entry</span><span class="p">]</span>
 <span class="n">Categories</span><span class="o">=</span><span class="n">Development</span>
 <span class="n">Comment</span><span class="o">=</span><span class="n">STM32CubeMX</span> <span class="mf">6.12.0</span>
@@ -143,6 +155,7 @@
 <span class="n">StartupWMClass</span><span class="o">=</span><span class="n">com</span><span class="o">-</span><span class="n">st</span><span class="o">-</span><span class="n">microxplorer</span><span class="o">-</span><span class="n">maingui</span><span class="o">-</span><span class="n">STM32CubeMX</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code> icon does not appear on dock. The last three lines solve the problem.</p>
 <p>Update desktop database.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>update-desktop-database<span class="w"> </span>~/.local/share/applications
 </pre></div>
@@ -155,16 +168,17 @@
 </div>
 </div>
 </section>
+</section>
 <section id="stm32cubeprogrammer-setup">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">3. STM32CubeProgrammer Setup</a><a class="headerlink" href="#stm32cubeprogrammer-setup" title="Link to this heading"></a></h2>
-<p>Create a symbolic link to your <code class="docutils literal notranslate"><span class="pre">STM32_Programmer_CLI</span></code> in <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code>.</p>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">3. STM32CubeProgrammer Setup</a><a class="headerlink" href="#stm32cubeprogrammer-setup" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">STM32Cube_Programmer_CLI</span></code> is not on environment by default. So, create a symbolic link to your <code class="docutils literal notranslate"><span class="pre">STM32_Programmer_CLI</span></code> in <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.local/bin<span class="w"> </span><span class="c1"># if does not exist</span>
 ln<span class="w"> </span>-s<span class="w"> </span>~/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI<span class="w"> </span>~/.local/bin/STM32_Programmer_CLI
 </pre></div>
 </div>
 </section>
 <section id="git-setup">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">4. Git Setup</a><a class="headerlink" href="#git-setup" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">4. Git Setup</a><a class="headerlink" href="#git-setup" title="Link to this heading"></a></h2>
 <p>Set username and email.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
 git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;your.email@example.com&quot;</span>
@@ -180,7 +194,8 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 </div>
 </section>
 <section id="ssh-setup">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">5. SSH Setup</a><a class="headerlink" href="#ssh-setup" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">5. SSH Setup</a><a class="headerlink" href="#ssh-setup" title="Link to this heading"></a></h2>
+<p>To push code on repository using <code class="docutils literal notranslate"><span class="pre">https</span></code>, you need to enter password every time. So, we use <code class="docutils literal notranslate"><span class="pre">ssh</span></code> for authentication.</p>
 <p>Generate an SSH key:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;your_email@example.com&quot;</span>
 </pre></div>
@@ -204,13 +219,13 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../stm32_basics_tutorial.html" class="btn btn-neutral float-right" title="STM32 Basics Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../arduino_basics_tutorial.html" class="btn btn-neutral float-right" title="Arduino Basics Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Robotics Club, Pulchowk Campus.</p>
+    <p>&#169; Copyright 2024 - 2025, Robotics Club, Pulchowk Campus.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

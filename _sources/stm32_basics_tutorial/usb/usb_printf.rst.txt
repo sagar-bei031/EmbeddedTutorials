@@ -15,8 +15,8 @@ We cannot understand non character data type after printed on screen. In order t
 
 
 
-2. Overwrite Definition of printf
----------------------------------
+2. Overwrite ``printf`` Callback Function
+-----------------------------------------
 
 * Create a new file ``printf_conf.c`` in ``Core/Src`` folder.
 

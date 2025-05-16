@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Debug using SWD &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>Debug using SWD &mdash; Embedded Tutorials 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/documentation_options.js?v=fc837d61"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -38,7 +38,7 @@
           
           <a href="../../index.html" class="icon icon-home">
             Embedded Tutorials
-              <img src="../../_static/embedded-logo.webp" class="logo" alt="Logo"/>
+              <img src="../../_static/club-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -51,6 +51,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino_basics_tutorial.html">Arduino Basics Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../stm32_basics_tutorial.html">STM32 Basics Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../basic_setup.html">Basic Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gpio.html">GPIO</a></li>
@@ -101,8 +102,8 @@
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id3">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#requirements" id="id4">Requirements</a></p></li>
-<li><p><a class="reference internal" href="#for-st-link-or-jlink" id="id5">For <strong>ST-Link</strong> or <strong>JLink</strong></a></p></li>
-<li><p><a class="reference internal" href="#for-openocd" id="id6">For <strong>OpenOCD</strong></a></p></li>
+<li><p><a class="reference internal" href="#setup-for-st-link-or-jlink" id="id5">Setup for <strong>ST-Link</strong> or <strong>JLink</strong></a></p></li>
+<li><p><a class="reference internal" href="#setup-for-openocd" id="id6">Setup for <strong>OpenOCD</strong></a></p></li>
 <li><p><a class="reference internal" href="#run-debugger" id="id7">Run Debugger</a></p></li>
 </ul>
 </nav>
@@ -122,8 +123,8 @@
 </li>
 </ul>
 </section>
-<section id="for-st-link-or-jlink">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">For <strong>ST-Link</strong> or <strong>JLink</strong></a><a class="headerlink" href="#for-st-link-or-jlink" title="Link to this heading"></a></h2>
+<section id="setup-for-st-link-or-jlink">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Setup for <strong>ST-Link</strong> or <strong>JLink</strong></a><a class="headerlink" href="#setup-for-st-link-or-jlink" title="Link to this heading"></a></h2>
 <p>Update or create <code class="docutils literal notranslate"><span class="pre">.vscode/lauch.json</span></code> file.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">lauch.json</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
@@ -152,8 +153,8 @@
 </div>
 <p>Change <code class="docutils literal notranslate"><span class="pre">.elf</span></code> filename for <code class="docutils literal notranslate"><span class="pre">executable</span></code> and device name for <code class="docutils literal notranslate"><span class="pre">device</span></code> (for bluepill, “device”: “STM32F103C8”).For <code class="docutils literal notranslate"><span class="pre">jlink</span></code>, change “servertype”: “jlink”.</p>
 </section>
-<section id="for-openocd">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">For <strong>OpenOCD</strong></a><a class="headerlink" href="#for-openocd" title="Link to this heading"></a></h2>
+<section id="setup-for-openocd">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Setup for <strong>OpenOCD</strong></a><a class="headerlink" href="#setup-for-openocd" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">OpenOCD</span></code> server is better than <code class="docutils literal notranslate"><span class="pre">ST-Link</span></code> server. We also prefer to use <code class="docutils literal notranslate"><span class="pre">OpenOCD</span></code> instead of <code class="docutils literal notranslate"><span class="pre">ST-Link</span></code> but it is not neccessary.</p>
 <p>Install <code class="docutils literal notranslate"><span class="pre">OpenOCD</span></code> by executing command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">openocd</span></code>. Update <code class="docutils literal notranslate"><span class="pre">.vscode/launch.json</span></code>.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -217,7 +218,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Robotics Club, Pulchowk Campus.</p>
+    <p>&#169; Copyright 2024 - 2025, Robotics Club, Pulchowk Campus.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

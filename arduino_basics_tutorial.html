@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arduino Basics Tutorial &mdash; Embedded Tutorials 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e9d84906" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=fc837d61"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/custom.js?v=5fde6192"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="STM32 Basics Tutorial" href="stm32_basics_tutorial.html" />
+    <link rel="prev" title="Setup" href="getting_started/setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Embedded Tutorials
+              <img src="_static/club-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Arduino Basics Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intermediate_tutorial.html">Intermediate Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="highlights.html">Highlights</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Embedded Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Arduino Basics Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Robotics-Club-Pulchowk/EmbeddedTutorials/blob/main/source/arduino_basics_tutorial.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="arduino-basics-tutorial">
+<h1>Arduino Basics Tutorial<a class="headerlink" href="#arduino-basics-tutorial" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#specifications-for-arduino-uno-r3" id="id2">Specifications for Arduino UNO R3</a></p></li>
+<li><p><a class="reference internal" href="#guidelines" id="id3">Guidelines</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tinkercad" id="id4">Tinkercad</a></p></li>
+<li><p><a class="reference internal" href="#youtube-tutorials" id="id5">Youtube Tutorials</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#knowledge-check" id="id6">Knowledge Check</a></p></li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Arduino</span></code> is an open-source electronics platform based on easy-to-use hardware and software. It consists of a microcontroller board, which can be programmed to sense and control the physical world. The <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code> is used to write and upload code to the board. Well <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code> is not limited to <code class="docutils literal notranslate"><span class="pre">Arduino</span></code> boards only, it can be used to program other microcontrollers as well.</p>
+</section>
+<section id="specifications-for-arduino-uno-r3">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Specifications for Arduino UNO R3</a><a class="headerlink" href="#specifications-for-arduino-uno-r3" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Specification</strong></p></th>
+<th class="head"><p><strong>Details</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Microcontroller</p></td>
+<td><p>ATmega328P</p></td>
+</tr>
+<tr class="row-odd"><td><p>Processor</p></td>
+<td><p>8-bit AVR</p></td>
+</tr>
+<tr class="row-even"><td><p>Clock Speed</p></td>
+<td><p>16 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>I/O Voltage</p></td>
+<td><p>5 V</p></td>
+</tr>
+<tr class="row-even"><td><p>Power Input Voltage (VIN Pin)</p></td>
+<td><p>7 V - 12 V (Typical 9 V)</p></td>
+</tr>
+<tr class="row-odd"><td><p>DC Current per I/O Pin</p></td>
+<td><p>20 mA</p></td>
+</tr>
+<tr class="row-even"><td><p>Memory</p></td>
+<td><p>2KB SRAM, 32KB FLASH, 1KB EEPROM</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="guidelines">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Guidelines</a><a class="headerlink" href="#guidelines" title="Link to this heading"></a></h2>
+<section id="tinkercad">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Tinkercad</a><a class="headerlink" href="#tinkercad" title="Link to this heading"></a></h3>
+<p>You do not need to have <code class="docutils literal notranslate"><span class="pre">Arduino</span></code> board physically. You can use software platforms like <code class="docutils literal notranslate"><span class="pre">`here</span></code>. or <code class="docutils literal notranslate"><span class="pre">Proteus</span></code> to simulate the code. The easiest and free one is <code class="docutils literal notranslate"><span class="pre">Tinkercad</span></code>. You can create a free account and start using it <a class="extlink-newtab reference external" href="https://www.tinkercad.com/">here</a>.</p>
+</section>
+<section id="youtube-tutorials">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Youtube Tutorials</a><a class="headerlink" href="#youtube-tutorials" title="Link to this heading"></a></h3>
+<p>There are many arduino tutorials available online. We recommend you a youtube playlist, <a class="extlink-newtab reference external" href="https://youtube.com/playlist?list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP&amp;si=uKKVvJbOPNuGyMVv">New Arduino Programming by Paul MCWhorter</a>. For real beginners, complete all the videos and use <code class="docutils literal notranslate"><span class="pre">Tinkercad</span></code>. Some components may not be available in <code class="docutils literal notranslate"><span class="pre">Tinkercad</span></code>. In that case, you can directly use physical components if available.</p>
+<div style="text-align: center;">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=qrLBoDZGhJ-RTVfk&amp;list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div></section>
+</section>
+<section id="knowledge-check">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Knowledge Check</a><a class="headerlink" href="#knowledge-check" title="Link to this heading"></a></h2>
+<p>After completing the videos, you have to be able to do the following:</p>
+<ul class="simple">
+<li><p>Using resistors and color coding of resistors</p></li>
+<li><p>Breadboard Wiring</p></li>
+<li><dl class="simple">
+<dt>Arduino Programming</dt><dd><ul>
+<li><p>Digital Input/Output (LED, push button) and External Interrupts (rising, falling)</p></li>
+<li><p>Analog Input/Output (ADC, PWM)</p></li>
+<li><p>Serial Communication (UART)</p></li>
+<li><p>Using Libraries</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Actuator Interfacing</dt><dd><ul>
+<li><p>DC Motor</p></li>
+<li><p>Servo Motor</p></li>
+<li><p>Stepper Motor</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Using Sensors</dt><dd><ul>
+<li><p>Light Sensor (LDR)</p></li>
+<li><p>Ultrasonic Sensor</p></li>
+<li><p>Temperature and Humidity Sensor (DHT11/DHT22)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>16x2 LCD Interfacing</p></li>
+<li><p>Using multimeter</p></li>
+<li><p>Using Oscilloscope</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started/setup.html" class="btn btn-neutral float-left" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="stm32_basics_tutorial.html" class="btn btn-neutral float-right" title="STM32 Basics Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 - 2025, Robotics Club, Pulchowk Campus.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

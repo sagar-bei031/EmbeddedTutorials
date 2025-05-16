@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARM Math &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>ARM Math &mdash; Embedded Tutorials 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -16,7 +16,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/documentation_options.js?v=fc837d61"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -40,7 +40,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Embedded Tutorials
-              <img src="../_static/embedded-logo.webp" class="logo" alt="Logo"/>
+              <img src="../_static/club-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -53,6 +53,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arduino_basics_tutorial.html">Arduino Basics Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
@@ -60,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sending_and_receiving_packets.html">Sending and Receiving Packets</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ARM Math</a></li>
 <li class="toctree-l2"><a class="reference internal" href="matrix_operation.html">Matrix Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game_controller.html">Game Controller</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
@@ -108,7 +110,7 @@
 </section>
 <section id="linking-arm-math-library-for-arm-cortex-m3">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Linking Arm Math Library for ARM Cortex-M3</a><a class="headerlink" href="#linking-arm-math-library-for-arm-cortex-m3" title="Link to this heading"></a></h2>
-<p>You can link the library by adding the GCC library path <code class="docutils literal notranslate"><span class="pre">Drivers/CMSIS/Lib/GCC</span></code> and the linker flag “libarm_cortexM3l_math.a in the Makefile or CMakeList.txt.</p>
+<p>You can link the library by adding the GCC library path <code class="docutils literal notranslate"><span class="pre">Drivers/CMSIS/Lib/GCC</span></code> and the linker flag <code class="docutils literal notranslate"><span class="pre">libarm_cortexM3l_math.a</span></code> in the Makefile or CMakeList.txt.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-TWFrZWZpbGU=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tab" tabindex="0">Makefile</button><button aria-controls="panel-0-Q01ha2VMaXN0cy50eHQ=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tab" tabindex="-1">CMakeLists.txt</button></div><div aria-labelledby="tab-0-TWFrZWZpbGU=" class="sphinx-tabs-panel group-tab" id="panel-0-TWFrZWZpbGU=" name="TWFrZWZpbGU=" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span># libraries
 LIBS = -lc -lm -lnosys -larm_cortexM3l_math.a
@@ -215,7 +217,7 @@ C_DEFS =  \
 </div>
 </div><div aria-labelledby="tab-4-Q01ha2VMaXN0cy50eHQ=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-Q01ha2VMaXN0cy50eHQ=" name="Q01ha2VMaXN0cy50eHQ=" role="tabpanel" tabindex="0"><div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Add project symbols (macros)</span>
 <span class="nb">target_compile_definitions</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span>
-<span class="w">   </span><span class="c"># Add user definitions</span>
+<span class="w">   </span><span class="c"># ...</span>
 <span class="hll"><span class="w">   </span><span class="s">__FPU_PRESENT=1U</span><span class="w"> </span><span class="c"># For having FPU</span>
 </span><span class="p">)</span>
 </pre></div>
@@ -236,7 +238,7 @@ C_DEFS =  \
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Robotics Club, Pulchowk Campus.</p>
+    <p>&#169; Copyright 2024 - 2025, Robotics Club, Pulchowk Campus.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

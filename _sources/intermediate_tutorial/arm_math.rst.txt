@@ -17,7 +17,7 @@ In STM32 project, ``arm_math`` header and source files are inside ``Drivers >  C
 2. Linking Arm Math Library for ARM Cortex-M3
 ---------------------------------------------
 
-You can link the library by adding the GCC library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag "libarm_cortexM3l_math.a in the Makefile or CMakeList.txt.
+You can link the library by adding the GCC library path ``Drivers/CMSIS/Lib/GCC`` and the linker flag ``libarm_cortexM3l_math.a`` in the Makefile or CMakeList.txt.
 
 .. tabs::
 
@@ -175,7 +175,7 @@ You may get such error for **Cortex M4** or others having **FPU**. To solve this
 
          # Add project symbols (macros)
          target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
-            # Add user definitions
+            # ...
             __FPU_PRESENT=1U # For having FPU
          )
 

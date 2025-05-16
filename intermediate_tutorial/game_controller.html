@@ -1,0 +1,962 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Controller &mdash; Embedded Tutorials 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e9d84906" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=fc837d61"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/custom.js?v=5fde6192"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Highlights" href="../highlights.html" />
+    <link rel="prev" title="Matrix Operation" href="matrix_operation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Embedded Tutorials
+              <img src="../_static/club-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arduino_basics_tutorial.html">Arduino Basics Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crc.html">Cyclic Redundancy Check (CRC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sending_and_receiving_packets.html">Sending and Receiving Packets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arm_math.html">ARM Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrix_operation.html">Matrix Operation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Game Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Embedded Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../intermediate_tutorial.html">Intermediate Tutorial</a></li>
+      <li class="breadcrumb-item active">Game Controller</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Robotics-Club-Pulchowk/EmbeddedTutorials/blob/main/source/intermediate_tutorial/game_controller.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="game-controller">
+<h1>Game Controller<a class="headerlink" href="#game-controller" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id14">1. Introduction</a></p></li>
+<li><p><a class="reference internal" href="#understanding-the-flow-of-data-and-signals-from-game-controller-to-actuator" id="id15">2. Understanding the flow of Data and Signals from Game Controller to Actuator</a></p></li>
+<li><p><a class="reference internal" href="#joystick-data-format-from-receiving-controller" id="id16">3. Joystick Data Format from Receiving Controller</a></p></li>
+<li><p><a class="reference internal" href="#setting-esp32-as-receiver" id="id17">4. Setting ESP32 as Receiver</a></p>
+<ul>
+<li><p><a class="reference internal" href="#installing-esp32-board-by-espressif-in-arduino-ide" id="id18">4.1. Installing ESP32 Board by Espressif in Arduino IDE</a></p></li>
+<li><p><a class="reference internal" href="#finding-mac-address-of-esp32-and-setting-up-ps4-controller" id="id19">4.2. Finding MAC Address of ESP32 and Setting up PS4 Controller</a></p></li>
+<li><p><a class="reference internal" href="#using-ps4controller-library-by-juan-pablo-marquez" id="id20">4.3. Using PS4Controller Library by Juan Pablo Marquez</a></p></li>
+<li><p><a class="reference internal" href="#using-esp32-bluepad32" id="id21">4.4. Using ESP32_Bluepad32</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#setting-raspberry-pi-pico-w-as-receiver" id="id22">5. Setting Raspberry Pi Pico W as Receiver</a></p></li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">1. Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>A game controller is an important input device for manually controlling a robot. Most game controllers generally have two joysticks, two triggers, two bumpers, four pad buttons, four user buttons, and three special buttons. Some game controllers also have a vibration motor, LEDs, and a speaker. Each joystick has two potentiometers for the X and Y axes and a push button. Each trigger has a potentiometer for its axis.</p>
+<p>The Xbox 360 and PlayStation controllers are two of the most popular game controllers. They can be connected to a computer using a USB cable or Bluetooth, and can also be connected to a microcontroller using USB or Bluetooth. In this tutorial, we are going to use a PS4 controller and an ESP32 WROOM32 module. The ESP32 supports both classic Bluetooth and BLE, while the PS4 controller only supports classic Bluetooth.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/ps4.jpg"><img alt="PS4 Controller" src="../_images/ps4.jpg" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>PS4 Controller (DualShock)</strong></span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/xbox.jpg"><img alt="Xbox 360 Controller" src="../_images/xbox.jpg" style="width: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Xbox 360 Controller</strong></span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/ps4_label.webp"><img alt="PS4 Controller Label" src="../_images/ps4_label.webp" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>PS4 Controller Label</strong></span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/xbox_label.png"><img alt="Xbox 360 Controller Label" src="../_images/xbox_label.png" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Xbox 360 Controller Label</strong></span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="understanding-the-flow-of-data-and-signals-from-game-controller-to-actuator">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">2. Understanding the flow of Data and Signals from Game Controller to Actuator</a><a class="headerlink" href="#understanding-the-flow-of-data-and-signals-from-game-controller-to-actuator" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/joy_data_flow.png"><img alt="Flow of Data and Signals from Game Controller to Actuator" src="../_images/joy_data_flow.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Flow of Data and Signals from Game Controller to Actuator</strong></span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The ESP32 acts as a wireless receiver, parsing HID data from the PS4 controller and converting it into a common JoyData format. This data is then sent to the STM32 via UART, where the STM32 uses the JoyData to control the actuators. The ESP32 can be replaced with a Raspberry Pi Pico W or any other. The standardized JoyData format makes it easy to swap out the receiver as needed.</p>
+</section>
+<section id="joystick-data-format-from-receiving-controller">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">3. Joystick Data Format from Receiving Controller</a><a class="headerlink" href="#joystick-data-format-from-receiving-controller" title="Link to this heading"></a></h2>
+<p>Creating a header file for the JoyData structure is a good practice, as it allows you to define the structure in a single place and include it in multiple source files. This makes it easier to include, maintain and update the structure if needed.</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<span id="joy-msg"></span><div class="code-block-caption"><span class="caption-text">joy_msg.hpp</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#ifndef _JOY_MSG_HPP</span>
+<span class="linenos"> 2</span><span class="cp">#define _JOY_MSG_HPP</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="cp">#define BUTTONS(button) (1 &lt;&lt; button)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="k">namespace</span><span class="w"> </span><span class="nn">myPS4</span>
+<span class="linenos"> 9</span><span class="p">{</span>
+<span class="linenos">10</span><span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="nc">Buttons</span>
+<span class="linenos">11</span><span class="w">  </span><span class="p">{</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">CROSS</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">    </span><span class="n">CIRCLE</span><span class="p">,</span>
+<span class="linenos">14</span><span class="w">    </span><span class="n">SQUARE</span><span class="p">,</span>
+<span class="linenos">15</span><span class="w">    </span><span class="n">TRIANGLE</span><span class="p">,</span>
+<span class="linenos">16</span><span class="w">    </span><span class="n">SHARE</span><span class="p">,</span>
+<span class="linenos">17</span><span class="w">    </span><span class="n">PS_BUTTON</span><span class="p">,</span>
+<span class="linenos">18</span><span class="w">    </span><span class="n">OPTION</span><span class="p">,</span>
+<span class="linenos">19</span><span class="w">    </span><span class="n">L3</span><span class="p">,</span>
+<span class="linenos">20</span><span class="w">    </span><span class="n">R3</span><span class="p">,</span>
+<span class="linenos">21</span><span class="w">    </span><span class="n">L1</span><span class="p">,</span>
+<span class="linenos">22</span><span class="w">    </span><span class="n">R1</span><span class="p">,</span>
+<span class="linenos">23</span><span class="w">    </span><span class="n">UP</span><span class="p">,</span>
+<span class="linenos">24</span><span class="w">    </span><span class="n">DOWN</span><span class="p">,</span>
+<span class="linenos">25</span><span class="w">    </span><span class="n">LEFT</span><span class="p">,</span>
+<span class="linenos">26</span><span class="w">    </span><span class="n">RIGHT</span><span class="p">,</span>
+<span class="linenos">27</span><span class="w">    </span><span class="n">TOUCH</span>
+<span class="linenos">28</span><span class="w">  </span><span class="p">};</span>
+<span class="linenos">29</span><span class="p">}</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="k">namespace</span><span class="w"> </span><span class="nn">myXBox</span>
+<span class="linenos">32</span><span class="p">{</span>
+<span class="linenos">33</span><span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="nc">Buttons</span>
+<span class="linenos">34</span><span class="w">  </span><span class="p">{</span>
+<span class="linenos">35</span><span class="w">    </span><span class="n">A</span><span class="p">,</span>
+<span class="linenos">36</span><span class="w">    </span><span class="n">B</span><span class="p">,</span>
+<span class="linenos">37</span><span class="w">    </span><span class="n">X</span><span class="p">,</span>
+<span class="linenos">38</span><span class="w">    </span><span class="n">Y</span><span class="p">,</span>
+<span class="linenos">39</span><span class="w">    </span><span class="n">BACK</span><span class="p">,</span>
+<span class="linenos">40</span><span class="w">    </span><span class="n">XBOX_BUTTON</span><span class="p">,</span>
+<span class="linenos">41</span><span class="w">    </span><span class="n">START</span><span class="p">,</span>
+<span class="linenos">42</span><span class="w">    </span><span class="n">LSTICK</span><span class="p">,</span>
+<span class="linenos">43</span><span class="w">    </span><span class="n">RSTICK</span><span class="p">,</span>
+<span class="linenos">44</span><span class="w">    </span><span class="n">LB</span><span class="p">,</span>
+<span class="linenos">45</span><span class="w">    </span><span class="n">RB</span><span class="p">,</span>
+<span class="linenos">46</span><span class="w">    </span><span class="n">UP</span><span class="p">,</span>
+<span class="linenos">47</span><span class="w">    </span><span class="n">DOWN</span><span class="p">,</span>
+<span class="linenos">48</span><span class="w">    </span><span class="n">LEFT</span><span class="p">,</span>
+<span class="linenos">49</span><span class="w">    </span><span class="n">RIGHT</span>
+<span class="linenos">50</span><span class="w">  </span><span class="p">};</span>
+<span class="linenos">51</span><span class="p">}</span>
+<span class="linenos">52</span>
+<span class="linenos">53</span><span class="cp">#pragma pack(push, 1)</span>
+<span class="linenos">54</span><span class="k">struct</span><span class="w"> </span><span class="nc">JoyData</span>
+<span class="linenos">55</span><span class="p">{</span>
+<span class="linenos">56</span><span class="w">  </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">lx</span><span class="p">;</span>
+<span class="linenos">57</span><span class="w">  </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">ly</span><span class="p">;</span>
+<span class="linenos">58</span><span class="w">  </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">rx</span><span class="p">;</span>
+<span class="linenos">59</span><span class="w">  </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">ry</span><span class="p">;</span>
+<span class="linenos">60</span><span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">lt</span><span class="p">;</span>
+<span class="linenos">61</span><span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">rt</span><span class="p">;</span>
+<span class="linenos">62</span><span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">buttons</span><span class="p">;</span>
+<span class="linenos">63</span><span class="p">};</span>
+<span class="linenos">64</span><span class="cp">#pragma pack(pop)</span>
+<span class="linenos">65</span>
+<span class="linenos">66</span><span class="cp">#endif </span><span class="c1">// _JOY_MSG_HPP</span>
+</pre></div>
+</div>
+</div>
+<p>The total size of JoyData is 8-bytes and contains the following fields:</p>
+<ul class="simple">
+<li><p><strong>lx</strong>: Left joystick X-axis value</p></li>
+<li><p><strong>ly</strong>: Left joystick Y-axis value</p></li>
+<li><p><strong>rx</strong>: Right joystick X-axis value</p></li>
+<li><p><strong>ry</strong>: Right joystick Y-axis value</p></li>
+<li><p><strong>lt</strong>: Left trigger value</p></li>
+<li><p><strong>rt</strong>: Right trigger value</p></li>
+<li><p><strong>buttons</strong>: Bitmask representing the state of the buttons. Each button is represented by a bit in the bitmask, where 1 indicates that the button is pressed and 0 indicates that it is not pressed.</p></li>
+</ul>
+<p>The buttons are defined in the myPS4 and myXBox namespaces, and each button is assigned a unique value. The buttons are represented as bitmasks, which means that multiple buttons can be pressed at the same time.
+The JoyData structure is packed to ensure that the data is aligned correctly in memory. The <code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">pack(push,</span> <span class="pre">1)</span></code> directive tells the compiler to align the structure on a 1-byte boundary, which means that there will be no padding between the fields of the structure. The <code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">pack(pop)</span></code> directive restores the previous packing alignment.</p>
+</section>
+<section id="setting-esp32-as-receiver">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">4. Setting ESP32 as Receiver</a><a class="headerlink" href="#setting-esp32-as-receiver" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/esp32_wroom1.jpg"><img alt="ESP32 WROOM32" src="../_images/esp32_wroom1.jpg" style="width: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>DOIT ESP32 DEVKIT V1</strong></span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>There are some Arduino libraries available for interfacing PS4 controller with ESP32. Some examples for ESP32 IDF are also avialable which uses Bluetooth as well as USB. We are going to use Arduino library for this tutorial.</p>
+<section id="installing-esp32-board-by-espressif-in-arduino-ide">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">4.1. Installing ESP32 Board by Espressif in Arduino IDE</a><a class="headerlink" href="#installing-esp32-board-by-espressif-in-arduino-ide" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code>.</p></li>
+<li><p>Search for <code class="docutils literal notranslate"><span class="pre">ESP32</span></code> in the board manager.</p></li>
+<li><p>Install the board by <code class="docutils literal notranslate"><span class="pre">Espressif</span></code>.</p></li>
+</ul>
+</section>
+<section id="finding-mac-address-of-esp32-and-setting-up-ps4-controller">
+<span id="find-mac"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">4.2. Finding MAC Address of ESP32 and Setting up PS4 Controller</a><a class="headerlink" href="#finding-mac-address-of-esp32-and-setting-up-ps4-controller" title="Link to this heading"></a></h3>
+<p>The MAC address is used to pair the PS4 controller with the ESP32 board. Follow the steps below to find the MAC address of the ESP32 board and set up the PS4 controller:</p>
+<ul>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">Arduino</span> <span class="pre">IDE</span></code> and create a new sketch.</p></li>
+<li><p>Copy the following code into the sketch:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">esp_mac_loockup.ino</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;esp_bt_main.h&quot;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;esp_bt_device.h&quot;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;BluetoothSerial.h&quot;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">BluetoothSerial</span><span class="w"> </span><span class="n">SerialBT</span><span class="p">;</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="kt">void</span><span class="w"> </span><span class="nf">printDeviceAddress</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">esp_bt_dev_get_address</span><span class="p">();</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">10</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="linenos">11</span><span class="w">    </span><span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%02X&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">point</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+<span class="linenos">13</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">){</span>
+<span class="linenos">14</span><span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;:&quot;</span><span class="p">);</span>
+<span class="linenos">15</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">16</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">17</span><span class="p">}</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">20</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+<span class="linenos">21</span><span class="w">  </span><span class="n">SerialBT</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="s">&quot;ESP32 Bluetooth&quot;</span><span class="p">);</span>
+<span class="linenos">22</span><span class="p">}</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">25</span><span class="w">  </span><span class="n">printDeviceAddress</span><span class="p">();</span>
+<span class="linenos">26</span><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="linenos">27</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Save the sketch as <code class="docutils literal notranslate"><span class="pre">esp_mac_loockup.ino</span></code>.</p></li>
+<li><p>Select board <code class="docutils literal notranslate"><span class="pre">DOIT</span> <span class="pre">ESP32</span> <span class="pre">DEVKIT</span> <span class="pre">V1</span></code> from <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Board</span> <span class="pre">&gt;</span> <span class="pre">esp32</span></code>.</p></li>
+<li><p>Upload the code to the ESP32 board and open the Serial Monitor. The MAC address will be displayed in the Serial Monitor.</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">SixaxisPairTool</span></code> on Windows. See <a class="reference external" href="../geting_started/installation.html">installation</a> if you do not have. Plug the PS4 controller to PC using USB Cable. Driver for the controller will be installed, if it is first time.</p></li>
+<li><p>Connect the PS4 controller to the PC using a USB cable. The <code class="docutils literal notranslate"><span class="pre">SixaxisPairTool</span></code> will display the MAC address of the PS4 controller. Write the Bluetooth Mac Address of the ESP32 into <code class="docutils literal notranslate"><span class="pre">Master</span> <span class="pre">MAC</span> <span class="pre">Adrress</span> <span class="pre">Field</span></code> and click <code class="docutils literal notranslate"><span class="pre">update</span></code>.</p></li>
+</ul>
+</section>
+<section id="using-ps4controller-library-by-juan-pablo-marquez">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">4.3. Using PS4Controller Library by Juan Pablo Marquez</a><a class="headerlink" href="#using-ps4controller-library-by-juan-pablo-marquez" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Install the library from Arduino Library Manager or download from <a class="extlink-newtab reference external" href="https://docs.arduino.cc/libraries/ps4controller/">here</a>.</p></li>
+<li><p>Create a new sketch and paste the following contents:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">esp_rx_ps4_library.ino</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#define DEBUG </span><span class="c1">// Disable it by commenting in actual implementation</span>
+<span class="linenos">  2</span>
+<span class="linenos">  3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;PS4Controller.h&gt;</span>
+<span class="linenos">  4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos">  5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;joy_msg.hpp&quot;</span>
+<span class="linenos">  6</span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">myPS4</span><span class="p">;</span>
+<span class="linenos">  7</span>
+<span class="linenos">  8</span><span class="cm">/** @brief Pins assignments of ESP32 */</span>
+<span class="linenos">  9</span><span class="cp">#define IN_BUILT_LED_BLUE 2</span>
+<span class="linenos"> 10</span><span class="cp">#define RXD2 16</span>
+<span class="linenos"> 11</span><span class="cp">#define TXD2 17</span>
+<span class="linenos"> 12</span>
+<span class="linenos"> 13</span><span class="cm">/** @brief Start byte of packet */</span>
+<span class="linenos"> 14</span><span class="cp">#define START_BYTE 0xA5</span>
+<span class="linenos"> 15</span>
+<span class="linenos"> 16</span><span class="n">CRC8</span><span class="w"> </span><span class="nf">crc</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="linenos"> 17</span>
+<span class="linenos"> 18</span><span class="n">JoyData</span><span class="w"> </span><span class="n">jdata</span><span class="p">;</span>
+<span class="linenos"> 19</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_flash_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 20</span><span class="kt">bool</span><span class="w"> </span><span class="n">is_braked</span><span class="p">;</span>
+<span class="linenos"> 21</span>
+<span class="linenos"> 22</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 23</span>
+<span class="linenos"> 24</span><span class="cm">/** @brief Initialize controller parameters */</span>
+<span class="linenos"> 25</span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 26</span>
+<span class="linenos"> 27</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">,</span><span class="w"> </span><span class="n">SERIAL_8N1</span><span class="p">);</span>
+<span class="linenos"> 28</span><span class="w">  </span><span class="n">Serial2</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">,</span><span class="w"> </span><span class="n">SERIAL_8N1</span><span class="p">,</span><span class="w"> </span><span class="n">RXD2</span><span class="p">,</span><span class="w"> </span><span class="n">TXD2</span><span class="p">);</span>
+<span class="linenos"> 29</span>
+<span class="linenos"> 30</span><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">IN_BUILT_LED_BLUE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="linenos"> 31</span><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN_BUILT_LED_BLUE</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="linenos"> 32</span>
+<span class="linenos"> 33</span><span class="w">  </span><span class="n">PS4</span><span class="p">.</span><span class="n">attachOnConnect</span><span class="p">(</span><span class="n">onConnect</span><span class="p">);</span>
+<span class="linenos"> 34</span><span class="w">  </span><span class="n">PS4</span><span class="p">.</span><span class="n">attachOnDisconnect</span><span class="p">(</span><span class="n">onDisConnect</span><span class="p">);</span>
+<span class="linenos"> 35</span>
+<span class="linenos"> 36</span><span class="w">  </span><span class="n">PS4</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="linenos"> 37</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;ESP32 MAC: &quot;</span><span class="p">);</span>
+<span class="linenos"> 38</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">getAddress</span><span class="p">());</span>
+<span class="linenos"> 39</span><span class="p">}</span>
+<span class="linenos"> 40</span>
+<span class="linenos"> 41</span><span class="cm">/** @brief Operation */</span>
+<span class="linenos"> 42</span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 43</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">PS4</span><span class="p">.</span><span class="n">isConnected</span><span class="p">())</span>
+<span class="linenos"> 44</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 45</span>
+<span class="linenos"> 46</span><span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
+<span class="linenos"> 47</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos"> 48</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 49</span>
+<span class="linenos"> 50</span><span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">packet</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+<span class="linenos"> 51</span><span class="w">  </span><span class="n">jdata</span><span class="p">.</span><span class="n">lx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PS4</span><span class="p">.</span><span class="n">LStickX</span><span class="p">();</span>
+<span class="linenos"> 52</span><span class="w">  </span><span class="n">jdata</span><span class="p">.</span><span class="n">ly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">PS4</span><span class="p">.</span><span class="n">LStickY</span><span class="p">();</span>
+<span class="linenos"> 53</span><span class="w">  </span><span class="n">jdata</span><span class="p">.</span><span class="n">rx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PS4</span><span class="p">.</span><span class="n">RStickX</span><span class="p">();</span>
+<span class="linenos"> 54</span><span class="w">  </span><span class="n">jdata</span><span class="p">.</span><span class="n">ry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">PS4</span><span class="p">.</span><span class="n">RStickY</span><span class="p">();</span>
+<span class="linenos"> 55</span><span class="w">  </span><span class="n">jdata</span><span class="p">.</span><span class="n">lt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PS4</span><span class="p">.</span><span class="n">L2Value</span><span class="p">();</span>
+<span class="linenos"> 56</span><span class="w">  </span><span class="n">jdata</span><span class="p">.</span><span class="n">rt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PS4</span><span class="p">.</span><span class="n">R2Value</span><span class="p">();</span>
+<span class="linenos"> 57</span>
+<span class="linenos"> 58</span><span class="w">  </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 59</span>
+<span class="linenos"> 60</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Cross</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">CROSS</span><span class="p">);</span>
+<span class="linenos"> 61</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Circle</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">CIRCLE</span><span class="p">);</span>
+<span class="linenos"> 62</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Square</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">SQUARE</span><span class="p">);</span>
+<span class="linenos"> 63</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Triangle</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">TRIANGLE</span><span class="p">);</span>
+<span class="linenos"> 64</span>
+<span class="linenos"> 65</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Share</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">SHARE</span><span class="p">);</span>
+<span class="linenos"> 66</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">PSButton</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">PS_BUTTON</span><span class="p">);</span>
+<span class="linenos"> 67</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Options</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">OPTION</span><span class="p">);</span>
+<span class="linenos"> 68</span>
+<span class="linenos"> 69</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">L3</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">L3</span><span class="p">);</span>
+<span class="linenos"> 70</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">R3</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">R3</span><span class="p">);</span>
+<span class="linenos"> 71</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">L1</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">L1</span><span class="p">);</span>
+<span class="linenos"> 72</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">R1</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">R1</span><span class="p">);</span>
+<span class="linenos"> 73</span>
+<span class="linenos"> 74</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Up</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">UP</span><span class="p">);</span>
+<span class="linenos"> 75</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">UpLeft</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">UP</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">LEFT</span><span class="p">));</span>
+<span class="linenos"> 76</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Left</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">LEFT</span><span class="p">);</span>
+<span class="linenos"> 77</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">DownLeft</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">LEFT</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">DOWN</span><span class="p">));</span>
+<span class="linenos"> 78</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Down</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">DOWN</span><span class="p">);</span>
+<span class="linenos"> 79</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">DownRight</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">DOWN</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">));</span>
+<span class="linenos"> 80</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Right</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">);</span>
+<span class="linenos"> 81</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">UpRight</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">UP</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">));</span>
+<span class="linenos"> 82</span><span class="w">  </span>
+<span class="linenos"> 83</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">Touchpad</span><span class="p">())</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">TOUCH</span><span class="p">);</span>
+<span class="linenos"> 84</span>
+<span class="linenos"> 85</span><span class="w">  </span><span class="n">packet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START_BYTE</span><span class="p">;</span>
+<span class="linenos"> 86</span><span class="w">  </span><span class="n">memcpy</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">packet</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">jdata</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">jdata</span><span class="p">));</span>
+<span class="linenos"> 87</span><span class="w">  </span><span class="n">packet</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crc</span><span class="p">.</span><span class="n">get_hash</span><span class="p">(</span><span class="n">packet</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">jdata</span><span class="p">));</span>
+<span class="linenos"> 88</span>
+<span class="linenos"> 89</span><span class="w">  </span><span class="c1">// Finally send packet to STM32 through UART2</span>
+<span class="linenos"> 90</span><span class="w">  </span><span class="n">Serial2</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">packet</span><span class="p">));</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">PSButton</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 93</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PS4</span><span class="p">.</span><span class="n">L1</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">PS4</span><span class="p">.</span><span class="n">R1</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 94</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_braked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 95</span><span class="w">        </span><span class="n">PS4</span><span class="p">.</span><span class="n">setLed</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 96</span><span class="w">        </span><span class="n">PS4</span><span class="p">.</span><span class="n">sendToController</span><span class="p">();</span>
+<span class="linenos"> 97</span><span class="w">        </span><span class="c1">// Serial.println(&quot;Brake removed&quot;);</span>
+<span class="linenos"> 98</span><span class="w">        </span><span class="n">is_braked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 99</span><span class="w">      </span><span class="p">}</span>
+<span class="linenos">100</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">101</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">is_braked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">102</span><span class="w">        </span><span class="n">PS4</span><span class="p">.</span><span class="n">setLed</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
+<span class="linenos">103</span><span class="w">        </span><span class="n">PS4</span><span class="p">.</span><span class="n">sendToController</span><span class="p">();</span>
+<span class="linenos">104</span><span class="w">        </span><span class="c1">// Serial.println(&quot;Braked&quot;);</span>
+<span class="linenos">105</span><span class="w">        </span><span class="n">is_braked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos">106</span><span class="w">      </span><span class="p">}</span>
+<span class="linenos">107</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">108</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">109</span>
+<span class="linenos">110</span><span class="cp">#ifdef DEBUG</span>
+<span class="linenos">111</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%lu: %hd %hd %hd %hd %hu %hu %04X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="linenos">112</span><span class="w">                </span><span class="n">now</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_transmit</span><span class="p">,</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">lx</span><span class="p">,</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">ly</span><span class="p">,</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">rx</span><span class="p">,</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">ry</span><span class="p">,</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">lt</span><span class="p">,</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">rt</span><span class="p">,</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="p">);</span>
+<span class="linenos">113</span><span class="cp">#endif</span>
+<span class="linenos">114</span>
+<span class="linenos">115</span><span class="w">  </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
+<span class="linenos">116</span><span class="p">}</span>
+<span class="linenos">117</span>
+<span class="linenos">118</span><span class="cm">/** @brief Callback on connect */</span>
+<span class="linenos">119</span><span class="kt">void</span><span class="w"> </span><span class="nf">onConnect</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">120</span><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN_BUILT_LED_BLUE</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="linenos">121</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Battery: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">PS4</span><span class="p">.</span><span class="n">Battery</span><span class="p">());</span>
+<span class="linenos">122</span><span class="w">  </span><span class="n">PS4</span><span class="p">.</span><span class="n">setLed</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos">123</span><span class="w">  </span><span class="n">PS4</span><span class="p">.</span><span class="n">sendToController</span><span class="p">();</span>
+<span class="linenos">124</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;PS4 Connected.&quot;</span><span class="p">);</span>
+<span class="linenos">125</span><span class="p">}</span>
+<span class="linenos">126</span>
+<span class="linenos">127</span><span class="cm">/** @brief Callback on disconnect */</span>
+<span class="linenos">128</span><span class="kt">void</span><span class="w"> </span><span class="nf">onDisConnect</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">129</span><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN_BUILT_LED_BLUE</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="linenos">130</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;!!PS4 Disconnected!!&quot;</span><span class="p">);</span>
+<span class="linenos">131</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Save the sketch as <code class="docutils literal notranslate"><span class="pre">esp_rx_ps4_library.ino</span></code>.</p></li>
+<li><p>Create a new file <code class="docutils literal notranslate"><span class="pre">joy_msg.hpp</span></code> in the same directory as the sketch. Copy the contents of the JoyData structure from <a class="reference internal" href="#joy-msg"><span class="std std-ref">above</span></a> into this.</p></li>
+<li><p>Create two files <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> in the same directory as the sketch. The contents of these files are as follows:</p></li>
+</ul>
+<blockquote id="crc8">
+<div><div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">crc8.hpp</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
+<span class="linenos"> 2</span><span class="cm"> *******************************************************************************</span>
+<span class="linenos"> 3</span><span class="cm"> * @file    crc8.hpp</span>
+<span class="linenos"> 4</span><span class="cm"> * @brief   Header file 8-bit crc calculation</span>
+<span class="linenos"> 5</span><span class="cm"> * @author  Robotics Team, IOE Pulchowk Campus</span>
+<span class="linenos"> 6</span><span class="cm"> *******************************************************************************</span>
+<span class="linenos"> 7</span><span class="cm"> */</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="cp">#ifndef CRC8_HPP_</span>
+<span class="linenos">10</span><span class="cp">#define CRC8_HPP_</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="cp">#define WIDTH (8)                       </span><span class="cm">/**&lt; CRC width */</span>
+<span class="linenos">15</span><span class="cp">#define CRC_HASH_TABLE_SIZE (256)       </span><span class="cm">/**&lt; Size of CRC hash table */</span>
+<span class="linenos">16</span><span class="cp">#define TOP_BIT (1 &lt;&lt; 7)                </span><span class="cm">/**&lt; Top bit position */</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="cm">/**</span>
+<span class="linenos">19</span><span class="cm"> * @brief Class for CRC-8 checksum calculation.</span>
+<span class="linenos">20</span><span class="cm"> */</span>
+<span class="linenos">21</span><span class="k">class</span><span class="w"> </span><span class="nc">CRC8</span>
+<span class="linenos">22</span><span class="p">{</span>
+<span class="linenos">23</span><span class="k">public</span><span class="o">:</span>
+<span class="linenos">24</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">25</span><span class="cm">     * @brief Constructor for CRC8 class.</span>
+<span class="linenos">26</span><span class="cm">     * @param polynomial Polynomial value for CRC calculation.</span>
+<span class="linenos">27</span><span class="cm">     */</span>
+<span class="linenos">28</span><span class="w">    </span><span class="n">CRC8</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">polynomial</span><span class="p">);</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">31</span><span class="cm">     * @brief Destructor for CRC8 class.</span>
+<span class="linenos">32</span><span class="cm">     */</span>
+<span class="linenos">33</span><span class="w">    </span><span class="o">~</span><span class="n">CRC8</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="w">    </span><span class="cm">/**</span>
+<span class="linenos">36</span><span class="cm">     * @brief Calculate CRC-8 checksum for the given data.</span>
+<span class="linenos">37</span><span class="cm">     * @param buf Pointer to the data buffer.</span>
+<span class="linenos">38</span><span class="cm">     * @param len Length of the data buffer.</span>
+<span class="linenos">39</span><span class="cm">     * @return CRC-8 checksum value.</span>
+<span class="linenos">40</span><span class="cm">     */</span>
+<span class="linenos">41</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">get_hash</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<span class="linenos">42</span>
+<span class="linenos">43</span><span class="k">private</span><span class="o">:</span>
+<span class="linenos">44</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="n">CRC_HASH_TABLE_SIZE</span><span class="p">];</span><span class="w"> </span><span class="cm">/**&lt; CRC hash table. */</span>
+<span class="linenos">45</span><span class="p">};</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span><span class="cp">#endif </span><span class="c1">// CRC_HPP_</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">crc8.cpp</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/**</span>
+<span class="linenos"> 2</span><span class="cm">********************************************************************************</span>
+<span class="linenos"> 3</span><span class="cm"> * @file crc8.cpp</span>
+<span class="linenos"> 4</span><span class="cm"> * @brief Implementation file for the crc8 class</span>
+<span class="linenos"> 5</span><span class="cm"> * @author Robotics Team, IOE Pulchowk Campus</span>
+<span class="linenos"> 6</span><span class="cm"> * @date 2023</span>
+<span class="linenos"> 7</span><span class="cm"> *******************************************************************************</span>
+<span class="linenos"> 8</span><span class="cm"> */</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="cm">/**</span>
+<span class="linenos">13</span><span class="cm"> * @brief Constructor for CRC8 class.</span>
+<span class="linenos">14</span><span class="cm"> * </span>
+<span class="linenos">15</span><span class="cm"> * This constructor initializes the CRC8 object with the specified polynomial.</span>
+<span class="linenos">16</span><span class="cm"> * It pre-computes the CRC hash table used for CRC calculation.</span>
+<span class="linenos">17</span><span class="cm"> * </span>
+<span class="linenos">18</span><span class="cm"> * @param poly The polynomial value for CRC calculation.</span>
+<span class="linenos">19</span><span class="cm"> */</span>
+<span class="linenos">20</span><span class="n">CRC8</span><span class="o">::</span><span class="n">CRC8</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">poly</span><span class="p">)</span>
+<span class="linenos">21</span><span class="p">{</span>
+<span class="linenos">22</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">23</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">dividend</span><span class="p">)</span>
+<span class="linenos">26</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">27</span><span class="w">        </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">b</span><span class="p">)</span>
+<span class="linenos">30</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">31</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">TOP_BIT</span><span class="p">)</span>
+<span class="linenos">32</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">33</span><span class="w">                </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">poly</span><span class="p">;</span>
+<span class="linenos">34</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">35</span><span class="w">            </span><span class="k">else</span>
+<span class="linenos">36</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">37</span><span class="w">                </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">38</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">39</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">40</span><span class="w">        </span><span class="n">table_</span><span class="p">[</span><span class="n">dividend</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">41</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">42</span><span class="p">}</span>
+<span class="linenos">43</span>
+<span class="linenos">44</span><span class="cm">/**</span>
+<span class="linenos">45</span><span class="cm"> * @brief Calculate CRC-8 checksum for the given data.</span>
+<span class="linenos">46</span><span class="cm"> * </span>
+<span class="linenos">47</span><span class="cm"> * This method calculates the CRC-8 checksum for the provided data buffer.</span>
+<span class="linenos">48</span><span class="cm"> * </span>
+<span class="linenos">49</span><span class="cm"> * @param buf Pointer to the data buffer.</span>
+<span class="linenos">50</span><span class="cm"> * @param len Length of the data buffer.</span>
+<span class="linenos">51</span><span class="cm"> * @return CRC-8 checksum value.</span>
+<span class="linenos">52</span><span class="cm"> */</span>
+<span class="linenos">53</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">CRC8</span><span class="o">::</span><span class="n">get_hash</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<span class="linenos">54</span><span class="p">{</span>
+<span class="linenos">55</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="linenos">56</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">57</span>
+<span class="linenos">58</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">index</span><span class="p">)</span>
+<span class="linenos">59</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">60</span><span class="w">        </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">8</span><span class="p">));</span>
+<span class="linenos">61</span><span class="w">        </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table_</span><span class="p">[</span><span class="n">data</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">(</span><span class="n">remainder</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="linenos">62</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">63</span>
+<span class="linenos">64</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">remainder</span><span class="p">;</span>
+<span class="linenos">65</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Select board <code class="docutils literal notranslate"><span class="pre">DOIT</span> <span class="pre">ESP32</span> <span class="pre">DEVKIT</span> <span class="pre">V1</span></code> from <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Board</span> <span class="pre">&gt;</span> <span class="pre">esp32</span></code>.</p></li>
+<li><p>Select  port and upload the sketch to the ESP32 board.</p></li>
+<li><p>Open the Serial Monitor. Press the <code class="docutils literal notranslate"><span class="pre">PS</span> <span class="pre">button</span></code> on the PS4 controller to turn it on. You should see the joystick data changing according to the input from the PS4 controller.</p></li>
+</ul>
+</section>
+<section id="using-esp32-bluepad32">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">4.4. Using ESP32_Bluepad32</a><a class="headerlink" href="#using-esp32-bluepad32" title="Link to this heading"></a></h3>
+<ul>
+<li><p>In Arduino IDE, go to <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">Preferences</span></code> and add the following URL to the <code class="docutils literal notranslate"><span class="pre">Additional</span> <span class="pre">Board</span> <span class="pre">Manager</span> <span class="pre">URLs</span></code> field:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>https://raw.githubusercontent.com/ricardoquesada/esp32-arduino-lib-builder/master/bluepad32_files/package_esp32_bluepad32_index.json
+</pre></div>
+</div>
+</li>
+<li><p>Open the Board Manager by going to <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Board</span> <span class="pre">&gt;</span> <span class="pre">Board</span> <span class="pre">Manager</span></code>. Search for <code class="docutils literal notranslate"><span class="pre">esp32_bluepad32</span></code> by Ricardo Quesda and install the package.</p></li>
+<li><p>Create a new sketch and paste the following contents:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">esp_rx_bluepad.ino</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Bluepad32.h&gt;</span>
+<span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;joy_msg.hpp&quot;</span>
+<span class="linenos">  3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;crc8.hpp&quot;</span>
+<span class="linenos">  4</span>
+<span class="linenos">  5</span><span class="cp">#define IN_BUILT_LED_BLUE 2</span>
+<span class="linenos">  6</span><span class="cp">#define IN_BUILT_LED_BLUE 2</span>
+<span class="linenos">  7</span><span class="cp">#define RXD2 16</span>
+<span class="linenos">  8</span><span class="cp">#define TXD2 17</span>
+<span class="linenos">  9</span><span class="cp">#define START_BYTE 0xA5</span>
+<span class="linenos"> 10</span>
+<span class="linenos"> 11</span><span class="kt">bool</span><span class="w"> </span><span class="n">connected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 12</span>
+<span class="linenos"> 13</span><span class="k">namespace</span><span class="w"> </span><span class="nn">BPB</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 14</span><span class="k">enum</span><span class="w"> </span><span class="nc">BluePadButtonsMask</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 15</span><span class="w">  </span><span class="n">Cross</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1</span><span class="p">,</span>
+<span class="linenos"> 16</span><span class="w">  </span><span class="n">Circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2</span><span class="p">,</span>
+<span class="linenos"> 17</span><span class="w">  </span><span class="n">Square</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x04</span><span class="p">,</span>
+<span class="linenos"> 18</span><span class="w">  </span><span class="n">Triangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x08</span><span class="p">,</span>
+<span class="linenos"> 19</span><span class="w">  </span><span class="n">Share</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span>
+<span class="linenos"> 20</span><span class="w">  </span><span class="n">Power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span>
+<span class="linenos"> 21</span><span class="w">  </span><span class="n">Option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x04</span><span class="p">,</span>
+<span class="linenos"> 22</span><span class="w">  </span><span class="n">L3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x100</span><span class="p">,</span>
+<span class="linenos"> 23</span><span class="w">  </span><span class="n">R3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x200</span><span class="p">,</span>
+<span class="linenos"> 24</span><span class="w">  </span><span class="n">L1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x10</span><span class="p">,</span>
+<span class="linenos"> 25</span><span class="w">  </span><span class="n">R1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span>
+<span class="linenos"> 26</span><span class="w">  </span><span class="n">Up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span>
+<span class="linenos"> 27</span><span class="w">  </span><span class="n">Down</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span>
+<span class="linenos"> 28</span><span class="w">  </span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x08</span><span class="p">,</span>
+<span class="linenos"> 29</span><span class="w">  </span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x04</span>
+<span class="linenos"> 30</span><span class="w">  </span><span class="c1">// Touch</span>
+<span class="linenos"> 31</span><span class="p">};</span>
+<span class="linenos"> 32</span><span class="p">}</span>
+<span class="linenos"> 33</span>
+<span class="linenos"> 34</span><span class="n">ControllerPtr</span><span class="w"> </span><span class="n">myControllers</span><span class="p">[</span><span class="n">BP32_MAX_GAMEPADS</span><span class="p">];</span>
+<span class="linenos"> 35</span><span class="n">CRC8</span><span class="w"> </span><span class="nf">crc</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="linenos"> 36</span><span class="n">JoyData</span><span class="w"> </span><span class="n">jdata</span><span class="p">;</span>
+<span class="linenos"> 37</span><span class="kt">bool</span><span class="w"> </span><span class="n">isBraked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 38</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 39</span>
+<span class="linenos"> 40</span><span class="c1">// This callback gets called any time a new gamepad is connected.</span>
+<span class="linenos"> 41</span><span class="c1">// Up to 4 gamepads can be connected at the same time.</span>
+<span class="linenos"> 42</span><span class="kt">void</span><span class="w"> </span><span class="nf">onConnectedController</span><span class="p">(</span><span class="n">ControllerPtr</span><span class="w"> </span><span class="n">ctl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 43</span><span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">foundEmptySlot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 44</span><span class="w">  </span><span class="c1">// for (int i = 0; i &lt; BP32_MAX_GAMEPADS; i++) {</span>
+<span class="linenos"> 45</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myControllers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 46</span><span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;CALLBACK: Controller is connected, index=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 47</span><span class="w">      </span><span class="c1">// Additionally, you can get certain gamepad properties like:</span>
+<span class="linenos"> 48</span><span class="w">      </span><span class="c1">// Model, VID, PID, BTAddr, flags, etc.</span>
+<span class="linenos"> 49</span><span class="w">      </span><span class="n">ControllerProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">getProperties</span><span class="p">();</span>
+<span class="linenos"> 50</span><span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Controller model: %s, VID=0x%04x, PID=0x%04x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">getModelName</span><span class="p">().</span><span class="n">c_str</span><span class="p">(),</span><span class="w"> </span><span class="n">properties</span><span class="p">.</span><span class="n">vendor_id</span><span class="p">,</span>
+<span class="linenos"> 51</span><span class="w">                    </span><span class="n">properties</span><span class="p">.</span><span class="n">product_id</span><span class="p">);</span>
+<span class="linenos"> 52</span><span class="w">      </span><span class="n">myControllers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctl</span><span class="p">;</span>
+<span class="linenos"> 53</span><span class="w">      </span><span class="n">foundEmptySlot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 54</span><span class="w">      </span><span class="n">connected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 55</span><span class="w">      </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN_BUILT_LED_BLUE</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="linenos"> 56</span><span class="w">      </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">setColorLED</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 57</span><span class="w">      </span><span class="c1">// break;</span>
+<span class="linenos"> 58</span><span class="w">    </span><span class="c1">// }</span>
+<span class="linenos"> 59</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos"> 60</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">foundEmptySlot</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 61</span><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;CALLBACK: Controller connected, but could not found empty slot&quot;</span><span class="p">);</span>
+<span class="linenos"> 62</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos"> 63</span><span class="p">}</span>
+<span class="linenos"> 64</span>
+<span class="linenos"> 65</span><span class="kt">void</span><span class="w"> </span><span class="nf">onDisconnectedController</span><span class="p">(</span><span class="n">ControllerPtr</span><span class="w"> </span><span class="n">ctl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 66</span><span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">foundController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span><span class="w">  </span><span class="c1">// for (int i = 0; i &lt; BP32_MAX_GAMEPADS; i++) {</span>
+<span class="linenos"> 69</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myControllers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ctl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 70</span><span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;CALLBACK: Controller disconnected from index=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 71</span><span class="w">      </span><span class="n">myControllers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="linenos"> 72</span><span class="w">      </span><span class="n">foundController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 73</span><span class="w">      </span><span class="n">connected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 74</span><span class="w">      </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN_BUILT_LED_BLUE</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="linenos"> 75</span><span class="w">      </span><span class="c1">// break;</span>
+<span class="linenos"> 76</span><span class="w">    </span><span class="c1">// }</span>
+<span class="linenos"> 77</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos"> 78</span>
+<span class="linenos"> 79</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">foundController</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 80</span><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;CALLBACK: Controller disconnected, but not found in myControllers&quot;</span><span class="p">);</span>
+<span class="linenos"> 81</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos"> 82</span><span class="p">}</span>
+<span class="linenos"> 83</span>
+<span class="linenos"> 84</span><span class="kt">void</span><span class="w"> </span><span class="nf">blinkColorLED</span><span class="p">(</span><span class="n">ControllerPtr</span><span class="w"> </span><span class="n">ctl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 85</span><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">isRed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 86</span><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_blink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 87</span><span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
+<span class="linenos"> 88</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_blink</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isRed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 90</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isBraked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 91</span><span class="w">        </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">setColorLED</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
+<span class="linenos"> 92</span><span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 93</span><span class="w">        </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">setColorLED</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 94</span><span class="w">      </span><span class="p">}</span>
+<span class="linenos"> 95</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 96</span><span class="w">      </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">setColorLED</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 97</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 98</span>
+<span class="linenos"> 99</span><span class="w">    </span><span class="n">isRed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">isRed</span><span class="p">;</span>
+<span class="linenos">100</span><span class="w">    </span><span class="n">last_blink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
+<span class="linenos">101</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">102</span><span class="p">}</span>
+<span class="linenos">103</span>
+<span class="linenos">104</span><span class="kt">void</span><span class="w"> </span><span class="nf">dumpGamepad</span><span class="p">(</span><span class="n">ControllerPtr</span><span class="w"> </span><span class="n">ctl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">105</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span>
+<span class="linenos">106</span><span class="w">    </span><span class="s">&quot;idx=%d, dpad: 0x%02x, buttons: 0x%04x, axis L: %4d, %4d, axis R: %4d, %4d, brake: %4d, throttle: %4d, &quot;</span>
+<span class="linenos">107</span><span class="w">    </span><span class="s">&quot;misc: 0x%02x, gyro x:%6d y:%6d z:%6d, accel x:%6d y:%6d z:%6d bat:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="linenos">108</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">index</span><span class="p">(),</span><span class="w">        </span><span class="c1">// Controller Index</span>
+<span class="linenos">109</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">dpad</span><span class="p">(),</span><span class="w">         </span><span class="c1">// D-pad</span>
+<span class="linenos">110</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">(),</span><span class="w">      </span><span class="c1">// bitmask of pressed buttons</span>
+<span class="linenos">111</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">axisX</span><span class="p">(),</span><span class="w">        </span><span class="c1">// (-511 - 512) left X Axis</span>
+<span class="linenos">112</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">axisY</span><span class="p">(),</span><span class="w">        </span><span class="c1">// (-511 - 512) left Y axis</span>
+<span class="linenos">113</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">axisRX</span><span class="p">(),</span><span class="w">       </span><span class="c1">// (-511 - 512) right X axis</span>
+<span class="linenos">114</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">axisRY</span><span class="p">(),</span><span class="w">       </span><span class="c1">// (-511 - 512) right Y axis</span>
+<span class="linenos">115</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">brake</span><span class="p">(),</span><span class="w">        </span><span class="c1">// (0 - 1023): brake button</span>
+<span class="linenos">116</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">throttle</span><span class="p">(),</span><span class="w">     </span><span class="c1">// (0 - 1023): throttle (AKA gas) button</span>
+<span class="linenos">117</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">miscButtons</span><span class="p">(),</span><span class="w">  </span><span class="c1">// bitmask of pressed &quot;misc&quot; buttons</span>
+<span class="linenos">118</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">gyroX</span><span class="p">(),</span><span class="w">        </span><span class="c1">// Gyro X</span>
+<span class="linenos">119</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">gyroY</span><span class="p">(),</span><span class="w">        </span><span class="c1">// Gyro Y</span>
+<span class="linenos">120</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">gyroZ</span><span class="p">(),</span><span class="w">        </span><span class="c1">// Gyro Z</span>
+<span class="linenos">121</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">accelX</span><span class="p">(),</span><span class="w">       </span><span class="c1">// Accelerometer X</span>
+<span class="linenos">122</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">accelY</span><span class="p">(),</span><span class="w">       </span><span class="c1">// Accelerometer Y</span>
+<span class="linenos">123</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">accelZ</span><span class="p">(),</span><span class="w">       </span><span class="c1">// Accelerometer Z</span>
+<span class="linenos">124</span><span class="w">    </span><span class="n">ctl</span><span class="o">-&gt;</span><span class="n">battery</span><span class="p">());</span>
+<span class="linenos">125</span><span class="p">}</span>
+<span class="linenos">126</span>
+<span class="linenos">127</span><span class="kt">void</span><span class="w"> </span><span class="nf">dumpJoyData</span><span class="p">(</span><span class="n">JoyData</span><span class="w"> </span><span class="o">&amp;</span><span class="n">jd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">128</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;JoyData:: lx:%d ly:%d rx:%d ry:%d lt:%u rt:%u bt:%04x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="linenos">129</span><span class="w">                </span><span class="n">jd</span><span class="p">.</span><span class="n">lx</span><span class="p">,</span>
+<span class="linenos">130</span><span class="w">                </span><span class="n">jd</span><span class="p">.</span><span class="n">ly</span><span class="p">,</span>
+<span class="linenos">131</span><span class="w">                </span><span class="n">jd</span><span class="p">.</span><span class="n">rx</span><span class="p">,</span>
+<span class="linenos">132</span><span class="w">                </span><span class="n">jd</span><span class="p">.</span><span class="n">ry</span><span class="p">,</span>
+<span class="linenos">133</span><span class="w">                </span><span class="n">jd</span><span class="p">.</span><span class="n">lt</span><span class="p">,</span>
+<span class="linenos">134</span><span class="w">                </span><span class="n">jd</span><span class="p">.</span><span class="n">rt</span><span class="p">,</span>
+<span class="linenos">135</span><span class="w">                </span><span class="n">jd</span><span class="p">.</span><span class="n">buttons</span><span class="p">);</span>
+<span class="linenos">136</span><span class="p">}</span>
+<span class="linenos">137</span>
+<span class="linenos">138</span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="linenos">139</span><span class="n">T</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">inMin</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">inMid</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">inMax</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">outMin</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">outMid</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">outMax</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">140</span><span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+<span class="linenos">141</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">inMid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">142</span><span class="w">    </span><span class="c1">// Map from [inMin, inMid] to [outMin, outMid]</span>
+<span class="linenos">143</span><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">inRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inMid</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">inMin</span><span class="p">;</span>
+<span class="linenos">144</span><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">outRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outMid</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">outMin</span><span class="p">;</span>
+<span class="linenos">145</span><span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">inMin</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outRange</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">inRange</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">outMin</span><span class="p">;</span>
+<span class="linenos">146</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">147</span><span class="w">    </span><span class="c1">// Map from [inMid, inMax] to [outMid, outMax]</span>
+<span class="linenos">148</span><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">inRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inMax</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">inMid</span><span class="p">;</span>
+<span class="linenos">149</span><span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">outRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outMax</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">outMid</span><span class="p">;</span>
+<span class="linenos">150</span><span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">inMid</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outRange</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">inRange</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">outMid</span><span class="p">;</span>
+<span class="linenos">151</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">152</span><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+<span class="linenos">153</span><span class="p">}</span>
+<span class="linenos">154</span>
+<span class="linenos">155</span><span class="kt">void</span><span class="w"> </span><span class="n">processControllers</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">156</span><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">myController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myControllers</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="linenos">157</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">isConnected</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">hasData</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">158</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">isGamepad</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">159</span><span class="w">      </span><span class="c1">//  dumpGamepad(myController);</span>
+<span class="linenos">160</span>
+<span class="linenos">161</span><span class="w">      </span><span class="n">jdata</span><span class="p">.</span><span class="n">lx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">axisX</span><span class="p">(),</span><span class="w"> </span><span class="mi">-508</span><span class="p">,</span><span class="w"> </span><span class="mi">-12</span><span class="p">,</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="mi">-127</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span>
+<span class="linenos">162</span><span class="w">      </span><span class="n">jdata</span><span class="p">.</span><span class="n">ly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">axisY</span><span class="p">(),</span><span class="w"> </span><span class="mi">-508</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="mi">-127</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span>
+<span class="linenos">163</span><span class="w">      </span><span class="n">jdata</span><span class="p">.</span><span class="n">rx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">axisRX</span><span class="p">(),</span><span class="w"> </span><span class="mi">-508</span><span class="p">,</span><span class="w"> </span><span class="mi">-32</span><span class="p">,</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="mi">-127</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span>
+<span class="linenos">164</span><span class="w">      </span><span class="n">jdata</span><span class="p">.</span><span class="n">ry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">axisRY</span><span class="p">(),</span><span class="w"> </span><span class="mi">-508</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="mi">-127</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span>
+<span class="linenos">165</span><span class="w">      </span><span class="n">jdata</span><span class="p">.</span><span class="n">lt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">brake</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1020</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
+<span class="linenos">166</span><span class="w">      </span><span class="n">jdata</span><span class="p">.</span><span class="n">rt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">throttle</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1020</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
+<span class="linenos">167</span>
+<span class="linenos">168</span><span class="w">      </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">169</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Cross</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">CROSS</span><span class="p">);</span>
+<span class="linenos">170</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Circle</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">CIRCLE</span><span class="p">);</span>
+<span class="linenos">171</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Square</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">SQUARE</span><span class="p">);</span>
+<span class="linenos">172</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Triangle</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">TRIANGLE</span><span class="p">);</span>
+<span class="linenos">173</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">miscButtons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Share</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">SHARE</span><span class="p">);</span>
+<span class="linenos">174</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">miscButtons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Power</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">PS_BUTTON</span><span class="p">);</span>
+<span class="linenos">175</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">miscButtons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Option</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">OPTION</span><span class="p">);</span>
+<span class="linenos">176</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">L3</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">L3</span><span class="p">);</span>
+<span class="linenos">177</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">R3</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">R3</span><span class="p">);</span>
+<span class="linenos">178</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">L1</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">L1</span><span class="p">);</span>
+<span class="linenos">179</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">R1</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">R1</span><span class="p">);</span>
+<span class="linenos">180</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">dpad</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Up</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">UP</span><span class="p">);</span>
+<span class="linenos">181</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">dpad</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Down</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">DOWN</span><span class="p">);</span>
+<span class="linenos">182</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">dpad</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Left</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">LEFT</span><span class="p">);</span>
+<span class="linenos">183</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">dpad</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Right</span><span class="p">)</span><span class="w"> </span><span class="n">jdata</span><span class="p">.</span><span class="n">buttons</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">BUTTONS</span><span class="p">(</span><span class="n">myPS4</span><span class="o">::</span><span class="n">RIGHT</span><span class="p">);</span>
+<span class="linenos">184</span>
+<span class="linenos">185</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">miscButtons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">Power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">186</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">L1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">BPB</span><span class="o">::</span><span class="n">R1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">187</span><span class="w">          </span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">setColorLED</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos">188</span><span class="w">          </span><span class="n">isBraked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos">189</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">190</span><span class="w">          </span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">setColorLED</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
+<span class="linenos">191</span><span class="w">          </span><span class="n">isBraked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos">192</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">193</span><span class="w">      </span><span class="p">}</span>
+<span class="linenos">194</span>
+<span class="linenos">195</span><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myController</span><span class="o">-&gt;</span><span class="n">battery</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos">196</span><span class="w">        </span><span class="n">blinkColorLED</span><span class="p">(</span><span class="n">myController</span><span class="p">);</span>
+<span class="linenos">197</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">198</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">199</span><span class="p">}</span>
+<span class="linenos">200</span>
+<span class="linenos">201</span><span class="kt">void</span><span class="w"> </span><span class="n">sendPacket</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">202</span><span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span>
+<span class="linenos">203</span>
+<span class="linenos">204</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">205</span><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">packet</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">jdata</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
+<span class="linenos">206</span><span class="w">    </span><span class="n">packet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START_BYTE</span><span class="p">;</span>
+<span class="linenos">207</span><span class="w">    </span><span class="n">memcpy</span><span class="p">((</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">packet</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">jdata</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">jdata</span><span class="p">));</span>
+<span class="linenos">208</span><span class="w">    </span><span class="n">packet</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crc</span><span class="p">.</span><span class="n">get_hash</span><span class="p">(</span><span class="n">packet</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">jdata</span><span class="p">));</span>
+<span class="linenos">209</span>
+<span class="linenos">210</span><span class="w">    </span><span class="c1">// Finally send packet to STM32 through UART2</span>
+<span class="linenos">211</span><span class="w">    </span><span class="n">Serial2</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">packet</span><span class="p">));</span>
+<span class="linenos">212</span><span class="w">    </span><span class="c1">// Serial.printf(&quot;%lu\t&quot;, now - last_transmit);</span>
+<span class="linenos">213</span><span class="w">    </span><span class="n">last_transmit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
+<span class="linenos">214</span><span class="w">    </span><span class="c1">// dumpJoyData(jdata);</span>
+<span class="linenos">215</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">216</span><span class="p">}</span>
+<span class="linenos">217</span><span class="c1">// Arduino setup function. Runs in CPU 1</span>
+<span class="linenos">218</span><span class="kt">void</span><span class="w"> </span><span class="n">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">219</span><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">IN_BUILT_LED_BLUE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="linenos">220</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+<span class="linenos">221</span><span class="w">  </span><span class="n">Serial2</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">,</span><span class="w"> </span><span class="n">SERIAL_8N1</span><span class="p">,</span><span class="w"> </span><span class="n">RXD2</span><span class="p">,</span><span class="w"> </span><span class="n">TXD2</span><span class="p">);</span>
+<span class="linenos">222</span>
+<span class="linenos">223</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Firmware: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">BP32</span><span class="p">.</span><span class="n">firmwareVersion</span><span class="p">());</span>
+<span class="linenos">224</span><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BP32</span><span class="p">.</span><span class="n">localBdAddress</span><span class="p">();</span>
+<span class="linenos">225</span><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;BD Addr: %2X:%2X:%2X:%2X:%2X:%2X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">addr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">addr</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">addr</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="n">addr</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="n">addr</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+<span class="linenos">226</span>
+<span class="linenos">227</span><span class="w">  </span><span class="c1">// Setup the Bluepad32 callbacks</span>
+<span class="linenos">228</span><span class="w">  </span><span class="n">BP32</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">onConnectedController</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">onDisconnectedController</span><span class="p">);</span>
+<span class="linenos">229</span>
+<span class="linenos">230</span><span class="w">  </span><span class="c1">// &quot;forgetBluetoothKeys()&quot; should be called when the user performs</span>
+<span class="linenos">231</span><span class="w">  </span><span class="c1">// a &quot;device factory reset&quot;, or similar.</span>
+<span class="linenos">232</span><span class="w">  </span><span class="c1">// Calling &quot;forgetBluetoothKeys&quot; in setup() just as an example.</span>
+<span class="linenos">233</span><span class="w">  </span><span class="c1">// Forgetting Bluetooth keys prevents &quot;paired&quot; gamepads to reconnect.</span>
+<span class="linenos">234</span><span class="w">  </span><span class="c1">// But it might also fix some connection / re-connection issues.</span>
+<span class="linenos">235</span><span class="w">  </span><span class="n">BP32</span><span class="p">.</span><span class="n">forgetBluetoothKeys</span><span class="p">();</span>
+<span class="linenos">236</span>
+<span class="linenos">237</span>
+<span class="linenos">238</span><span class="w">  </span><span class="c1">// Enables mouse / touchpad support for gamepads that support them.</span>
+<span class="linenos">239</span><span class="w">  </span><span class="c1">// When enabled, controllers like DualSense and DualShock4 generate two connected devices:</span>
+<span class="linenos">240</span><span class="w">  </span><span class="c1">// - First one: the gamepad</span>
+<span class="linenos">241</span><span class="w">  </span><span class="c1">// - Second one, which is a &quot;virtual device&quot;, is a mouse.</span>
+<span class="linenos">242</span><span class="w">  </span><span class="c1">// By default, it is disabled.</span>
+<span class="linenos">243</span><span class="w">  </span><span class="n">BP32</span><span class="p">.</span><span class="n">enableVirtualDevice</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos">244</span>
+<span class="linenos">245</span><span class="w">  </span><span class="n">BP32</span><span class="p">.</span><span class="n">enableNewBluetoothConnections</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos">246</span><span class="p">}</span>
+<span class="linenos">247</span>
+<span class="linenos">248</span><span class="c1">// Arduino loop function. Runs in CPU 1.</span>
+<span class="linenos">249</span><span class="kt">void</span><span class="w"> </span><span class="n">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">250</span><span class="w">  </span><span class="c1">// This call fetches all the controllers&#39; data.</span>
+<span class="linenos">251</span><span class="w">  </span><span class="c1">// Call this function in your main loop.</span>
+<span class="linenos">252</span><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">BP32</span><span class="p">.</span><span class="n">update</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">253</span><span class="w">    </span><span class="n">processControllers</span><span class="p">();</span>
+<span class="linenos">254</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">connected</span><span class="p">)</span>
+<span class="linenos">255</span><span class="w">      </span><span class="n">sendPacket</span><span class="p">();</span>
+<span class="linenos">256</span><span class="w">  </span><span class="p">}</span>
+<span class="linenos">257</span><span class="w">  </span><span class="c1">// The main loop must have some kind of &quot;yield to lower priority task&quot; event.</span>
+<span class="linenos">258</span><span class="w">  </span><span class="c1">// Otherwise, the watchdog will get triggered.</span>
+<span class="linenos">259</span><span class="w">  </span><span class="c1">// If your main loop doesn&#39;t have one, just add a simple `vTaskDelay(1)`.</span>
+<span class="linenos">260</span><span class="w">  </span><span class="c1">// Detailed info here:</span>
+<span class="linenos">261</span><span class="w">  </span><span class="c1">// https://stackoverflow.com/questions/66278271/task-watchdog-got-triggered-the-tasks-did-not-reset-the-watchdog-in-time</span>
+<span class="linenos">262</span>
+<span class="linenos">263</span><span class="w">  </span><span class="n">vTaskDelay</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">264</span><span class="w">  </span><span class="c1">// delay(150);</span>
+<span class="linenos">265</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Save the sketch as <code class="docutils literal notranslate"><span class="pre">esp_rx_bluepad.ino</span></code>.</p></li>
+<li><p>Create a new file <code class="docutils literal notranslate"><span class="pre">joy_msg.hpp</span></code> in the same directory as the sketch. Copy the contents of the JoyData structure from <a class="reference internal" href="#joy-msg"><span class="std std-ref">above</span></a> into this.</p></li>
+<li><p>Create two files <code class="docutils literal notranslate"><span class="pre">crc8.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">crc8.cpp</span></code> in the same directory as the sketch. The contents are same as <a class="reference internal" href="#crc8"><span class="std std-ref">above</span></a>.</p></li>
+<li><p>Select board <code class="docutils literal notranslate"><span class="pre">DOIT</span> <span class="pre">ESP32</span> <span class="pre">DEVKIT</span> <span class="pre">V1</span></code> from <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Board</span> <span class="pre">&gt;</span> <span class="pre">esp32_bluepad32</span></code>.</p></li>
+<li><p>Select  port and upload the sketch to the ESP32 board.</p></li>
+<li><p>Open the Serial Monitor. Press the <code class="docutils literal notranslate"><span class="pre">PS</span> <span class="pre">button</span></code> and the <code class="docutils literal notranslate"><span class="pre">Share</span> <span class="pre">button</span></code> on the PS4 controller to pair it with the ESP32 board. You should see the joystick data changing according to the input from the PS4 controller.</p></li>
+</ul>
+<p>For more information on the ESP32_Bluepad32 package, see the <a class="reference external" href="https://bluepad32.readthedocs.io/en/latest/plat_arduino">documentation</a>.</p>
+</section>
+</section>
+<section id="setting-raspberry-pi-pico-w-as-receiver">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">5. Setting Raspberry Pi Pico W as Receiver</a><a class="headerlink" href="#setting-raspberry-pi-pico-w-as-receiver" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id13">
+<a class="reference internal image-reference" href="../_images/pi_pico_w1.jpg"><img alt="Raspberry Pi Pico W" src="../_images/pi_pico_w1.jpg" style="width: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Raspberry Pi Pico W</strong></span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>For the Raspberry Pi Pico W, we use <code class="docutils literal notranslate"><span class="pre">Pico</span> <span class="pre">SDK</span></code>. The Pico SDK is a C/C++ SDK for the Raspberry Pi Pico and Pico W. It provides a set of libraries and tools to help you develop applications for the Pico and Pico W.</p>
+<p>Till now, we have provided code straight on the page. Now, we are going to deal with huge code base. So we will provide the link of github repository. Follow the following instructions below to set up the Pico SDK and build the code for receving from PS4 controller:</p>
+<ul>
+<li><p>To install Pico SDK, run <code class="docutils literal notranslate"><span class="pre">pico_setup.sh</span></code> cloning from <a class="reference external" href="https://github.com/raspberrypi/pico-setup.git">here</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/raspberrypi/pico-setup.git
+<span class="nb">cd</span><span class="w"> </span>pico-setup
+<span class="nb">export</span><span class="w"> </span><span class="nv">SKIP_VSCODE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>bash<span class="w"> </span>pico_setup.sh
+</pre></div>
+</div>
+</li>
+<li><p>Clone <a class="reference external" href="https://github.com/Robotics-Club-Pulchowk/picow_ds4.git">this  repository</a>  and update submodule.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Robotics-Club-Pulchowk/picow_ds4.git
+<span class="nb">cd</span><span class="w"> </span>picow_ds4
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+</pre></div>
+</div>
+</li>
+<li><p>Find out <code class="docutils literal notranslate"><span class="pre">MAC</span> <span class="pre">Address</span></code> of PS4 Controller. In easy way, connect it to yout PC and see the <code class="docutils literal notranslate"><span class="pre">MAC</span> <span class="pre">Address</span></code>.</p></li>
+<li><p>Get into the source code folder, open <code class="docutils literal notranslate"><span class="pre">Src/bt_hid.c</span></code>, scroll down a little and replace <code class="docutils literal notranslate"><span class="pre">remote_addr_string</span></code> value by the MAC address of PS4.</p></li>
+<li><p>To print data on <code class="docutils literal notranslate"><span class="pre">Serial</span> <span class="pre">Monitor</span></code>, enable stdio usb by editing this line of <code class="docutils literal notranslate"><span class="pre">Src/CMakeLists.txt</span></code>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">pico_enable_stdio_usb</span><span class="p">(</span><span class="s">picow_ds4</span><span class="w"> </span><span class="s">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>From the project directory, make build folder, execute <code class="docutils literal notranslate"><span class="pre">cmake</span></code> and <code class="docutils literal notranslate"><span class="pre">makefile</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>picow_ds4
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..<span class="w"> </span><span class="c1"># you might use `-DPICO_BOARD=pico_w -DPICO_SDK_PATH=/your/path/to/pico-sdk` if environment is not set</span>
+make<span class="w"> </span>-j4
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.uf2</span></code> file is used for programming <code class="docutils literal notranslate"><span class="pre">Pico</span></code>. You can find it at <code class="docutils literal notranslate"><span class="pre">build/src/picow_ds4.uf2</span></code></p>
+</li>
+<li><p>Hold the boot button and connect the Pico W to PC using USB.</p></li>
+<li><p>Drag and drop the <code class="docutils literal notranslate"><span class="pre">picow_ds4.uf2</span></code> file from <code class="docutils literal notranslate"><span class="pre">build/src</span></code> to Pico W <code class="docutils literal notranslate"><span class="pre">Mass</span> <span class="pre">Storage</span></code>. You also can use similar command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Just hit `tab` `tab` after `/media`.</span>
+cp<span class="w"> </span>picow_ds4.uf2<span class="w"> </span>/media/pi/PICOW
+</pre></div>
+</div>
+</li>
+<li><p>Long press <code class="docutils literal notranslate"><span class="pre">share</span></code> and <code class="docutils literal notranslate"><span class="pre">PS4</span> <span class="pre">button</span></code> simultaneous untill fast blink of PS4 LED. It will connect to Pico W. Pico W blinks its green LED if no controller is connected and solid green if it detects and connects to a controller.</p></li>
+</ul>
+<p>Pico W sends uart packet same as ESP32 througth its UART0 default Tx and Rx pin i.e. <code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">pin</span> <span class="pre">1</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="matrix_operation.html" class="btn btn-neutral float-left" title="Matrix Operation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../highlights.html" class="btn btn-neutral float-right" title="Highlights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 - 2025, Robotics Club, Pulchowk Campus.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sending and Receiving Packets &mdash; Embedded Tutorials 1.0.0 documentation</title>
+  <title>Sending and Receiving Packets &mdash; Embedded Tutorials 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/documentation_options.js?v=fc837d61"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -38,7 +38,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Embedded Tutorials
-              <img src="../_static/embedded-logo.webp" class="logo" alt="Logo"/>
+              <img src="../_static/club-logo.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -51,6 +51,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arduino_basics_tutorial.html">Arduino Basics Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stm32_basics_tutorial.html">STM32 Basics Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../intermediate_tutorial.html">Intermediate Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cpp_setup_in_stm32.html">C++ Setup in STM32</a></li>
@@ -58,6 +59,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Sending and Receiving Packets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arm_math.html">ARM Math</a></li>
 <li class="toctree-l2"><a class="reference internal" href="matrix_operation.html">Matrix Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game_controller.html">Game Controller</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
@@ -206,7 +208,7 @@
 <section id="need-of-crc">
 <h2><a class="toc-backref" href="#id22" role="doc-backlink">3. Need of CRC</a><a class="headerlink" href="#need-of-crc" title="Link to this heading"></a></h2>
 <p>Checksum is simple and fast but there is high chance of collision. Suppose two bytes having value <code class="docutils literal notranslate"><span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">4</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code>. Also suppose two bytes having vallue <code class="docutils literal notranslate"><span class="pre">5</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>. The sum is <code class="docutils literal notranslate"><span class="pre">7</span></code> too. It is failure of checksum.</p>
-<p>I have already discussed about CRC in <a class="reference external" href="crc.html">previous</a> tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let’s write a simple SMBus CRC-8 class.</p>
+<p>We have already discussed about CRC in <a class="reference external" href="crc.html">previous</a> tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let’s write a simple SMBus CRC-8 class.</p>
 </section>
 <section id="implementing-smbus-crc-8">
 <h2><a class="toc-backref" href="#id23" role="doc-backlink">4. Implementing SMBus CRC-8</a><a class="headerlink" href="#implementing-smbus-crc-8" title="Link to this heading"></a></h2>
@@ -962,7 +964,7 @@ CRC-8 hash: f4
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Robotics Club, Pulchowk Campus.</p>
+    <p>&#169; Copyright 2024 - 2025, Robotics Club, Pulchowk Campus.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

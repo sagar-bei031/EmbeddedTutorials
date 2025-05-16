@@ -22,8 +22,8 @@ SWD also can be used to print data. But we cannot get them normally. We need spe
 In order to trace information, **Instrumentation Trace Macrocell (ITM)** is used in **ARM** processors. It uses **SWO** pin for tracing.
 
 
-2. Overwrite Definition of printf
----------------------------------
+2. Overwrite ``printf`` Callback Function
+-----------------------------------------
 
 * `Generate baisc code <../basic_setup/generate_basic_code.html>`_.
 

@@ -61,7 +61,7 @@ Compile and run this code.
 
 Checksum is simple and fast but there is high chance of collision. Suppose two bytes having value ``3`` and ``4``. The sum is ``7``. Also suppose two bytes having vallue ``5`` and ``2``. The sum is ``7`` too. It is failure of checksum.
 
-I have already discussed about CRC in `previous <crc.html>`_ tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let's write a simple SMBus CRC-8 class.
+We have already discussed about CRC in `previous <crc.html>`_ tutorial. The CRC template class was general but it is bettr to have specific CRC class that has to be used for performance. Let's write a simple SMBus CRC-8 class.
 
 
 4. Implementing SMBus CRC-8
