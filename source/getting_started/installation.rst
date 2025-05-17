@@ -39,7 +39,7 @@ Fundamental Tools and Software
    * - 5.
      - STM32CubeMx
      - STM32 configuration tool
-     - Install from :newtab:`STM32CubeMx <https://www.st.com/en/development-tools/stm32cubemx.html>`.
+     - Install :newtab:`STM32CubeMx <https://www.st.com/en/development-tools/stm32cubemx.html>`.
    * - 6.
      - STM32CubeProgrammer
      - Program and debug STM32 devices
