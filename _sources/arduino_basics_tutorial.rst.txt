@@ -42,7 +42,7 @@ Guidelines
 Tinkercad
 ~~~~~~~~~
 
-You do not need to have ``Arduino`` board physically. You can use software platforms like ```here``. or ``Proteus`` to simulate the code. The easiest and free one is ``Tinkercad``. You can create a free account and start using it :newtab:`here <https://www.tinkercad.com/>`.
+You do not need to have ``Arduino`` board physically. You can use software platforms like ``Tinkercad``. or ``Proteus`` to simulate the code. The easiest and free one is ``Tinkercad``. You can create a free account and start using it :newtab:`here <https://www.tinkercad.com/>`.
 
 Youtube Tutorials
 ~~~~~~~~~~~~~~~~~
@@ -51,8 +51,16 @@ There are many arduino tutorials available online. We recommend you a youtube pl
 
 .. raw:: html
 
-    <div style="text-align: center;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=qrLBoDZGhJ-RTVfk&amp;list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-bottom: 1em;">
+        <iframe 
+            src="https://www.youtube.com/embed/videoseries?si=qrLBoDZGhJ-RTVfk&amp;list=PLGs0VKk2DiYw-L-RibttcvK-WBZm8WLEP"
+            title="YouTube video player"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+        </iframe>
     </div>
 
 Knowledge Check

@@ -314,6 +314,14 @@ For more concept, you can watch this video:
 
 .. raw:: html
 
-   <div style="text-align: center;">
-       <iframe width="560" height="315" src="https://www.youtube.com/embed/AjN58ceQaF4?si=AzN28pgfnjgrLI2S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-bottom: 1em;">
+       <iframe 
+           src="https://www.youtube.com/embed/AjN58ceQaF4?si=AzN28pgfnjgrLI2S"
+           title="YouTube video player"
+           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+           frameborder="0"
+           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+           referrerpolicy="strict-origin-when-cross-origin"
+           allowfullscreen>
+       </iframe>
    </div>
