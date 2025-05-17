@@ -1,12 +1,11 @@
 #ifndef _JOY_MSG_HPP
 #define _JOY_MSG_HPP
 
-#include <math.h>
 #include <stdint.h>
 
 #define BUTTONS(button) (1 << button)
 
-namespace myPS4
+namespace PS4
 {
   enum Buttons
   {
@@ -15,7 +14,7 @@ namespace myPS4
     SQUARE,
     TRIANGLE,
     SHARE,
-    PS_BUTTON,
+    PS,
     OPTION,
     L3,
     R3,
@@ -29,7 +28,7 @@ namespace myPS4
   };
 }
 
-namespace myXBox
+namespace XBox
 {
   enum Buttons
   {
@@ -38,9 +37,9 @@ namespace myXBox
     X,
     Y,
     BACK,
-    XBOX_BUTTON,
+    XBOX,
     START,
-    LSTICK,
+    LSTICL,
     RSTICK,
     LB,
     RB,

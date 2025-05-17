@@ -12,3 +12,14 @@
 .center-caption figcaption {
     text-align: center;
 }
+
+.scroll-x-table {
+    overflow-x: auto;
+    width: 100%;
+    margin-bottom: 1em;
+}
+.scroll-x-table img {
+    height: 300px !important;
+    width: auto !important;
+    max-width: none !important;
+}

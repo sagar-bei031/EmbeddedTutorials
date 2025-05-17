@@ -26,7 +26,9 @@ extensions = [
 ]
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = [
+     'intermediate_tutorial/files/**',  # Exclude all files in this directory
+]
 
 language = 'en'
 

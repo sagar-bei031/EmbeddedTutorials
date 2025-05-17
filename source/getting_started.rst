@@ -28,6 +28,10 @@ Controllers
 1. STM32 Controllers
 ^^^^^^^^^^^^^^^^^^^^
 
+.. raw:: html
+
+   <div class="scroll-x-table">
+
 .. list-table::
    :widths: 50 50
    :align: center
@@ -45,6 +49,10 @@ Controllers
 
           **Blue Pill**: STM32F103C8, STM32F103C6
 
+.. raw:: html
+
+   </div>
+
 .. attention::
    Original Blue Pill has **STM32F103C8** microcontroller. But in Nepal, it usually comes with **STM32F103C6** microcontroller.
 
@@ -52,26 +60,38 @@ Controllers
 2. ESP Controllers
 ^^^^^^^^^^^^^^^^^^
 
+.. raw:: html
+
+   <div class="scroll-x-table">
+
 .. list-table::
    :widths: 50 50
    :align: center
    :class: image-grid
 
    * - .. figure:: _static/images/controllers/esp32_wroom.jpg
-          :width: 300
+          :height: 300
           :alt: ESP32 WROOM32
 
           **ESP32 WROOM32**
 
      - .. figure:: _static/images/controllers/nodemcu.jpg
-          :width: 300
+          :height: 300
           :alt: NodeMCU
 
           **NodeMCU**: ESP8266
 
+.. raw:: html
+
+   </div>
+
 
 3. Raspberry Pi Controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+   <div class="scroll-x-table">
 
 .. list-table::
    :widths: 50 50
@@ -90,9 +110,17 @@ Controllers
 
           **Raspberry Pi PICO W**: RP2040 + CYW43439
 
+.. raw:: html
+
+   </div>
+
 
 4. Arduino Controllers
 ^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+   <div class="scroll-x-table">
 
 .. list-table::
    :widths: 33 33 33
@@ -100,22 +128,26 @@ Controllers
    :class: image-grid
 
    * - .. figure:: _static/images/controllers/arduino_uno.jpg
-          :width: 300
+          :height: 300
           :alt: Arduino UNO
 
           **Arduino UNO**
 
      - .. figure:: _static/images/controllers/arduino_nano_t.jpg
-          :width: 300
+          :height: 300
           :alt: Arduino NANO
 
           **Arduino NANO**
 
      - .. figure:: _static/images/controllers/arduino_mega.jpg
-         :width: 300
+         :height: 300
          :alt: Arduino MEGA
 
          **Arduino MEGA**
+
+.. raw:: html
+
+   </div>
 
 .. note::
    **Rashberry PI PICO W** is extension of **Rashberry PI PICO** with **Infenion CYW43439** connectivity chip.

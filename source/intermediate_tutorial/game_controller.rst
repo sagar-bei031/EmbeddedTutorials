@@ -35,7 +35,7 @@ The Xbox 360 and PlayStation controllers are two of the most popular game contro
 
    **PS4 Controller Label**
 
-.. figure:: images/xbox_label.png
+.. figure:: images/xbox_label.jpg
    :width: 600
    :align: center
    :alt: Xbox 360 Controller Label
@@ -261,3 +261,195 @@ Till now, we have provided code straight on the page. Now, we are going to deal 
 - Long press ``share`` and ``PS4 button`` simultaneous untill fast blink of PS4 LED. It will connect to Pico W. Pico W blinks its green LED if no controller is connected and solid green if it detects and connects to a controller.
 
 Pico W sends uart packet same as ESP32 througth its UART0 default Tx and Rx pin i.e. ``pin 0`` and ``pin 1``.
+
+
+6. Setting STM32 to Receive Data from ESP32 or Pico W
+-----------------------------------------------------
+
+6.1 STM32CubeMX Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
+
+  - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
+  - project name: ``stm32_joystick_master``
+  - Toolchain/IDE: ``CMake``
+
+- Move to STM32CubeMX ``Pinout and Congiguration``. From ``Categories``, select ``Connectivity > USART4``. Change ``mode`` to ``Asynchronous`` mode. You may change alternate pins from for ``USART4_RX`` and ``USART4_TX``. 
+
+- Under ``Configuration > DMA Settings``, add ``USART4_RX`` DMA request.
+
+- Set ``PD12 Pin`` as ``GPIO Output``. This pin is used to turn on/off the LED.
+
+  .. image:: images/game_controller_uart_cubemx.png
+     :width: 100%
+     :align: center
+     :alt: game_controller_uart_cubemx
+
+- Generate code and open the project.
+
+
+6.2. Joystick Class with Other Classes and Setups
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Create a new file ``joy_msg.hpp`` inside ``Core > Inc``. Copy and paste the below contents.
+
+  .. literalinclude:: files/game_controller/stm32_joy_msg.hpp
+     :language: cpp
+     :linenos:
+     :caption: joy_msg.hpp
+
+  This ``joy_msg.hpp`` has different identifier names for namespaces and some buttons than :ref:`above <joy_msg>`.
+ 
+- Create a new file ``printf_config.h`` inside ``Core > Inc``. Copy and paste the below contents:
+
+  .. literalinclude:: files/game_controller/printf_config.c
+     :language: c
+     :linenos:
+     :caption: printf_config.c
+
+- Create two new files ``crc8.hpp`` and ``crc8.cpp`` inside ``Core > Inc`` and ``Core > Src`` respectively. The contents of these files are as follows:
+
+  .. literalinclude:: files/game_controller/stm32_crc8.hpp
+     :language: cpp
+     :linenos:
+     :caption: crc8.hpp
+
+  .. literalinclude:: files/game_controller/stm32_crc8.cpp
+     :language: cpp
+     :linenos:
+     :caption: crc8.cpp
+
+- Create two new files ``uart_def.h`` and ``uart.hpp`` inside ``Core > Inc`` and a new file ``uart.cpp`` inside ``Core > Src`` respectively. The contents of these files are as follows:
+
+  .. literalinclude:: files/game_controller/uart_def.h
+     :language: c
+     :linenos:
+     :caption: uart_def.h
+
+  .. literalinclude:: files/game_controller/uart.hpp
+     :language: cpp
+     :linenos:
+     :caption: uart.hpp
+
+  .. literalinclude:: files/game_controller/uart.cpp
+     :language: cpp
+     :linenos:
+     :caption: uart.cpp
+
+- Create two new files ``joystick.hpp`` and ``joystick.cpp`` inside ``Core > Inc`` and ``Core > Src`` repsectively. Copy and paste the below contents:
+
+  .. literalinclude:: files/game_controller/joystick.hpp
+     :language: cpp
+     :linenos:
+     :caption: joystick.hpp
+
+  .. literalinclude:: files/game_controller/joystick.cpp
+     :language: cpp
+     :linenos:
+     :caption: joystick.cpp
+
+
+6.3. Code to Receive Data
+~~~~~~~~~~~~~~~~~~~~~~~~~
+- Create two new files ``App.h`` and ``App.cpp`` inside ``Core > Inc`` and ``Core > Src`` respectively. Copy and paste the below contents:
+
+  .. literalinclude:: files/game_controller/app.h
+     :language: c
+     :linenos:
+     :caption: app.h
+
+  .. literalinclude:: files/game_controller/app.cpp
+     :language: cpp
+     :linenos:
+     :caption: app.cpp
+
+
+- Navigate to ``Core > Src`` and open ``main.c``. 
+
+- Include header file.
+
+  .. tabs::
+     
+     .. group-tab:: SWV
+
+        .. code-block:: c
+           :emphasize-lines: 2
+          
+           /* USER CODE BEGIN Includes */
+           #include "app.h"
+           /* USER CODE END Includes */
+
+- Call ``setup`` and ``loop`` in ``main`` function.
+
+  .. code-block:: c
+     :emphasize-lines: 5
+     
+     /* Infinite loop */
+     /* USER CODE BEGIN WHILE */
+     while (1)
+     {
+      loop();
+     /* USER CODE END WHILE */
+ 
+     /* USER CODE BEGIN 3 */
+     }
+     /* USER CODE END 3 */
+
+
+6.4. Build and Flash
+~~~~~~~~~~~~~~~~~~~~
+- Now inside ``Core``, the structure should look similar to this:
+  
+  .. code-block:: txt
+
+     Inc\
+       └── app.h
+       └── crc8.hpp
+       └── dma.h
+       └── gpio.h
+       └── joy_msg.hpp
+       └── joystick.hpp
+       └── main.h
+       └── stm32f4xx_hal_conf.h
+       └── stm32f4xx_it.h
+       └── uart_def.h
+       └── uart.hpp
+       └── usart.h
+     Src\
+       └── app.cpp
+       └── crc8.cpp
+       └── dma.c
+       └── gpio.c
+       └── joystick.cpp
+       └── main.c
+       └── printf_config.c
+       └── stm32_crc8.cpp
+       └── stm32f4xx_hal_msp.c
+       └── stm32f4xx_it.c
+       └── syscalls.c
+       └── sysmem.c
+       └── system_stm32f4xx.c
+       └── uart.cpp
+       └── usart.c
+
+  Update ``CMakeLists.txt`` as follows:
+
+  .. literalinclude:: files/game_controller/CMakeLists.txt
+     :language: cmake
+     :linenos:
+     :caption: CMakeLists.txt
+
+- Build and flash the program.
+
+  .. code-block:: bash
+      
+     mkdir build
+     cd build
+     cmake ..
+     make -j 
+     st-flash write stm32_joystick_master.bin 0x8000000
+
+- Connect the ESP32 or Pico W to the STM32 board througth UART. Also connect PS4 controller.
+
+- Open ``STM32CubeProgrammer`` and connect to the STM32 board. You should see the joystick data changing according to the input from the PS4 controller. The LED on PD12 pin blinks if STM32 is receiving data from the ESP32 or Pico W.
+
+Do your own experiment with the ``Joystick`` class in ``App.cpp``.

@@ -18,7 +18,7 @@ Direct Memory Access (DMA) is very useful feature in microcontrollers. It allows
 - Open CubeMX and `generate basic code <../basic_setup/generate_basic_code.html>`_ with:
 
   - microcontroller: ``stm32f407vgt6`` or board: ``STM32F407VG-DISC1``
-  - project name: ``usb_polling``
+  - project name: ``uart_dma``
   - Toolchain/IDE: ``Makefile``
 
 - Move to STM32CubeMX ``Pinout and Congiguration``. From ``Categories``, select ``Connectivity > USART2``. Change ``mode`` to ``Asynchronous`` mode.
@@ -36,8 +36,8 @@ Direct Memory Access (DMA) is very useful feature in microcontrollers. It allows
 
 
 
-3. Code to Send and Receive Data using UART Interrupt
------------------------------------------------------
+3. Code to Send and Receive Data using UART DMA
+------------------------------------------------
 
 - Navigate to ``Core > Src`` and open ``main.c``. 
 
