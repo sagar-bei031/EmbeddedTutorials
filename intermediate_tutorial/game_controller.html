@@ -10,7 +10,6 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cb963dba" />
 
   
@@ -21,7 +20,6 @@
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
-      <script src="../_static/tabs.js?v=3030b3cb"></script>
       <script src="../_static/custom.js?v=5fde6192"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -2362,15 +2360,12 @@ cp<span class="w"> </span>picow_ds4.uf2<span class="w"> </span>/media/pi/PICOW
 </div>
 </div>
 </li>
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> and open <code class="docutils literal notranslate"><span class="pre">main.c</span></code>.</p></li>
-<li><p>Include header file.</p>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-U1dW" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-U1dW" name="U1dW" role="tab" tabindex="0">SWV</button></div><div aria-labelledby="tab-0-U1dW" class="sphinx-tabs-panel group-tab" id="panel-0-U1dW" name="U1dW" role="tabpanel" tabindex="0"><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN Includes */</span>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Core</span> <span class="pre">&gt;</span> <span class="pre">Src</span></code> and open <code class="docutils literal notranslate"><span class="pre">main.c</span></code>. Include <code class="docutils literal notranslate"><span class="pre">app.h</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN Includes */</span>
 <span class="hll"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;app.h&quot;</span>
 </span><span class="cm">/* USER CODE END Includes */</span>
 </pre></div>
 </div>
-</div></div>
 </li>
 <li><p>Call <code class="docutils literal notranslate"><span class="pre">setup</span></code> and <code class="docutils literal notranslate"><span class="pre">loop</span></code> in <code class="docutils literal notranslate"><span class="pre">main</span></code> function.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Infinite loop */</span>
@@ -2392,7 +2387,7 @@ cp<span class="w"> </span>picow_ds4.uf2<span class="w"> </span>/media/pi/PICOW
 <h3><a class="toc-backref" href="#id39" role="doc-backlink">6.4. Build and Flash</a><a class="headerlink" href="#build-and-flash" title="Link to this heading"></a></h3>
 <ul>
 <li><p>Now inside <code class="docutils literal notranslate"><span class="pre">Core</span></code>, the structure should look similar to this:</p>
-<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>Inc\
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Inc\
   └── app.h
   └── crc8.hpp
   └── dma.h
@@ -2531,7 +2526,7 @@ st-flash<span class="w"> </span>write<span class="w"> </span>stm32_joystick_mast
 </div>
 </li>
 <li><p>Connect the ESP32 or Pico W to the STM32 board througth UART. Also connect PS4 controller.</p></li>
-<li><p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeProgrammer</span></code> and connect to the STM32 board. You should see the joystick data changing according to the input from the PS4 controller. The LED on PD12 pin blinks if STM32 is receiving data from the ESP32 or Pico W.</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">STM32CubeProgrammer</span></code> and connect to the STM32 board. You should see the joystick data changing according to the input from the PS4 controller. The LED on <code class="docutils literal notranslate"><span class="pre">PD12</span></code> pin blinks if STM32 is receiving data from the ESP32 or Pico W.</p></li>
 </ul>
 <p>Do your own experiment with the <code class="docutils literal notranslate"><span class="pre">Joystick</span></code> class in <code class="docutils literal notranslate"><span class="pre">App.cpp</span></code>.</p>
 </section>

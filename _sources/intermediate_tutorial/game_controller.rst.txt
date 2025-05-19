@@ -363,20 +363,14 @@ Pico W sends uart packet same as ESP32 througth its UART0 default Tx and Rx pin 
      :caption: app.cpp
 
 
-- Navigate to ``Core > Src`` and open ``main.c``. 
-
-- Include header file.
-
-  .. tabs::
+- Navigate to ``Core > Src`` and open ``main.c``. Include ``app.h``.
      
-     .. group-tab:: SWV
-
-        .. code-block:: c
-           :emphasize-lines: 2
+  .. code-block:: c
+     :emphasize-lines: 2
           
-           /* USER CODE BEGIN Includes */
-           #include "app.h"
-           /* USER CODE END Includes */
+     /* USER CODE BEGIN Includes */
+     #include "app.h"
+     /* USER CODE END Includes */
 
 - Call ``setup`` and ``loop`` in ``main`` function.
 
@@ -399,7 +393,7 @@ Pico W sends uart packet same as ESP32 througth its UART0 default Tx and Rx pin 
 ~~~~~~~~~~~~~~~~~~~~
 - Now inside ``Core``, the structure should look similar to this:
   
-  .. code-block:: txt
+  .. code-block:: text
 
      Inc\
        └── app.h
@@ -450,6 +444,6 @@ Pico W sends uart packet same as ESP32 througth its UART0 default Tx and Rx pin 
 
 - Connect the ESP32 or Pico W to the STM32 board througth UART. Also connect PS4 controller.
 
-- Open ``STM32CubeProgrammer`` and connect to the STM32 board. You should see the joystick data changing according to the input from the PS4 controller. The LED on PD12 pin blinks if STM32 is receiving data from the ESP32 or Pico W.
+- Open ``STM32CubeProgrammer`` and connect to the STM32 board. You should see the joystick data changing according to the input from the PS4 controller. The LED on ``PD12`` pin blinks if STM32 is receiving data from the ESP32 or Pico W.
 
 Do your own experiment with the ``Joystick`` class in ``App.cpp``.
