@@ -204,6 +204,14 @@ Now you have to receive packets and parse them. The format used for sending pack
    :alt: receiving_in_arduino.png
    :class: padded-image
 
+.. note::
+   It is better to include start byte in the CRC calculation. So if data are misaligned, the CRC will not match. The receiver will discard the packet and wait for next packet.
+
+   For example, CRC of one byte ``0x12`` is same as CRC of two bytes ``0x00`` and ``0x12`` because of adding ``0`` at the left of a number does not change its value i.e. ``0x12`` is equal to ``0x0012``. But if you include start byte, the CRC will be different.
+
+.. note::
+   The more standard way to check error at receiver side is to calculate CRC of data including CRC sent from transmitter. If the accumulated CRC is ``0``, then the data is correct. If not, then there is error in the data.
+
 
 7. Sending Packets through UART using STM32
 -------------------------------------------
