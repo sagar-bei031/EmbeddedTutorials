@@ -627,6 +627,15 @@ CRC-8 hash: f4
 </ul>
 <a class="padded-image reference internal image-reference" href="../_images/receiving_in_arduino.png"><img alt="receiving_in_arduino.png" class="padded-image align-center" src="../_images/receiving_in_arduino.png" style="width: 100%;" />
 </a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is better to include start byte in the CRC calculation. So if data are misaligned, the CRC will not match. The receiver will discard the packet and wait for next packet.</p>
+<p>For example, CRC of one byte <code class="docutils literal notranslate"><span class="pre">0x12</span></code> is same as CRC of two bytes <code class="docutils literal notranslate"><span class="pre">0x00</span></code> and <code class="docutils literal notranslate"><span class="pre">0x12</span></code> because of adding <code class="docutils literal notranslate"><span class="pre">0</span></code> at the left of a number does not change its value i.e. <code class="docutils literal notranslate"><span class="pre">0x12</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">0x0012</span></code>. But if you include start byte, the CRC will be different.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The more standard way to check error at receiver side is to calculate CRC of data including CRC sent from transmitter. If the accumulated CRC is <code class="docutils literal notranslate"><span class="pre">0</span></code>, then the data is correct. If not, then there is error in the data.</p>
+</div>
 </section>
 <section id="sending-packets-through-uart-using-stm32">
 <h2><a class="toc-backref" href="#id26" role="doc-backlink">7. Sending Packets through UART using STM32</a><a class="headerlink" href="#sending-packets-through-uart-using-stm32" title="Link to this heading"></a></h2>
