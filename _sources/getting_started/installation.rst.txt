@@ -51,7 +51,7 @@ Fundamental Tools and Software
    * - 8.
      - Arduino IDE
      - Arduino IDE
-     - Install :newtab:`Arduino IDE <https://www.arduino.cc/en/software>`.
+     - Install :newtab:`Arduino IDE <https://www.arduino.cc/en/software>` as ```zip``.
    * - 9.
      - Pico SDK
      - Raspberry Pi Pico SDK

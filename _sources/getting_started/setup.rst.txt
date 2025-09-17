@@ -20,7 +20,7 @@ Remove ``brltty``.
 2. Creating ``.desktop`` files for application on Linux
 -----------------------------------------------------------
 
-Some applications do not appear on application menu which can be solved by creating ``.desktop`` file. Create a ``.desktop`` files at ``/home/$USER/.local/share/applications``. Add following informations:
+Some applications do not appear on application menu which can be solved by creating ``.desktop`` file. Create a ``<executable>.desktop`` files at ``/home/$USER/.local/share/applications``. Add following informations:
 
 .. code-block::
 
@@ -29,13 +29,16 @@ Some applications do not appear on application menu which can be solved by creat
    Comment=<Content>
    Exec=<path/to/executable>
    Icon=<path/to/icon>
+   startupWMClass=<startupWMClass>
 
-Some applications which do not appear on application menu are:
+To check WMClass, run the executable directly from file. Run ``xprop | grep WM_CLASS`` on terminal. Click the executable window to get WM_CLASS message on terminal.
+
+Some applications setup which do not appear on application menu are shown below. Update ``version`` and ``path`` correctly as your configuration.
 
 Arduino IDE
 ~~~~~~~~~~~
 
-Creat 'arduino-ide.desktop' file in ``~/.local/share/applications`` directory, and add the following content:
+Creat ``arduino-ide.desktop`` file in ``~/.local/share/applications`` directory, and add the following content:
 
 .. code-block::
 
@@ -47,6 +50,17 @@ Creat 'arduino-ide.desktop' file in ``~/.local/share/applications`` directory, a
    Terminal=false
    Type=Application
    Categories=Development
+   StartupWMClass=Arduino IDE
+
+
+The Arduino IDE is based on Electron (Chromium), and it needs a special helper binary called chrome-sandbox to be owned by root and have the setuid bit set.
+
+.. code-block:: bash
+   
+   cd /home/sagar/.arduino-ide_2.3.2_Linux_64bit/
+   sudo chown root:root chrome-sandbox
+   sudo chmod 4755 chrome-sandbox
+
 
 STM32CubeMX
 ~~~~~~~~~~~
@@ -55,21 +69,13 @@ Create 'STM32CubeMX.desktop' file in ``~/.local/share/applications`` directory, 
 .. code-block::
 
    [Desktop Entry]
-   Categories=Development
+   Name=STM32CubeMX
    Comment=STM32CubeMX 6.12.0
-   Comment[en]=STM32CubeMX-Cube 6.12.0
-   Encoding=UTF-8
    Exec=/home/sagar/STM32CubeMX/STM32CubeMX
    Icon=/home/sagar/STM32CubeMX/help/STM32CubeMX.ico
-   Name=STM32CubeMX
-   Name[en]=STM32CubeMX
-   Path=/home/sagar/STM32CubeMX
    Type=Application
-   X-KDE-SubstituteUID=false
-   X-KDE-Username=root
+   Categories=Development
    StartupWMClass=com-st-microxplorer-maingui-STM32CubeMX
-
-``STM32CubeMX`` icon does not appear on dock. The last three lines solve the problem. 
 
 Update desktop database.
 
@@ -85,7 +91,7 @@ Update desktop database.
       sudo chmod +x <path/to/executable>
 
 
-3. STM32CubeProgrammer Setup
+1. STM32CubeProgrammer Setup
 ----------------------------
 
 ``STM32Cube_Programmer_CLI`` is not on environment by default. So, create a symbolic link to your ``STM32_Programmer_CLI`` in ``~/.local/bin``.

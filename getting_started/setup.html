@@ -98,7 +98,7 @@
 <li><p><a class="reference internal" href="#stm32cubemx" id="id4">STM32CubeMX</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#stm32cubeprogrammer-setup" id="id5">3. STM32CubeProgrammer Setup</a></p></li>
+<li><p><a class="reference internal" href="#stm32cubeprogrammer-setup" id="id5">1. STM32CubeProgrammer Setup</a></p></li>
 <li><p><a class="reference internal" href="#git-setup" id="id6">4. Git Setup</a></p></li>
 <li><p><a class="reference internal" href="#ssh-setup" id="id7">5. SSH Setup</a></p></li>
 </ul>
@@ -113,18 +113,20 @@
 </section>
 <section id="creating-desktop-files-for-application-on-linux">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">2. Creating <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files for application on Linux</a><a class="headerlink" href="#creating-desktop-files-for-application-on-linux" title="Link to this heading"></a></h2>
-<p>Some applications do not appear on application menu which can be solved by creating <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> file. Create a <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files at <code class="docutils literal notranslate"><span class="pre">/home/$USER/.local/share/applications</span></code>. Add following informations:</p>
+<p>Some applications do not appear on application menu which can be solved by creating <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> file. Create a <code class="docutils literal notranslate"><span class="pre">&lt;executable&gt;.desktop</span></code> files at <code class="docutils literal notranslate"><span class="pre">/home/$USER/.local/share/applications</span></code>. Add following informations:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Desktop</span> <span class="n">Entry</span><span class="p">]</span>
 <span class="n">Name</span><span class="o">=&lt;</span><span class="n">Name</span><span class="o">&gt;</span>
 <span class="n">Comment</span><span class="o">=&lt;</span><span class="n">Content</span><span class="o">&gt;</span>
 <span class="n">Exec</span><span class="o">=&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">executable</span><span class="o">&gt;</span>
 <span class="n">Icon</span><span class="o">=&lt;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">icon</span><span class="o">&gt;</span>
+<span class="n">startupWMClass</span><span class="o">=&lt;</span><span class="n">startupWMClass</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>Some applications which do not appear on application menu are:</p>
+<p>To check WMClass, run the executable directly from file. Run <code class="docutils literal notranslate"><span class="pre">xprop</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">WM_CLASS</span></code> on terminal. Click the executable window to get WM_CLASS message on terminal.</p>
+<p>Some applications setup which do not appear on application menu are shown below. Update <code class="docutils literal notranslate"><span class="pre">version</span></code> and <code class="docutils literal notranslate"><span class="pre">path</span></code> correctly as your configuration.</p>
 <section id="arduino-ide">
 <h3><a class="toc-backref" href="#id3" role="doc-backlink">Arduino IDE</a><a class="headerlink" href="#arduino-ide" title="Link to this heading"></a></h3>
-<p>Creat ‘arduino-ide.desktop’ file in <code class="docutils literal notranslate"><span class="pre">~/.local/share/applications</span></code> directory, and add the following content:</p>
+<p>Creat <code class="docutils literal notranslate"><span class="pre">arduino-ide.desktop</span></code> file in <code class="docutils literal notranslate"><span class="pre">~/.local/share/applications</span></code> directory, and add the following content:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Desktop</span> <span class="n">Entry</span><span class="p">]</span>
 <span class="n">Name</span><span class="o">=</span><span class="n">Arduino</span> <span class="n">IDE</span>
 <span class="n">Comment</span><span class="o">=</span><span class="n">Arduino</span> <span class="n">IDE</span> <span class="mf">2.3.2</span>
@@ -133,6 +135,13 @@
 <span class="n">Terminal</span><span class="o">=</span><span class="n">false</span>
 <span class="n">Type</span><span class="o">=</span><span class="n">Application</span>
 <span class="n">Categories</span><span class="o">=</span><span class="n">Development</span>
+<span class="n">StartupWMClass</span><span class="o">=</span><span class="n">Arduino</span> <span class="n">IDE</span>
+</pre></div>
+</div>
+<p>The Arduino IDE is based on Electron (Chromium), and it needs a special helper binary called chrome-sandbox to be owned by root and have the setuid bit set.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/home/sagar/.arduino-ide_2.3.2_Linux_64bit/
+sudo<span class="w"> </span>chown<span class="w"> </span>root:root<span class="w"> </span>chrome-sandbox
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">4755</span><span class="w"> </span>chrome-sandbox
 </pre></div>
 </div>
 </section>
@@ -140,22 +149,15 @@
 <h3><a class="toc-backref" href="#id4" role="doc-backlink">STM32CubeMX</a><a class="headerlink" href="#stm32cubemx" title="Link to this heading"></a></h3>
 <p>Create ‘STM32CubeMX.desktop’ file in <code class="docutils literal notranslate"><span class="pre">~/.local/share/applications</span></code> directory, and add the following content:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Desktop</span> <span class="n">Entry</span><span class="p">]</span>
-<span class="n">Categories</span><span class="o">=</span><span class="n">Development</span>
+<span class="n">Name</span><span class="o">=</span><span class="n">STM32CubeMX</span>
 <span class="n">Comment</span><span class="o">=</span><span class="n">STM32CubeMX</span> <span class="mf">6.12.0</span>
-<span class="n">Comment</span><span class="p">[</span><span class="n">en</span><span class="p">]</span><span class="o">=</span><span class="n">STM32CubeMX</span><span class="o">-</span><span class="n">Cube</span> <span class="mf">6.12.0</span>
-<span class="n">Encoding</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
 <span class="n">Exec</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">sagar</span><span class="o">/</span><span class="n">STM32CubeMX</span><span class="o">/</span><span class="n">STM32CubeMX</span>
 <span class="n">Icon</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">sagar</span><span class="o">/</span><span class="n">STM32CubeMX</span><span class="o">/</span><span class="n">help</span><span class="o">/</span><span class="n">STM32CubeMX</span><span class="o">.</span><span class="n">ico</span>
-<span class="n">Name</span><span class="o">=</span><span class="n">STM32CubeMX</span>
-<span class="n">Name</span><span class="p">[</span><span class="n">en</span><span class="p">]</span><span class="o">=</span><span class="n">STM32CubeMX</span>
-<span class="n">Path</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">sagar</span><span class="o">/</span><span class="n">STM32CubeMX</span>
 <span class="n">Type</span><span class="o">=</span><span class="n">Application</span>
-<span class="n">X</span><span class="o">-</span><span class="n">KDE</span><span class="o">-</span><span class="n">SubstituteUID</span><span class="o">=</span><span class="n">false</span>
-<span class="n">X</span><span class="o">-</span><span class="n">KDE</span><span class="o">-</span><span class="n">Username</span><span class="o">=</span><span class="n">root</span>
+<span class="n">Categories</span><span class="o">=</span><span class="n">Development</span>
 <span class="n">StartupWMClass</span><span class="o">=</span><span class="n">com</span><span class="o">-</span><span class="n">st</span><span class="o">-</span><span class="n">microxplorer</span><span class="o">-</span><span class="n">maingui</span><span class="o">-</span><span class="n">STM32CubeMX</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">STM32CubeMX</span></code> icon does not appear on dock. The last three lines solve the problem.</p>
 <p>Update desktop database.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>update-desktop-database<span class="w"> </span>~/.local/share/applications
 </pre></div>
@@ -170,7 +172,7 @@
 </section>
 </section>
 <section id="stm32cubeprogrammer-setup">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">3. STM32CubeProgrammer Setup</a><a class="headerlink" href="#stm32cubeprogrammer-setup" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">1. STM32CubeProgrammer Setup</a><a class="headerlink" href="#stm32cubeprogrammer-setup" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">STM32Cube_Programmer_CLI</span></code> is not on environment by default. So, create a symbolic link to your <code class="docutils literal notranslate"><span class="pre">STM32_Programmer_CLI</span></code> in <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.local/bin<span class="w"> </span><span class="c1"># if does not exist</span>
 ln<span class="w"> </span>-s<span class="w"> </span>~/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI<span class="w"> </span>~/.local/bin/STM32_Programmer_CLI
