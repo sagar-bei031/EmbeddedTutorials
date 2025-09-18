@@ -167,11 +167,11 @@ Use the following calculator to calculate the **PWM frequency**.
    </script>
 
 
-Increasing ``PSC`` and ``ARR`` decreases PWM frequency, and decreasing them increases PWM frequency. There is another point to note that decreasing ``ARR`` also decreases ``resolution`` of duty cycle. To change the duty cycle, you need to set the value of **CCR** register. The value of **CCR** register is between ``0`` and ``ARR``. The formula to calculate the duty cycle is:
+Increasing ``PSC`` and ``ARR`` decreases PWM frequency, and decreasing them increases PWM frequency. There is another point to note that decreasing ``ARR`` also decreases ``resolution`` of duty cycle. To change the duty cycle, you need to set the value of **CCR** register. The formula to calculate the duty cycle is:
 
 .. math::
 
-   \text{Duty Cycle} = \frac{\text{CCR}}{\text{ARR}} \cdot 100\%
+   \text{Duty Cycle} = \frac{\text{CCR}}{\text{ARR}+1} \cdot 100\%
 
 .. math::
 

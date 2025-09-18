@@ -245,9 +245,9 @@
         const freqPWM = freqTIM / ((arr + 1) * (psc + 1));
         document.getElementById('result1').textContent = `Calculated PWM Frequency: ${freqPWM.toFixed(2)} Hz`;
     }
-</script><p>Increasing <code class="docutils literal notranslate"><span class="pre">PSC</span></code> and <code class="docutils literal notranslate"><span class="pre">ARR</span></code> decreases PWM frequency, and decreasing them increases PWM frequency. There is another point to note that decreasing <code class="docutils literal notranslate"><span class="pre">ARR</span></code> also decreases <code class="docutils literal notranslate"><span class="pre">resolution</span></code> of duty cycle. To change the duty cycle, you need to set the value of <strong>CCR</strong> register. The value of <strong>CCR</strong> register is between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">ARR</span></code>. The formula to calculate the duty cycle is:</p>
+</script><p>Increasing <code class="docutils literal notranslate"><span class="pre">PSC</span></code> and <code class="docutils literal notranslate"><span class="pre">ARR</span></code> decreases PWM frequency, and decreasing them increases PWM frequency. There is another point to note that decreasing <code class="docutils literal notranslate"><span class="pre">ARR</span></code> also decreases <code class="docutils literal notranslate"><span class="pre">resolution</span></code> of duty cycle. To change the duty cycle, you need to set the value of <strong>CCR</strong> register. The formula to calculate the duty cycle is:</p>
 <div class="math notranslate nohighlight">
-\[\text{Duty Cycle} = \frac{\text{CCR}}{\text{ARR}} \cdot 100\%\]</div>
+\[\text{Duty Cycle} = \frac{\text{CCR}}{\text{ARR}+1} \cdot 100\%\]</div>
 <div class="math notranslate nohighlight">
 \[\text{Pulse Width} = \frac{\text{CCR}}{f_{\text{PWM}}} \cdot 10^6\, \mu s = \text{CCR} \cdot T_{\text{PWM}} \cdot 10^6\,\mu s\]</div>
 <p>This is useful for applications like servo control, where the pulse width determines the position.</p>
