@@ -6,7 +6,7 @@ Build setup
    :local:
 
 
-Buid using Makefile
+Build using Makefile
 -------------------
 
 1. Open your project folder. It is better to use ``VSCODE``.
@@ -88,7 +88,7 @@ Build using CMake
 5. Create a ``build.sh`` file at your project folder for compiling and generating binary file.
 
    .. code-block:: bash
-      :caption: flash.sh
+      :caption: build.sh
 
       #!/bin/bash
 
