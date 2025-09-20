@@ -218,7 +218,7 @@
 <span class="cm">/* USER CODE BEGIN WHILE */</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="hll"><span class="w">  </span><span class="n">encoder_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CNT</span><span class="p">;</span>
+<span class="hll"><span class="w">  </span><span class="n">encoder_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">htim1</span><span class="p">.</span><span class="n">Instance</span><span class="o">-&gt;</span><span class="n">CNT</span><span class="p">;</span><span class="w"> </span><span class="c1">// CNT value ranges from 0 to ARR value</span>
 </span><span class="hll"><span class="w">  </span><span class="c1">// You also can use:</span>
 </span><span class="hll"><span class="w">  </span><span class="c1">// encoder_count = __HAL_TIM_GET_COUNTER(&amp;htim1);</span>
 </span><span class="hll">

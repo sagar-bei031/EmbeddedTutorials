@@ -137,7 +137,7 @@ Rotating encoder is a input device that provides information about the direction
        /* USER CODE BEGIN WHILE */
        while (1)
        {
-         encoder_count = htim1.Instance->CNT;
+         encoder_count = htim1.Instance->CNT; // CNT value ranges from 0 to ARR value
          // You also can use:
          // encoder_count = __HAL_TIM_GET_COUNTER(&htim1);
  
