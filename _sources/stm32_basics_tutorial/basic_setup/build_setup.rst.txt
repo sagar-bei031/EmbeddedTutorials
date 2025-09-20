@@ -7,7 +7,7 @@ Build setup
 
 
 Build using Makefile
--------------------
+--------------------
 
 1. Open your project folder. It is better to use ``VSCODE``.
 
