@@ -28,7 +28,7 @@ Run this commnad in Terminal.
       .. code-block:: bash
       
          # st-flash [--reset] write <build-directory/binaryfile.bin> <start-address>
-         st-flash write buid/BasicSetup.bin 0x8000000
+         st-flash write build/BasicSetup.bin 0x8000000
 
       Use ``--reset`` option to reset afetr flash. Change binary file name to your program name.
 
@@ -135,7 +135,7 @@ You do not need to write the long commnad every time, you can add them in ``Make
    
            set +e
    
-           st-flash write buid/BasicSetup.bin 0x8000000
+           st-flash write build/BasicSetup.bin 0x8000000
 
      .. group-tab:: STM32CubeProgrammer
 
